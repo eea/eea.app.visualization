@@ -1,0 +1,8 @@
+<configure
+  xmlns="http://namespaces.zope.org/browser"
+  i18n_domain="eea">
+
+  <include package=".storage" />
+  <include package=".subtypes" />
+
+</configure>

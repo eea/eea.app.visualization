@@ -1,0 +1,10 @@
+<configure
+  xmlns="http://namespaces.zope.org/zope"
+  i18n_domain="eea">
+
+  <adapter
+    for="eea.app.visualization.interfaces.IVisualizationEnabled"
+    provides=".interfaces.IVisualizationConfig"
+    factory=".handler.Configure" />
+
+</configure>

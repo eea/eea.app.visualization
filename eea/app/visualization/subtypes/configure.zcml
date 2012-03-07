@@ -1,0 +1,34 @@
+<configure
+  xmlns="http://namespaces.zope.org/zope"
+  xmlns:zcml="http://namespaces.zope.org/zcml"
+  i18n_domain="eea">
+
+  <adapter
+    for="eea.app.visualization.interfaces.IPossibleVisualization"
+    provides=".interfaces.IAnnotations"
+    factory=".interfaces.AttributeAnnotations"
+    />
+
+  <!-- Plone -->
+  <class class="Products.ATContentTypes.content.file.ATFile">
+    <implements interface="eea.app.visualization.interfaces.IPossibleVisualization" />
+  </class>
+
+  <configure zcml:condition="installed plone.app.blob">
+    <class class="plone.app.blob.content.ATBlob">
+      <implements interface="eea.app.visualization.interfaces.IPossibleVisualization" />
+    </class>
+  </configure>
+
+  <!-- EEA -->
+  <configure zcml:condition="installed eea.dataservice">
+    <class class="eea.dataservice.content.DataFile.DataFile">
+      <implements interface="eea.app.visualization.interfaces.IPossibleVisualization" />
+    </class>
+
+    <class class="eea.dataservice.content.EEAFigureFile.EEAFigureFile">
+      <implements interface="eea.app.visualization.interfaces.IPossibleVisualization" />
+    </class>
+  </configure>
+
+</configure>
