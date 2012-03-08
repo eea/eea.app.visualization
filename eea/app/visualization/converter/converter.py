@@ -37,7 +37,7 @@ class ExhibitJsonConverter(object):
 
         >>> converter = getUtility(IExhibitJsonConverter)
         >>> converter
-        <eea.daviz.converter.converter.ExhibitJsonConverter object at ...>
+        <eea.app.visualization.converter.converter.ExhibitJsonConverter ...>
 
     """
     implements(IExhibitJsonConverter)
