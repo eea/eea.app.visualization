@@ -6,5 +6,6 @@
   <include package=".facets" />
   <include package=".storage" />
   <include package=".subtypes" />
+  <include package=".views" />
 
 </configure>
