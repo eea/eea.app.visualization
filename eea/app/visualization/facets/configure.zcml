@@ -35,4 +35,6 @@
     permission="cmf.ModifyPortalContent"
     />
 
+  <include package=".list" />
+
 </configure>
