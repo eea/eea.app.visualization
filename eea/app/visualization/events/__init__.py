@@ -2,14 +2,14 @@
 """
 from zope.interface import implements
 from eea.app.visualization.events.interfaces import (
-    IVisualizatonEnabledEvent,
+    IVisualizationEnabledEvent,
     IVisualizationFacetDeletedEvent,
 )
 
 class VisualizationEnabledEvent(object):
     """ Sent if a document was converted to exhibit json
     """
-    implements(IVisualizatonEnabledEvent)
+    implements(IVisualizationEnabledEvent)
 
     def __init__(self, context, **kwargs):
         self.object = context
