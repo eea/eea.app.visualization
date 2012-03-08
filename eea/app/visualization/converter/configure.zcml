@@ -1,0 +1,16 @@
+<configure
+  xmlns="http://namespaces.zope.org/zope"
+  xmlns:browser="http://namespaces.zope.org/browser"
+  i18n_domain="eea">
+
+ <utility factory=".converter.ExhibitJsonConverter" />
+
+  <browser:page
+    for="plone.app.blob.interfaces.IATBlobFile"
+    name="daviz-view.json"
+    class=".browser.TSVFileJSONView"
+    attribute="json"
+    permission="zope2.View"
+    />
+
+</configure>

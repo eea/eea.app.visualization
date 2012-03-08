@@ -1,5 +1,6 @@
 <configure
   xmlns="http://namespaces.zope.org/zope"
+  xmlns:browser="http://namespaces.zope.org/browser"
   xmlns:zcml="http://namespaces.zope.org/zcml"
   i18n_domain="eea">
 
@@ -30,5 +31,21 @@
       <implements interface="eea.app.visualization.interfaces.IPossibleVisualization" />
     </class>
   </configure>
+
+  <browser:page
+    name="daviz_support"
+    for="zope.interface.Interface"
+    class=".support.DavizPublicSupport"
+    permission="zope.Public"
+    allowed_interface="eea.app.visualization.subtypes.interfaces.IVisualizationSubtyper"
+    />
+
+  <browser:page
+    name="daviz_support"
+    for="eea.app.visualization.interfaces.IPossibleVisualization"
+    class=".support.DavizSupport"
+    permission="zope.Public"
+    allowed_interface="eea.app.visualization.subtypes.interfaces.IVisualizationSubtyper"
+    />
 
 </configure>

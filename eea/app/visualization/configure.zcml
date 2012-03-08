@@ -3,6 +3,7 @@
   i18n_domain="eea">
 
   <include package=".cache" />
+  <include package=".converter" />
   <include package=".facets" />
   <include package=".storage" />
   <include package=".subtypes" />
