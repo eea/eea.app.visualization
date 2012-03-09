@@ -18,9 +18,6 @@ def create_default_views(obj, evt):
         # Remove all views
         mutator.delete_views()
 
-        # Add default view: Tabular view
-        mutator.add_view(name=u'daviz.tabular')
-
 
 def facet_deleted(obj, evt, daviz_view):
     """ Cleanup removed facet from view properties
