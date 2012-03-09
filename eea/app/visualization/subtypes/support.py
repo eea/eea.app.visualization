@@ -20,7 +20,7 @@ logger = logging.getLogger('eea.app.visualization.converter')
 
 class DavizPublicSupport(BrowserView):
     """ Public support for subtyping objects
-        view for non IPossibleExhibitJson objects
+        view for non IPossibleVisualization objects
     """
     implements(IVisualizationSubtyper)
 
