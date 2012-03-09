@@ -33,7 +33,8 @@ class ExhibitJsonConverter(object):
     """ Utility to convert csv to json
 
         >>> from zope.component import getUtility
-        >>> from eea.daviz.interfaces import IExhibitJsonConverter
+        >>> from eea.app.visualization.converter.interfaces import \
+        ...      IExhibitJsonConverter
 
         >>> converter = getUtility(IExhibitJsonConverter)
         >>> converter
