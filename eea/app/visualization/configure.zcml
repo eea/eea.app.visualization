@@ -2,6 +2,9 @@
   xmlns="http://namespaces.zope.org/browser"
   i18n_domain="eea">
 
+  <include file="profiles.zcml" />
+
+  <include package=".browser" />
   <include package=".cache" />
   <include package=".converter" />
   <include package=".facets" />

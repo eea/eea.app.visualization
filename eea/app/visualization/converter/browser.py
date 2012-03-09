@@ -6,7 +6,7 @@ from StringIO import StringIO
 from zope.component import queryUtility
 from eea.app.visualization.converter.interfaces import IExhibitJsonConverter
 from eea.app.visualization.cache import ramcache, cacheJsonKey
-from eea.daviz.browser.app.view import JSONView
+from eea.app.visualization.browser.app.view import JSONView
 logger = logging.getLogger('eea.app.visualization')
 
 class TSVFileJSONView(JSONView):

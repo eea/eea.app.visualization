@@ -1,10 +1,5 @@
-# -*- coding: utf-8 -*-
 """ Facets events module
 """
-__author__ = """European Environment Agency (EEA)"""
-__docformat__ = 'plaintext'
-__credits__ = """contributions: Alec Ghica, Alin Voinea"""
-
 import logging
 from zope.component import queryAdapter
 from eea.app.visualization.interfaces import IVisualizationConfig
