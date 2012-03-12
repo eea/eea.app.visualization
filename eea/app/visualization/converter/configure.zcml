@@ -3,7 +3,9 @@
   xmlns:browser="http://namespaces.zope.org/browser"
   i18n_domain="eea">
 
- <utility factory=".converter.ExhibitJsonConverter" />
+  <include package=".types" />
+
+  <utility factory=".converter.ExhibitJsonConverter" />
 
   <browser:page
     for="plone.app.blob.interfaces.IATBlobFile"

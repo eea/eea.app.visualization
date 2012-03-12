@@ -26,5 +26,47 @@ def test_suite():
                 optionflags=OPTIONFLAGS,
                 package='eea.app.visualization'),
             layer=FUNCTIONAL_TESTING),
+        layered(
+            doctest.DocFileSuite(
+                'converter/types/url.py',
+                optionflags=OPTIONFLAGS,
+                package='eea.app.visualization'),
+            layer=FUNCTIONAL_TESTING),
+        layered(
+            doctest.DocFileSuite(
+                'converter/types/boolean.py',
+                optionflags=OPTIONFLAGS,
+                package='eea.app.visualization'),
+            layer=FUNCTIONAL_TESTING),
+        layered(
+            doctest.DocFileSuite(
+                'converter/types/latitude.py',
+                optionflags=OPTIONFLAGS,
+                package='eea.app.visualization'),
+            layer=FUNCTIONAL_TESTING),
+        layered(
+            doctest.DocFileSuite(
+                'converter/types/longitude.py',
+                optionflags=OPTIONFLAGS,
+                package='eea.app.visualization'),
+            layer=FUNCTIONAL_TESTING),
+        layered(
+            doctest.DocFileSuite(
+                'converter/types/latlong.py',
+                optionflags=OPTIONFLAGS,
+                package='eea.app.visualization'),
+            layer=FUNCTIONAL_TESTING),
+        layered(
+            doctest.DocFileSuite(
+                'converter/types/number.py',
+                optionflags=OPTIONFLAGS,
+                package='eea.app.visualization'),
+            layer=FUNCTIONAL_TESTING),
+        layered(
+            doctest.DocFileSuite(
+                'converter/types/date.py',
+                optionflags=OPTIONFLAGS,
+                package='eea.app.visualization'),
+            layer=FUNCTIONAL_TESTING),
     ])
     return suite
