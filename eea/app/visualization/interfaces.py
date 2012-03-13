@@ -15,7 +15,11 @@ from eea.app.visualization.events.interfaces import (
     IVisualizationFacetDeletedEvent,
 )
 
-__all__ = [
+# Converter
+from eea.app.visualization.converter.interfaces import IGuessType
+from eea.app.visualization.converter.interfaces import IExhibitJsonConverter
+
+__all__ = (
     IPossibleVisualization.__name__,
     IVisualizationEnabled.__name__,
     IVisualizationSubtyper.__name__,
@@ -23,4 +27,6 @@ __all__ = [
     IVisualizationEvent.__name__,
     IVisualizationEnabledEvent.__name__,
     IVisualizationFacetDeletedEvent.__name__,
-]
+    IGuessType.__name__,
+    IExhibitJsonConverter.__name__,
+)
