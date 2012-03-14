@@ -1,7 +1,7 @@
 """ URL utility
 """
 import re
-
+from eea.app.visualization.converter.types import GuessType
 protocols = frozenset((
     'http', 'ftp', 'irc', 'news', 'imap', 'gopher', 'jabber',
     'webdav', 'smb', 'fish', 'ldap', 'pop3', 'smtp', 'sftp', 'ssh', 'feed'
@@ -9,7 +9,7 @@ protocols = frozenset((
 
 REGEX = re.compile(r'(%s)s?://[^\s\r\n]+' % '|'.join(protocols))
 
-class GuessURL(object):
+class GuessURL(GuessType):
     """ Utility to guess and convert text to url:
 
         >>> from zope.component import getUtility
@@ -20,6 +20,9 @@ class GuessURL(object):
         <eea.app.visualization.converter.types.url.GuessURL object...>
 
     """
+
+    order = 10
+
     def convert(self, text, fallback=None, **options):
         """ Convert text to url
 

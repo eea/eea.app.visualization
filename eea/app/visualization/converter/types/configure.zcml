@@ -2,6 +2,10 @@
   xmlns="http://namespaces.zope.org/zope"
   i18n_domain="eea">
 
+  <!-- Guess Types utility -->
+  <utility provides=".interfaces.IGuessTypes" factory=".guess.GuessTypes" />
+
+  <!-- Guess Type utilities -->
   <utility name="url"
     provides=".interfaces.IGuessType" factory=".url.GuessURL" />
 
@@ -22,5 +26,11 @@
 
   <utility name="date"
     provides=".interfaces.IGuessType" factory=".date.GuessDate" />
+
+  <utility name="list"
+    provides=".interfaces.IGuessType" factory=".list.GuessList" />
+
+  <utility name="text"
+    provides=".interfaces.IGuessType" factory=".text.GuessText" />
 
 </configure>

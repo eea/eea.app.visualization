@@ -1,4 +1,13 @@
 """ Handler module containing configure logic
+
+    >>> from zope.interface import alsoProvides
+    >>> from eea.app.visualization.interfaces import IVisualizationEnabled
+    >>> portal = layer['portal']
+    >>> sandbox = portal.invokeFactory('File', 'sandbox')
+    >>> sandbox = portal._getOb(sandbox)
+    >>> alsoProvides(sandbox, IVisualizationEnabled)
+    >>> sandbox = portal._getOb('sandbox')
+
 """
 from zope.interface import implements
 from eea.app.visualization.interfaces import IVisualizationConfig
@@ -12,6 +21,12 @@ from eea.app.visualization.config import (
 
 class Configure(object):
     """ Get visualization configuration
+
+    >>> from eea.app.visualization.interfaces import IVisualizationConfig
+    >>> visualization = IVisualizationConfig(sandbox)
+    >>> visualization
+    <eea.app.visualization.storage.handler.Configure object...>
+
     """
     implements(IVisualizationConfig)
 
@@ -59,6 +74,10 @@ class Configure(object):
     @property
     def views(self):
         """ Return enabled views
+
+            >>> visualization.views
+            []
+
         """
         anno = IAnnotations(self.context)
         return anno.get(ANNO_VIEWS, [])
@@ -66,6 +85,10 @@ class Configure(object):
     @property
     def facets(self):
         """ Return enabled facets
+
+            >>> visualization.facets
+            []
+
         """
         anno = IAnnotations(self.context)
         return anno.get(ANNO_FACETS, [])
@@ -73,18 +96,31 @@ class Configure(object):
     @property
     def sources(self):
         """ Return external sources
+
+            >>> visualization.sources
+            []
+
         """
         anno = IAnnotations(self.context)
         return anno.get(ANNO_SOURCES, [])
 
     def set_json(self, value):
         """ Set json dict
+
+            >>> visualization.json = {'a': 'b'}
+            >>> visualization.json
+            {'a': 'b'}
+
         """
         anno = IAnnotations(self.context)
         anno[ANNO_JSON] = PersistentDict(value)
 
     def get_json(self):
         """ Return json from annotations
+
+            >>> visualization.json
+            {'a': 'b'}
+
         """
         anno = IAnnotations(self.context)
         json = anno.get(ANNO_JSON, {})
@@ -93,6 +129,10 @@ class Configure(object):
 
     def view(self, key, default=None):
         """ Return view by given key
+
+            >>> visualization.view('eea.daviz.tabular', 'Not found')
+            'Not found'
+
         """
         for view in self.views:
             if view.get('name', None) != key:
@@ -102,6 +142,10 @@ class Configure(object):
 
     def facet(self, key, default=None):
         """ Return facet by given key
+
+            >>> visualization.facet('country', 'Not found')
+            'Not found'
+
         """
         for facet in self.facets:
             if facet.get('name') != key:
@@ -111,6 +155,10 @@ class Configure(object):
 
     def source(self, key, default=None):
         """ Return source by given key
+
+            >>> visualization.source('http://google.com', 'Not found')
+            'Not found'
+
         """
         for source in self.sources:
             if source.get('name') != key:
@@ -122,6 +170,13 @@ class Configure(object):
     #
     def add_view(self, name, **kwargs):
         """ Add view
+
+            >>> _ = visualization.add_view(name='daviz.map',
+            ...                     lat='latitude', long='longitude')
+            >>> view = visualization.view('daviz.map')
+            >>> sorted(view.items())
+            [('lat', 'latitude'), ('long', 'longitude'), ('name', 'daviz.map')]
+
         """
         config = self._views()
         kwargs.update({'name': name})
@@ -129,8 +184,27 @@ class Configure(object):
         config.append(view)
         return view.get('name', '')
 
+    def edit_view(self, key, **kwargs):
+        """ Edit view properties
+
+            >>> visualization.edit_view('daviz.map', lat='lat')
+            >>> view = visualization.view('daviz.map')
+            >>> sorted(view.items())
+            [('lat', 'lat'), ('long', 'longitude'), ('name', 'daviz.map')]
+
+        """
+        view = self.view(key)
+        if not view:
+            raise KeyError, key
+        view.update(kwargs)
+
     def delete_view(self, key):
         """ Delete view by given key
+
+            >>> visualization.delete_view('daviz.map')
+            >>> visualization.views
+            []
+
         """
         config = self._views()
         for index, view in enumerate(config):
@@ -139,16 +213,17 @@ class Configure(object):
                 return
         raise KeyError, key
 
-    def edit_view(self, key, **kwargs):
-        """ Edit view properties
-        """
-        view = self.view(key)
-        if not view:
-            raise KeyError, key
-        view.update(kwargs)
-
     def delete_views(self):
         """ Reset views
+
+            >>> _ = visualization.add_view('xxx')
+            >>> visualization.views
+            [{'name': 'xxx'}]
+
+            >>> visualization.delete_views()
+            >>> visualization.views
+            []
+
         """
         anno = IAnnotations(self.context)
         anno[ANNO_VIEWS] = PersistentList()
@@ -157,6 +232,12 @@ class Configure(object):
     #
     def add_facet(self, name, **kwargs):
         """ Add facet
+
+            >>> _ = visualization.add_facet('country', a=1, b=2)
+            >>> facet = visualization.facet('country')
+            >>> sorted(facet.items())
+            [('a', 1), ('b', 2), ('name', 'country'), ('type', ...]
+
         """
         config = self._facets()
         kwargs.update({'name': name})
@@ -165,8 +246,27 @@ class Configure(object):
         config.append(facet)
         return facet.get('name', '')
 
+    def edit_facet(self, key, **kwargs):
+        """ Edit facet properties
+
+            >>> visualization.edit_facet('country', c=3, a=2)
+            >>> facet = visualization.facet('country')
+            >>> sorted(facet.items())
+            [('a', 2), ('b', 2), ('c', 3), ('name', 'country'), ('type', ...]
+
+        """
+        facet = self.facet(key)
+        if not facet:
+            raise KeyError, key
+        facet.update(kwargs)
+
     def delete_facet(self, key):
         """ Delete facet by given key
+
+            >>> visualization.delete_facet('country')
+            >>> visualization.facets
+            []
+
         """
         config = self._facets()
         for index, facet in enumerate(config):
@@ -175,16 +275,17 @@ class Configure(object):
                 return
         raise KeyError, key
 
-    def edit_facet(self, key, **kwargs):
-        """ Edit facet properties
-        """
-        facet = self.facet(key)
-        if not facet:
-            raise KeyError, key
-        facet.update(kwargs)
-
     def delete_facets(self):
         """ Remove all facets
+
+            >>> _ = visualization.add_facet('xxx')
+            >>> visualization.facets
+            [...'name': 'xxx'...]
+
+            >>> visualization.delete_facets()
+            >>> visualization.facets
+            []
+
         """
         anno = IAnnotations(self.context)
         anno[ANNO_FACETS] = PersistentList()
@@ -193,6 +294,12 @@ class Configure(object):
     #
     def add_source(self, name, **kwargs):
         """ Add source
+
+            >>> _ = visualization.add_source('http://bit.ly/rdf', type='rdf')
+            >>> source = visualization.source('http://bit.ly/rdf')
+            >>> sorted(source.items())
+            [('name', 'http://bit.ly/rdf'), ('type', 'rdf')]
+
         """
         config = self._sources()
         kwargs.update({'name': name})
@@ -201,8 +308,27 @@ class Configure(object):
         config.append(source)
         return source.get('name', '')
 
+    def edit_source(self, key, **kwargs):
+        """ Edit source properties
+
+            >>> visualization.edit_source('http://bit.ly/rdf', a=23, b=45)
+            >>> source = visualization.source('http://bit.ly/rdf')
+            >>> sorted(source.items())
+            [('a', 23), ('b', 45), ('name', 'http://bit.ly/rdf'), ('type'...]
+
+        """
+        source = self.source(key)
+        if not source:
+            raise KeyError, key
+        source.update(kwargs)
+
     def delete_source(self, key):
         """ Delete source by given key
+
+            >>> visualization.delete_source('http://bit.ly/rdf')
+            >>> visualization.sources
+            []
+
         """
         config = self._sources()
         for index, source in enumerate(config):
@@ -211,16 +337,17 @@ class Configure(object):
                 return
         raise KeyError, key
 
-    def edit_source(self, key, **kwargs):
-        """ Edit source properties
-        """
-        source = self.source(key)
-        if not source:
-            raise KeyError, key
-        source.update(kwargs)
-
     def delete_sources(self):
         """ Remove all sources
+
+            >>> _ = visualization.add_source('xxx')
+            >>> visualization.sources
+            [...'name': 'xxx'...]
+
+            >>> visualization.delete_sources()
+            >>> visualization.sources
+            []
+
         """
         anno = IAnnotations(self.context)
         anno[ANNO_SOURCES] = PersistentList()

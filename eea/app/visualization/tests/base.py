@@ -1,7 +1,9 @@
 """ Testing
 """
+from plone.app.testing import TEST_USER_ID
+from plone.app.testing import setRoles
 from  plone.app.testing import PloneSandboxLayer
-#from  plone.app.testing import applyProfile
+from  plone.app.testing import applyProfile
 from  plone.app.testing import PLONE_FIXTURE
 from plone.app.testing import FunctionalTesting
 from zope.configuration import xmlconfig
@@ -23,7 +25,10 @@ class EEAFixture(PloneSandboxLayer):
     def setUpPloneSite(self, portal):
         """ Setup Plone
         """
-        #applyProfile(portal, 'eea.app.visualization:default')
+        applyProfile(portal, 'eea.app.visualization:default')
+
+        # Login as manager
+        setRoles(portal, TEST_USER_ID, ['Manager'])
 
 EEAFIXTURE = EEAFixture()
 FUNCTIONAL_TESTING = FunctionalTesting(bases=(EEAFIXTURE,),

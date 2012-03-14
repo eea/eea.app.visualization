@@ -1,9 +1,11 @@
 """ Number utility
 """
 import re
+from eea.app.visualization.converter.types import GuessType
+
 REGEX = re.compile('[0-9]*(\,|\.)?[0-9]+$')
 
-class GuessNumber(object):
+class GuessNumber(GuessType):
     """ Utility to guess and convert text to number:
 
         >>> from zope.component import getUtility
@@ -14,6 +16,8 @@ class GuessNumber(object):
         <eea.app.visualization.converter.types.number.GuessNumber...>
 
     """
+    order = 60
+
     def convert(self, text, fallback=None, **options):
         """
         Convert text to number

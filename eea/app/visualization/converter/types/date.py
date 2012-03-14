@@ -3,9 +3,10 @@
 import logging
 from datetime import datetime
 from dateutil import parser
+from eea.app.visualization.converter.types import GuessType
 logger = logging.getLogger('eea.app.visualization')
 
-class GuessDate(object):
+class GuessDate(GuessType):
     """ Utility to guess and convert text to date:
 
         >>> from zope.component import getUtility
@@ -16,6 +17,7 @@ class GuessDate(object):
         <eea.app.visualization.converter.types.date.GuessDate object...>
 
     """
+    order = 70
 
     def convert(self, text, fallback=None, **options):
         """

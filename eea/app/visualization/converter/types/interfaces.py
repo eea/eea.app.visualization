@@ -3,7 +3,7 @@
 from zope.interface import Interface
 
 class IGuessType(Interface):
-    """ All named utilities for guessing csv column type should provide this
+    """ All named utilities for guessing CSV column type should provide this
     interface.
     """
     def convert(text, fallback=None, **options):
@@ -23,4 +23,14 @@ class IGuessType(Interface):
 
         text  -- CSV cell to guess on
         label -- CSV column header
+        """
+
+class IGuessTypes(Interface):
+    """ Guess CSV column types
+    """
+    def __call__(datatable):
+        """ Guess column types for given CSV datatable.
+        Returns a mapping between column names and types.
+
+        datatable -- CSV datatable (list of rows)
         """

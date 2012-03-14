@@ -1,6 +1,8 @@
 """ Longitude utility
 """
-class GuessLongitude(object):
+from eea.app.visualization.converter.types import GuessType
+
+class GuessLongitude(GuessType):
     """ Utility to guess and convert text to longitude:
 
         >>> from zope.component import getUtility
@@ -11,6 +13,7 @@ class GuessLongitude(object):
         <eea.app.visualization.converter.types.longitude.GuessLongitude...>
 
     """
+    order = 40
 
     def convert(self, text, fallback=None, **options):
         """

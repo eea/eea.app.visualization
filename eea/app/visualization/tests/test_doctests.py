@@ -28,6 +28,12 @@ def test_suite():
             layer=FUNCTIONAL_TESTING),
         layered(
             doctest.DocFileSuite(
+                'storage/handler.py',
+                optionflags=OPTIONFLAGS,
+                package='eea.app.visualization'),
+            layer=FUNCTIONAL_TESTING),
+        layered(
+            doctest.DocFileSuite(
                 'converter/types/url.py',
                 optionflags=OPTIONFLAGS,
                 package='eea.app.visualization'),
@@ -65,6 +71,24 @@ def test_suite():
         layered(
             doctest.DocFileSuite(
                 'converter/types/date.py',
+                optionflags=OPTIONFLAGS,
+                package='eea.app.visualization'),
+            layer=FUNCTIONAL_TESTING),
+        layered(
+            doctest.DocFileSuite(
+                'converter/types/text.py',
+                optionflags=OPTIONFLAGS,
+                package='eea.app.visualization'),
+            layer=FUNCTIONAL_TESTING),
+        layered(
+            doctest.DocFileSuite(
+                'converter/types/guess.py',
+                optionflags=OPTIONFLAGS,
+                package='eea.app.visualization'),
+            layer=FUNCTIONAL_TESTING),
+        layered(
+            doctest.DocFileSuite(
+                'converter/types/list.py',
                 optionflags=OPTIONFLAGS,
                 package='eea.app.visualization'),
             layer=FUNCTIONAL_TESTING),

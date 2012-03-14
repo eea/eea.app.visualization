@@ -1,9 +1,10 @@
 """ LatLong utility
 """
 from zope.component import getUtility
+from eea.app.visualization.converter.types import GuessType
 from eea.app.visualization.converter.types.interfaces import IGuessType
 
-class GuessLatLong(object):
+class GuessLatLong(GuessType):
     """ Utility to guess and convert text to latlong:
 
         >>> from zope.component import getUtility
@@ -14,6 +15,7 @@ class GuessLatLong(object):
         <eea.app.visualization.converter.types.latlong.GuessLatLong...>
 
     """
+    order = 50
 
     def convert(self, text, fallback=None, **options):
         """

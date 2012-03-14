@@ -1,9 +1,11 @@
 """ Latitude utility
 """
+from eea.app.visualization.converter.types import GuessType
+
 import logging
 logger = logging.getLogger('eea.app.visualization')
 
-class GuessLatitude(object):
+class GuessLatitude(GuessType):
     """ Utility to guess and convert text to latitude:
 
         >>> from zope.component import getUtility
@@ -14,6 +16,7 @@ class GuessLatitude(object):
         <eea.app.visualization.converter.types.latitude.GuessLatitude object...>
 
     """
+    order = 30
 
     def convert(self, text, fallback=None, **options):
         """

@@ -1,9 +1,11 @@
 """ Boolean utility
 """
+from eea.app.visualization.converter.types import GuessType
+
 TRUE = frozenset(('yes', 'true', '1', 'x', 'y'))
 FALSE = frozenset(('no', 'false', '0', '', 'n'))
 
-class GuessBoolean(object):
+class GuessBoolean(GuessType):
     """ Utility to guess and convert text to boolean:
 
         >>> from zope.component import getUtility
@@ -14,6 +16,7 @@ class GuessBoolean(object):
         <eea.app.visualization.converter.types.boolean.GuessBoolean object...>
 
     """
+    order = 20
 
     def convert(self, text, fallback=None, **options):
         """

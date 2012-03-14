@@ -1,15 +1,15 @@
 """ Converter module responsible for converting from cvs to json
 """
-import re
 import logging
 import csv
 from StringIO import StringIO
+from zope.component import getUtility, queryUtility
 from zope.interface import implements
-from eea.app.visualization.converter.interfaces import IExhibitJsonConverter
-from Products.CMFPlone.utils import normalizeString
+from eea.app.visualization.interfaces import IGuessType
+from eea.app.visualization.interfaces import IGuessTypes
+from eea.app.visualization.interfaces import IExhibitJsonConverter
 
 logger = logging.getLogger("eea.app.visualization.converter")
-REGEX = re.compile(r"[\W]+")
 
 class EEADialectTab(csv.Dialect):
     """ CSV dialect having tab as delimiter
@@ -43,141 +43,56 @@ class ExhibitJsonConverter(object):
     """
     implements(IExhibitJsonConverter)
 
-    def text2list(self, key, value):
-        """ Detect lists in value
-
-            Works with ","
-            >>> converter.text2list("animals:list", "Pig, Goat, Cow")
-            ['Pig', 'Goat', 'Cow']
-
-            Also with ";"
-            >>> converter.text2list("animals:List", "Pig; Goat; Cow")
-            ['Pig', 'Goat', 'Cow']
-
-            If it can't find any comma or semicolon it will return a list of one
-            item
-            >>> converter.text2list("animals:LIST", "Pig")
-            ['Pig']
-
-            It will not work if you don't specify :list type in the key
-            >>> converter.text2list("animals", "Pig, Goat, Cow")
-            'Pig, Goat, Cow'
-
+    def dialect(self, datafile):
+        """ Try to guess CSV dialect
         """
-        if ":list" not in key.lower():
-            return value
+        if isinstance(datafile, (unicode, str)):
+            datafile = StringIO(datafile)
 
-        if "," in value:
-            value = value.split(",")
-        elif ";" in value:
-            value = value.split(";")
-        else:
-            value = [value, ]
-
-        value = [item.strip() for item in value]
-        return value
-
-    def text2number(self, key, value):
-        """ Detect numbers in value
-
-            >>> converter.text2number("year:number", "2010")
-            2010
-
-            >>> converter.text2number("year:NUMBER", "2011")
-            2011
-
-            >>> converter.text2number("price:Number", "9.99")
-            9.9...
-
-            It fails silently if the provided value is not a number
-            >>> converter.text2number("phone:number", "9-99")
-            '9-99'
-
-            It will not work if you don't provide :number type in the key
-            >>> converter.text2number("price", "9.99")
-            '9.99'
-
-        """
-        if ":number" not in key.lower():
-            return value
-
+        datafile.seek(0)
+        sniffer = csv.Sniffer()
         try:
-            value = int(value)
-        except Exception:
-            try:
-                value = float(value)
-            except Exception, err:
-                logger.debug(err)
-        return value
-
-    def text2boolean(self, key, value):
-        """ Detect boolean in string
-
-            >>> converter.text2boolean("year:boolean", "2011")
-            True
-
-            >>> converter.text2boolean("year:BOOLEAN", "2011")
-            True
-
-            Be carefull, "False" is a True in python as it's not an emtry string
-            >>> converter.text2boolean("year:Boolean", "False")
-            True
-
-            So use :bool only when you test if value is empty or not
-            >>> converter.text2boolean("year:boolean", "")
-            False
-
-            It will not work if you don't specify :boolean type in the key
-            >>> converter.text2boolean("year", "2345")
-            '2345'
-
-        """
-        if ":boolean" not in key.lower():
-            return value
-
-        try:
-            value = bool(value)
+            dialect = sniffer.sniff(datafile.read(1024))
         except Exception, err:
             logger.debug(err)
-        return value
+            dialect = 'eea-tab'
+        datafile.seek(0)
+        return dialect
 
-    def column_type(self, column):
-        """ Get column and type from column
+    def sample(self, datafile, rows=5):
+        """ Get CSV sample from datafile
 
-            >>> converter.column_type("start:Date")
-            ('start', 'date')
+        >>> csvfile = '\n'.join((
+        ...   'label,   year, country',
+        ...   'romania, 2010, Romania',
+        ...   'italy,   2011, Italy',
+        ...   'france,  2012, France',
+        ... ))
 
-            >>> converter.column_type("Website:URL")
-            ('website', 'url')
-
-            >>> converter.column_type("Items: one, two:List")
-            ('items_one_two', 'list')
-
-            >>> converter.column_type("Title")
-            ('title', 'text')
-
-            >>> converter.column_type("Title is some-thing. + something @lse")
-            ('title_is_some_thing_something_lse', 'text')
+        >>> for row in converter.sample(csvfile, rows=1):
+        ...     print '   '.join(row)
+        label   year   country
+        romania   2010   Romania
 
         """
+        if isinstance(datafile, (unicode, str)):
+            datafile = StringIO(datafile)
 
-        if ":" not in column:
-            column = normalizeString(column, encoding='utf-8')
-            column = REGEX.sub('_', column)
-            return column, "text"
-
-        typo = column.split(":")[-1].lower()
-        column = ":".join(column.split(":")[:-1])
-        column = normalizeString(column, encoding='utf-8')
-        column = REGEX.sub('_', column)
-        return column, typo
+        datafile.seek(0)
+        reader = csv.reader(datafile, dialect=self.dialect(datafile))
+        sample = []
+        for index, row in enumerate(reader):
+            if index > rows:
+                return sample
+            sample.append(row)
+        return sample
 
     def __call__(self, datafile):
         """
         Returns: columns_headers_with_type, exhibit_dict:
 
           ( <generator
-              (('label', 'text'), ('year', 'text'), ('country', 'text'))>,
+              (('label', 'text'), ('year', 'date'), ('country', 'text'))>,
 
             {'items': [
                 {'country': 'Romania', 'year': '2010', 'label': 'romania'},
@@ -195,49 +110,64 @@ class ExhibitJsonConverter(object):
           CSV
 
             >>> csvfile = '\n'.join((
-            ...   'label, year, country',
-            ...   'romania, 2010, Romania',
+            ...   'label, year:date, country, latit:lat, longitude:long, popul',
+            ...   'romania, 2010, Romania, 45.7666667, 27.9833333, 2195',
+            ...   'italy, 2012, Italy, 42.763667, 12.9833333, 2010',
+            ...   'junk, , 2001, Junk, 34, 12'
             ... ))
 
             >>> columns, jsondict = converter(csvfile)
 
-            >>> [x for x in columns]
-            [('label', 'text'), ('year', 'text'), ('country', 'text')]
+            >>> print '\n'.join(' => '.join(x) for x in columns)
+            label => text
+            year => date
+            country => text
+            latit => latitude
+            longitude => longitude
+            popul => number
 
             >>> jsondict['properties']['year']
-            {'valueType': 'text'}
+            {'valueType': 'date'}
+
+            >>> jsondict['items'][0]['year']
+            '2010... 00:00'
+
+            >>> jsondict['properties']['latit']
+            {'valueType': u'latitude'}
+
+            >>> jsondict['items'][0]['longitude']
+            '27.983333'
 
           TSV
 
             >>> tabfile = '\n'.join((
-            ...   'label \t year:number \t country',
-            ...   'romania \t 2010 \t Romania',
+            ...   'label   \t year:number \t country',
+            ...   'romania \t 2010        \t Romania',
             ... ))
 
             >>> columns, jsondict = converter(tabfile)
             >>> [x for x in columns]
-            [('label', 'text'), ('year', 'number'), ('country', 'text')]
+            [('label', 'text'), ('year', u'number'), ('country', 'text')]
 
             >>> jsondict['properties']['year']
-            {'valueType': 'number'}
+            {'valueType': u'number'}
 
         """
         if isinstance(datafile, (unicode, str)):
             datafile = StringIO(datafile)
+
         columns = []
         hasLabel = False
         out = []
         properties = {}
 
-        sniffer = csv.Sniffer()
-        try:
-            dialect = sniffer.sniff(datafile.read(1024))
-        except Exception, err:
-            logger.debug(err)
-            dialect = 'eea-tab'
+        sample = self.sample(datafile)
+        guess = getUtility(IGuessTypes)
+        column_types = guess(sample)
 
         datafile.seek(0)
-        reader = csv.reader(datafile, dialect=dialect)
+        reader = csv.reader(datafile, dialect=self.dialect(datafile))
+
         for index, row in enumerate(reader):
             # Ignore empty rows
             if row == []:
@@ -251,7 +181,8 @@ class ExhibitJsonConverter(object):
                     if name.lower().endswith('label'):
                         name = "label"
                         hasLabel = True
-                    columns.append(name)
+                    name, typo = guess.column_type(name)
+                    columns.append((name, column_types.get(name, typo)))
                 continue
 
             # Create JSON
@@ -262,18 +193,20 @@ class ExhibitJsonConverter(object):
             if not hasLabel:
                 data['label'] = index
 
-            for col in columns:
+            for col, typo in columns:
                 text = row.next()
 
-                text = self.text2list(col, text)
-                text = self.text2number(col, text)
-                text = self.text2boolean(col, text)
+                fmt = None
+                if typo in ('latitude', 'longitude', 'latlong'):
+                    fmt = '%.6f'
+                if typo in ('date'):
+                    fmt = '%Y.%m.%d %H:%M'
+                util = queryUtility(IGuessType, name=typo)
 
-                col, _type = self.column_type(col)
+                text = util.convert(text, format=fmt) if util else text
                 data[col] = text
-                properties[col] = {"valueType": _type}
+                properties[col] = {"valueType": typo}
 
             out.append(data)
 
-        columns = (self.column_type(col) for col in columns)
         return columns, {'items': out, 'properties': properties}
