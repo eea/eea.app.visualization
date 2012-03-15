@@ -91,6 +91,19 @@ class View(JSONView):
         return view
 
     @property
+    def tabs(self):
+        """ Return view tab headers
+        """
+        views = self.accessor.views
+        tabs = []
+        for view in views:
+            name = view.get('name')
+            browser = queryMultiAdapter(
+                (self.context, self.request), name=name)
+            tabs.extend(getattr(browser, 'tabs', []))
+        return tabs
+
+    @property
     def sections(self):
         """ Returns view sections
         """
@@ -130,6 +143,7 @@ class View(JSONView):
                         name, self.context.absolute_url(1))
             return ''
         return view()
+
 
 class HTMLView(View):
     """ daviz-view.html

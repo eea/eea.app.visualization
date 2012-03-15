@@ -30,33 +30,48 @@ div div.exhibit-facet-header-filterControl {
 
 /* Sections
 */
-#daviz-view ul.chart-tabs {
-  list-style: none;
-  float: right;
+#content ul.chart-tabs,
+ul.chart-tabs {
+    background: #2C8DA2;
+    border-radius: 10px 10px 0px 0px;
+    border: none;
+    height: 37px;
+    list-style: none;
+    list-style-image: none !important;
+    margin: 0 !important;
+    padding: 0;
 }
 
-.tab-exhibit span {
-  background-image: url("../../++resource++eea.daviz.images/exhibit-icon.png");
-  background-repeat: no-repeat;
-  display: block;
-  padding: 50px 5px 0;
+ul.chart-tabs li {
+    float: left;
+    list-style-image: none !important;
+    margin: 0 !important;
+    text-indent: 0;
 }
 
-#daviz-view ul.chart-tabs li {
-  float: left;
-  padding: 5px;
-  font-weight: normal;
+ul.chart-tabs span {
+  height: 21px;
+  padding-left: 30px;
 }
 
-#daviz-view ul.chart-tabs li a,
-#daviz-view ul.chart-tabs li a:link,
-#daviz-view ul.chart-tabs li a:hover,
-#daviz-view ul.chart-tabs li a:active,
-#daviz-view ul.chart-tabs li a:visited {
-  text-decoration: none;
-  color:#000000;
+ul.chart-tabs li a {
+    color: #FFF;
+    border: 0px;
+    height: 17px;
+    font-size: 125%;
+    text-decoration: none;
+    text-shadow: 1px 1px 1px #000000;
+    display: inline-block;
+    padding:10px;
 }
 
-#daviz-view ul.chart-tabs li a.current {
-  font-weight: bold;
+ul.chart-tabs li a.current, ul.chart-tabs li a:hover {
+    color: #2D8EA3;
+    text-shadow: 1px 1px 1px #FFFFFF;
+    background-color: #F3F3F3;
+}
+
+ul.chart-tabs li:first-of-type a.current,
+ul.chart-tabs li:first-of-type a:hover {
+  border-radius: 8px 0 0 0;
 }

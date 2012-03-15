@@ -22,3 +22,13 @@ class ViewForm(BrowserView):
         accessor = queryAdapter(self.context, IVisualizationConfig)
         self._data = accessor.view(self.__name__, {})
         return self._data
+
+    @property
+    def tabs(self):
+        """ Tab(s) headers to be displayed in view mode
+        """
+        return [
+            {'name': self.__name__,
+             'title': self.label,
+             'css': 'tab-%s' % self.__name__.replace('.', '-')},
+        ]

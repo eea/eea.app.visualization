@@ -12,7 +12,19 @@ var DavizTableRowStyler = function(item, database, tr) {
 
 jQuery(document).ready(function(){
   var sections = jQuery("ul.chart-tabs");
-  if(sections.length){
-    sections.tabs("div.chart-panes > div");
+  if(!sections.length){
+    return;
   }
+
+  sections.tabs("div.chart-panes > div", {
+    onClick: function(evt, index){
+      var tab = this.getTabs()[index];
+      var css = jQuery(tab).attr('class');
+      if(css.indexOf('tab-daviz') !== -1){
+        jQuery('.daviz-facets').show();
+      }else{
+        jQuery('.daviz-facets').hide();
+      }
+    }
+  });
 });
