@@ -136,7 +136,7 @@ class ExhibitJsonConverter(object):
             '2010-...'
 
             >>> jsondict['properties']['latit']
-            {'valueType': u'latitude'}
+            {'valueType': u'text'}
 
             >>> jsondict['items'][0]['longitude']
             '27.983333'
@@ -200,15 +200,18 @@ class ExhibitJsonConverter(object):
                 text = row.next()
 
                 fmt = None
+                valueType = typo
                 if typo in ('latitude', 'longitude', 'latlong'):
                     fmt = '%.6f'
+                    valueType = u'text'
                 if typo in ('date'):
                     fmt = '%Y-%m-%d'
                 util = queryUtility(IGuessType, name=typo)
 
                 text = util.convert(text, format=fmt) if util else text
                 data[col] = text
-                properties[col] = {"valueType": typo}
+
+                properties[col] = {"valueType": valueType}
 
             out.append(data)
 
