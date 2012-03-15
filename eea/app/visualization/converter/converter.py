@@ -82,6 +82,9 @@ class ExhibitJsonConverter(object):
         reader = csv.reader(datafile, dialect=self.dialect(datafile))
         sample = []
         for index, row in enumerate(reader):
+            if not row:
+                rows += 1
+                continue
             if index > rows:
                 return sample
             sample.append(row)
