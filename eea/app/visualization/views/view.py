@@ -27,8 +27,16 @@ class ViewForm(BrowserView):
     def tabs(self):
         """ Tab(s) headers to be displayed in view mode
         """
+        tabname = self.tabname()
         return [
             {'name': self.__name__,
              'title': self.label,
-             'css': 'tab-%s' % self.__name__.replace('.', '-')},
+             'css': tabname,
+             'tabname': tabname
+             },
         ]
+
+    def tabname(self):
+        """ View tab name
+        """
+        return 'tab-%s' % self.__name__.replace('.', '-')

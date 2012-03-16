@@ -75,3 +75,15 @@ ul.chart-tabs li:first-of-type a.current,
 ul.chart-tabs li:first-of-type a:hover {
   border-radius: 8px 0 0 0;
 }
+
+.daviz-tab-view {
+  background-color: #f3f3f3;
+}
+
+.daviz-tab-view:after {
+  content: '.';
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}

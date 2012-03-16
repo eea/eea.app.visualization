@@ -61,7 +61,7 @@
     <ul class="chart-tabs">
       <li tal:repeat="tab python:view.tabs">
         <a tal:attributes="
-            href string:#tab-${tab/name};
+            href string:#${tab/tabname};
             class tab/css;">
           <span tal:content="tab/title" />
         </a>
@@ -70,13 +70,7 @@
     <div style="clear: both"></div>
 
     <!-- Sections -->
-    <div class="chart-panes">
-      <div tal:repeat="name python:view.views"
-        tal:attributes="id string:tab-${name}">
-        <tal:view replace="structure python:view.get_view(name)()" />
-      </div>
-    </div>
-    <div style="float: left; width: 19%; margin-left: 1%; display: none"
+    <div style="float: right; width: 19%; margin-left: 1%; display: none"
       class="daviz-facets">
       <tal:facets define="facets python:view.facets;">
         <tal:facet repeat="facet_name facets">
@@ -84,6 +78,11 @@
             tal:replace="structure facet_view" />
         </tal:facet>
       </tal:facets>
+    </div>
+    <div class="chart-panes">
+      <tal:view repeat="name python:view.views">
+        <tal:view replace="structure python:view.get_view(name)()" />
+      </tal:view>
     </div>
     <div style="clear: both"></div>
   </div>

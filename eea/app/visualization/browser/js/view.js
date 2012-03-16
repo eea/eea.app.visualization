@@ -16,15 +16,15 @@ jQuery(document).ready(function(){
     return;
   }
 
-  sections.tabs("div.chart-panes > div", {
+  var tabs = sections.tabs("div.chart-panes > div.daviz-tab-view", {
     onClick: function(evt, index){
+      var api = this;
       var tab = this.getTabs()[index];
-      var css = jQuery(tab).attr('class');
-      if(css.indexOf('tab-daviz') !== -1){
-        jQuery('.daviz-facets').show();
-      }else{
-        jQuery('.daviz-facets').hide();
-      }
+      jQuery(document).trigger('eea-daviz-tab-click', {
+        index: index,
+        tab: tab,
+        api: api
+      });
     }
   });
 });
