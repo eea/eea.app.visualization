@@ -52,9 +52,10 @@ ul.chart-tabs li {
 ul.chart-tabs span {
   height: 21px;
   padding-left: 30px;
+  display: inline-block;
 }
 
-ul.chart-tabs li a {
+#daviz-view ul.chart-tabs li a {
     color: #FFF;
     border: 0px;
     height: 17px;
