@@ -5,6 +5,7 @@
   float: left;
   width: 80%;
   overflow: auto;
+  padding-top: 1em;
 }
 
 .daviz-thumbnail-lens {
@@ -16,16 +17,6 @@
 .daviz-tabular-details {
   display: block;
   text-align: center;
-}
-
-div div.exhibit-facet-body {
-  overflow-x: hidden;
-  overflow-y: auto;
-}
-
-div div.exhibit-facet-header-filterControl {
-  width: 4em;
-  text-align: right;
 }
 
 /* Sections
@@ -69,7 +60,7 @@ ul.chart-tabs span {
 ul.chart-tabs li a.current, ul.chart-tabs li a:hover {
     color: #2D8EA3;
     text-shadow: 1px 1px 1px #FFFFFF;
-    background-color: #F3F3F3;
+    background-color: #fff;
 }
 
 ul.chart-tabs li:first-of-type a.current,
@@ -78,7 +69,7 @@ ul.chart-tabs li:first-of-type a:hover {
 }
 
 .daviz-tab-view {
-  background-color: #f3f3f3;
+  background-color: #fff;
 }
 
 .daviz-tab-view:after {
