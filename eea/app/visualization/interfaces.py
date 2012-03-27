@@ -20,6 +20,10 @@ from eea.app.visualization.converter.interfaces import IGuessType
 from eea.app.visualization.converter.interfaces import IGuessTypes
 from eea.app.visualization.converter.interfaces import IExhibitJsonConverter
 
+# Views
+from eea.app.visualization.views.interfaces import IVisualizationView
+from eea.app.visualization.views.interfaces import IVisualizationViews
+
 __all__ = (
     IPossibleVisualization.__name__,
     IVisualizationEnabled.__name__,
@@ -31,4 +35,6 @@ __all__ = (
     IGuessType.__name__,
     IGuessTypes.__name__,
     IExhibitJsonConverter.__name__,
+    IVisualizationView.__name__,
+    IVisualizationViews.__name__,
 )
