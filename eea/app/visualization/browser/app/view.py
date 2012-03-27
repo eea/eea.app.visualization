@@ -8,8 +8,6 @@ from Products.CMFCore.utils import getToolByName
 from Products.Five.browser import BrowserView
 from eea.app.visualization.interfaces import IVisualizationConfig
 from eea.app.visualization.cache import ramcache, cacheJsonKey
-from eea.app.visualization.config import EEAMessageFactory as _
-from Products.statusmessages.interfaces import IStatusMessage
 
 logger = logging.getLogger('eea.app.visualization')
 
@@ -151,14 +149,13 @@ class HTMLView(View):
     def __call__(self, **kwargs):
         """ If daviz is not configured redirects to edit page.
         """
-        if self.sections:
-            return self.index()
-
         if not checkPermission('cmf.ModifyPortalContent', self.context):
             return self.index()
 
-        IStatusMessage(self.request).addStatusMessage(
-            _(u"Please add at least one View for this context"), type="error")
+        referer = getattr(self.request, 'HTTP_REFERER', '')
+        if not (referer.endswith('/edit') or referer.endswith('/atct_edit')):
+            return self.index()
+
         return self.request.response.redirect(
             self.context.absolute_url() + '/daviz-edit.html')
 
