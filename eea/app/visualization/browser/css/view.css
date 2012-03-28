@@ -57,9 +57,10 @@ ul.chart-tabs span {
     padding:10px;
 }
 
-ul.chart-tabs li a.current, ul.chart-tabs li a:hover {
+#daviz-view ul.chart-tabs li a.current,
+#daviz-view ul.chart-tabs li a:hover {
     color: #2D8EA3;
-    text-shadow: 1px 1px 1px #FFFFFF;
+    text-shadow: 1px 1px 1px white;
     background-color: #fff;
 }
 
