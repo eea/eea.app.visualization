@@ -1,9 +1,10 @@
 Changelog
 =========
 
-4.0-dev (unreleased)
---------------------
+4.0 - (2012-03-30)
+------------------
 * Initial release: Moved eea.daviz core API to this package in order to make
   the visualization libraries usable as standalone packages outside
   eea.daviz bundle
   [voineali #4996]
+

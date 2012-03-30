@@ -18,9 +18,10 @@ setup(name=NAME,
       classifiers=[
         "Programming Language :: Python",
         ],
-      keywords='',
-      author='',
-      author_email='',
+      keywords=('eea app visualization daviz exhibit googlecharts'
+                'sparql rdf zope plone'),
+      author='European Environment Agency',
+      author_email="webadmin@eea.europa.eu",
       url='http://svn.plone.org/svn/collective/',
       license='GPL',
       packages=find_packages(exclude=['ez_setup']),
