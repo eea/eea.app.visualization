@@ -3,6 +3,9 @@ Changelog
 
 4.1-dev - (unreleased)
 ----------------------
+* Bug fix: Use converter fallback for table cells that doesn't contain valid
+  numbers, dates, etc in order to minimize errors
+  [voineali #4934]
 
 4.0 - (2012-03-30)
 ------------------
