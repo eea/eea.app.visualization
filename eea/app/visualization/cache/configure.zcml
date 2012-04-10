@@ -3,9 +3,14 @@
   i18n_domain="eea">
 
   <browser:page
-    name="eea.daviz.cache.invalidate"
+    name="memcache.invalidate"
     for="eea.app.visualization.interfaces.IVisualizationEnabled"
-    class=".browser.InvalidateCache"
+    class=".browser.InvalidateMemCache"
     permission="cmf.ModifyPortalContent" />
+
+  <subscriber
+    for="eea.app.visualization.interfaces.IVisualizationEnabled
+         zope.lifecycleevent.interfaces.IObjectModifiedEvent"
+    handler=".browser.purgeOnModified" />
 
 </configure>

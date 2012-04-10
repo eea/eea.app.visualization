@@ -3,6 +3,9 @@ Changelog
 
 4.1-dev - (unreleased)
 ----------------------
+* Bug fix: Invalidate memcache on ObjectModifiedEvent for all
+  IVisualizationEnabled objects
+  [voineali #5074]
 * Bug fix: Use converter fallback for table cells that doesn't contain valid
   numbers, dates, etc in order to minimize errors
   [voineali #4934]

@@ -3,11 +3,13 @@
 import logging
 import json as simplejson
 from zope import schema
+from zope.event import notify
 from zope.interface import Interface
 from zope.formlib.form import Fields
 from zope.component import queryAdapter
 from zope.formlib.form import SubPageForm
 from Products.statusmessages.interfaces import IStatusMessage
+from zope.lifecycleevent import ObjectModifiedEvent
 from zope.formlib.form import action as formaction
 from zope.formlib.form import setUpWidgets, haveInputWidgets
 from eea.app.visualization.interfaces import IVisualizationConfig
@@ -96,6 +98,7 @@ class EditForm(SubPageForm):
             self.message = "ERROR: %s" % err
         else:
             mutator.json = json
+            notify(ObjectModifiedEvent(self.context))
 
     def handle_views(self, data):
         """ Handle views property
