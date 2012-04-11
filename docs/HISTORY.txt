@@ -1,8 +1,8 @@
 Changelog
 =========
 
-4.1-dev - (unreleased)
-----------------------
+4.1 - (2012-04-11)
+------------------
 * Bug fix: Invalidate memcache on ObjectModifiedEvent for all
   IVisualizationEnabled objects
   [voineali #5074]
