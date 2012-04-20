@@ -99,6 +99,46 @@
     permission="cmf.ModifyPortalContent"
     />
 
+  <browser:page
+    for="eea.app.visualization.interfaces.IVisualizationEnabled"
+    name="download.table"
+    class=".app.download.Download"
+    template="zpt/download-table.pt"
+    permission="zope2.View"
+    />
+
+  <browser:page
+    for="eea.app.visualization.interfaces.IVisualizationEnabled"
+    name="download.csv"
+    class=".app.download.Download"
+    attribute="csv"
+    permission="zope2.View"
+    />
+
+  <browser:page
+    for="eea.app.visualization.interfaces.IVisualizationEnabled"
+    name="download.tsv"
+    class=".app.download.Download"
+    attribute="tsv"
+    permission="zope2.View"
+    />
+
+  <browser:page
+    for="eea.app.visualization.interfaces.IVisualizationEnabled"
+    name="download.json"
+    class=".app.download.Download"
+    attribute="json"
+    permission="zope2.View"
+    />
+
+  <browser:page
+    for="eea.app.visualization.interfaces.IVisualizationEnabled"
+    name="download.exhibit"
+    class=".app.download.Download"
+    attribute="exhibit"
+    permission="zope2.View"
+    />
+
   <browser:resource
     name="eea.daviz.view.css"
     file="./css/view.css"

@@ -3,6 +3,8 @@ Changelog
 
 4.2-dev - (unreleased)
 ----------------------
+* Feature: Made Visualization data downloadable (HTML, CSV, TSV, JSON, etc)
+  [voineali #5038]
 * Bug fix: Use non-@@ version of daviz-relateditems.json in order to easily cache
   and purge it using plone.app.caching
   [voineali #5074]

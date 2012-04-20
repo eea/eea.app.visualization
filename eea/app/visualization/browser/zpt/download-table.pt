@@ -1,0 +1,33 @@
+<html lang="en-US" i18n:domain="eea.daviz"
+  xmlns="http://www.w3.org/1999/xhtml"
+  xml:lang="en-US">
+
+<head>
+  <style type='text/css'>
+  table {
+    border-collapse: collapse;
+  }
+  th, td {
+    border:1px solid black;
+  }
+  </style>
+</head>
+
+<body>
+  <table tal:define="
+    items view/table;
+    headers python:items.next()">
+    <tr>
+      <th tal:repeat="header headers">
+        <tal:header replace="header" />
+      </th>
+    </tr>
+    <tr tal:repeat="item items">
+      <td tal:repeat="header headers">
+        <tal:cell replace="python:item.get(header, '')" />
+      </td>
+    </tr>
+  </table>
+</body>
+
+</html>

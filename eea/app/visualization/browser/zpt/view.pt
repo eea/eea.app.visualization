@@ -88,6 +88,25 @@
   </div>
 </div>
 
+<h3>Downloads</h3>
+<div class="eea-sparql-downloads">
+  <a tal:attributes="href string:${context/absolute_url}/download.table">
+      HTML
+  </a>
+  <a tal:attributes="href string:${context/absolute_url}/download.csv">
+      CSV
+  </a>
+  <a tal:attributes="href string:${context/absolute_url}/download.tsv">
+      TSV
+  </a>
+  <a tal:attributes="href string:${context/absolute_url}/download.json">
+      JSON
+  </a>
+  <a tal:attributes="href string:${context/absolute_url}/download.exhibit">
+      Exhibit JSON
+  </a>
+</div>
+
 </div>
 </body>
 </html>
