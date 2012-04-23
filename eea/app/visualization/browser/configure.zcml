@@ -139,6 +139,22 @@
     permission="zope2.View"
     />
 
+  <browser:page
+    for="eea.app.visualization.interfaces.IVisualizationEnabled"
+    name="download.xml"
+    class=".app.download.Download"
+    template="zpt/download-xml.pt"
+    permission="zope2.View"
+    />
+
+  <browser:page
+    for="eea.app.visualization.interfaces.IVisualizationEnabled"
+    name="download.schema.xml"
+    class=".app.download.Download"
+    template="zpt/download-schema.pt"
+    permission="zope2.View"
+    />
+
   <browser:resource
     name="eea.daviz.view.css"
     file="./css/view.css"

@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<sparql
+  xmlns='http://www.w3.org/2005/sparql-results#'
+  xmlns:tal="http://xml.zope.org/namespaces/tal"
+  tal:define="
+  setHeaders view/xml;
+  headers view/headers">
+  <head><tal:head repeat="header headers">
+    <variable tal:attributes="name header"/></tal:head>
+  </head>
+  <results>
+    <result tal:repeat="item view/table"><tal:body repeat="header python:headers.items()">
+        <binding tal:define="name python:header[0]; valueType python:header[1].get('valueType', 'text')" tal:attributes="name name">
+          <literal tal:attributes="datatype python:view.xmlType(valueType);" tal:content="python:item.get(name, '')" />
+        </binding></tal:body>
+    </result>
+  </results>
+</sparql>

@@ -34,19 +34,16 @@ class Download(BrowserView):
                 self._data = {'properties':{}, 'items': []}
         return self._data
 
+    @property
+    def headers(self):
+        """ JSON headers
+        """
+        return self.data.get('properties', {})
+
     def table(self):
         """ Download as HTML table
         """
-        items = self.data.get('items', [])
-
-        # Table header
-        if not items:
-            yield []
-        else:
-            yield items[0].keys()
-
-        # Table body
-        for item in items:
+        for item in self.data.get('items', []):
             yield item
 
     def csv(self, dialect='excel'):
@@ -100,10 +97,10 @@ class Download(BrowserView):
             'Content-Disposition',
             'attachment; filename="%s.json"' % self.context.getId())
 
-        headers = self.data.get('properties', {}).keys()
+        headers = self.headers
         data = {
             'head': {
-                'vars': headers,
+                'vars': headers.keys(),
             },
             'results': {
                 'bindings': [
@@ -115,9 +112,10 @@ class Download(BrowserView):
         for item in self.data.get('items', []):
             convertedItem = {}
             for header in headers:
+                valueType = headers[header].get('valueType', 'text')
                 convertedItem[header] = {
-                    "type": "literal",
-                    "xml:lang": "en",
+                    "type": "typed-literal",
+                    "datatype": self.xmlType(valueType),
                     "value": item.get(header, "")
                 }
             data['results']['bindings'].append(convertedItem)
@@ -133,3 +131,43 @@ class Download(BrowserView):
             'Content-Disposition',
             'attachment; filename="%s.exhibit.json"' % self.context.getId())
         return json.dumps(self.data, indent=2)
+
+    def xml(self):
+        """ Download as XML
+        """
+        self.request.response.setHeader(
+            'Content-Type', 'application/xml')
+        self.request.response.setHeader(
+            'Content-Disposition',
+            'attachment; filename="%s.xml"' % self.context.getId())
+
+    def xmlType(self, value):
+        """ Convert JSON valueType to xmlType
+        """
+        if not value:
+            return None
+        if value in ('text', 'url',):
+            value = 'string'
+        elif value in ('number',):
+            value = 'double'
+        return 'http://www.w3.org/2001/XMLSchema#%s' % value
+
+    def schema(self):
+        """ Download as XML with schema
+        """
+        self.request.response.setHeader(
+            'Content-Type', 'application/xml')
+        self.request.response.setHeader(
+            'Content-Disposition',
+            'attachment; filename="%s.schema.xml"' % self.context.getId())
+
+    def schemaType(self, value):
+        """ Convert JSON valueType to schemaType
+        """
+        if not value:
+            return None
+        if value in ('text', 'url',):
+            value = 'string'
+        elif value in ('number',):
+            value = 'double'
+        return 'xsd:%s' % value

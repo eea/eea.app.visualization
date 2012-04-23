@@ -15,14 +15,13 @@
 
 <body>
   <table tal:define="
-    items view/table;
-    headers python:items.next()">
+    headers view/headers">
     <tr>
       <th tal:repeat="header headers">
         <tal:header replace="header" />
       </th>
     </tr>
-    <tr tal:repeat="item items">
+    <tr tal:repeat="item view/table">
       <td tal:repeat="header headers">
         <tal:cell replace="python:item.get(header, '')" />
       </td>

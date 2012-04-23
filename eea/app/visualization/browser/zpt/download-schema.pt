@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns:tal="http://xml.zope.org/namespaces/tal"
+  tal:define="
+    setHeaders view/schema;
+    headers view/headers">
+  <dataroot>
+    <resources tal:repeat="item view/table"><tal:body repeat="header headers">
+      <tal:element replace="structure python:'&lt;%s&gt;%s&lt;/%s&gt;' % (header, item.get(header, ''), header)" /></tal:body>
+    </resources>
+  </dataroot>
+  <xsd:schema>
+    <xsd:element name="dataroot">
+      <xsd:complexType>
+        <xsd:sequence>
+          <xsd:element ref="resources" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="resources">
+      <xsd:complexType>
+        <xsd:sequence><tal:schema repeat="header python:headers.items()">
+            <xsd:element tal:define="name python:header[0]; valueType python:header[1].get('valueType', 'text')" tal:attributes="name name; type python:view.schemaType(valueType)" minOccurs="0" /></tal:schema>
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+</root>
