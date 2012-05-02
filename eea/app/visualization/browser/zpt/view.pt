@@ -88,7 +88,21 @@
   </div>
 </div>
 
-<h3>Downloads</h3>
+<tal:info define="info here/@@data.info | python:{}" condition="info">
+  <tal:data define="data info/data|python:{}" condition="data">
+    <h3 i18n:translate="">Data source</h3>
+    <a tal:attributes="href data/url|string:#"
+      tal:content="data/title | data/url" />
+  </tal:data>
+
+  <tal:owner define="owner info/owner|python:{}" condition="owner" >
+    <h3 i18n:translate="">Data owner</h3>
+    <a tal:attributes="href owner/url | string:#"
+      tal:content="owner/title | owner/url" />
+  </tal:owner>
+</tal:info>
+
+<h3 i18n:translate="">Downloads</h3>
 <div class="eea-sparql-downloads">
   <a tal:attributes="href string:${context/absolute_url}/download.table">
       HTML
