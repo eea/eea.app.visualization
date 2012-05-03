@@ -89,17 +89,23 @@
 </div>
 
 <tal:info define="info here/@@data.info | python:{}" condition="info">
-  <tal:data define="data info/data|python:{}" condition="data">
-    <h3 i18n:translate="">Data source</h3>
-    <a tal:attributes="href data/url|string:#"
-      tal:content="data/title | data/url" />
-  </tal:data>
 
-  <tal:owner define="owner info/owner|python:{}" condition="owner" >
+  <tal:source
+    define="source info/source | python:{}"
+    condition="source/url | nothing">
+    <h3 i18n:translate="">Data source</h3>
+    <a tal:attributes="href source/url"
+      tal:content="source/title | source/url" />
+  </tal:source>
+
+  <tal:owner
+    define="owner info/owner | python:{}"
+    condition="owner/url | nothing" >
     <h3 i18n:translate="">Data owner</h3>
-    <a tal:attributes="href owner/url | string:#"
+    <a tal:attributes="href owner/url"
       tal:content="owner/title | owner/url" />
   </tal:owner>
+
 </tal:info>
 
 <h3 i18n:translate="">Downloads</h3>
