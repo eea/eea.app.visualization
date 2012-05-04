@@ -17,6 +17,7 @@ jQuery(document).ready(function(){
   }
 
   var tabs = sections.tabs("div.chart-panes > div.daviz-tab-view", {
+    history: true,
     onClick: function(evt, index){
       var api = this;
       var tab = this.getTabs()[index];
@@ -27,4 +28,15 @@ jQuery(document).ready(function(){
       });
     }
   });
+
+  var api = jQuery("ul.chart-tabs").data('tabs');
+  jQuery(window).bind('hashchange', function(evt){
+    jQuery.each(api.getTabs(), function(idx, tab){
+      if(jQuery(tab).attr('href') == window.location.hash){
+        api.click(idx);
+        return false;
+      }
+    });
+  });
+
 });
