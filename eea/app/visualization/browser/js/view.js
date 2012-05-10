@@ -39,4 +39,9 @@ jQuery(document).ready(function(){
     });
   });
 
+  jQuery("ul.chart-tabs a").click(function(){
+    window.location.hash = jQuery(this).attr('href');
+    return false;
+  });
+
 });
