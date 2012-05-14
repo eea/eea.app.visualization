@@ -141,6 +141,19 @@ class Configure(BrowserView):
 
         return self._redirect('Exhibit facet deleted', ajax)
 
+    def handle_viewEnable(self, **kwargs):
+        """ Enable view
+        """
+        mutator = queryAdapter(self.context, IVisualizationConfig)
+        name = kwargs.get('name', '')
+        ajax = (kwargs.get('daviz.view.enable') == 'ajax')
+        try:
+            mutator.add_view(name)
+        except Exception, err:
+            logger.exception(err)
+            return self._redirect(err, ajax)
+        return self._redirect('View enabled', ajax)
+
     def __call__(self, **kwargs):
         if self.request:
             kwargs.update(self.request.form)
@@ -149,5 +162,7 @@ class Configure(BrowserView):
             return self.handle_facets(**kwargs)
         elif kwargs.get('daviz.facet.delete', None):
             return self.handle_facetDelete(**kwargs)
+        elif kwargs.get('daviz.view.enable', None):
+            return self.handle_viewEnable(**kwargs)
 
         return self._redirect('Invalid action provided')

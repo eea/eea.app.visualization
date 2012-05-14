@@ -1,20 +1,5 @@
 <ul class="formTabs">
-  <!-- Views -->
-  <tal:editheader repeat="enabled python:view.enabled_views">
-    <li class="formTab" tal:define="
-      viewform python:view.get_view(enabled);
-      label python:viewform.label;
-      id python:enabled.replace('.', '-');
-      editform python:view.get_edit(enabled)"
-      tal:condition="editform"
-      tal:attributes="id string:$id-header">
-      <a tal:attributes="href string:#$id-tab">
-        <span tal:content="label">Edit View</span>
-      </a>
-    </li>
-  </tal:editheader>
-
-    <!-- Global settings header -->
+  <!-- Global settings header -->
   <li class="formTab" tal:define="
     name string:daviz.properties;
     editform python:view.get_edit(name);
@@ -26,27 +11,29 @@
       <span tal:content="label">Edit View</span>
     </a>
   </li>
+
+  <!-- Views -->
+  <tal:editheader repeat="term python:view.views_vocabulary">
+    <li class="formTab" tal:define="
+      enabled_views python:view.enabled_views;
+      name python:term.value;
+      viewform python:view.get_view(name);
+      label python:viewform.label;
+      id python:name.replace('.', '-');
+      editform python:view.get_edit(name);
+      enabled python:name in enabled_views"
+      tal:condition="editform"
+      tal:attributes="id string:$id-header">
+      <a tal:attributes="
+        href string:#$id-tab;
+        class python:'enabled' if enabled else 'disabled';">
+        <span tal:content="label">Edit View</span>
+      </a>
+    </li>
+  </tal:editheader>
 </ul>
 
 <div class="panes">
-
-<!-- Views body -->
-<tal:edittab repeat="enabled python:view.enabled_views">
-  <div tal:define="
-    viewform python:view.get_view(enabled);
-    label python:viewform.label;
-    id python:enabled.replace('.', '-');
-    editform python:view.get_edit(enabled)"
-    tal:attributes="id string:$id-tab"
-    tal:condition="editform"
-    class="daviz-view-edit">
-    <form method="post" class="daviz-view-form"
-      tal:define="name python:editform.__name__"
-      tal:attributes="action string:${here/absolute_url}/@@$name">
-      <tal:editform replace="structure editform" />
-    </form>
-  </div>
-</tal:edittab>
 
 <!-- Global settings body -->
 <div tal:define="
@@ -58,11 +45,6 @@
   tal:condition="editform"
   class="daviz-view-edit">
 
-  <!-- Facets -->
-  <div class="daviz-facets-edit">
-    <tal:views replace="structure here/@@daviz-edit.facets.html" />
-  </div>
-
   <form method="post" class="daviz-view-form daviz-global-settings"
     tal:define="name python:editform.__name__"
     tal:attributes="action string:${here/absolute_url}/@@$name">
@@ -70,5 +52,41 @@
   </form>
 
 </div>
+
+<!-- Views body -->
+<tal:edittab repeat="term python:view.views_vocabulary">
+  <div tal:define="
+    enabled_views python:view.enabled_views;
+    name python:term.value;
+    title python:term.title;
+    viewform python:view.get_view(name);
+    label python:viewform.label;
+    id python:name.replace('.', '-');
+    editform python:view.get_edit(name);
+    enabled python:name in enabled_views"
+    tal:attributes="id string:$id-tab"
+    tal:condition="editform"
+    class="daviz-view-edit">
+    <form method="post" class="daviz-view-form" tal:condition="enabled"
+      tal:define="name python:editform.__name__"
+      tal:attributes="action string:${here/absolute_url}/@@$name">
+      <tal:editform replace="structure editform" />
+    </form>
+    <form method="post" class="daviz-view-form-disabled" tal:condition="not:enabled"
+      tal:attributes="action string:${context/absolute_url}/@@daviz-edit.save">
+      <input type="hidden" name="name" tal:attributes="value name" />
+      <div>
+        <img tal:attributes="
+          alt name;
+          title name;
+          src string:${context/absolute_url}/++resource++$name.preview.png" />
+      </div>
+      <div>
+        <input type="submit" name="daviz.view.enable" tal:attributes="
+          value string:Enable $title" />
+      </div>
+    </form>
+  </div>
+</tal:edittab>
 
 </div>

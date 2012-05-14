@@ -56,6 +56,19 @@ class EditForm(SubPageForm):
             return 'Changes saved'
         return self.nextUrl
 
+    @action(_('Disable'), condition=haveInputWidgets)
+    def disable(self, saction, data):
+        """ Handle disable action
+        """
+        mutator = queryAdapter(self.context, IVisualizationConfig)
+        mutator.delete_view(self.prefix)
+
+        name = saction.__name__.encode('utf-8')
+        value = self.request.form.get(name, '')
+        if value == 'ajax':
+            return 'View disabled'
+        return self.nextUrl
+
     @property
     def nextUrl(self):
         """ Redirect to daviz-edit.html as next_url

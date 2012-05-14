@@ -6,6 +6,7 @@ from dateutil import parser
 from eea.app.visualization.converter.types import GuessType
 logger = logging.getLogger('eea.app.visualization')
 
+
 class GuessDate(GuessType):
     """ Utility to guess and convert text to date:
 
@@ -31,8 +32,8 @@ class GuessDate(GuessType):
             datetime.datetime(2012, 12, 13, 0, 0)
             >>> guess.convert('Dec 13, 2012')
             datetime.datetime(2012, 12, 13, 0, 0)
-            >>> guess.convert('Jan 2012')
-            datetime.datetime(2012, 1...)
+            >>> guess.convert('Jan 1973')
+            datetime.datetime(1973, 1...)
 
             >>> guess.convert('1 Ianuarie 2012')
             '1 Ianuarie 2012'
@@ -51,8 +52,8 @@ class GuessDate(GuessType):
         You can also convert given text to another text providing 'format'
         keyword:
 
-            >>> guess.convert('Dec 13, 2012', format='%Y/%m/%d')
-            '2012/12/13'
+            >>> guess.convert('Dec 13, 1601', format='%Y/%m/%d')
+            '1601-12-13'
 
         """
         try:
@@ -71,7 +72,7 @@ class GuessDate(GuessType):
         if not strftime:
             return text
 
-        return text.strftime(strftime)
+        return text.isoformat().split('T')[0]
 
 
     def __call__(self, text, label=''):

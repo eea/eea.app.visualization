@@ -11,7 +11,8 @@ DavizEdit.Events.facet = {
 };
 
 DavizEdit.Events.views = {
-  refreshed: 'daviz-views-refreshed'
+  refreshed: 'daviz-views-refreshed',
+  clicked: 'daviz-view-clicked'
 };
 
 /** Status
@@ -103,6 +104,10 @@ DavizEdit.Facets = {
 
     jQuery(document).bind(DavizEdit.Events.facet.refreshed, function(evt, data){
       self.handle_refresh(data);
+    });
+
+    jQuery(document).bind(DavizEdit.Events.views.clicked, function(evt, data){
+      self.handle_tab(data);
     });
 
     jQuery(document).trigger(DavizEdit.Events.facet.refreshed, {init: true});
@@ -207,6 +212,29 @@ DavizEdit.Facets = {
         }
       });
     });
+  },
+
+  handle_tab: function(kwargs){
+    var self = this;
+    var href = jQuery(kwargs.tab).attr('href');
+
+    if(!href){
+      return self.area.hide();
+    }
+
+    if(href === '#daviz-properties-tab'){
+      return self.area.hide();
+    }
+
+    if(href.indexOf('#daviz-') !== 0){
+      return self.area.hide();
+    }
+
+    if(jQuery(href + ' .daviz-view-form-disabled').length){
+      return self.area.hide();
+    }
+
+    return self.area.show();
   }
 };
 
@@ -430,7 +458,17 @@ DavizEdit.Views = {
     });
     jQuery('fieldset', this.area).addClass('daviz-edit-fieldset');
     jQuery('form.daviz-view-form h1', this.area).hide();
-    jQuery('ul', this.area).tabs('div.panes > div');
+    jQuery('ul', this.area).tabs('div.panes > div', {
+      onClick: function(evt, index){
+        var api = this;
+        var tab = this.getTabs()[index];
+        jQuery(document).trigger(DavizEdit.Events.views.clicked, {
+          index: index,
+          tab: tab,
+          api: api
+        });
+      }
+    });
   }
 };
 
@@ -445,15 +483,24 @@ DavizEdit.View.prototype = {
     var self = this;
     self.view = view;
     self.form = jQuery('form.daviz-view-form', self.view);
+    if(!self.form.length){
+      self.form = jQuery('form.daviz-view-form-disabled', self.view);
+    }
+
     self.table = jQuery('div.field:has(label[for=daviz.properties.sources]) table', self.form);
     if(self.table.length){
       self.table.addClass('daviz-sources-table');
       var table = new DavizEdit.SourceTable(self.table);
     }
 
+
     self.form.submit(function(){
-      self.submit();
       return false;
+    });
+
+    self.buttons = jQuery('input[type=submit]', self.form).click(function(){
+      var button = jQuery(this);
+      self.submit(button);
     });
 
     self.style();
@@ -475,7 +522,7 @@ DavizEdit.View.prototype = {
     return inputText.replace(replacePattern, '<a href="$1" target="_blank">here</a>');
   },
 
-  submit: function(){
+  submit: function(button){
     var self = this;
     var action = self.form.attr('action');
     var query = {};
@@ -489,7 +536,6 @@ DavizEdit.View.prototype = {
       }
     });
 
-    var button = jQuery('.actionButtons input[type=submit]', self.form);
     var name = button.attr('name');
     query[name] = 'ajax';
 
@@ -502,7 +548,7 @@ DavizEdit.View.prototype = {
       success: function(data){
         button.removeClass('submitting');
         DavizEdit.Status.stop(data);
-        if(name === 'daviz.properties.actions.save'){
+        if((name === 'daviz.properties.actions.save') || (name.indexOf('.enable') !== -1) || (name.indexOf('.disable') !== -1)){
           jQuery(document).trigger(DavizEdit.Events.views.refreshed, {
             init: false,
             action: action

@@ -20,15 +20,6 @@ logger = logging.getLogger('eea.app.visualization')
 class IExhibitPropertiesEdit(Interface):
     """ Edit Exhibit global properties
     """
-    views = schema.List(
-        title=u'Views',
-        description=u'Enable exhibit views',
-        unique=True,
-        value_type=schema.Choice(
-            vocabulary="eea.daviz.vocabularies.ViewsVocabulary")
-    )
-    views.order = 10
-
     json = schema.Text(
         title=u"JSON",
         description=u"Edit generated JSON",
@@ -53,7 +44,7 @@ class IExhibitPropertiesEdit(Interface):
 class EditForm(SubPageForm):
     """ Layer to edit daviz properties.
     """
-    label = u"Global settings"
+    label = u"Data settings"
     form_fields = Fields(IExhibitPropertiesEdit)
 
     def __init__(self, context, request):
@@ -100,20 +91,6 @@ class EditForm(SubPageForm):
             mutator.json = json
             notify(ObjectModifiedEvent(self.context))
 
-    def handle_views(self, data):
-        """ Handle views property
-        """
-        mutator = queryAdapter(self.context, IVisualizationConfig)
-        old = mutator.views
-        old = dict((view.get('name', ''), dict(view))
-                   for view in old)
-        mutator.delete_views()
-
-        for key in data.get('views', []):
-            properties = old.get(key, {})
-            properties.pop('name', None)
-            mutator.add_view(name=key, **properties)
-
     def handle_sources(self, data):
         """ Handle sources property
         """
@@ -147,7 +124,6 @@ class EditForm(SubPageForm):
         """ Handle save action
         """
         self.handle_json(data)
-        self.handle_views(data)
         self.handle_sources(data)
 
         # Return

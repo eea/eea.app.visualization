@@ -60,15 +60,9 @@ class GuessList(GuessType):
         """
         Is provided text a list:
 
-            >>> guess('Europe, France, Italy')
-            True
-            >>> guess('Romania; Italy; Greece')
-            True
             >>> guess("This shouldn't be a list, should it? "
             ...       "Or maybe it should, shouldn't it?")
-            True
-            >>> guess('Romania;')
-            True
+            False
 
             >>> guess('Romania')
             False
@@ -82,10 +76,5 @@ class GuessList(GuessType):
 
         """
         if label and ':list' in label.lower():
-            return True
-
-        if len(text.split(',')) > 1:
-            return True
-        if len(text.split(';')) > 1:
             return True
         return False

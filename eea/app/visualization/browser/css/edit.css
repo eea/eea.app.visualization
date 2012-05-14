@@ -94,6 +94,7 @@ dl.portalMessage dd {
 .daviz-facets-edit-ajax {
   float: right;
   width: 29%;
+  padding: 3em 0 2em 1em;
 }
 
 .daviz-facet-edit {
@@ -203,9 +204,6 @@ dl.portalMessage dd {
 .daviz-edit-tabs ul.formTabs {
   background-color: #ddd;
   border: 0.3em solid #ddd;
-}
-
-.daviz-edit-tabs ul.formTabs {
   display: block;
   border-style: solid solid none solid;
   margin-left: 0;
@@ -215,6 +213,13 @@ dl.portalMessage dd {
   -webkit-border-top-left-radius: 0.5em;
   -moz-border-radius-topleft: 0.5em;
   -moz-border-radius-topright: 0.5em;
+}
+
+#content .daviz-edit-tabs ul.formTabs a.disabled {
+  color: #999;
+}
+
+#content .daviz-edit-tabs ul.formTabs a.enabled {
 }
 
 .daviz-edit-tabs li.formTab {
@@ -246,9 +251,7 @@ dl.portalMessage dd {
 }
 
 .daviz-edit-tabs .panes {
-  border-width: 0px 1px 1px 1px;
-  border-style: solid;
-  border-color: #DDDDDD;
+  border: none;
   padding: 0.5em;
 }
 
@@ -285,4 +288,38 @@ dl.portalMessage dd {
 
 .daviz-facet-add-overlay fieldset {
   border: none;
+}
+
+.daviz-view-form-disabled {
+  text-align: center;
+}
+
+.daviz-view-form-disabled input {
+  cursor: pointer;
+  padding: 0.5em 2em;
+  margin: 1em;
+  color: #fff;
+  font-size: 24px;
+  text-shadow: 0 1px 1px #000;
+  border-radius: 10px;
+  background: #478EA5;
+  background-image: -webkit-linear-gradient(top,#478EA5,#346F83);
+  background: -webkit-linear-gradient(#478EA5, #346F83); /* Safari 5.1+, Chrome 10+ */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#478EA5', endColorstr='#346F83'); /* IE6 & IE7 */
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#478EA5', endColorstr='#346F83')"; /* IE8+ */
+  background: -moz-linear-gradient(#478EA5, #346F83) repeat scroll 0 0 transparent;
+  background-image: -ms-linear-gradient(top,#478EA5,#346F83);
+  background-image: -o-linear-gradient(top,#478EA5,#346F83);
+  background-image: linear-gradient(top,#478EA5,#346F83);
+}
+
+.daviz-view-form-disabled input:hover {
+  box-shadow: 3px 3px 5px #ccc;
+}
+
+.daviz-view-form-disabled img {
+  box-shadow: 0px 0px 20px #555;
+  padding: 1em;
+  margin-top: 1em;
+  border-radius: 10px;
 }
