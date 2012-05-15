@@ -202,10 +202,17 @@ DavizEdit.Facets = {
         data: query,
         success:  function(data){
           DavizEdit.Status.stop(data);
+          var currentTab = 0;
+          var tabs = jQuery('.daviz-views-edit ul');
+          if(tabs.length){
+            tabs = tabs.data('tabs');
+            currentTab = tabs.getIndex();
+          }
 
           jQuery(document).trigger(DavizEdit.Events.views.refresh, {
             init: false,
-            action: jQuery('form', facet).attr('action')
+            action: jQuery('form', facet).attr('action'),
+            currentTab: currentTab
           });
 
           facet.remove();
@@ -560,7 +567,7 @@ DavizEdit.View.prototype = {
         button.removeClass('submitting');
         DavizEdit.Status.stop(data);
         if((name === 'daviz.properties.actions.save') || (name.indexOf('.enable') !== -1) || (name.indexOf('.disable') !== -1)){
-          currentTab = 0;
+          var currentTab = 0;
           var tabs = jQuery('.daviz-views-edit ul');
           if(tabs.length){
             tabs = tabs.data('tabs');
