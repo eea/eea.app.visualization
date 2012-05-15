@@ -290,6 +290,10 @@ dl.portalMessage dd {
   border: none;
 }
 
+.daviz-view-form .changed {
+  background-color: #FFFFBB;
+}
+
 .daviz-view-form-disabled {
   text-align: center;
 }

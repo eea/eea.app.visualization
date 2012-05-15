@@ -5,6 +5,10 @@
   metal:use-macro="here/main_template/macros/master"
   i18n:domain="eea.daviz">
 
+<metal:jsslot fill-slot="javascript_head_slot">
+  <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+</metal:jsslot>
+
 <body>
 <div metal:fill-slot="main" class="daviz-settings">
 

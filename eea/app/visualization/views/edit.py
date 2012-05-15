@@ -3,7 +3,7 @@
 from zope.component import queryAdapter
 from zope.formlib.form import SubPageForm
 from Products.statusmessages.interfaces import IStatusMessage
-from zope.formlib.form import action, setUpWidgets, haveInputWidgets
+from zope.formlib.form import action, setUpWidgets
 from eea.app.visualization.interfaces import IVisualizationConfig
 from eea.app.visualization.config import EEAMessageFactory as _
 
@@ -43,7 +43,7 @@ class EditForm(SubPageForm):
             form=self, data=self._data, adapters=self.adapters,
             ignore_request=ignore_request)
 
-    @action(_('Save'), condition=haveInputWidgets)
+    @action(_('Save'))
     def save(self, saction, data):
         """ Handle save action
         """
@@ -56,7 +56,7 @@ class EditForm(SubPageForm):
             return 'Changes saved'
         return self.nextUrl
 
-    @action(_('Disable'), condition=haveInputWidgets)
+    @action(_('Disable'))
     def disable(self, saction, data):
         """ Handle disable action
         """

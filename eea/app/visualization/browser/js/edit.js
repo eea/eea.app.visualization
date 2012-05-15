@@ -11,6 +11,7 @@ DavizEdit.Events.facet = {
 };
 
 DavizEdit.Events.views = {
+  refresh: 'daviz-views-refresh',
   refreshed: 'daviz-views-refreshed',
   clicked: 'daviz-view-clicked'
 };
@@ -202,7 +203,7 @@ DavizEdit.Facets = {
         success:  function(data){
           DavizEdit.Status.stop(data);
 
-          jQuery(document).trigger(DavizEdit.Events.views.refreshed, {
+          jQuery(document).trigger(DavizEdit.Events.views.refresh, {
             init: false,
             action: jQuery('form', facet).attr('action')
           });
@@ -424,10 +425,10 @@ DavizEdit.Views = {
   initialize: function(){
     var self = this;
 
-    jQuery(document).bind(DavizEdit.Events.views.refreshed, function(evt, data){
+    jQuery(document).bind(DavizEdit.Events.views.refresh, function(evt, data){
       self.update_views(data);
     });
-    jQuery(document).trigger(DavizEdit.Events.views.refreshed, {init: true});
+    jQuery(document).trigger(DavizEdit.Events.views.refresh, {init: true});
   },
 
   update_views: function(form){
@@ -443,6 +444,7 @@ DavizEdit.Views = {
       jQuery.get(action, {}, function(data){
         self.area.html(data);
         self.update_tabs();
+        jQuery(document).trigger(DavizEdit.Events.views.refreshed, form);
         DavizEdit.Status.stop("Done");
       });
     }else{
@@ -452,13 +454,13 @@ DavizEdit.Views = {
 
   update_tabs: function(){
     var self = this;
-    jQuery('.daviz-view-edit', this.area).each(function(){
+    jQuery('.daviz-view-edit', self.area).each(function(){
       var view = jQuery(this);
       self.views[view.attr('id')] = new DavizEdit.View(view);
     });
-    jQuery('fieldset', this.area).addClass('daviz-edit-fieldset');
-    jQuery('form.daviz-view-form h1', this.area).hide();
-    jQuery('ul', this.area).tabs('div.panes > div', {
+    jQuery('fieldset', self.area).addClass('daviz-edit-fieldset');
+    jQuery('form.daviz-view-form h1', self.area).hide();
+    jQuery('ul', self.area).tabs('div.panes > div', {
       onClick: function(evt, index){
         var api = this;
         var tab = this.getTabs()[index];
@@ -468,6 +470,10 @@ DavizEdit.Views = {
           api: api
         });
       }
+    });
+    jQuery(document).bind(DavizEdit.Events.views.refreshed, function(evt, data){
+      var index = data.currentTab || 0;
+      jQuery('ul', self.area).data('tabs').click(index);
     });
   }
 };
@@ -498,9 +504,13 @@ DavizEdit.View.prototype = {
       return false;
     });
 
-    self.buttons = jQuery('input[type=submit]', self.form).click(function(){
+    self.buttons = jQuery('.actionButtons input[type=submit]', self.form).click(function(){
       var button = jQuery(this);
       self.submit(button);
+    });
+
+    self.inputs = jQuery(':input', self.form).change(function(evt){
+      jQuery('fieldset', self.form).addClass('changed');
     });
 
     self.style();
@@ -546,12 +556,21 @@ DavizEdit.View.prototype = {
       url: action,
       data: query,
       success: function(data){
+        jQuery('fieldset', self.form).removeClass('changed');
         button.removeClass('submitting');
         DavizEdit.Status.stop(data);
         if((name === 'daviz.properties.actions.save') || (name.indexOf('.enable') !== -1) || (name.indexOf('.disable') !== -1)){
-          jQuery(document).trigger(DavizEdit.Events.views.refreshed, {
+          currentTab = 0;
+          var tabs = jQuery('.daviz-views-edit ul');
+          if(tabs.length){
+            tabs = tabs.data('tabs');
+            currentTab = tabs.getIndex();
+          }
+
+          jQuery(document).trigger(DavizEdit.Events.views.refresh, {
             init: false,
-            action: action
+            action: action,
+            currentTab: currentTab
           });
         }
       }

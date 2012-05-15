@@ -81,7 +81,7 @@
           title name;
           src string:${context/absolute_url}/++resource++$name.preview.png" />
       </div>
-      <div>
+      <div class="actionButtons">
         <input type="submit" name="daviz.view.enable" tal:attributes="
           value string:Enable $title" />
       </div>
