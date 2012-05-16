@@ -327,3 +327,8 @@ dl.portalMessage dd {
   margin-top: 1em;
   border-radius: 10px;
 }
+
+.daviz-views-edit .formTab.ui-state-highlight {
+  padding: 0 4em;
+  border: none;
+}

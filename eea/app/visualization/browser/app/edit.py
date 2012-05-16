@@ -7,6 +7,7 @@ from zope.component import queryAdapter, queryMultiAdapter
 from Products.statusmessages.interfaces import IStatusMessage
 from zope.schema.interfaces import IVocabularyFactory
 from Products.Five.browser import BrowserView
+from zope.schema.vocabulary import SimpleTerm
 from eea.app.visualization.interfaces import IVisualizationConfig
 from eea.app.visualization.events import VisualizationFacetDeletedEvent
 logger = logging.getLogger('eea.app.visualization')
@@ -36,6 +37,22 @@ class Edit(BrowserView):
         """
         accessor = queryAdapter(self.context, IVisualizationConfig)
         return [view.get('name') for view in accessor.views]
+
+    @property
+    def sorted_views(self):
+        """ Return all views sorted by enabled views as a SimpleVocabulary
+        """
+        views = self.views_vocabulary
+        mapping = dict((term.value, term.title) for term in views)
+
+        enabled = self.enabled_views
+        for name in enabled:
+            yield SimpleTerm(name, name, mapping.get(name, name))
+
+        for view in views:
+            if view.value in enabled:
+                continue
+            yield SimpleTerm(view.value, "", view.title)
 
     def get_view(self, name):
         """ Return given view
@@ -154,6 +171,39 @@ class Configure(BrowserView):
             return self._redirect(err, ajax)
         return self._redirect('View enabled', ajax)
 
+    def handle_views(self, **kwargs):
+        """ Sort views
+        """
+        mutator = queryAdapter(self.context, IVisualizationConfig)
+        order = kwargs.get('order', [])
+        ajax = (kwargs.get('daviz.views.save') == 'ajax')
+
+        if not order:
+            return self._redirect(
+                'Views settings not saved: Nothing to do', ajax)
+
+        if not isinstance(order, list):
+            return self._redirect(
+                'Views order not saved: Nothing to do', ajax)
+
+        if len(order) == 1:
+            return self._redirect(
+                'Views order not saved: Nothing to do', ajax)
+
+        views = mutator.views
+        views = dict((view.get('name'), dict(view)) for view in views)
+        mutator.delete_views()
+
+        for name in order:
+            properties = views.get(name, {})
+            if not properties:
+                continue
+            mutator.add_view(**properties)
+
+        return self._redirect('Views order changed', ajax)
+
+
+
     def __call__(self, **kwargs):
         if self.request:
             kwargs.update(self.request.form)
@@ -164,5 +214,7 @@ class Configure(BrowserView):
             return self.handle_facetDelete(**kwargs)
         elif kwargs.get('daviz.view.enable', None):
             return self.handle_viewEnable(**kwargs)
+        elif kwargs.get('daviz.views.save', None):
+            return self.handle_views(**kwargs)
 
         return self._redirect('Invalid action provided')

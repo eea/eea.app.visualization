@@ -1,3 +1,4 @@
+<tal:views define="views python:[term for term in view.sorted_views]">
 <ul class="formTabs">
   <!-- Global settings header -->
   <li class="formTab" tal:define="
@@ -13,17 +14,15 @@
   </li>
 
   <!-- Views -->
-  <tal:editheader repeat="term python:view.views_vocabulary">
+  <tal:editheader repeat="term views">
     <li class="formTab" tal:define="
-      enabled_views python:view.enabled_views;
       name python:term.value;
-      viewform python:view.get_view(name);
-      label python:viewform.label;
+      label python:term.title;
+      enabled python:term.token;
       id python:name.replace('.', '-');
-      editform python:view.get_edit(name);
-      enabled python:name in enabled_views"
+      editform python:view.get_edit(name)"
       tal:condition="editform"
-      tal:attributes="id string:$id-header">
+      tal:attributes="id string:$id-header; data-name name">
       <a tal:attributes="
         href string:#$id-tab;
         class python:'enabled' if enabled else 'disabled';">
@@ -54,16 +53,14 @@
 </div>
 
 <!-- Views body -->
-<tal:edittab repeat="term python:view.views_vocabulary">
+<tal:edittab repeat="term views">
   <div tal:define="
-    enabled_views python:view.enabled_views;
     name python:term.value;
     title python:term.title;
-    viewform python:view.get_view(name);
-    label python:viewform.label;
+    enabled python:term.token;
+    label title;
     id python:name.replace('.', '-');
-    editform python:view.get_edit(name);
-    enabled python:name in enabled_views"
+    editform python:view.get_edit(name)"
     tal:attributes="id string:$id-tab"
     tal:condition="editform"
     class="daviz-view-edit">
@@ -90,3 +87,4 @@
 </tal:edittab>
 
 </div>
+</tal:views>

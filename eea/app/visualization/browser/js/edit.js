@@ -204,15 +204,18 @@ DavizEdit.Facets = {
           DavizEdit.Status.stop(data);
           var currentTab = 0;
           var tabs = jQuery('.daviz-views-edit ul');
+          var tab = null;
           if(tabs.length){
             tabs = tabs.data('tabs');
             currentTab = tabs.getIndex();
+            tab = tabs.getCurrentTab();
           }
 
           jQuery(document).trigger(DavizEdit.Events.views.refresh, {
             init: false,
             action: jQuery('form', facet).attr('action'),
-            currentTab: currentTab
+            currentTab: currentTab,
+            tab: tab
           });
 
           facet.remove();
@@ -435,31 +438,36 @@ DavizEdit.Views = {
     jQuery(document).bind(DavizEdit.Events.views.refresh, function(evt, data){
       self.update_views(data);
     });
-    jQuery(document).trigger(DavizEdit.Events.views.refresh, {init: true});
+    jQuery(document).trigger(DavizEdit.Events.views.refresh, {
+      init: true,
+      action: jQuery('.daviz-views-edit form').attr('action'),
+      currentTab: 0,
+      tab: null
+    });
   },
 
   update_views: function(form){
     var self = this;
     self.views = {};
     self.area = jQuery('.daviz-views-edit').addClass('daviz-views-edit-ajax');
+    var action = form.action;
+    var i = action.indexOf('@@');
+    action = action.slice(0, i) + '@@daviz-edit.views.html';
 
     if(!form.init){
-      var action = form.action;
-      var i = action.indexOf('@@');
-      action = action.slice(0, i) + '@@daviz-edit.views.html';
       DavizEdit.Status.start('Refreshing ...');
       jQuery.get(action, {}, function(data){
         self.area.html(data);
-        self.update_tabs();
+        self.update_tabs(action);
         jQuery(document).trigger(DavizEdit.Events.views.refreshed, form);
         DavizEdit.Status.stop("Done");
       });
     }else{
-      self.update_tabs();
+      self.update_tabs(action);
     }
   },
 
-  update_tabs: function(){
+  update_tabs: function(action){
     var self = this;
     jQuery('.daviz-view-edit', self.area).each(function(){
       var view = jQuery(this);
@@ -467,7 +475,10 @@ DavizEdit.Views = {
     });
     jQuery('fieldset', self.area).addClass('daviz-edit-fieldset');
     jQuery('form.daviz-view-form h1', self.area).hide();
-    jQuery('ul', self.area).tabs('div.panes > div', {
+
+    // Make tabs
+    var ul = jQuery('ul', self.area);
+    ul.tabs('div.panes > div', {
       onClick: function(evt, index){
         var api = this;
         var tab = this.getTabs()[index];
@@ -478,9 +489,62 @@ DavizEdit.Views = {
         });
       }
     });
+
+    // Make tabs sortable
+    jQuery('li:not(#daviz-properties-header)', ul)
+      .attr('title', 'Click and drag to change tabs order');
+    ul.sortable({
+      items: 'li.formTab:not(#daviz-properties-header)',
+      placeholder: 'formTab ui-state-highlight',
+      cursor: 'crosshair',
+      tolerance: 'pointer',
+      delay: 300,
+      update: function(event, ui){
+        var order = jQuery('li:not(#daviz-properties-header)', ul);
+        self.sort(order, action);
+      }
+    });
+
     jQuery(document).bind(DavizEdit.Events.views.refreshed, function(evt, data){
       var index = data.currentTab || 0;
-      jQuery('ul', self.area).data('tabs').click(index);
+      var tab = data.tab;
+      var tabs = jQuery('ul', self.area).data('tabs');
+      if(tab){
+        jQuery.each(tabs.getTabs(), function(i, item){
+          if(jQuery(tab).attr('href') == jQuery(item).attr('href')){
+            tabs.click(i);
+            return false;
+          }
+        });
+      }else{
+        tabs.click(index);
+      }
+    });
+  },
+
+  sort: function(order, action){
+    var self = this;
+    var i = action.indexOf('@@');
+    action = action.slice(0, i) + '@@daviz-edit.save';
+
+    order = jQuery.map(order, function(item){
+      return jQuery(item).attr('data-name');
+    });
+
+    var query = {
+      'daviz.views.save': 'ajax',
+      order: order
+    };
+
+    DavizEdit.Status.start('Saving ...');
+    jQuery.ajax({
+      traditional: true,
+      type: 'post',
+      url: action,
+      data: query,
+      success: function(data){
+       DavizEdit.Status.stop(data);
+      }
     });
   }
 };
@@ -569,15 +633,18 @@ DavizEdit.View.prototype = {
         if((name === 'daviz.properties.actions.save') || (name.indexOf('.enable') !== -1) || (name.indexOf('.disable') !== -1)){
           var currentTab = 0;
           var tabs = jQuery('.daviz-views-edit ul');
+          var tab = null;
           if(tabs.length){
             tabs = tabs.data('tabs');
             currentTab = tabs.getIndex();
+            tab = tabs.getCurrentTab();
           }
 
           jQuery(document).trigger(DavizEdit.Events.views.refresh, {
             init: false,
             action: action,
-            currentTab: currentTab
+            currentTab: currentTab,
+            tab: tab
           });
         }
       }
