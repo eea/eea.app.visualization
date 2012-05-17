@@ -7,6 +7,9 @@
 
 <metal:jsslot fill-slot="javascript_head_slot">
   <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+  <script type="text/javascript">
+    google.load('visualization', '1.0', {packages: ['charteditor', 'controls']});
+  </script>
 </metal:jsslot>
 
 <body>
