@@ -14,7 +14,7 @@ logger = logging.getLogger('eea.app.visualization')
 class JSONView(BrowserView):
     """ Abstract view to provide "daviz-view.json" multiadapter
     """
-    def json(self):
+    def json(self, column_types=None):
         """ Implement this method in order to provide a valid exhibit JSON
         """
         res = {'items': [], 'properties': {}}
@@ -28,7 +28,7 @@ class View(JSONView):
         super(View, self).__init__(context, request)
         self.accessor = queryAdapter(self.context, IVisualizationConfig)
 
-    def json(self):
+    def json(self, column_types=None):
         """ Returns json dump of result
         """
         res = self.accessor.json
@@ -164,9 +164,20 @@ class RelatedItemsJSON(JSONView):
     """ Merged JSON from related items
     """
     @ramcache(cacheJsonKey, dependencies=['eea.daviz'])
-    def json(self):
+    def json(self, column_types=None):
         """ JSON
         """
+        my_json = queryMultiAdapter(
+            (self.context, self.request), name=u'daviz-view.json')
+        if my_json:
+            try:
+                my_json = simplejson.loads(my_json())
+            except Exception, err:
+                logger.exception(err)
+                my_json = {}
+        else:
+            my_json = {}
+
         relatedItems = self.context.getRelatedItems()
 
         new_json = {'items': [], 'properties': {}}
@@ -178,7 +189,13 @@ class RelatedItemsJSON(JSONView):
                 continue
 
             try:
-                daviz_json = simplejson.loads(daviz_json())
+                column_types = dict(
+                    (key, value.get('valueType', 'text'))
+                    for key, value in my_json.get('properties', {}).items()
+                )
+                daviz_json = simplejson.loads(daviz_json(
+                    column_types=column_types
+                ))
             except Exception, err:
                 logger.exception(err)
                 continue
@@ -187,15 +204,7 @@ class RelatedItemsJSON(JSONView):
             new_json['properties'].update(daviz_json.get('properties', {}))
 
         # Also add my own daviz-view.json to this json
-        my_json = queryMultiAdapter(
-            (self.context, self.request), name=u'daviz-view.json')
-        if my_json:
-            try:
-                my_json = simplejson.loads(my_json())
-            except Exception, err:
-                logger.exception(err)
-            else:
-                new_json['items'].extend(my_json.get('items', []))
-                new_json['properties'].update(my_json.get('properties', {}))
+        new_json['items'].extend(my_json.get('items', []))
+        new_json['properties'].update(my_json.get('properties', {}))
 
         return simplejson.dumps(new_json)

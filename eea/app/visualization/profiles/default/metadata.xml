@@ -1,8 +1,9 @@
 <?xml version="1.0"?>
 <metadata>
   <description>EEA Visualization API</description>
-  <version>4.0</version>
+  <version>4.3</version>
   <dependencies>
     <dependency>profile-collective.js.jqueryui:default</dependency>
+    <dependency>profile-eea.jquery:17-jqgrid</dependency>
   </dependencies>
 </metadata>

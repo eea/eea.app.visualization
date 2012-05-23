@@ -3,6 +3,10 @@ Changelog
 
 4.3-dev - (unreleased)
 ----------------------
+* Feature: Allow the user to confirm and adjust auto-detected column types
+  [voineali refs #5024]
+* Upgrade step: Within "Plone > Site setup > Add-ons" click on
+  upgrade button available for eea.app.visualization
 * Feature: Added unique URLs for tabs in view mode in order to easily bookmark
   and share them. Also support browser history (back and forward buttons)
   [voineali refs #4851]

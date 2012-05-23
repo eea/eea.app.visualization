@@ -1,0 +1,18 @@
+<configure
+  xmlns="http://namespaces.zope.org/zope"
+  xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+  i18n_domain="eea">
+
+  <genericsetup:upgradeSteps
+    source="4.0"
+    destination="4.3"
+    profile="eea.app.visualization:default">
+
+    <genericsetup:upgradeDepends
+      title="Install eea.jquery jqgrid plugin"
+      import_profile="eea.jquery:17-jqgrid"
+      />
+
+  </genericsetup:upgradeSteps>
+
+</configure>

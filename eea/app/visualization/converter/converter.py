@@ -90,7 +90,7 @@ class ExhibitJsonConverter(object):
             sample.append(row)
         return sample
 
-    def __call__(self, datafile):
+    def __call__(self, datafile, column_types=None):
         """
         Returns: columns_headers_with_type, exhibit_dict:
 
@@ -164,9 +164,11 @@ class ExhibitJsonConverter(object):
         out = []
         properties = {}
 
-        sample = self.sample(datafile)
         guess = getUtility(IGuessTypes)
-        column_types = guess(sample)
+
+        if not column_types:
+            sample = self.sample(datafile)
+            column_types = guess(sample)
 
         datafile.seek(0)
         reader = csv.reader(datafile, dialect=self.dialect(datafile))
@@ -209,8 +211,10 @@ class ExhibitJsonConverter(object):
                 util = queryUtility(IGuessType, name=typo)
 
                 fallback = None
-                if typo in ('boolean', 'latitude', 'longitude', 'number'):
+                if typo in ('latitude', 'longitude', 'number'):
                     fallback = 0
+                elif typo in ('boolean',):
+                    fallback = False
                 elif typo in ('latlong',):
                     fallback = '0, 0'
                 elif typo in ('date',):

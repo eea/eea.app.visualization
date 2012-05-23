@@ -12,5 +12,6 @@
   <include package=".storage" />
   <include package=".subtypes" />
   <include package=".views" />
+  <include package=".upgrades" />
 
 </configure>

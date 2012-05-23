@@ -564,6 +564,10 @@ DavizEdit.View.prototype = {
       self.form = jQuery('form.daviz-view-form-disabled', self.view);
     }
 
+    self.jsondata = jQuery('div.field:has(label[for=daviz.properties.json])', self.form);
+    if(self.jsondata.length){
+      var jsondata = new DavizEdit.JsonGrid(self.jsondata);
+    }
     self.table = jQuery('div.field:has(label[for=daviz.properties.sources]) table', self.form);
     if(self.table.length){
       self.table.addClass('daviz-sources-table');
@@ -648,6 +652,154 @@ DavizEdit.View.prototype = {
           });
         }
       }
+    });
+  }
+};
+
+DavizEdit.JsonGrid = function(context){
+  this.initialize(context);
+};
+
+DavizEdit.JsonGrid.prototype = {
+  initialize: function(context){
+    var self = this;
+    self.context = context;
+
+    self.textarea = jQuery('textarea', self.context).hide();
+    self.textdialog = self.textarea.clone().width('99%').height('99%').show();
+    self.textdialog.wrap('<div title="Edit JSON" />');
+    self.textdialog.parent().dialog({
+      bgiframe: true,
+      autoOpen: false,
+      modal: true,
+      width: 600,
+      dialogClass: 'daviz-confirm-overlay',
+      close: function(evt, ui){
+        DavizEdit.Status.start('Reloading table ...');
+        self.textdialog.change();
+        self.reload();
+        DavizEdit.Status.stop('Done');
+      }
+    });
+
+    self.textdialog.change(function(){
+      self.textarea.val(self.textdialog.val());
+    });
+
+    jQuery('.formHelp', self.context).css('cursor', 'pointer').click(function(){
+      self.textdialog.parent().dialog('open');
+      return false;
+    });
+
+    self.gridview = jQuery('<div>').appendTo(self.context);
+
+    self.relatedItems = {};
+    var action = self.context.parents('form').attr('action');
+    var i = action.indexOf('@@');
+    action = action.slice(0, i) + '@@daviz-relateditems.json';
+    DavizEdit.Status.start('Loading ...');
+    jQuery.getJSON(action, {}, function(data){
+        self.relatedItems = data;
+        self.reload();
+        DavizEdit.Status.stop('Done');
+      });
+  },
+
+  reload: function(){
+    var self = this;
+    self.gridview.empty();
+    self.table = jQuery('<table>').attr('id', 'jsontable').appendTo(self.gridview);
+    self.pager = jQuery('<div>').attr('id', 'jsonpager').appendTo(self.gridview);
+
+    var data = JSON.parse(self.textdialog.val());
+    var colNames = Object.keys(data.properties || {});
+
+    var dataTypes = {};
+    jQuery.each(colNames, function(index, key){
+      dataTypes[key] = data.properties[key].valueType;
+    });
+
+    var colModel = jQuery.map(colNames, function(key, index){
+      return {
+        id: key,
+        name: key,
+        index: key,
+        editable: false,
+        sortable: true,
+        stype: 'select',
+        edittype: "select",
+        align: 'center',
+        searchoptions: {
+          defaultValue: dataTypes[key],
+          dataEvents: [
+            {'type': 'change', fn: function(e){
+              var name = e.target.name;
+              var value = jQuery(e.target).val();
+              data.properties[name].valueType = value;
+              self.textdialog.val(JSON.stringify(data, null, "  "));
+              self.textdialog.change();
+            }}
+          ]
+        },
+        editoptions: {
+          value: {
+            'boolean': 'Boolean',
+            'number': 'Number',
+            'date': 'Date',
+            'text': 'Text',
+            'url': 'URL'
+          }
+        }
+      };
+    });
+
+    //
+    self.table.jqGrid({
+      datatype: "local",
+      gridview: true,
+      colNames: colNames,
+      colModel: colModel,
+      autowidth: true,
+      rowNum:10,
+      rownumbers: true,
+      pager: self.pager,
+      editurl: '#',
+      onSelectRow: function(id){
+        return;
+      }
+    });
+
+    // // Populate table with remote data
+    jQuery.each(self.relatedItems.items, function(index, item){
+      if(index > 11){
+        return false;
+      }
+      self.table.jqGrid('addRowData', index+1, item);
+    });
+
+    self.table.setGridParam({ rowNum: 6 }).trigger("reloadGrid");
+
+    // Column types
+    self.table.jqGrid('filterToolbar', {
+      searchOnEnter: false,
+      autosearch: false
+    });
+
+    // Table buttons
+    self.table.jqGrid('navGrid', '#jsonpager', {
+      refresh: false,
+      edit: true,
+      add: false,
+      del: false,
+      search: false,
+      edittitle: 'Edit JSON',
+      editfunc: function(index){
+        self.textdialog.parent().dialog('open');
+      }
+    });
+    self.gridview.delegate('#edit_jsontable', 'mouseover', function(){
+      var row = self.table.jqGrid('getDataIDs')[0];
+      self.table.jqGrid('setSelection', row);
     });
   }
 };

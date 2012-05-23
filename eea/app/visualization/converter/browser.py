@@ -13,13 +13,13 @@ class TSVFileJSONView(JSONView):
     """ daviz-view.json for Tab separated files which is not daviz enabled
     """
     @ramcache(cacheJsonKey, dependencies=['eea.daviz'])
-    def json(self):
+    def json(self, column_types=None):
         """ Convert file to JSON
         """
         datafile = StringIO(self.context.getFile().data)
         converter = queryUtility(IExhibitJsonConverter)
         try:
-            _cols, json = converter(datafile)
+            _cols, json = converter(datafile, column_types)
         except Exception, err:
             logger.debug(err)
             return super(TSVFileJSONView, self).json()

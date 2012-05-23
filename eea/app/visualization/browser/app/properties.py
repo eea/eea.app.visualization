@@ -21,8 +21,10 @@ class IExhibitPropertiesEdit(Interface):
     """ Edit Exhibit global properties
     """
     json = schema.Text(
-        title=u"JSON",
-        description=u"Edit generated JSON",
+        title=u"Data table (preview)",
+        description=(u"Confirm and adjust table column types. "
+                     "Click <a href='#'>here</a> to inspect and "
+                     "edit generate JSON"),
         required=False
     )
     json.order = 20
@@ -81,7 +83,10 @@ class EditForm(SubPageForm):
         """ Handle json property
         """
         mutator = queryAdapter(self.context, IVisualizationConfig)
-        json = data.get('json', '{}')
+        json = data.get('json', None)
+        if json is None:
+            return
+
         try:
             json = dict(simplejson.loads(json))
         except Exception, err:
@@ -95,7 +100,10 @@ class EditForm(SubPageForm):
         """ Handle sources property
         """
         mutator = queryAdapter(self.context, IVisualizationConfig)
-        sources = data.get('sources', [])
+        sources = data.get('sources', None)
+        if sources is None:
+            return
+
         sources = set(sources)
         mutator.delete_sources()
         for source in sources:

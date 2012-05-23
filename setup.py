@@ -33,6 +33,7 @@ setup(name=NAME,
           "python-dateutil",
           'p4a.z2utils',
           'collective.js.jqueryui',
+          'eea.jquery',
           # -*- Extra requirements: -*-
       ],
       extras_require={
