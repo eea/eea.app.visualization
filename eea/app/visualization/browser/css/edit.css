@@ -269,21 +269,16 @@ dl.portalMessage dd {
 
 .daviz-confirm-overlay, .daviz-facet-add-overlay {
   border-radius: 10px;
-  box-shadow: 0px 2px 2px #888;
+  box-shadow: 0px 0px 100px #000;
 }
 
 .daviz-confirm-overlay .ui-dialog-titlebar,
 .daviz-facet-add-overlay .ui-dialog-titlebar {
-  color:black;
-  font-size:1.2em;
-  margin:0 2px;
-  padding:0.2em 0.5em;
-  background-color:#CDE2A7;
-  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#FFFFFF), to(#CDE2A7));
-  background-image: -webkit-linear-gradient(center top , #FFFFFF, #CDE2A7);
-  background-image: -moz-linear-gradient(center top , #FFFFFF, #CDE2A7);
-  background-image: -ms-linear-gradient(center top , #FFFFFF, #CDE2A7);
-  background-image: -o-linear-gradient(center top , #FFFFFF, #CDE2A7);
+  background-color: #fff;
+  background-image: none;
+  border: none;
+  border-bottom: 1px solid #ccc;
+  font-size: 16px;
 }
 
 .daviz-facet-add-overlay fieldset {
@@ -331,4 +326,12 @@ dl.portalMessage dd {
 .daviz-views-edit .formTab.ui-state-highlight {
   padding: 0 4em;
   border: none;
+}
+
+.daviz-jsongrid th.ui-state-default,
+.daviz-jsongrid td.ui-state-default,
+.daviz-jsongrid div.ui-state-default {
+  background-image: none;
+  background-color: #777c1f;
+  color: #fff;
 }

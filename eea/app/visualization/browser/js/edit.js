@@ -664,9 +664,10 @@ DavizEdit.JsonGrid.prototype = {
   initialize: function(context){
     var self = this;
     self.context = context;
+    self.context.addClass('daviz-jsongrid');
 
     self.textarea = jQuery('textarea', self.context).hide();
-    self.textdialog = self.textarea.clone().width('99%').height('99%').show();
+    self.textdialog = self.textarea.clone().width('98%').height('98%').show();
     self.textdialog.wrap('<div title="Edit JSON" />');
     self.textdialog.parent().dialog({
       bgiframe: true,
