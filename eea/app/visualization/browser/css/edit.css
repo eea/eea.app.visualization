@@ -281,6 +281,11 @@ dl.portalMessage dd {
   font-size: 16px;
 }
 
+.daviz-confirm-overlay .formHelp {
+  font-size: 120%;
+  color: black;
+}
+
 .daviz-facet-add-overlay fieldset {
   border: none;
 }
