@@ -3,6 +3,8 @@ Changelog
 
 4.3-dev - (unreleased)
 ----------------------
+* Bug fix: fixed markup of HISTORY.txt file
+  [ciobabog refs #5231]
 * Feature: Allow the user to confirm and adjust auto-detected column types
   [voineali refs #5024]
 * Upgrade step: Within "Plone > Site setup > Add-ons" click on
