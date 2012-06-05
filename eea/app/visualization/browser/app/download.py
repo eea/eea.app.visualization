@@ -66,12 +66,9 @@ class Download(BrowserView):
         row = []
         headers = self.data.get('properties', {}).keys()
         for col in headers:
-            header = u'%s:%s' % (col,
-                                 self.data.get('properties', {}).get(
-                                     col, {}).get(
-                                         'valueType', 'text'
-                                     )
-                                 )
+            hprops = self.data.get('properties', {}).get(col, {})
+            header = u'%s:%s' % (col, hprops.get('valueType', 'text')
+                                 if isinstance(hprops, dict) else hprops)
             row.append(header)
         writter.writerow(row)
 
@@ -112,7 +109,9 @@ class Download(BrowserView):
         for item in self.data.get('items', []):
             convertedItem = {}
             for header in headers:
-                valueType = headers[header].get('valueType', 'text')
+                hprops = headers.get(header, {})
+                valueType = (hprops.get('valueType', 'text')
+                             if isinstance(hprops, dict) else hprops)
                 convertedItem[header] = {
                     "type": "typed-literal",
                     "datatype": self.xmlType(valueType),

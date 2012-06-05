@@ -10,7 +10,7 @@
   </head>
   <results>
     <result tal:repeat="item view/table"><tal:body repeat="header python:headers.items()">
-        <binding tal:define="name python:header[0]; valueType python:header[1].get('valueType', 'text')" tal:attributes="name name">
+        <binding tal:define="name python:header[0]; valueType python:header[1].get('valueType', 'text') if isinstance(header[1], dict) else header[1]" tal:attributes="name name">
           <literal tal:attributes="datatype python:view.xmlType(valueType);" tal:content="python:item.get(name, '')" />
         </binding></tal:body>
     </result>

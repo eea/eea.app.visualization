@@ -3,6 +3,8 @@ Changelog
 
 4.3-dev - (unreleased)
 ----------------------
+* Bug fix: Fixed 'unicode' object has no attribute 'get' error on download.json
+  [voineali fixes #5223]
 * Bug fix: fixed markup of HISTORY.txt file
   [ciobabog refs #5231]
 * Feature: Allow the user to confirm and adjust auto-detected column types

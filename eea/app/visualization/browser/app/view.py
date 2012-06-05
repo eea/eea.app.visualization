@@ -190,7 +190,8 @@ class RelatedItemsJSON(JSONView):
 
             try:
                 column_types = dict(
-                    (key, value.get('valueType', 'text'))
+                    (key, value.get('valueType', 'text')
+                     if isinstance(value, dict) else value)
                     for key, value in my_json.get('properties', {}).items()
                 )
                 daviz_json = simplejson.loads(daviz_json(
