@@ -16,7 +16,7 @@ class GuessBoolean(GuessType):
         <eea.app.visualization.converter.types.boolean.GuessBoolean object...>
 
     """
-    order = 20
+    order = 65
 
     def convert(self, text, fallback=None, **options):
         """

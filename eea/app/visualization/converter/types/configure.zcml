@@ -9,9 +9,6 @@
   <utility name="url"
     provides=".interfaces.IGuessType" factory=".url.GuessURL" />
 
-  <utility name="boolean"
-    provides=".interfaces.IGuessType" factory=".boolean.GuessBoolean" />
-
   <utility name="latitude"
     provides=".interfaces.IGuessType" factory=".latitude.GuessLatitude" />
 
@@ -23,6 +20,9 @@
 
   <utility name="number"
     provides=".interfaces.IGuessType" factory=".number.GuessNumber" />
+
+  <utility name="boolean"
+    provides=".interfaces.IGuessType" factory=".boolean.GuessBoolean" />
 
   <utility name="date"
     provides=".interfaces.IGuessType" factory=".date.GuessDate" />

@@ -3,8 +3,10 @@ Changelog
 
 4.4-dev - (unreleased)
 ----------------------
-* Bug Fix: Fixed i18n missing tags and i18n:domain in *.pt 
+* Bug Fix: Fixed i18n missing tags and i18n:domain in *.pt
   [prospchr refs #5162]
+* Bug fix: Fixed auto-detection of numbers by lowering boolean priority
+  [voineali refs #5316]
 
 4.3 - (2012-06-12)
 ------------------
