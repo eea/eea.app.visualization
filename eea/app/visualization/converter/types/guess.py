@@ -119,8 +119,8 @@ class GuessTypes(object):
         for row in csvtable:
             for index, cell in enumerate(row):
                 label = header[index]
-                label, typo = self.column_type(label)
-                mapping.setdefault(label, {typo: 0})
+                title, typo = self.column_type(label)
+                mapping.setdefault(title, {typo: 0})
                 for name, guess in utilities:
                     # Skip latitude and longitude guess utilities
                     # as they can mess our auto-detection
@@ -132,8 +132,8 @@ class GuessTypes(object):
                     elif name == 'number' and 'date' in typo:
                         continue
                     if guess(cell, label):
-                        mapping[label].setdefault(name, 0)
-                        mapping[label][name] += 1
+                        mapping[title].setdefault(name, 0)
+                        mapping[title][name] += 1
                         break
 
         res = {}

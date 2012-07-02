@@ -748,7 +748,8 @@ DavizEdit.JsonGrid.prototype = {
             'number': 'Number',
             'date': 'Date',
             'text': 'Text',
-            'url': 'URL'
+            'url': 'URL',
+            'list': 'List'
           }
         }
       };
