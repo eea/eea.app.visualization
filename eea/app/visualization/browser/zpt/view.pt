@@ -117,7 +117,7 @@
   <a tal:attributes="href string:${context/absolute_url}/download.exhibit" tal:content="string:Exhibit JSON"></a>
   <a tal:attributes="href string:${context/absolute_url}/download.xml" tal:content="string:XML"></a>
   <a tal:attributes="href string:${context/absolute_url}/download.schema.xml" i18n:translate="">
-      XML with Schema
+      XML with schema
   </a>
 </div>
 
