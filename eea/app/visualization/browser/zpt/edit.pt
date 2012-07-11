@@ -14,8 +14,8 @@
 
 <body>
 <div metal:fill-slot="main" class="daviz-settings">
-
-<h1 i18n:translate="">
+   
+<h1 i18n:translate="" id="daviz-page-title" class="documentFirstHeading"> 
   Configure exhibit
 </h1>
 
