@@ -3,6 +3,8 @@ Changelog
 
 4.4-dev - (unreleased)
 ----------------------
+* Change: Improved the labelling and display of downloadable data.
+  [demarant]
 * Bug fix: Added list type in 'Data table (preview)' in order to be used with
   Exhibit framework and also fix detection of columns that explicitly define
   column type in header using ':' syntax (e.g. topics:list)

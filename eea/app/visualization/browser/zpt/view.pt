@@ -108,18 +108,30 @@
 
 </tal:info>
 
-<h3 i18n:translate="">Downloads</h3>
+<h3 i18n:translate="">Data download</h3>
+<label i18n:translate="">Formats suitable for human consumption</label>
 <div class="eea-sparql-downloads">
-  <a tal:attributes="href string:${context/absolute_url}/download.table" tal:content="string:HTML"></a>
-  <a tal:attributes="href string:${context/absolute_url}/download.csv" tal:content="string:CSV"></a>
-  <a tal:attributes="href string:${context/absolute_url}/download.tsv" tal:content="string:TSV"></a>
-  <a tal:attributes="href string:${context/absolute_url}/download.json" tal:content="string:JSON"></a>
-  <a tal:attributes="href string:${context/absolute_url}/download.exhibit" tal:content="string:Exhibit JSON"></a>
-  <a tal:attributes="href string:${context/absolute_url}/download.xml" tal:content="string:XML"></a>
-  <a tal:attributes="href string:${context/absolute_url}/download.schema.xml" i18n:translate="">
-      XML with schema
-  </a>
+    <a tal:attributes="href string:${context/absolute_url}/download.table"
+        tal:content="string:HTML"></a>
+    <a tal:attributes="href string:${context/absolute_url}/download.csv"
+        tal:content="string:CSV"></a>
+    <a tal:attributes="href string:${context/absolute_url}/download.tsv"
+        tal:content="string:TSV"></a>
 </div>
+<br />
+<label i18n:translate="">Formats suitable for machine-to-machine communication</label>
+<div class="eea-sparql-downloads">
+    <a tal:attributes="href string:${context/absolute_url}/download.json"
+        tal:content="string:JSON"></a>
+    <a tal:attributes="href string:${context/absolute_url}/download.exhibit"
+        tal:content="string:Exhibit JSON"></a>
+    <a tal:attributes="href string:${context/absolute_url}/download.xml"
+        tal:content="string:XML"></a>
+    <a tal:attributes="href string:${context/absolute_url}/download.schema.xml"
+        i18n:translate="">
+         XML with Schema
+    </a>
+</div>  
 
 </div>
 </body>
