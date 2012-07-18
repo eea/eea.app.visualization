@@ -687,11 +687,6 @@ DavizEdit.JsonGrid.prototype = {
       self.textarea.val(self.textdialog.val());
     });
 
-    jQuery('.formHelp', self.context).css('cursor', 'pointer').click(function(){
-      self.textdialog.parent().dialog('open');
-      return false;
-    });
-
     self.gridview = jQuery('<div>').appendTo(self.context);
 
     self.relatedItems = {};
@@ -726,7 +721,7 @@ DavizEdit.JsonGrid.prototype = {
         name: key,
         index: key,
         editable: false,
-        sortable: true,
+        sortable: false,
         stype: 'select',
         edittype: "select",
         align: 'center',
@@ -755,23 +750,30 @@ DavizEdit.JsonGrid.prototype = {
       };
     });
 
-    //
     self.table.jqGrid({
       datatype: "local",
       gridview: true,
       colNames: colNames,
       colModel: colModel,
       autowidth: true,
-      rowNum:10,
+      rowNum: 10,
       rownumbers: true,
       pager: self.pager,
       editurl: '#',
       onSelectRow: function(id){
         return;
+      },
+      gridComplete: function(){
+        var header = jQuery('.ui-jqgrid-sortable', self.gridview);
+        header.attr('title', 'Click to edit');
+        header.unbind('click');
+        header.click(function(){
+          self.edit_header(this);
+        });
       }
     });
 
-    // // Populate table with remote data
+    // Populate table with remote data
     jQuery.each(self.relatedItems.items, function(index, item){
       if(index > 11){
         return false;
@@ -803,6 +805,31 @@ DavizEdit.JsonGrid.prototype = {
       var row = self.table.jqGrid('getDataIDs')[0];
       self.table.jqGrid('setSelection', row);
     });
+  },
+
+  edit_header: function(header){
+    var self = this;
+    header = jQuery(header);
+    var text = header.text();
+    header.empty();
+    var input = jQuery('<input>')
+      .attr('type', 'text')
+      .val(text)
+      .appendTo(header)
+      .focus()
+      .blur(function(){
+        header.text(jQuery(this).val());
+      })
+      .change(function(){
+        self.save_header(header, text, jQuery(this).val());
+        jQuery(this).blur();
+      });
+  },
+
+  save_header: function(header, oldValue, newValue){
+    console.warn('Save header: Not implemented yet');
+    console.log('Old header: ' + oldValue);
+    console.log('New header: ' + newValue);
   }
 };
 

@@ -22,9 +22,12 @@ class IExhibitPropertiesEdit(Interface):
     """
     json = schema.Text(
         title=u"Data table (preview)",
-        description=(u"Confirm and adjust table column types. "
-                     "Click <a href='#'>here</a> to inspect and "
-                     "edit generate JSON"),
+        description=(u"<ul>"
+                       "<li>Click on the bottom-left pencil to "
+                           "inspect and edit generate JSON.</li>"
+                       "<li>Click on the table's columns headers to adjust "
+                       "their labels (user friendly-names)</li>"
+                     "</ul>"),
         required=False
     )
     json.order = 20
