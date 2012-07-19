@@ -6,6 +6,7 @@ if(window.DavizEdit === undefined){
 /** Events
 */
 DavizEdit.Events.facet = {
+  changed: 'daviz-facet-changed',
   deleted: 'daviz-facet-deleted',
   refreshed: 'daviz-facets-refreshed'
 };
@@ -350,8 +351,20 @@ DavizEdit.Facet.prototype = {
       return false;
     });
 
+    // Events
+    jQuery(document).bind(DavizEdit.Events.facet.changed, function(evt, data){
+      self.submit(data);
+    });
+
     jQuery(':input', this.form).change(function(){
-      self.submit();
+      var form = jQuery(this).parents('form');
+      var label = jQuery('input[name*=.label]', form);
+      var key = label.attr('name').replace('.label', '');
+      var value = label.val();
+      jQuery(document).trigger(DavizEdit.Events.facet.changed, {
+        key: key,
+        value: value
+      });
       return false;
     });
   },
@@ -410,8 +423,17 @@ DavizEdit.Facet.prototype = {
     title.prepend(icon);
   },
 
-  submit: function(){
+  submit: function(options){
     var self = this;
+
+    if(options){
+      var label = jQuery('input[name=' + options.key + '.label]', this.form);
+      if(!label.length){
+        return;
+      }
+      label.val(options.value);
+    }
+
     var name = this.button.attr('name');
     var query = name + '=ajax&';
     query += this.form.serialize();
@@ -477,7 +499,7 @@ DavizEdit.Views = {
     jQuery('form.daviz-view-form h1', self.area).hide();
 
     // Make tabs
-    var ul = jQuery('ul', self.area);
+    var ul = jQuery('ul.formTabs', self.area);
     ul.tabs('div.panes > div', {
       onClick: function(evt, index){
         var api = this;
@@ -699,6 +721,11 @@ DavizEdit.JsonGrid.prototype = {
         self.reload();
         DavizEdit.Status.stop('Done');
       });
+
+    // Events
+    jQuery(document).bind(DavizEdit.Events.facet.changed, function(evt, data){
+      self.save_header(data);
+    });
   },
 
   reload: function(){
@@ -716,9 +743,11 @@ DavizEdit.JsonGrid.prototype = {
     });
 
     var colModel = jQuery.map(colNames, function(key, index){
+      var label = jQuery('input[name=' + key + '.label]');
+      label = label ? label.val() : key;
       return {
-        id: key,
         name: key,
+        label: label,
         index: key,
         editable: false,
         sortable: false,
@@ -753,7 +782,6 @@ DavizEdit.JsonGrid.prototype = {
     self.table.jqGrid({
       datatype: "local",
       gridview: true,
-      colNames: colNames,
       colModel: colModel,
       autowidth: true,
       rowNum: 10,
@@ -821,15 +849,18 @@ DavizEdit.JsonGrid.prototype = {
         header.text(jQuery(this).val());
       })
       .change(function(){
-        self.save_header(header, text, jQuery(this).val());
-        jQuery(this).blur();
+        var key = header.attr('id').replace('jqgh_jsontable_', '');
+        jQuery(document).trigger(DavizEdit.Events.facet.changed, {
+          key: key,
+          value: jQuery(this).val()
+        });
       });
   },
 
-  save_header: function(header, oldValue, newValue){
-    console.warn('Save header: Not implemented yet');
-    console.log('Old header: ' + oldValue);
-    console.log('New header: ' + newValue);
+  save_header: function(options){
+    var self = this;
+    var header = jQuery('#jqgh_jsontable_' + options.key, self.gridview);
+    header.text(options.value);
   }
 };
 

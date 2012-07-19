@@ -3,6 +3,9 @@ Changelog
 
 4.5-dev - (unreleased)
 ----------------------
+* Bug fix: Made table's columns headers editable within 'Data settings' panel in
+  order to be able to edit them without having to add an Exhibit View
+  [voineali refs #5363]
 
 4.4 - (2012-07-13)
 ------------------
