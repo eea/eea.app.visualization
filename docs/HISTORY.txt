@@ -3,6 +3,9 @@ Changelog
 
 4.5-dev - (unreleased)
 ----------------------
+* Bug fix: Fixed 'Data settings' table when there are many columns by adding a
+  bottom scrollbar
+  [voineali refs #5363]
 * Change: Moved 'Data settings' tab to the end as it seems it confuses users
   about the next steps they have to take in order to create new visualizations
   [voineali refs #5363]

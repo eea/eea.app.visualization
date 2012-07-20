@@ -709,7 +709,10 @@ DavizEdit.JsonGrid.prototype = {
       self.textarea.val(self.textdialog.val());
     });
 
-    self.gridview = jQuery('<div>').appendTo(self.context);
+    self.gridview = jQuery('<div>')
+      .addClass('daviz-data-table')
+      .appendTo(self.context)
+      .width(self.context.parents('.daviz-view-edit').width());
 
     self.relatedItems = {};
     var action = self.context.parents('form').attr('action');

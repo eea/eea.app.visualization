@@ -340,3 +340,8 @@ dl.portalMessage dd {
   background-color: #777c1f;
   color: #fff;
 }
+
+.daviz-data-table {
+  width: 100%;
+  overflow: auto;
+}
