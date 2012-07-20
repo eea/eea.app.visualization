@@ -3,6 +3,9 @@ Changelog
 
 4.5-dev - (unreleased)
 ----------------------
+* Change: Moved 'Data settings' tab to the end as it seems it confuses users
+  about the next steps they have to take in order to create new visualizations
+  [voineali refs #5363]
 * Bug fix: Made table's columns headers editable within 'Data settings' panel in
   order to be able to edit them without having to add an Exhibit View
   [voineali refs #5363]

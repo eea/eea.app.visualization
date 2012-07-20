@@ -1,17 +1,5 @@
 <tal:views define="views python:[term for term in view.sorted_views]">
 <ul class="formTabs">
-  <!-- Global settings header -->
-  <li class="formTab" tal:define="
-    name string:daviz.properties;
-    editform python:view.get_edit(name);
-    label python:editform.label;
-    id python:name.replace('.', '-');"
-    tal:condition="editform"
-    tal:attributes="id string:$id-header">
-    <a tal:attributes="href string:#$id-tab">
-      <span tal:content="label">Edit View</span>
-    </a>
-  </li>
 
   <!-- Views -->
   <tal:editheader repeat="term views">
@@ -30,27 +18,23 @@
       </a>
     </li>
   </tal:editheader>
+
+  <!-- Global settings header -->
+  <li class="formTab" tal:define="
+    name string:daviz.properties;
+    editform python:view.get_edit(name);
+    label python:editform.label;
+    id python:name.replace('.', '-');"
+    tal:condition="editform"
+    tal:attributes="id string:$id-header">
+    <a tal:attributes="href string:#$id-tab">
+      <span tal:content="label">Edit View</span>
+    </a>
+  </li>
+
 </ul>
 
 <div class="panes">
-
-<!-- Global settings body -->
-<div tal:define="
-  name string:daviz.properties;
-  editform python:view.get_edit(name);
-  label python:editform.label;
-  id python:name.replace('.', '-');"
-  tal:attributes="id string:$id-tab"
-  tal:condition="editform"
-  class="daviz-view-edit">
-
-  <form method="post" class="daviz-view-form daviz-global-settings"
-    tal:define="name python:editform.__name__"
-    tal:attributes="action string:${here/absolute_url}/@@$name">
-    <tal:editform replace="structure editform" />
-  </form>
-
-</div>
 
 <!-- Views body -->
 <tal:edittab repeat="term views">
@@ -85,6 +69,24 @@
     </form>
   </div>
 </tal:edittab>
+
+<!-- Global settings body -->
+<div tal:define="
+  name string:daviz.properties;
+  editform python:view.get_edit(name);
+  label python:editform.label;
+  id python:name.replace('.', '-');"
+  tal:attributes="id string:$id-tab"
+  tal:condition="editform"
+  class="daviz-view-edit">
+
+  <form method="post" class="daviz-view-form daviz-global-settings"
+    tal:define="name python:editform.__name__"
+    tal:attributes="action string:${here/absolute_url}/@@$name">
+    <tal:editform replace="structure editform" />
+  </form>
+
+</div>
 
 </div>
 </tal:views>
