@@ -1,6 +1,9 @@
 Changelog
 =========
 
+4.6-dev - (unreleased)
+----------------------
+
 4.5 - (2012-07-23)
 ------------------
 * Bug fix: Fixed 'Data settings' table when there are many columns by adding a
