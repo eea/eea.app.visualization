@@ -5,6 +5,8 @@ import csv
 import logging
 from zope.component import queryMultiAdapter
 from Products.Five.browser import BrowserView
+from eea.app.visualization.converter.converter import sortProperties
+
 logger = logging.getLogger('eea.app.visualization')
 
 class ExcelTSV(csv.excel):
@@ -38,7 +40,25 @@ class Download(BrowserView):
     def headers(self):
         """ JSON headers
         """
-        return self.data.get('properties', {})
+        props = self.data.get('properties', {})
+        propsList = []
+        def_order = 0
+        for key, item in props.items():
+            prop = []
+            prop.append(item.get('order', def_order))
+            prop.append(key)
+            prop.append(item['valueType'])
+            propsList.append(prop)
+            def_order += 1
+        propsList.sort()
+        finalProps = []
+        for prop in propsList:
+            finalProp = []
+            finalProp.append(prop[1])
+            finalProp.append(prop[2])
+            finalProps.append(finalProp)
+        return finalProps
+#        return self.data.get('properties', {})
 
     def table(self):
         """ Download as HTML table
@@ -64,10 +84,11 @@ class Download(BrowserView):
 
         writter = csv.writer(self.request.response, dialect=dialect)
         row = []
-        headers = self.data.get('properties', {}).keys()
+        headers = self.headers
+#        headers = self.data.get('properties', {}).keys()
         for col in headers:
-            hprops = self.data.get('properties', {}).get(col, {})
-            header = u'%s:%s' % (col, hprops.get('valueType', 'text')
+            hprops = self.data.get('properties', {}).get(col[0], {})
+            header = u'%s:%s' % (col[0], hprops.get('valueType', 'text')
                                  if isinstance(hprops, dict) else hprops)
             row.append(header)
         writter.writerow(row)
@@ -75,7 +96,7 @@ class Download(BrowserView):
         for item in self.data['items']:
             row = []
             for col in headers:
-                row.append(unicode(item.get(col, '')))
+                row.append(unicode(item.get(col[0], '')))
             writter.writerow(row)
         return ''
 
@@ -95,9 +116,13 @@ class Download(BrowserView):
             'attachment; filename="%s.json"' % self.context.getId())
 
         headers = self.headers
+        header_vars = []
+        for header in headers:
+            header_vars.append(header[0])
+
         data = {
             'head': {
-                'vars': headers.keys(),
+                'vars': header_vars,
             },
             'results': {
                 'bindings': [
@@ -109,17 +134,19 @@ class Download(BrowserView):
         for item in self.data.get('items', []):
             convertedItem = {}
             for header in headers:
-                hprops = headers.get(header, {})
+                hprops = self.data.get('properties', {}).get(header[0], {})
+
+#                hprops = headers.get(header, {})
                 valueType = (hprops.get('valueType', 'text')
                              if isinstance(hprops, dict) else hprops)
-                convertedItem[header] = {
+                convertedItem[header[0]] = {
                     "type": "typed-literal",
                     "datatype": self.xmlType(valueType),
-                    "value": item.get(header, "")
+                    "value": item.get(header[0], "")
                 }
             data['results']['bindings'].append(convertedItem)
 
-        return json.dumps(data, indent=2)
+        return sortProperties(json.dumps(data, indent=2))
 
     def exhibit(self):
         """ Download as Exhibit JSON
@@ -129,7 +156,7 @@ class Download(BrowserView):
         self.request.response.setHeader(
             'Content-Disposition',
             'attachment; filename="%s.exhibit.json"' % self.context.getId())
-        return json.dumps(self.data, indent=2)
+        return sortProperties(json.dumps(self.data, indent=2))
 
     def xml(self):
         """ Download as XML

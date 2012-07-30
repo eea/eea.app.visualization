@@ -8,6 +8,7 @@ from Products.CMFCore.utils import getToolByName
 from Products.Five.browser import BrowserView
 from eea.app.visualization.interfaces import IVisualizationConfig
 from eea.app.visualization.cache import ramcache, cacheJsonKey
+from eea.app.visualization.converter.converter import sortProperties
 
 logger = logging.getLogger('eea.app.visualization')
 
@@ -18,7 +19,7 @@ class JSONView(BrowserView):
         """ Implement this method in order to provide a valid exhibit JSON
         """
         res = {'items': [], 'properties': {}}
-        return simplejson.dumps(res)
+        return sortProperties(simplejson.dumps(res))
 
 
 class View(JSONView):
@@ -32,7 +33,7 @@ class View(JSONView):
         """ Returns json dump of result
         """
         res = self.accessor.json
-        return simplejson.dumps(dict(res))
+        return sortProperties(simplejson.dumps(dict(res)))
 
     @property
     def facets(self):
@@ -208,4 +209,4 @@ class RelatedItemsJSON(JSONView):
         new_json['items'].extend(my_json.get('items', []))
         new_json['properties'].update(my_json.get('properties', {}))
 
-        return simplejson.dumps(new_json)
+        return sortProperties(simplejson.dumps(new_json))

@@ -7,6 +7,8 @@ from zope.component import queryUtility
 from eea.app.visualization.converter.interfaces import IExhibitJsonConverter
 from eea.app.visualization.cache import ramcache, cacheJsonKey
 from eea.app.visualization.browser.app.view import JSONView
+from eea.app.visualization.converter.converter import sortProperties
+
 logger = logging.getLogger('eea.app.visualization')
 
 class TSVFileJSONView(JSONView):
@@ -23,4 +25,4 @@ class TSVFileJSONView(JSONView):
         except Exception, err:
             logger.debug(err)
             return super(TSVFileJSONView, self).json()
-        return simplejson.dumps(json)
+        return sortProperties(simplejson.dumps(json))

@@ -7,7 +7,7 @@
     headers view/headers">
   <dataroot>
     <resources tal:repeat="item view/table"><tal:body repeat="header headers">
-      <tal:element replace="structure python:'&lt;%s&gt;%s&lt;/%s&gt;' % (header, item.get(header, ''), header)" /></tal:body>
+      <tal:element replace="structure python:'&lt;%s&gt;%s&lt;/%s&gt;' % (header[0], item.get(header[0], ''), header[0])" /></tal:body>
     </resources>
   </dataroot>
   <xsd:schema>
@@ -20,7 +20,7 @@
     </xsd:element>
     <xsd:element name="resources">
       <xsd:complexType>
-        <xsd:sequence><tal:schema repeat="header python:headers.items()">
+        <xsd:sequence><tal:schema repeat="header python:headers">
             <xsd:element tal:define="name python:header[0]; valueType python:header[1].get('valueType', 'text') if isinstance(header[1], dict) else header[1]" tal:attributes="name name; type python:view.schemaType(valueType)" minOccurs="0" /></tal:schema>
         </xsd:sequence>
       </xsd:complexType>

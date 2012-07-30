@@ -2,6 +2,7 @@
 """
 import logging
 import csv
+import json as simplejson
 from StringIO import StringIO
 from zope.component import getUtility, queryUtility
 from zope.interface import implements
@@ -198,6 +199,7 @@ class ExhibitJsonConverter(object):
             if not hasLabel:
                 data['label'] = index
 
+            col_nr = 0
             for col, typo in columns:
                 text = row.next()
 
@@ -224,8 +226,42 @@ class ExhibitJsonConverter(object):
                         if util else text)
                 data[col] = text
 
-                properties[col] = {"valueType": valueType}
+                properties[col] = {"valueType": valueType, "order": col_nr}
+                col_nr += 1
 
             out.append(data)
 
         return columns, {'items': out, 'properties': properties}
+
+def sortProperties(strJson):
+    """
+    In the json string set the correct order to the columns
+    """
+    try:
+        json = simplejson.loads(strJson)
+        properties = json['properties']
+
+        newProperties = []
+        for key, item in properties.items():
+            prop = []
+            prop.append(item['order'])
+            prop.append(key)
+            prop.append(item['valueType'])
+            newProperties.append(prop)
+        newProperties.sort()
+        json['properties'] = ''
+        newJsonStr = simplejson.dumps(json)
+        newPropStr = '"properties": '
+        newPropStr += "{"
+        for prop in newProperties:
+            newPropStr += '"' + prop[1] + '": '
+            newPropStr += '{'
+            newPropStr += '"valueType": "' + prop[2] +'", '
+            newPropStr += '"order": ' + str(prop[0])
+            newPropStr += '}, '
+        newPropStr = newPropStr[:-2]
+        newPropStr += "}"
+        newJsonStr = newJsonStr.replace('"properties": ""', newPropStr)
+        return newJsonStr
+    except Exception:
+        return strJson
