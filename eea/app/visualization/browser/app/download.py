@@ -146,7 +146,7 @@ class Download(BrowserView):
                 }
             data['results']['bindings'].append(convertedItem)
 
-        return sortProperties(json.dumps(data, indent=2))
+        return sortProperties(json.dumps(data, indent=2), indent=2)
 
     def exhibit(self):
         """ Download as Exhibit JSON
@@ -156,7 +156,7 @@ class Download(BrowserView):
         self.request.response.setHeader(
             'Content-Disposition',
             'attachment; filename="%s.exhibit.json"' % self.context.getId())
-        return sortProperties(json.dumps(self.data, indent=2))
+        return sortProperties(json.dumps(self.data, indent=2), indent=2)
 
     def xml(self):
         """ Download as XML

@@ -233,14 +233,20 @@ class ExhibitJsonConverter(object):
 
         return columns, {'items': out, 'properties': properties}
 
-def sortProperties(strJson):
+def sortProperties(strJson, indent = 0):
     """
-    In the json string set the correct order to the columns
+    In the json string set the correct order of the columns
     """
     try:
         json = simplejson.loads(strJson)
         properties = json['properties']
-
+        indentStr1 = ""
+        indentStr2 = ""
+        indentStr3 = ""
+        if indent > 0:
+            indentStr1 = "\n" + " " * indent
+            indentStr2 = "\n" + " " * indent * 2
+            indentStr3 = "\n" + " " * indent * 3
         newProperties = []
         for key, item in properties.items():
             prop = []
@@ -250,17 +256,17 @@ def sortProperties(strJson):
             newProperties.append(prop)
         newProperties.sort()
         json['properties'] = ''
-        newJsonStr = simplejson.dumps(json)
+        newJsonStr = simplejson.dumps(json, indent = indent)
         newPropStr = '"properties": '
         newPropStr += "{"
         for prop in newProperties:
-            newPropStr += '"' + prop[1] + '": '
+            newPropStr += indentStr2 + '"' + prop[1] + '": '
             newPropStr += '{'
-            newPropStr += '"valueType": "' + prop[2] +'", '
-            newPropStr += '"order": ' + str(prop[0])
+            newPropStr += indentStr3 + '"valueType": "' + prop[2] +'", '
+            newPropStr += indentStr3 + '"order": ' + str(prop[0]) + indentStr2
             newPropStr += '}, '
         newPropStr = newPropStr[:-2]
-        newPropStr += "}"
+        newPropStr += indentStr1 + "}"
         newJsonStr = newJsonStr.replace('"properties": ""', newPropStr)
         return newJsonStr
     except Exception:

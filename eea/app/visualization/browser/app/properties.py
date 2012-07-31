@@ -13,6 +13,7 @@ from zope.lifecycleevent import ObjectModifiedEvent
 from zope.formlib.form import action as formaction
 from zope.formlib.form import setUpWidgets, haveInputWidgets
 from eea.app.visualization.interfaces import IVisualizationConfig
+from eea.app.visualization.converter.converter import sortProperties
 
 from eea.app.visualization.config import EEAMessageFactory as _
 logger = logging.getLogger('eea.app.visualization')
@@ -65,9 +66,10 @@ class EditForm(SubPageForm):
         """ Form data
         """
         accessor = queryAdapter(self.context, IVisualizationConfig)
+        json = simplejson.dumps(dict(accessor.json), indent=2)
         return {
             'name': self.prefix,
-            'json': simplejson.dumps(dict(accessor.json), indent=2),
+            'json': sortProperties(json, indent=2),
             'views': [view.get('name') for view in accessor.views],
             'sources':
                 [source.get('name') for source in accessor.sources],
