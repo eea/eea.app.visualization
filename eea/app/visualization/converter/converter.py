@@ -199,7 +199,7 @@ class ExhibitJsonConverter(object):
             if not hasLabel:
                 data['label'] = index
 
-            col_nr = 0
+            order = 0
             for col, typo in columns:
                 text = row.next()
 
@@ -226,8 +226,8 @@ class ExhibitJsonConverter(object):
                         if util else text)
                 data[col] = text
 
-                properties[col] = {"valueType": valueType, "order": col_nr}
-                col_nr += 1
+                properties[col] = {"valueType": valueType, "order": order}
+                order += 1
 
             out.append(data)
 
