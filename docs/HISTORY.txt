@@ -3,6 +3,8 @@ Changelog
 
 4.6-dev - (unreleased)
 ----------------------
+* Bugfix: Fixed columns order
+  [szabozo0 #5137]
 
 4.5 - (2012-07-23)
 ------------------
