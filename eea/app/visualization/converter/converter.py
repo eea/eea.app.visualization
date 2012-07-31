@@ -131,13 +131,13 @@ class ExhibitJsonConverter(object):
             popul => number
 
             >>> jsondict['properties']['year']
-            {'valueType': 'date'}
+            {'valueType': 'date', 'order': 1}
 
             >>> jsondict['items'][0]['year']
             '2010-...'
 
             >>> jsondict['properties']['latit']
-            {'valueType': u'text'}
+            {'valueType': u'text', 'order': 3}
 
             >>> jsondict['items'][0]['longitude']
             '27.983333'
@@ -154,7 +154,7 @@ class ExhibitJsonConverter(object):
             [('label', 'text'), ('year', u'number'), ('country', 'text')]
 
             >>> jsondict['properties']['year']
-            {'valueType': u'number'}
+            {'valueType': u'number', 'order': 1}
 
         """
         if isinstance(datafile, (unicode, str)):
