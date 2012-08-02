@@ -108,7 +108,7 @@
 
 </tal:info>
 
-<h3 i18n:translate="">Data download</h3>
+<h3 i18n:translate="">Data source download</h3>
 <label i18n:translate="">Formats suitable for human consumption</label>
 <div class="eea-sparql-downloads">
     <a tal:attributes="href string:${context/absolute_url}/download.table"
