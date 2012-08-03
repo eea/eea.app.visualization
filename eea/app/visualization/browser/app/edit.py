@@ -1,9 +1,11 @@
 """ Module for Edit logic of browser/app package
 """
 import logging
+import json
 from zope import event
 from zope.component import queryUtility
 from zope.component import queryAdapter, queryMultiAdapter
+from zope.component import getMultiAdapter
 from Products.statusmessages.interfaces import IStatusMessage
 from zope.schema.interfaces import IVocabularyFactory
 from Products.Five.browser import BrowserView
@@ -11,6 +13,14 @@ from zope.schema.vocabulary import SimpleTerm
 from eea.app.visualization.interfaces import IVisualizationConfig
 from eea.app.visualization.events import VisualizationFacetDeletedEvent
 logger = logging.getLogger('eea.app.visualization')
+
+DAVIZ_WARNING_WRONG_DATASET = """Data is missing, or is not well formated."""
+DAVIZ_WARNING_NO_DATA = """Your data contains no rows."""
+DAVIZ_WARNING_DATA_2000 = """Your data contains more than 2000 rows. 
+    The visualisation may be slow in Internet Explorer below version 9."""
+DAVIZ_WARNING_DATA_4000 = """Your data contains more than 4000 rows.
+    The visualisation may be slow or become unresponsive."""
+
 
 class Edit(BrowserView):
     """ Edit page
@@ -91,6 +101,23 @@ class Edit(BrowserView):
         if form:
             form.prefix = facetname.replace('.', '-')
         return form
+
+    def hasErrors(self):
+        """ Check if data has any issues
+        """
+        results = getMultiAdapter((self.context, self.request),
+                                    name = "daviz-relateditems.json")()
+        results_json = json.loads(results)
+        items_nr = len(results_json['items'])
+        if not results_json['properties']:
+            return DAVIZ_WARNING_WRONG_DATASET
+        if items_nr:
+            return DAVIZ_WARNING_NO_DATA
+        if items_nr > 2000 and items_nr < 4001:
+            return DAVIZ_WARNING_DATA_2000
+        if items_nr > 4000:
+            return DAVIZ_WARNING_DATA_4000
+        return ""
 
 class Configure(BrowserView):
     """ Edit controller

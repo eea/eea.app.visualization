@@ -3,6 +3,8 @@ Changelog
 
 4.6-dev - (unreleased)
 ----------------------
+* Feature: Improved UX of daviz regarding errors
+  [szabozo0 #5372]
 * Bugfix: Fixed columns order
   [szabozo0 #5137]
 

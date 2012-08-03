@@ -345,3 +345,9 @@ dl.portalMessage dd {
   width: 100%;
   overflow: auto;
 }
+
+.daviz-warning-helper {
+    font-size:90%;
+    font-weight:normal;
+    margin-top:5px;
+}
