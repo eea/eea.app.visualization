@@ -111,7 +111,7 @@ class Edit(BrowserView):
         items_nr = len(results_json['items'])
         if not results_json['properties']:
             return DAVIZ_WARNING_WRONG_DATASET
-        if items_nr:
+        if items_nr == 0:
             return DAVIZ_WARNING_NO_DATA
         if items_nr > 2000 and items_nr < 4001:
             return DAVIZ_WARNING_DATA_2000
