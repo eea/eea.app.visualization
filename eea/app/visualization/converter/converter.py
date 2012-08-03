@@ -265,7 +265,8 @@ def sortProperties(strJson, indent = 0):
             newPropStr += indentStr3 + '"valueType": "' + prop[2] +'", '
             newPropStr += indentStr3 + '"order": ' + str(prop[0]) + indentStr2
             newPropStr += '}, '
-        newPropStr = newPropStr[:-2]
+        if newProperties:
+            newPropStr = newPropStr[:-2]
         newPropStr += indentStr1 + "}"
         newJsonStr = newJsonStr.replace('"properties": ""', newPropStr)
         return newJsonStr
