@@ -108,8 +108,8 @@ class Edit(BrowserView):
         results = getMultiAdapter((self.context, self.request),
                                     name = "daviz-relateditems.json")()
         results_json = json.loads(results)
-        items_nr = len(results_json['items'])
-        if not results_json['properties']:
+        items_nr = len(results_json.get('items', []))
+        if not results_json.get('properties', {}):
             return DAVIZ_WARNING_WRONG_DATASET
         if items_nr == 0:
             return DAVIZ_WARNING_NO_DATA
