@@ -31,7 +31,6 @@ setup(name=NAME,
       install_requires=[
           'setuptools',
           "python-dateutil",
-          'p4a.z2utils',
           'collective.js.jqueryui',
           'eea.jquery',
           # -*- Extra requirements: -*-

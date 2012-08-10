@@ -3,6 +3,20 @@
   xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
   i18n_domain="eea">
 
+  <!-- 4.3 => 4.6 -->
+  <genericsetup:upgradeSteps
+    source="4.3"
+    destination="4.6"
+    profile="eea.app.visualization:default">
+
+    <genericsetup:upgradeStep
+      title="Fix layout for old style IVisualizationEnabled objects (remove p4a.z2utils dependency)"
+      handler="eea.app.visualization.upgrades.evolve46.fix_layout"
+      />
+
+  </genericsetup:upgradeSteps>
+
+  <!-- 4.0 => 4.3 -->
   <genericsetup:upgradeSteps
     source="4.0"
     destination="4.3"

@@ -1,0 +1,15 @@
+""" Events handlers
+"""
+def set_default_layout(doc, evt):
+    """ EVENT: Visualization enabled
+    """
+    if hasattr(doc, 'setLayout'):
+        doc.setLayout('daviz-view.html')
+    doc.reindexObject(['object_provides', ])
+
+def unset_default_layout(doc, evt):
+    """ EVENT: Visualization disabled
+    """
+    if doc.hasProperty('layout'):
+        doc.manage_delProperties(['layout'])
+    doc.reindexObject(['object_provides', ])

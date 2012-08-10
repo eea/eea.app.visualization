@@ -12,6 +12,7 @@ from eea.app.visualization.storage.interfaces import IVisualizationConfig
 from eea.app.visualization.events.interfaces import (
     IVisualizationEvent,
     IVisualizationEnabledEvent,
+    IVisualizationDisabledEvent,
     IVisualizationFacetDeletedEvent,
 )
 
@@ -31,6 +32,7 @@ __all__ = (
     IVisualizationConfig.__name__,
     IVisualizationEvent.__name__,
     IVisualizationEnabledEvent.__name__,
+    IVisualizationDisabledEvent.__name__,
     IVisualizationFacetDeletedEvent.__name__,
     IGuessType.__name__,
     IGuessTypes.__name__,

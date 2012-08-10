@@ -3,6 +3,11 @@ Changelog
 
 4.6-dev - (unreleased)
 ----------------------
+* Upgrade step: Within "Plone > Site setup > Add-ons" click on
+  upgrade button available for eea.app.visualization
+  [voineali refs #5419]
+* Feature: Removed p4a.z2utils dependency
+  [voineali fixes #5419]
 * Feature: Improved UX of daviz regarding errors
   [szabozo0 #5372]
 * Bugfix: Fixed columns order

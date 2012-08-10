@@ -12,6 +12,7 @@ from zope.publisher.interfaces import NotFound
 
 from eea.app.visualization.converter.interfaces import IExhibitJsonConverter
 from eea.app.visualization.events import VisualizationEnabledEvent
+from eea.app.visualization.events import VisualizationDisabledEvent
 from eea.app.visualization.interfaces import IVisualizationConfig
 from eea.app.visualization.interfaces import IVisualizationEnabled
 from eea.app.visualization.subtypes.interfaces import IVisualizationSubtyper
@@ -128,10 +129,11 @@ class DavizSupport(DavizPublicSupport):
         mutator = queryAdapter(self.context, IVisualizationConfig)
         mutator.json = json
         notify(VisualizationEnabledEvent(self.context, columns=columns))
-        return self._redirect('Enabled Exhibit view')
+        return self._redirect('Visualization enabled')
 
     def disable(self):
         """ Disable Exhibit
         """
         noLongerProvides(self.context, IVisualizationEnabled)
-        return self._redirect('Removed Exhibit view', to='')
+        notify(VisualizationDisabledEvent(self.context))
+        return self._redirect('Visualization disabled', to='')

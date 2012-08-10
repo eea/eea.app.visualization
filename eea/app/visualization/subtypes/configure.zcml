@@ -48,4 +48,16 @@
     allowed_interface="eea.app.visualization.subtypes.interfaces.IVisualizationSubtyper"
     />
 
+  <subscriber
+    for="..interfaces.IVisualizationEnabled
+         ..interfaces.IVisualizationEnabledEvent"
+    handler=".events.set_default_layout"
+    />
+
+  <subscriber
+    for="..interfaces.IPossibleVisualization
+         ..interfaces.IVisualizationDisabledEvent"
+    handler=".events.unset_default_layout"
+    />
+
 </configure>
