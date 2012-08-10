@@ -36,7 +36,13 @@ setup(name=NAME,
           # -*- Extra requirements: -*-
       ],
       extras_require={
-          'test': ['plone.app.testing',]
+          'test': [
+              'plone.app.testing',
+              ],
+          'zope2': [
+              #'z3c.autoinclude',
+              'plone.i18n',
+          ]
       },
       entry_points="""
       # -*- Entry points: -*-
