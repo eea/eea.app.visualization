@@ -2,8 +2,8 @@
 """
 from App.Common import rfc1123_date
 from DateTime import DateTime
-from Products.CMFCore.utils import getToolByName
-from Products.ResourceRegistries.tools.packer import CSSPacker
+from eea.app.visualization.zopera import getToolByName
+from eea.app.visualization.zopera import packer
 
 class CSS(object):
     """ Handle criteria
@@ -13,6 +13,7 @@ class CSS(object):
         self.request = request
         self._resources = resources
         self.duration = 3600*24*365
+        self.debug = False
 
         self.csstool = getToolByName(context, 'portal_css', None)
         if self.csstool:
@@ -47,7 +48,7 @@ class CSS(object):
             content = self.get_resource(resource)
             header = '\n/* - %s - */\n' % resource
             if not self.debug:
-                content = CSSPacker('safe').pack(content)
+                content = packer.CSSPacker('safe').pack(content)
             output.append(header + content)
         return '\n'.join(output)
 

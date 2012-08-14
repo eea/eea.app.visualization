@@ -1,0 +1,13 @@
+<configure
+  xmlns="http://namespaces.zope.org/zope"
+  i18n_domain="eea">
+
+  <include package=".browser" />
+  <include package=".cache" />
+  <include package=".converter" />
+  <include package=".facets" />
+  <include package=".storage" />
+  <include package=".subtypes" />
+  <include package=".views" />
+
+</configure>

@@ -11,7 +11,8 @@
     />
 
   <!-- Plone -->
-  <class class="Products.ATContentTypes.content.file.ATFile">
+  <class zcml:condition="installed Products.ATContentTypes"
+    class="Products.ATContentTypes.content.file.ATFile">
     <implements interface="eea.app.visualization.interfaces.IPossibleVisualization" />
   </class>
 

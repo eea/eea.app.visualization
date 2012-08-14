@@ -2,8 +2,8 @@
 """
 from App.Common import rfc1123_date
 from DateTime import DateTime
-from Products.CMFCore.utils import getToolByName
-from Products.ResourceRegistries.tools.packer import JavascriptPacker
+from eea.app.visualization.zopera import getToolByName
+from eea.app.visualization.zopera import packer
 
 class Javascript(object):
     """ Handle criteria
@@ -13,6 +13,7 @@ class Javascript(object):
         self.request = request
         self._resources = resources
         self.duration = 3600*24*365
+        self.debug = False
 
         self.jstool = getToolByName(context, 'portal_javascripts', None)
         if self.jstool:
@@ -47,7 +48,7 @@ class Javascript(object):
             content = self.get_resource(resource)
             header = '\n/* - %s - */\n' % resource
             if not self.debug:
-                content = JavascriptPacker('safe').pack(content)
+                content = packer.JavascriptPacker('safe').pack(content)
             output.append(header + content)
         return '\n'.join(output)
 

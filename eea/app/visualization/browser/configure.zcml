@@ -1,11 +1,14 @@
 <configure
   xmlns="http://namespaces.zope.org/zope"
   xmlns:browser="http://namespaces.zope.org/browser"
+  xmlns:zcml="http://namespaces.zope.org/zcml"
   i18n_domain="eea">
 
   <include package=".res" />
 
+  <!-- XXX What about Zope2?-->
   <adapter
+    zcml:condition="installed plone.app.form"
     for=".app.properties.EditForm"
     factory="plone.app.form.default_subpage_template"
     name="default"
@@ -28,7 +31,9 @@
     permission="zope2.View"
     />
 
+  <!-- XXX What about Zope2?-->
   <browser:page
+    zcml:condition="installed Products.Archetypes"
     for="Products.Archetypes.interfaces.base.IBaseObject"
     name="daviz-view.json"
     class=".app.view.JSONView"

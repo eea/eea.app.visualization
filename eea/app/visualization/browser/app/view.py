@@ -8,13 +8,7 @@ from Products.Five.browser import BrowserView
 from eea.app.visualization.interfaces import IVisualizationConfig
 from eea.app.visualization.cache import ramcache, cacheJsonKey
 from eea.app.visualization.converter.converter import sortProperties
-try:
-    from Products.CMFCore import interfaces
-    IPropertiesTool = interfaces.IPropertiesTool
-except ImportError:
-    from zope.interface import Interface
-    class IPropertiesTool(Interface):
-        """ Empty properties tool"""
+from eea.app.visualization.zopera import IPropertiesTool
 
 logger = logging.getLogger('eea.app.visualization')
 

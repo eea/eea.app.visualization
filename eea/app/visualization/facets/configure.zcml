@@ -1,6 +1,7 @@
 <configure
   xmlns="http://namespaces.zope.org/zope"
   xmlns:browser="http://namespaces.zope.org/browser"
+  xmlns:zcml="http://namespaces.zope.org/zcml"
   i18n_domain="eea">
 
   <utility
@@ -8,14 +9,16 @@
     name="eea.daviz.vocabularies.FacetsVocabulary"
     />
 
-  <adapter
+  <!-- XXX What about Zope2?-->
+  <adapter zcml:condition="installed plone.app.form"
     for=".edit.EditForm"
     factory="plone.app.form.default_subpage_template"
     name="default"
     provides="zope.formlib.namedtemplate.INamedTemplate"
     />
 
-  <adapter
+  <!-- XXX What about Zope2?-->
+  <adapter zcml:condition="installed plone.app.form"
     for=".add.AddForm"
     factory="plone.app.form.default_subpage_template"
     name="default"

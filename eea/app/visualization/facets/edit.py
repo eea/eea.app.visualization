@@ -2,10 +2,10 @@
 """
 from zope.component import queryAdapter
 from zope.formlib.form import SubPageForm
-from Products.statusmessages.interfaces import IStatusMessage
 from zope.formlib.form import action as formAction
 from zope.formlib.form import setUpWidgets, haveInputWidgets
 from eea.app.visualization.interfaces import IVisualizationConfig
+from eea.app.visualization.zopera import IStatusMessage
 
 from eea.app.visualization.config import EEAMessageFactory as _
 
@@ -79,7 +79,8 @@ class EditForm(SubPageForm):
     def nextUrl(self):
         """ Next URL
         """
-        IStatusMessage(self.request).addStatusMessage(
-            'Changes saved', type='info')
+        status = queryAdapter(self.request, IStatusMessage)
+        if status:
+            status.addStatusMessage('Changes saved', type='info')
         to = self.context.absolute_url() + '/daviz-edit.html'
         self.request.response.redirect(to)

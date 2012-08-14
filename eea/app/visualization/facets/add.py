@@ -2,10 +2,10 @@
 """
 from zope.component import queryAdapter
 from zope.formlib.form import SubPageForm
-from Products.statusmessages.interfaces import IStatusMessage
 from zope.formlib.form import action as formAction
 from zope.formlib.form import setUpInputWidgets, haveInputWidgets
 from eea.app.visualization.interfaces import IVisualizationConfig
+from eea.app.visualization.zopera import IStatusMessage
 from zope.formlib.form import Fields
 
 from eea.app.visualization.facets.interfaces import IVisualizationAddFacet
@@ -95,7 +95,8 @@ class AddForm(SubPageForm):
     def nextURL(self):
         """ Next
         """
-        IStatusMessage(self.request).addStatusMessage(
-            'Facet added', type='info')
+        status = queryAdapter(self.request, IStatusMessage)
+        if status:
+            status.addStatusMessage('Facet added', type='info')
         nexturl = self.context.absolute_url() + '/daviz-edit.html'
         self.request.response.redirect(nexturl)

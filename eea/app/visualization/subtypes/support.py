@@ -2,7 +2,6 @@
 """
 import logging
 from Products.Five.browser import BrowserView
-from Products.statusmessages.interfaces import IStatusMessage
 from StringIO import StringIO
 
 from zope.component import queryAdapter, queryUtility
@@ -16,6 +15,7 @@ from eea.app.visualization.events import VisualizationDisabledEvent
 from eea.app.visualization.interfaces import IVisualizationConfig
 from eea.app.visualization.interfaces import IVisualizationEnabled
 from eea.app.visualization.subtypes.interfaces import IVisualizationSubtyper
+from eea.app.visualization.zopera import IStatusMessage
 
 logger = logging.getLogger('eea.app.visualization.converter')
 
@@ -34,8 +34,9 @@ class DavizPublicSupport(BrowserView):
         """
         if self.request:
             if msg:
-                IStatusMessage(self.request).addStatusMessage(
-                    str(msg), type='info')
+                status = queryAdapter(self.request, IStatusMessage)
+                if status:
+                    status.addStatusMessage(str(msg), type='info')
             if to:
                 self.request.response.redirect(self.context.absolute_url() + to)
             else:
@@ -82,8 +83,9 @@ class DavizSupport(DavizPublicSupport):
         """
         if self.request:
             if msg:
-                IStatusMessage(self.request).addStatusMessage(
-                    str(msg), type='info')
+                status = queryAdapter(self.request, IStatusMessage)
+                if status:
+                    status.addStatusMessage(str(msg), type='info')
             if to:
                 self.request.response.redirect(self.context.absolute_url() + to)
             else:
