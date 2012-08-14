@@ -62,7 +62,7 @@
     name="daviz-edit.html"
     template="zpt/edit.pt"
     class=".app.edit.Edit"
-    permission="cmf.ModifyPortalContent"
+    permission="eea.app.visualization.configure"
     />
 
   <browser:page
@@ -70,7 +70,7 @@
     name="daviz-add.facets.html"
     template="zpt/add-facets.pt"
     class=".app.edit.Edit"
-    permission="cmf.ModifyPortalContent"
+    permission="eea.app.visualization.configure"
     />
 
   <browser:page
@@ -78,7 +78,7 @@
     name="daviz-edit.facets.html"
     template="zpt/edit-facets.pt"
     class=".app.edit.Edit"
-    permission="cmf.ModifyPortalContent"
+    permission="eea.app.visualization.configure"
     />
 
   <browser:page
@@ -86,21 +86,21 @@
     name="daviz-edit.views.html"
     template="zpt/edit-views.pt"
     class=".app.edit.Edit"
-    permission="cmf.ModifyPortalContent"
+    permission="eea.app.visualization.configure"
     />
 
   <browser:page
     name="daviz.properties.edit"
     for="eea.app.visualization.interfaces.IVisualizationEnabled"
     class=".app.properties.EditForm"
-    permission="cmf.ModifyPortalContent"
+    permission="eea.app.visualization.configure"
     />
 
   <browser:page
     for="eea.app.visualization.interfaces.IVisualizationEnabled"
     name="daviz-edit.save"
     class=".app.edit.Configure"
-    permission="cmf.ModifyPortalContent"
+    permission="eea.app.visualization.configure"
     />
 
   <browser:page

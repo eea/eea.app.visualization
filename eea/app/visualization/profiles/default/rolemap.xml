@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<rolemap>
+  <permissions>
+    <permission name="eea.app.visualization: Configure Visualization" acquire="True">
+      <role name="Owner"/>
+      <role name="Manager"/>
+      <role name="Editor"/>
+    </permission>
+  </permissions>
+</rolemap>

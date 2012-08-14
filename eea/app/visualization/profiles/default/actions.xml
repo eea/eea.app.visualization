@@ -6,19 +6,19 @@
    condition_expr="object/@@daviz_support/is_exhibit"
     url_expr="string:${object/absolute_url}/daviz-edit.html"
     visible="True">
-    <permission>Modify portal content</permission>
+    <permission>eea.app.visualization: Configure Visualization</permission>
   </action>
  <action title="Disable Visualization" action_id="daviz.disable" category="object_buttons"
   condition_expr="object/@@daviz_support/can_disable"
   url_expr="string:${object/absolute_url}/@@daviz_support/disable"
    visible="True">
-   <permission>Modify portal content</permission>
+   <permission>eea.app.visualization: Configure Visualization</permission>
  </action>
  <action title="Enable Visualization" action_id="daviz.enable" category="object_buttons"
   condition_expr="object/@@daviz_support/can_enable"
    url_expr="string:${object/absolute_url}/@@daviz_support/enable"
    visible="True">
-   <permission>Modify portal content</permission>
+   <permission>eea.app.visualization: Configure Visualization</permission>
  </action>
  </action-provider>
 </object>

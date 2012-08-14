@@ -35,7 +35,7 @@
     for="eea.app.visualization.interfaces.IVisualizationEnabled"
     name="daviz.facet.add"
     class=".add.AddForm"
-    permission="cmf.ModifyPortalContent"
+    permission="eea.app.visualization.configure"
     />
 
   <include package=".list" />

@@ -114,7 +114,10 @@ class DavizSupport(DavizPublicSupport):
     def enable(self):
         """ Enable Exhibit
         """
-        datafile = StringIO(self.context.getFile().data)
+        if hasattr(self.context, 'getFile'):
+            datafile = StringIO(self.context.getFile().data)
+        else:
+            datafile = StringIO(getattr(self.context, 'data', ''))
         converter = queryUtility(IExhibitJsonConverter)
         try:
             columns, json = converter(datafile)

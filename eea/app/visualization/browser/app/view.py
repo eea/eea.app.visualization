@@ -150,7 +150,7 @@ class HTMLView(View):
     def __call__(self, **kwargs):
         """ If daviz is not configured redirects to edit page.
         """
-        if not checkPermission('cmf.ModifyPortalContent', self.context):
+        if not checkPermission('eea.app.visualization.configure', self.context):
             return self.index()
 
         referer = getattr(self.request, 'HTTP_REFERER', '')

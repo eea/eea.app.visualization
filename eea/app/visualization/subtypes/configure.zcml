@@ -10,6 +10,12 @@
     factory=".interfaces.AttributeAnnotations"
     />
 
+  <!-- Zope2 -->
+  <class zcml:condition="installed OFS.Image"
+    class="OFS.Image.File">
+    <implements interface="eea.app.visualization.interfaces.IPossibleVisualization" />
+  </class>
+
   <!-- Plone -->
   <class zcml:condition="installed Products.ATContentTypes"
     class="Products.ATContentTypes.content.file.ATFile">
