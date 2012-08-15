@@ -586,11 +586,11 @@ DavizEdit.View.prototype = {
       self.form = jQuery('form.daviz-view-form-disabled', self.view);
     }
 
-    self.jsondata = jQuery('div.field:has(label[for=daviz.properties.json])', self.form);
+    self.jsondata = jQuery('div:has(label[for=daviz.properties.json])', self.form);
     if(self.jsondata.length){
       var jsondata = new DavizEdit.JsonGrid(self.jsondata);
     }
-    self.table = jQuery('div.field:has(label[for=daviz.properties.sources]) table', self.form);
+    self.table = jQuery('div:has(label[for=daviz.properties.sources]) table', self.form);
     if(self.table.length){
       self.table.addClass('daviz-sources-table');
       var table = new DavizEdit.SourceTable(self.table);

@@ -10,8 +10,22 @@
 
   <browser:page
     for="*"
+    name="daviz-view.requires.js"
+    class=".javascript.ViewRequiresJavascript"
+    permission="zope.Public"
+    />
+
+  <browser:page
+    for="*"
     name="daviz-edit.js"
     class=".javascript.EditJavascript"
+    permission="zope.Public"
+    />
+
+  <browser:page
+    for="*"
+    name="daviz-edit.requires.js"
+    class=".javascript.EditRequiresJavascripts"
     permission="zope.Public"
     />
 
@@ -24,8 +38,22 @@
 
   <browser:page
     for="*"
+    name="daviz-view.requires.css"
+    class=".css.ViewRequiresCSS"
+    permission="zope.Public"
+    />
+
+  <browser:page
+    for="*"
     name="daviz-edit.css"
     class=".css.EditCSS"
+    permission="zope.Public"
+    />
+
+  <browser:page
+    for="*"
+    name="daviz-edit.requires.css"
+    class=".css.EditRequiresCSS"
     permission="zope.Public"
     />
 

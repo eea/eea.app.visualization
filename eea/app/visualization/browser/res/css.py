@@ -2,6 +2,8 @@
 """
 from App.Common import rfc1123_date
 from DateTime import DateTime
+from zope.component import getMultiAdapter
+from zope.publisher.browser import TestRequest
 from eea.app.visualization.zopera import getToolByName
 from eea.app.visualization.zopera import packer
 
@@ -28,7 +30,18 @@ class CSS(object):
     def get_resource(self, resource):
         """ Get resource content
         """
-        obj = self.context.restrictedTraverse(resource, None)
+        # If resources are retrieved via GET, the request headers
+        # are used for caching AND are mangled.
+        # That can result in getting 304 responses
+        # There is no API to extract the data from the view without
+        # mangling the headers, so we must use a fake request
+        # that can be modified without harm
+        if resource.startswith('++resource++'):
+            traverser = getMultiAdapter((self.context, TestRequest()),
+                name='resource')
+            obj = traverser.traverse(resource[12:], None)
+        else:
+            obj = self.context.restrictedTraverse(resource, None)
         if not obj:
             return '/* ERROR */'
         try:
@@ -87,6 +100,17 @@ class ViewCSS(CSS):
                                         'max-age=%d' % self.duration)
         return self.get_content()
 
+class ViewRequiresCSS(ViewCSS):
+    """ CSS libraries required by daviz-view.css
+    """
+    @property
+    def css_libs(self):
+        """ CSS libs
+        """
+        return (
+            '++resource++eea.jquery.css',
+        )
+
 class EditCSS(CSS):
     """ CSS libs used in edit form
     """
@@ -115,3 +139,16 @@ class EditCSS(CSS):
         self.request.RESPONSE.setHeader('Cache-Control',
                                         'max-age=%d' % self.duration)
         return self.get_content()
+
+class EditRequiresCSS(EditCSS):
+    """ CSS libraries required by daviz-edit.css
+    """
+    @property
+    def css_libs(self):
+        """ CSS Libs
+        """
+        return (
+            '++resource++eea.jquery.css',
+            '++resource++eea.jquery.ui.css',
+            '++resource++jquery.jqgrid.css',
+        )

@@ -2,6 +2,8 @@
 """
 from App.Common import rfc1123_date
 from DateTime import DateTime
+from zope.component import getMultiAdapter
+from zope.publisher.browser import TestRequest
 from eea.app.visualization.zopera import getToolByName
 from eea.app.visualization.zopera import packer
 
@@ -13,7 +15,7 @@ class Javascript(object):
         self.request = request
         self._resources = resources
         self.duration = 3600*24*365
-        self.debug = False
+        self.debug = True
 
         self.jstool = getToolByName(context, 'portal_javascripts', None)
         if self.jstool:
@@ -28,7 +30,18 @@ class Javascript(object):
     def get_resource(self, resource):
         """ Get resource content
         """
-        obj = self.context.restrictedTraverse(resource, None)
+        # If resources are retrieved via GET, the request headers
+        # are used for caching AND are mangled.
+        # That can result in getting 304 responses
+        # There is no API to extract the data from the view without
+        # mangling the headers, so we must use a fake request
+        # that can be modified without harm
+        if resource.startswith('++resource++'):
+            traverser = getMultiAdapter((self.context, TestRequest()),
+                name='resource')
+            obj = traverser.traverse(resource[12:], None)
+        else:
+            obj = self.context.restrictedTraverse(resource, None)
         if not obj:
             return '/* ERROR */'
         try:
@@ -87,6 +100,18 @@ class ViewJavascript(Javascript):
                                         'max-age=%d' % self.duration)
         return self.get_content()
 
+class ViewRequiresJavascript(ViewJavascript):
+    """ JS libraries required by daviz-view.js
+    """
+    @property
+    def js_libs(self):
+        """ JS libs
+        """
+        return (
+            '++resource++eea.jquery.js',
+            '++resource++eea.jquery.tools.js',
+        )
+
 class EditJavascript(Javascript):
     """ Javascript libs used in edit form
     """
@@ -115,3 +140,18 @@ class EditJavascript(Javascript):
         self.request.RESPONSE.setHeader('Cache-Control',
                                         'max-age=%d' % self.duration)
         return self.get_content()
+
+class EditRequiresJavascripts(EditJavascript):
+    """ JS libraries required by daviz-edit.js
+    """
+    @property
+    def js_libs(self):
+        """ JS libs
+        """
+        return (
+            '++resource++eea.jquery.js',
+            '++resource++eea.jquery.tools.js',
+            '++resource++eea.jquery.ui.js',
+            '++resource++jquery.jqgrid.locale-en.js',
+            '++resource++jquery.jqgrid.js',
+        )
