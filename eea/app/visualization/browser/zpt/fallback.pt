@@ -1,0 +1,21 @@
+<metal:fallback define-macro="view">
+  <html>
+    <head>
+      <metal:jsslot define-slot="javascript_head_slot" />
+    </head>
+    <body>
+      <metal:jsslot define-slot="content-core" />
+    </body>
+  </html>
+</metal:fallback>
+
+<metal:fallback define-macro="edit">
+  <html>
+    <head>
+      <metal:jsslot define-slot="javascript_head_slot" />
+    </head>
+    <body>
+      <metal:jsslot define-slot="main" />
+    </body>
+  </html>
+</metal:fallback>

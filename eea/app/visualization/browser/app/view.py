@@ -179,7 +179,9 @@ class RelatedItemsJSON(JSONView):
         else:
             my_json = {}
 
-        relatedItems = self.context.getRelatedItems()
+        relatedItems = getattr(self.context, 'getRelatedItems', ())
+        if relatedItems:
+            relatedItems = relatedItems()
 
         new_json = {'items': [], 'properties': {}}
         for item in relatedItems:

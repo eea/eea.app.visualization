@@ -9,7 +9,7 @@
     name="eea.daviz.vocabularies.FacetsVocabulary"
     />
 
-  <!-- XXX What about Zope2?-->
+  <!-- Plone-->
   <adapter zcml:condition="installed plone.app.form"
     for=".edit.EditForm"
     factory="plone.app.form.default_subpage_template"
@@ -17,10 +17,26 @@
     provides="zope.formlib.namedtemplate.INamedTemplate"
     />
 
-  <!-- XXX What about Zope2?-->
+  <!-- Zope2 -->
+  <adapter zcml:condition="not-installed plone.app.form"
+    for=".edit.EditForm"
+    factory="zope.formlib.form.default_subpage_template"
+    name="default"
+    provides="zope.formlib.namedtemplate.INamedTemplate"
+    />
+
+  <!-- Plone -->
   <adapter zcml:condition="installed plone.app.form"
     for=".add.AddForm"
     factory="plone.app.form.default_subpage_template"
+    name="default"
+    provides="zope.formlib.namedtemplate.INamedTemplate"
+    />
+
+  <!-- Zope2 -->
+  <adapter zcml:condition="not-installed plone.app.form"
+    for=".add.AddForm"
+    factory="zope.formlib.form.default_subpage_template"
     name="default"
     provides="zope.formlib.namedtemplate.INamedTemplate"
     />
