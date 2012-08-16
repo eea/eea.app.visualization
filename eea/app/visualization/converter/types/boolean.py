@@ -36,8 +36,6 @@ class GuessBoolean(GuessType):
             True
             >>> guess.convert('n')
             False
-            >>> guess.convert('Oui')
-            'Oui'
 
         You can use fallback to force text to boolean:
 
@@ -45,6 +43,14 @@ class GuessBoolean(GuessType):
             False
             >>> guess.convert('Oui', fallback=bool)
             True
+
+        If you don't provide a fallback for a wrong value, a ValueError will be
+        raised:
+
+            >>> guess.convert('Oui')
+            Traceback (most recent call last):
+            ...
+            ValueError: Oui
 
         """
         res = text.strip().lower()
@@ -58,7 +64,8 @@ class GuessBoolean(GuessType):
             if callable(fallback):
                 return fallback(text)
             return fallback
-        return text
+        else:
+            raise ValueError(text)
 
     def __call__(self, text, label=''):
         """

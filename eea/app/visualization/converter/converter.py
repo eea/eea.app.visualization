@@ -212,19 +212,14 @@ class ExhibitJsonConverter(object):
                     fmt = '%Y-%m-%d'
                 util = queryUtility(IGuessType, name=typo)
 
-                fallback = None
-                if typo in ('latitude', 'longitude', 'number'):
-                    fallback = 0
-                elif typo in ('boolean',):
-                    fallback = False
-                elif typo in ('latlong',):
-                    fallback = '0, 0'
-                elif typo in ('date',):
-                    fallback = '1970-01-01'
-
-                text = (util.convert(text, fallback=fallback, format=fmt)
-                        if util else text)
-                data[col] = text
+                try:
+                    text = (util.convert(text, fallback=None, format=fmt)
+                            if util else text)
+                except ValueError, err:
+                    # Skip key: value from JSON
+                    logger.debug(err)
+                else:
+                    data[col] = text
 
                 properties[col] = {"valueType": valueType, "order": order}
                 order += 1

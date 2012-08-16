@@ -30,6 +30,14 @@ class GuessLongitude(GuessType):
             ...               fallback=lambda x: float(x.strip('.')))
             42.345...
 
+        If you don't provide a fallback for a wrong value, a ValueError will be
+        raised:
+
+            >>> guess.convert('A longitude: 23.45')
+            Traceback (most recent call last):
+            ...
+            ValueError: A longitude: 23.45
+
         You can also convert given text to another text providing 'format'
         keyword:
 
@@ -45,6 +53,8 @@ class GuessLongitude(GuessType):
                     text = fallback(text)
                 else:
                     text = fallback
+            else:
+                raise ValueError(text)
 
         if not isinstance(text, float):
             return text
