@@ -586,7 +586,7 @@ DavizEdit.View.prototype = {
       self.form = jQuery('form.daviz-view-form-disabled', self.view);
     }
 
-    self.jsondata = jQuery('div:has(label[for=daviz.properties.json])', self.form);
+    self.jsondata = jQuery('div.field:has(label[for=daviz.properties.json])', self.form);
     if(self.jsondata.length){
       var jsondata = new DavizEdit.JsonGrid(self.jsondata);
     }

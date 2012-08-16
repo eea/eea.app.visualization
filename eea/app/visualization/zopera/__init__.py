@@ -45,6 +45,21 @@ try:
 except ImportError:
     from eea.app.visualization.zopera import packer
 
+#
+# from plone.app.form import default_subpage_template
+#
+try:
+    from plone.app import form
+    default_subpage_template = form.default_subpage_template
+except ImportError:
+    try:
+        from zope.browserpage import ViewPageTemplateFile, namedtemplate
+    except ImportError:
+        from zope.app.pagetemplate import ViewPageTemplateFile, namedtemplate
+    from zope.formlib.interfaces import ISubPageForm
+    default_subpage_template = namedtemplate.NamedTemplateImplementation(
+        ViewPageTemplateFile('subpageform.pt'), ISubPageForm)
+
 __all__ = [
     IStatusMessage.__name__,
     IPropertiesTool.__name__,
