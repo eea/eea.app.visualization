@@ -5,6 +5,10 @@ Changelog
 ----------------------
 * Upgrade step: Within "Plone > Site setup > Add-ons" click on
   upgrade button available for eea.app.visualization
+* Feature: Added an easy way to register Google Maps key when using without
+  Plone by adding 'google_key' property on context (parents) or by providing
+  a utility (see eea.app.visualization.zopera.utils.py)
+  [voineali refs #5420, #5421]
 * Feature: Added an easy way to plugin CSS/JS resources by simply providing
   some utilities (see eea.app.visualization.browser.res.interfaces.py)
   [voineali refs #5420]

@@ -3,6 +3,7 @@
   i18n_domain="eea">
 
   <include package="eea.jquery" />
+  <include package=".zopera" />
   <include file="common.zcml" />
 
 </configure>
