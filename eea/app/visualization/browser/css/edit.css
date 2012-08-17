@@ -135,7 +135,6 @@ dl.portalMessage dd {
 }
 
 .daviz-facet-edit fieldset {
-  border: 1px solid #cccccc;
 }
 
 .daviz-facet-edit input[type=text] {
@@ -158,6 +157,25 @@ dl.portalMessage dd {
 
 .daviz-view-edit textarea {
   width: 100%;
+}
+
+.daviz-view-edit .field,
+.daviz-facet-edit .field {
+  margin-bottom: 1em;
+}
+
+.daviz-view-edit .field label,
+.daviz-facet-edit .field label,
+.daviz-facet-add-overlay .field label {
+  font-weight: bold;
+}
+
+.daviz-view-edit .formHelp,
+.daviz-facet-edit .formHelp,
+.daviz-facet-add-overlay .formHelp {
+  display: block;
+  color: #555;
+  font-weight: normal;
 }
 
 .daviz-sources-table {
@@ -215,11 +233,14 @@ dl.portalMessage dd {
   -moz-border-radius-topright: 0.5em;
 }
 
-#content .daviz-edit-tabs ul.formTabs a.disabled {
+#content .daviz-edit-tabs ul.formTabs a.disabled,
+.daviz-edit-tabs ul.formTabs a.disabled {
   color: #999;
 }
 
-#content .daviz-edit-tabs ul.formTabs a.enabled {
+#content .daviz-edit-tabs ul.formTabs a.enabled,
+.daviz-edit-tabs ul.formTabs a.enabled {
+  color: #427597;
 }
 
 .daviz-edit-tabs li.formTab {

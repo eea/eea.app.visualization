@@ -2,10 +2,12 @@
 """
 from App.Common import rfc1123_date
 from DateTime import DateTime
-from zope.component import getMultiAdapter
+from zope.component import getMultiAdapter, getAllUtilitiesRegisteredFor
 from zope.publisher.browser import TestRequest
 from eea.app.visualization.zopera import getToolByName
 from eea.app.visualization.zopera import packer
+from eea.app.visualization.interfaces import IVisualizationViewResources
+from eea.app.visualization.interfaces import IVisualizationEditResources
 
 class CSS(object):
     """ Handle criteria
@@ -78,9 +80,10 @@ class ViewCSS(CSS):
     def css_libs(self):
         """ CSS libs
         """
-        return (
-            '++resource++eea.daviz.view.css',
-        )
+        res = []
+        for util in getAllUtilitiesRegisteredFor(IVisualizationViewResources):
+            res.extend(util.css)
+        return res
 
     @property
     def resources(self):
@@ -107,9 +110,10 @@ class ViewRequiresCSS(ViewCSS):
     def css_libs(self):
         """ CSS libs
         """
-        return (
-            '++resource++eea.jquery.css',
-        )
+        res = []
+        for util in getAllUtilitiesRegisteredFor(IVisualizationViewResources):
+            res.extend(util.extcss)
+        return res
 
 class EditCSS(CSS):
     """ CSS libs used in edit form
@@ -118,9 +122,10 @@ class EditCSS(CSS):
     def css_libs(self):
         """ CSS Libs
         """
-        return (
-            '++resource++eea.daviz.edit.css',
-        )
+        res = []
+        for util in getAllUtilitiesRegisteredFor(IVisualizationEditResources):
+            res.extend(util.css)
+        return res
 
     @property
     def resources(self):
@@ -147,8 +152,7 @@ class EditRequiresCSS(EditCSS):
     def css_libs(self):
         """ CSS Libs
         """
-        return (
-            '++resource++eea.jquery.css',
-            '++resource++eea.jquery.ui.css',
-            '++resource++jquery.jqgrid.css',
-        )
+        res = []
+        for util in getAllUtilitiesRegisteredFor(IVisualizationEditResources):
+            res.extend(util.extcss)
+        return res

@@ -1,4 +1,6 @@
-<configure xmlns:browser="http://namespaces.zope.org/browser"
+<configure
+  xmlns="http://namespaces.zope.org/zope"
+  xmlns:browser="http://namespaces.zope.org/browser"
   i18n_domain="eea">
 
   <browser:page
@@ -56,5 +58,15 @@
     class=".css.EditRequiresCSS"
     permission="zope.Public"
     />
+
+  <utility
+    name="eea.app.visualization.resources.view"
+    provides="eea.app.visualization.interfaces.IVisualizationViewResources"
+    factory=".resources.VisualizationViewResources" />
+
+  <utility
+    name="eea.app.visualization.resources.edit"
+    provides="eea.app.visualization.interfaces.IVisualizationEditResources"
+    factory=".resources.VisualizationEditResources" />
 
 </configure>

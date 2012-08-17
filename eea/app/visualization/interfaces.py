@@ -25,6 +25,12 @@ from eea.app.visualization.converter.interfaces import IExhibitJsonConverter
 from eea.app.visualization.views.interfaces import IVisualizationView
 from eea.app.visualization.views.interfaces import IVisualizationViews
 
+# JS/CSS Utilities
+from eea.app.visualization.browser.res.interfaces import (
+    IVisualizationViewResources,
+    IVisualizationEditResources
+)
+
 __all__ = (
     IPossibleVisualization.__name__,
     IVisualizationEnabled.__name__,
@@ -39,4 +45,6 @@ __all__ = (
     IExhibitJsonConverter.__name__,
     IVisualizationView.__name__,
     IVisualizationViews.__name__,
+    IVisualizationViewResources.__name__,
+    IVisualizationEditResources.__name__,
 )

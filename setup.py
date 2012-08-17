@@ -31,6 +31,7 @@ setup(name=NAME,
       install_requires=[
           'setuptools',
           "python-dateutil",
+          'plone.i18n',
           'collective.js.jqueryui',
           'eea.jquery',
           # -*- Extra requirements: -*-
@@ -41,7 +42,6 @@ setup(name=NAME,
               ],
           'zope2': [
               #'z3c.autoinclude',
-              'plone.i18n',
           ]
       },
       entry_points="""

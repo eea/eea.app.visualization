@@ -2,10 +2,12 @@
 """
 from App.Common import rfc1123_date
 from DateTime import DateTime
-from zope.component import getMultiAdapter
+from zope.component import getMultiAdapter, getAllUtilitiesRegisteredFor
 from zope.publisher.browser import TestRequest
 from eea.app.visualization.zopera import getToolByName
 from eea.app.visualization.zopera import packer
+from eea.app.visualization.interfaces import IVisualizationViewResources
+from eea.app.visualization.interfaces import IVisualizationEditResources
 
 class Javascript(object):
     """ Handle criteria
@@ -50,8 +52,10 @@ class Javascript(object):
             return str(obj)
         except Exception, err:
             return '/* ERROR: %s */' % err
-        else:
-            return content
+
+        if isinstance(content, str):
+            content = content.decode('utf-8')
+        return content
 
     def get_content(self, **kwargs):
         """ Get content
@@ -59,11 +63,11 @@ class Javascript(object):
         output = []
         for resource in self.resources:
             content = self.get_resource(resource)
-            header = '\n/* - %s - */\n' % resource
+            header = u'\n/* - %s - */\n' % resource
             if not self.debug:
                 content = packer.JavascriptPacker('safe').pack(content)
             output.append(header + content)
-        return '\n'.join(output)
+        return u'\n'.join(output)
 
     @property
     def helper_js(self):
@@ -78,9 +82,10 @@ class ViewJavascript(Javascript):
     def js_libs(self):
         """ JS libs
         """
-        return (
-            '++resource++eea.daviz.view.js',
-        )
+        res = []
+        for util in getAllUtilitiesRegisteredFor(IVisualizationViewResources):
+            res.extend(util.js)
+        return res
 
     @property
     def resources(self):
@@ -107,10 +112,10 @@ class ViewRequiresJavascript(ViewJavascript):
     def js_libs(self):
         """ JS libs
         """
-        return (
-            '++resource++eea.jquery.js',
-            '++resource++eea.jquery.tools.js',
-        )
+        res = []
+        for util in getAllUtilitiesRegisteredFor(IVisualizationViewResources):
+            res.extend(util.extjs)
+        return res
 
 class EditJavascript(Javascript):
     """ Javascript libs used in edit form
@@ -119,9 +124,10 @@ class EditJavascript(Javascript):
     def js_libs(self):
         """ JS libs
         """
-        return (
-            '++resource++eea.daviz.edit.js',
-        )
+        res = []
+        for util in getAllUtilitiesRegisteredFor(IVisualizationEditResources):
+            res.extend(util.js)
+        return res
 
     @property
     def resources(self):
@@ -148,10 +154,7 @@ class EditRequiresJavascripts(EditJavascript):
     def js_libs(self):
         """ JS libs
         """
-        return (
-            '++resource++eea.jquery.js',
-            '++resource++eea.jquery.tools.js',
-            '++resource++eea.jquery.ui.js',
-            '++resource++jquery.jqgrid.locale-en.js',
-            '++resource++jquery.jqgrid.js',
-        )
+        res = []
+        for util in getAllUtilitiesRegisteredFor(IVisualizationEditResources):
+            res.extend(util.extjs)
+        return res

@@ -27,7 +27,7 @@
     id python:name.replace('.', '-');"
     tal:condition="editform"
     tal:attributes="id string:$id-header">
-    <a tal:attributes="href string:#$id-tab">
+    <a tal:attributes="href string:#$id-tab; class string:enabled;">
       <span tal:content="label">Edit View</span>
     </a>
   </li>
