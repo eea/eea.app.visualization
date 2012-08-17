@@ -30,11 +30,25 @@ class GuessText(GuessType):
             >>> guess.convert('', fallback=lambda x: unicode(x))
             u''
 
+        If you don't provide a fallback for a wrong value, a ValueError will be
+        raised:
+
+            >>> guess.convert(None)
+            Traceback (most recent call last):
+            ...
+            ValueError: None
+
         """
-        if not text and fallback is not None:
-            if callable(fallback):
-                return fallback(text)
-            return fallback
+        if not text:
+            if fallback is not None:
+                if callable(fallback):
+                    return fallback(text)
+                return fallback
+            else:
+                if text == "":
+                    return text
+                raise ValueError(text)
+
         return text
 
     def __call__(self, text, label=''):

@@ -32,6 +32,14 @@ class GuessLatLong(GuessType):
             ...   fallback=lambda x: x.replace(',', '.').replace(' ', ', '))
             '42.3456, 25.345'
 
+        If you don't provide a fallback for a wrong value, a ValueError will be
+        raised:
+
+            >>> guess.convert('A latlong: 23.45')
+            Traceback (most recent call last):
+            ...
+            ValueError: A latlong: 23.45
+
         You can also convert given text to another text providing 'format'
         keyword:
 
@@ -45,6 +53,8 @@ class GuessLatLong(GuessType):
                 if callable(fallback):
                     return fallback(text)
                 return fallback
+            else:
+                raise ValueError(text)
 
         lat, lng = res
         guess = getUtility(IGuessType, 'latitude')

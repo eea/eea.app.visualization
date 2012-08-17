@@ -30,8 +30,6 @@ class GuessNumber(GuessType):
             2.3
             >>> print guess.convert('2,3')
             2.3
-            >>> guess.convert('A number: 23.45')
-            'A number: 23.45'
 
         You can use fallback to force text to number:
 
@@ -40,6 +38,14 @@ class GuessNumber(GuessType):
             >>> guess.convert('2.3.4',
             ...       fallback=lambda x: int(x.replace('.', '')))
             234
+
+        If you don't provide a fallback for a wrong value, a ValueError will be
+        raised:
+
+            >>> guess.convert('A number: 23.45')
+            Traceback (most recent call last):
+            ...
+            ValueError: A number: 23.45
 
         You can also convert given text to another text providing 'format'
         keyword:
@@ -65,11 +71,14 @@ class GuessNumber(GuessType):
             except Exception:
                 error = True
 
-        if error and fallback is not None:
-            if callable(fallback):
-                text = fallback(text)
+        if error:
+            if fallback is not None:
+                if callable(fallback):
+                    text = fallback(text)
+                else:
+                    text = fallback
             else:
-                text = fallback
+                raise ValueError(text)
 
         if not isinstance(text, (int, float)):
             return text

@@ -8,6 +8,12 @@ Changelog
 * Feature: Made this package Plone independent (Zope2 minimal requirements)
   [voineali refs #5420]
 
+4.7-dev - (unreleased)
+----------------------
+* Bug fix: Skip invalid or empty cells on conversion to daviz-json instead
+  of falling back to 0.
+  [voineali refs #5453]
+
 4.6 - (2012-08-10)
 ------------------
 * Upgrade step: Within "Plone > Site setup > Add-ons" click on

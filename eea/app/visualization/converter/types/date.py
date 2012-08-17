@@ -35,9 +35,6 @@ class GuessDate(GuessType):
             >>> guess.convert('Jan 1973')
             datetime.datetime(1973, 1...)
 
-            >>> guess.convert('1 Ianuarie 2012')
-            '1 Ianuarie 2012'
-
         You can use fallback to force text to datetime:
 
             >>> from datetime import datetime
@@ -48,6 +45,14 @@ class GuessDate(GuessType):
             >>> guess.convert('1 Ianuarie 2012',
             ...       fallback=lambda x: parse(x.replace('Ianuarie', 'Jan')))
             datetime.datetime(2012, 1, 1, 0, 0)
+
+        If you don't provide a fallback for a wrong value, a ValueError will be
+        raised:
+
+            >>> guess.convert('1 Ianuarie 2012')
+            Traceback (most recent call last):
+            ...
+            ValueError: 1 Ianuarie 2012
 
         You can also convert given text to another text providing 'format'
         keyword:
@@ -64,6 +69,8 @@ class GuessDate(GuessType):
                     text = fallback(text)
                 else:
                     text = fallback
+            else:
+                raise ValueError(text)
 
         if not isinstance(text, datetime):
             return text
