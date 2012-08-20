@@ -73,12 +73,7 @@ class View(JSONView):
                 props = props(context=self.context, request=self.request)
             except Exception, err:
                 logger.debug(err)
-        key = getattr(props, 'google_key', '')
-        if callable(key):
-            try:
-                key = key(context=self.context, request=self.request)
-            except Exception, err:
-                logger.debug(err)
+        key = props.getProperty('google_key', '')
         return key
 
     def get_facet(self, name):

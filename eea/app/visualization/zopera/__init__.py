@@ -46,6 +46,17 @@ except ImportError:
     from eea.app.visualization.zopera import packer
 
 #
+# from Products.CMFCore.interfaces import IFolderish
+#
+try:
+    from Products.CMFCore import interfaces
+    IFolderish = interfaces.IFolderish
+except ImportError:
+    class IFolderish(Interface):
+        """ Fallback folderish interface
+        """
+
+#
 # from plone.app.form import default_subpage_template
 #
 try:
