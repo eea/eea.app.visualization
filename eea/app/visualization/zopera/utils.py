@@ -22,9 +22,6 @@ class PropertiesTool(object):
     """
     implements(IPropertiesTool)
 
-    def __init__(self, context=None):
-        self.context = context
-
     def geographical_properties(self, context=None, **kwargs):
         """ Geographical properties
         """
