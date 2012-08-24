@@ -601,10 +601,12 @@ DavizEdit.View.prototype = {
       return false;
     });
 
-    self.buttons = jQuery('.actionButtons input[type=submit]', self.form).click(function(){
-      var button = jQuery(this);
-      self.submit(button);
-    });
+    self.buttons = jQuery('.actionButtons input[type=submit]', self.form)
+      .addClass('btn')
+      .click(function(){
+        var button = jQuery(this);
+        self.submit(button);
+      });
 
     self.inputs = jQuery(':input', self.form).change(function(evt){
       jQuery('fieldset', self.form).addClass('changed');
