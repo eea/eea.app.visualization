@@ -180,6 +180,11 @@
     />
 
   <browser:resource
+    name="eea.daviz.bootstrap.css"
+    file="./css/bootstrap.css"
+  />
+
+  <browser:resource
     name="eea.daviz.view.js"
     file="./js/view.js"
    />

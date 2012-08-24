@@ -62,6 +62,7 @@ class VisualizationEditResources(object):
         """ CSS resources
         """
         return [
+            '++resource++eea.daviz.bootstrap.css',
             '++resource++eea.daviz.edit.css',
         ]
 

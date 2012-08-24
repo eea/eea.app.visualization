@@ -105,6 +105,10 @@ dl.portalMessage dd {
   box-shadow: 0px 2px 2px #888;
 }
 
+h1 {
+  line-height: inherit;
+}
+
 .daviz-facet-edit h1 {
   font-size: 1.2em;
   color: black;
@@ -139,6 +143,10 @@ dl.portalMessage dd {
 
 .daviz-facet-edit input[type=text] {
   width: 100%;
+  height: auto;
+  padding: 0;
+  margin: 0;
+  line-height: 1.2;
 }
 
 .daviz-views-edit {
@@ -358,8 +366,8 @@ dl.portalMessage dd {
 .daviz-jsongrid td.ui-state-default,
 .daviz-jsongrid div.ui-state-default {
   background-image: none;
-  background-color: #777c1f;
-  color: #fff;
+  background-color: #CDE2A7;
+  color: #000;
 }
 
 .daviz-data-table {
