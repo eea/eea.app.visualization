@@ -1,4 +1,4 @@
-""" Module to enable or disable Exhibit support
+""" Module to enable or disable visualization
 """
 import logging
 from Products.Five.browser import BrowserView
@@ -57,11 +57,13 @@ class DavizPublicSupport(BrowserView):
         return False
 
     @property
-    def is_exhibit(self):
-        """ Is exhibit?
+    def is_visualization(self):
+        """ Is visualization enabled?
         """
         return False
 
+    #BBB: This will be removed in the next version of this package
+    is_exhibit = is_visualization
 
     def enable(self):
         """ See IVisualizationSubtyper
@@ -75,7 +77,7 @@ class DavizPublicSupport(BrowserView):
 
 
 class DavizSupport(DavizPublicSupport):
-    """ Enable/Disable Exhibit
+    """ Enable/Disable visualization
     """
 
     def _redirect(self, msg='', to='/daviz-edit.html'):
@@ -97,22 +99,25 @@ class DavizSupport(DavizPublicSupport):
     def can_enable(self):
         """ See IVisualizationSubtyper
         """
-        return not self.is_exhibit
+        return not self.is_visualization
 
     @property
     def can_disable(self):
         """ See IVisualizationSubtyper
         """
-        return self.is_exhibit
+        return self.is_visualization
 
     @property
-    def is_exhibit(self):
-        """ Is exhibit viewable?
+    def is_visualization(self):
+        """ Is visualization enabled?
         """
         return IVisualizationEnabled.providedBy(self.context)
 
+    #BBB: This will be removed in the next version of this package
+    is_exhibit = is_visualization
+
     def enable(self):
-        """ Enable Exhibit
+        """ Enable visualization
         """
         if hasattr(self.context, 'getFile'):
             datafile = StringIO(self.context.getFile().data)
@@ -137,7 +142,7 @@ class DavizSupport(DavizPublicSupport):
         return self._redirect('Visualization enabled')
 
     def disable(self):
-        """ Disable Exhibit
+        """ Disable visualization
         """
         noLongerProvides(self.context, IVisualizationEnabled)
         notify(VisualizationDisabledEvent(self.context))

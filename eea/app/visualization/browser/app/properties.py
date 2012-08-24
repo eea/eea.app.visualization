@@ -1,4 +1,4 @@
-""" Exhibit properties
+""" Visualization properties
 """
 import logging
 import json as simplejson
@@ -18,8 +18,8 @@ from eea.app.visualization.zopera import IStatusMessage
 from eea.app.visualization.config import EEAMessageFactory as _
 logger = logging.getLogger('eea.app.visualization')
 
-class IExhibitPropertiesEdit(Interface):
-    """ Edit Exhibit global properties
+class IVisualizationPropertiesEdit(Interface):
+    """ Edit visualization global properties
     """
     json = schema.Text(
         title=u"Data table (preview)",
@@ -51,7 +51,7 @@ class EditForm(SubPageForm):
     """ Layer to edit daviz properties.
     """
     label = u"Data settings"
-    form_fields = Fields(IExhibitPropertiesEdit)
+    form_fields = Fields(IVisualizationPropertiesEdit)
 
     def __init__(self, context, request):
         super(EditForm, self).__init__(context, request)

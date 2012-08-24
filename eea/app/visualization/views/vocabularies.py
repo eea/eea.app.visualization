@@ -9,7 +9,7 @@ from zope.schema.vocabulary import SimpleTerm
 from eea.app.visualization.views.interfaces import IVisualizationViews
 
 class ViewsVocabulary(object):
-    """ Available registered exhibit views
+    """ Available registered visualization views
     """
     implements(IVocabularyFactory)
 

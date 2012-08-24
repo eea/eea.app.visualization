@@ -15,7 +15,7 @@ from eea.app.visualization.config import EEAMessageFactory as _
 class AddForm(SubPageForm):
     """
     Basic layer to add daviz facets. For more details on how to use this,
-    see implementation in eea.exhibit.facets.list.add.Add.
+    see implementation in eea.app.visualization.facets.list.add.Add.
 
     Assign these attributes in your subclass:
       - form_fields: Fields(Interface)

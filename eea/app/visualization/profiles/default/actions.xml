@@ -3,7 +3,7 @@
  xmlns:i18n="http://xml.zope.org/namespaces/i18n">
  <action-provider name="portal_actions">
   <action title="Edit Visualizations" action_id="daviz.edit" category="object"
-   condition_expr="object/@@daviz_support/is_exhibit"
+   condition_expr="object/@@daviz_support/is_visualization"
     url_expr="string:${object/absolute_url}/daviz-edit.html"
     visible="True">
     <permission>eea.app.visualization: Configure Visualization</permission>

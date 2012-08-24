@@ -1,12 +1,12 @@
-""" Views exhibit configuration interfaces
+""" Visualization views configuration interfaces
 """
 from zope.interface import Interface
 from zope.schema import TextLine
 
 class IVisualizationView(Interface):
-    """ Access / update exhibit view configuration
+    """ Access / update visualization view configuration
     """
-    label = TextLine(title=u'Label for exhibit view')
+    label = TextLine(title=u'Label for visualization view')
     section = TextLine(title=u"Section of this view, e.g. Exhibit, Google, etc")
 
 class IViewDirective(Interface):
