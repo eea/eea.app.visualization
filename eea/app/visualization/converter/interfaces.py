@@ -8,6 +8,9 @@ class ITable2JsonConverter(Interface):
     """ Converts CSV to JSON
     """
 
+# BBB: This will be removed in the next version of this package
+IExhibitJsonConverter = ITable2JsonConverter
+
 __all__ = (
     IGuessType.__name__,
     IGuessTypes.__name__,
