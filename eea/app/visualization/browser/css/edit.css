@@ -107,10 +107,12 @@ dl.portalMessage dd {
 
 h1 {
   line-height: inherit;
+  font-size: 2em;
 }
 
 .daviz-facet-edit h1 {
-  font-size: 1.2em;
+  font-size: 1em;
+  font-weight: normal;
   color: black;
   margin: 0 2px;
   padding: 0.2em 0.5em;
