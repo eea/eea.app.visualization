@@ -7,7 +7,7 @@
   <include package="plone.i18n" />
   <include package=".types" />
 
-  <utility factory=".converter.ExhibitJsonConverter" />
+  <utility factory=".converter.Table2JsonConverter" />
 
   <browser:page
     zcml:condition="installed plone.app.blob"

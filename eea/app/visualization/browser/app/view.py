@@ -23,7 +23,7 @@ class JSONView(BrowserView):
 
 
 class View(JSONView):
-    """ daviz-view.json for IExhibitJson objects
+    """ daviz-view.json for IVisualizationEnabled objects
     """
     def __init__(self, context, request):
         super(View, self).__init__(context, request)

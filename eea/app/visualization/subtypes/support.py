@@ -9,7 +9,7 @@ from zope.event import notify
 from zope.interface import alsoProvides, noLongerProvides, implements
 from zope.publisher.interfaces import NotFound
 
-from eea.app.visualization.converter.interfaces import IExhibitJsonConverter
+from eea.app.visualization.converter.interfaces import ITable2JsonConverter
 from eea.app.visualization.events import VisualizationEnabledEvent
 from eea.app.visualization.events import VisualizationDisabledEvent
 from eea.app.visualization.interfaces import IVisualizationConfig
@@ -123,7 +123,7 @@ class DavizSupport(DavizPublicSupport):
             datafile = StringIO(self.context.getFile().data)
         else:
             datafile = StringIO(getattr(self.context, 'data', ''))
-        converter = queryUtility(IExhibitJsonConverter)
+        converter = queryUtility(ITable2JsonConverter)
         try:
             columns, json = converter(datafile)
         except Exception, err:

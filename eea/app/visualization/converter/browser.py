@@ -4,7 +4,7 @@ import logging
 import json as simplejson
 from StringIO import StringIO
 from zope.component import queryUtility
-from eea.app.visualization.converter.interfaces import IExhibitJsonConverter
+from eea.app.visualization.converter.interfaces import ITable2JsonConverter
 from eea.app.visualization.cache import ramcache, cacheJsonKey
 from eea.app.visualization.browser.app.view import JSONView
 from eea.app.visualization.converter.converter import sortProperties
@@ -19,7 +19,7 @@ class TSVFileJSONView(JSONView):
         """ Convert file to JSON
         """
         datafile = StringIO(self.context.getFile().data)
-        converter = queryUtility(IExhibitJsonConverter)
+        converter = queryUtility(ITable2JsonConverter)
         try:
             _cols, json = converter(datafile, column_types)
         except Exception, err:

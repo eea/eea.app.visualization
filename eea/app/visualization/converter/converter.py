@@ -8,7 +8,7 @@ from zope.component import getUtility, queryUtility
 from zope.interface import implements
 from eea.app.visualization.interfaces import IGuessType
 from eea.app.visualization.interfaces import IGuessTypes
-from eea.app.visualization.interfaces import IExhibitJsonConverter
+from eea.app.visualization.interfaces import ITable2JsonConverter
 
 logger = logging.getLogger("eea.app.visualization.converter")
 
@@ -30,19 +30,19 @@ class EEADialectTab(csv.Dialect):
 
 csv.register_dialect("eea-tab", EEADialectTab)
 
-class ExhibitJsonConverter(object):
+class Table2JsonConverter(object):
     """ Utility to convert csv to json
 
         >>> from zope.component import getUtility
         >>> from eea.app.visualization.converter.interfaces import \
-        ...      IExhibitJsonConverter
+        ...      ITable2JsonConverter
 
-        >>> converter = getUtility(IExhibitJsonConverter)
+        >>> converter = getUtility(ITable2JsonConverter)
         >>> converter
-        <eea.app.visualization.converter.converter.ExhibitJsonConverter ...>
+        <eea.app.visualization.converter.converter.Table2JsonConverter ...>
 
     """
-    implements(IExhibitJsonConverter)
+    implements(ITable2JsonConverter)
 
     def dialect(self, datafile):
         """ Try to guess CSV dialect
