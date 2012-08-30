@@ -1,35 +1,20 @@
-=============================
-EEA App Visualisation product
-=============================
-EEA App Visualisation is the Core API for EEA Daviz. This package was added
-in order to be able to use EEA Google Charts without EEA Exhibit and viceversa or
-any other visualization library as a standalone visualization or as part of a
-bundle package (eea.daviz)
+=====================
+EEA App Visualisation
+=====================
+`EEA App Visualisation`_ is the Core API for `EEA Daviz`_. This package was added
+in order to be able to use `EEA Google Charts`_ without `EEA Exhibit`_ and
+viceversa or any other visualization library as a standalone visualization
+or as part of a bundle package (`eea.daviz`_)
 
 
-The following graph show the arhitecture of EEA Visualisation::
-
-  -------------------------------------------------------------------------
- |                           eea.daviz                                     | - Bundle
-  -------------------------------------------------------------------------
-       /                          |                           \
-  -------------+------------------+----------------------------------------
- | eea.exhibit | eea.googlecharts | ...more custom visualization libraries | - Pluggable visualization libraries
-  -------------+------------------+----------------------------------------
-       \                          |                           /
-  -------------------------------------------------------------------------
- |                       eea.app.visualization                             | - API
-  -------------------------------------------------------------------------
+.. image:: http://eea.github.com/_static/visualization-layers.svg
 
 
 This package as standalone is just an API, you have to either install
-eea.daviz bundle, either install one of the available visualization
-libraries (eea.exhibit, eea.googlecharts, etc) in order to have a working
+`eea.daviz`_ bundle, either install one of the available visualization
+libraries (`eea.exhibit`_, `eea.googlecharts`_, etc) in order to have a working
 Visualization Tool for your files.
 
-
-Contents
-========
 
 .. contents::
 
@@ -37,23 +22,27 @@ Contents
 Installation
 ============
 
-If you are using zc.buildout and the plone.recipe.zope2instance
+If you are using zc.buildout and the `plone.recipe.zope2instance`_
 recipe to manage your project, you can do this:
 
-  * Add ``eea.app.visualization`` to the list of eggs to install, e.g.::
+* Update your buildout.cfg file:
 
-      [buildout]
-      eggs = eea.app.visualization
+  - Add `eea.app.visualization`_ to the list of eggs to install
+  - Tell the plone.recipe.zope2instance recipe to install a ZCML slug
 
-  * Tell the plone.recipe.zope2instance recipe to install a ZCML slug::
+  ::
 
-      [instance]
-      recipe = plone.recipe.zope2instance
-      zcml = eea.app.visualization
+    [instance]
+    recipe = plone.recipe.zope2instance
+    eggs = eea.app.visualization
+    zcml = eea.app.visualization
 
-  * Re-run buildout, e.g. with::
+* Re-run buildout, e.g. with
 
-      $ ./bin/buildout
+  ::
+
+    $ ./bin/buildout
+
 
 You can skip the ZCML slug if you are going to explicitly include the package
 from another package's configure.zcml file.
@@ -62,21 +51,26 @@ from another package's configure.zcml file.
 Dependecies
 ===========
 
-  1. Plone 4.x
+* python-dateutil
+* Zope 2.12
+* eea.jquery
+* collective.js.jqueryui
+
 
 Live demo
 =========
 
-  1. http://www.simile-widgets.org/exhibit
-  2. Exhibit only: http://www.eea.europa.eu/data-and-maps/data/national-emissions-reported-to-the-unfccc-and-to-the-eu-greenhouse-gas-monitoring-mechanism-3/national-total-excluding-lulucf/ghg_v10_extract.csv
-  3. http://code.google.com/apis/chart/
+1. http://www.simile-widgets.org/exhibit
+2. Exhibit only: http://www.eea.europa.eu/data-and-maps/data/national-emissions-reported-to-the-unfccc-and-to-the-eu-greenhouse-gas-monitoring-mechanism-3/national-total-excluding-lulucf/ghg_v10_extract.csv
+3. http://code.google.com/apis/chart/
 
 
 Source code
 ===========
 
-Latest source code (Plone 4 compatible):
-   https://svn.eionet.europa.eu/repositories/Zope/trunk/eea.app.visualization/trunk
+Latest source code (Zope2 compatible):
+
+- https://svn.eionet.europa.eu/repositories/Zope/trunk/eea.app.visualization/trunk
 
 
 Copyright and license
@@ -97,15 +91,26 @@ More details under docs/License.txt
 Links
 =====
 
-  1. Simile Wiki - Exhibit 2.0: http://simile.mit.edu/wiki/Exhibit
-  2. Simile widgets: http://www.simile-widgets.org/exhibit
-  3. EEA Daviz howto: https://svn.eionet.europa.eu/projects/Zope/wiki/HowToDaviz
-  4. EEA Daviz backlog wiki: https://svn.eionet.europa.eu/projects/Zope/wiki/DaViz
-  5. Google charts: http://code.google.com/apis/chart/
+1. Simile Wiki - Exhibit 2.0: http://simile.mit.edu/wiki/Exhibit
+2. Simile widgets: http://www.simile-widgets.org/exhibit
+3. EEA Daviz howto: https://svn.eionet.europa.eu/projects/Zope/wiki/HowToDaviz
+4. EEA Daviz backlog wiki: https://svn.eionet.europa.eu/projects/Zope/wiki/DaViz
+5. Google charts: http://code.google.com/apis/chart/
+
 
 Funding
 =======
 
-  EEA_ - European Enviroment Agency (EU)
+EEA_ - European Enviroment Agency (EU)
+
 
 .. _EEA: http://www.eea.europa.eu/
+.. _`EEA Daviz`: http://eea.github.com/docs/eea.daviz
+.. _`EEA Google Charts`: http://eea.github.com/docs/eea.googlecharts
+.. _`EEA Exhibit`: http://eea.github.com/docs/eea.exhibit
+.. _`eea.daviz`: http://eea.github.com/docs/eea.daviz
+.. _`eea.googlecharts`: http://eea.github.com/docs/eea.googlecharts
+.. _`eea.exhibit`: http://eea.github.com/docs/eea.exhibit
+.. _`eea.app.visualization`: http://eea.github.com/docs/eea.app.visualization
+.. _`plone.recipe.zope2instance`: http://pypi.python.org/pypi/plone.recipe.zope2instance
+.. _`EEA App Visualisation`: http://eea.github.com/docs/eea.app.visualization
