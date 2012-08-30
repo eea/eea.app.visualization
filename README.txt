@@ -7,7 +7,7 @@ viceversa or any other visualization library as a standalone visualization
 or as part of a bundle package (`eea.daviz`_)
 
 
-.. image:: http://eea.github.com/_static/visualization-layers.svg
+.. image:: http://eea.github.com/_images/eea.daviz.layers.svg
 
 
 This package as standalone is just an API, you have to either install
