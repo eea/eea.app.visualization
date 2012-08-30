@@ -1,7 +1,7 @@
 =====================
-EEA App Visualisation
+EEA App Visualization
 =====================
-`EEA App Visualisation`_ is the Core API for `EEA Daviz`_. This package was added
+`EEA App Visualization`_ is the Core API for `EEA Daviz`_. This package was added
 in order to be able to use `EEA Google Charts`_ without `EEA Exhibit`_ and
 viceversa or any other visualization library as a standalone visualization
 or as part of a bundle package (`eea.daviz`_)
@@ -22,7 +22,7 @@ Visualization Tool for your files.
 Installation
 ============
 
-If you are using zc.buildout and the `plone.recipe.zope2instance`_
+If you are using `zc.buildout`_ and the `plone.recipe.zope2instance`_
 recipe to manage your project, you can do this:
 
 * Update your buildout.cfg file:
@@ -48,13 +48,15 @@ You can skip the ZCML slug if you are going to explicitly include the package
 from another package's configure.zcml file.
 
 
-Dependecies
-===========
+Dependencies
+============
 
 * python-dateutil
-* Zope 2.12
+* Zope >= 2.12
 * eea.jquery
 * collective.js.jqueryui
+
+.. image:: http://eea.github.com/_images/eea.daviz.dependencies.svg
 
 
 Live demo
@@ -79,7 +81,7 @@ Copyright and license
 The Initial Owner of the Original Code is European Environment Agency (EEA).
 All Rights Reserved.
 
-The EEA App Visualisation (the Original Code) is free software;
+The EEA App Visualization (the Original Code) is free software;
 you can redistribute it and/or modify it under the terms of the GNU
 General Public License as published by the Free Software Foundation;
 either version 2 of the License, or (at your option) any later
@@ -101,7 +103,7 @@ Links
 Funding
 =======
 
-EEA_ - European Enviroment Agency (EU)
+EEA_ - European Environment Agency (EU)
 
 
 .. _EEA: http://www.eea.europa.eu/
@@ -113,4 +115,5 @@ EEA_ - European Enviroment Agency (EU)
 .. _`eea.exhibit`: http://eea.github.com/docs/eea.exhibit
 .. _`eea.app.visualization`: http://eea.github.com/docs/eea.app.visualization
 .. _`plone.recipe.zope2instance`: http://pypi.python.org/pypi/plone.recipe.zope2instance
-.. _`EEA App Visualisation`: http://eea.github.com/docs/eea.app.visualization
+.. _`zc.buildout`: http://pypi.python.org/pypi/zc.buildout
+.. _`EEA App Visualization`: http://eea.github.com/docs/eea.app.visualization
