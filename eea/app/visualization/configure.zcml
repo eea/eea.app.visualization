@@ -1,17 +1,14 @@
 <configure
   xmlns="http://namespaces.zope.org/zope"
+  xmlns:zcml="http://namespaces.zope.org/zcml"
   i18n_domain="eea">
 
-  <includeDependencies package="." />
-  <include file="profiles.zcml" />
+  <configure zcml:condition="installed Products.CMFPlone">
+    <include file="plone.zcml" />
+  </configure>
 
-  <include package=".browser" />
-  <include package=".cache" />
-  <include package=".converter" />
-  <include package=".facets" />
-  <include package=".storage" />
-  <include package=".subtypes" />
-  <include package=".views" />
-  <include package=".upgrades" />
+  <configure zcml:condition="not-installed Products.CMFPlone">
+    <include file="zope2.zcml" />
+  </configure>
 
 </configure>

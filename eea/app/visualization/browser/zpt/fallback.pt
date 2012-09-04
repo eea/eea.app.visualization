@@ -1,0 +1,57 @@
+<metal:fallback define-macro="view">
+<html>
+  <head>
+    <!-- CSS -->
+    <metal:cssslot define-slot="daviz_css_requires">
+      <link rel="stylesheet" type="text/css" media="screen" tal:attributes="href string:${here/absolute_url}/daviz-view.requires.css" />
+    </metal:cssslot>
+    <metal:cssslot define-slot="daviz_css">
+      <link rel="stylesheet" type="text/css" media="screen" tal:attributes="href string:${here/absolute_url}/daviz-view.css" />
+    </metal:cssslot>
+
+    <!-- JS -->
+    <metal:jsslot define-slot="daviz_js_requires">
+      <script type="text/javascript" tal:attributes="src string:${here/absolute_url}/daviz-view.requires.js"></script>
+    </metal:jsslot>
+    <metal:jsslot define-slot="daviz_js">
+      <script type="text/javascript" tal:attributes="src string:${here/absolute_url}/daviz-view.js"></script>
+    </metal:jsslot>
+    <metal:jsslot define-slot="javascript_head_slot" />
+
+  </head>
+
+  <body>
+    <metal:jsslot define-slot="content-core" />
+  </body>
+
+</html>
+</metal:fallback>
+
+<metal:fallback define-macro="edit">
+<html>
+  <head>
+    <!-- CSS -->
+    <metal:cssslot define-slot="daviz_css_requires">
+      <link rel="stylesheet" type="text/css" media="screen" tal:attributes="href string:${here/absolute_url}/daviz-edit.requires.css" />
+    </metal:cssslot>
+    <metal:cssslot define-slot="daviz_css">
+      <link rel="stylesheet" type="text/css" media="screen" tal:attributes="href string:${here/absolute_url}/daviz-edit.css" />
+    </metal:cssslot>
+
+    <!-- JS -->
+    <metal:jsslot define-slot="daviz_js_requires">
+      <script type="text/javascript" tal:attributes="src string:${here/absolute_url}/daviz-edit.requires.js"></script>
+    </metal:jsslot>
+    <metal:jsslot define-slot="daviz_js">
+      <script type="text/javascript" tal:attributes="src string:${here/absolute_url}/daviz-edit.js"></script>
+    </metal:jsslot>
+    <metal:jsslot define-slot="javascript_head_slot" />
+
+  </head>
+
+  <body>
+    <metal:jsslot define-slot="main" />
+  </body>
+
+</html>
+</metal:fallback>

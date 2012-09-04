@@ -2,13 +2,20 @@
 """
 import re
 import operator
-from zope.component import getUtilitiesFor
+from zope.component import getUtilitiesFor, queryUtility
 from zope.interface import implements
-from Products.CMFPlone.utils import normalizeString
+from plone.i18n.normalizer.interfaces import IIDNormalizer
 from eea.app.visualization.converter.types.interfaces import IGuessType
 from eea.app.visualization.converter.types.interfaces import IGuessTypes
 
 REGEX = re.compile(r"[\W]+")
+
+def normalizeString(text, context=None, encoding=None):
+    """
+    The relaxed mode was removed in Plone 4.0. You should use either the url
+    or file name normalizer from the plone.i18n package instead.
+    """
+    return queryUtility(IIDNormalizer).normalize(text)
 
 class GuessTypes(object):
     """ Guess types utility

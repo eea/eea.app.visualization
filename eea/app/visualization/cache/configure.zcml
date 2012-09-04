@@ -6,7 +6,7 @@
     name="memcache.invalidate"
     for="eea.app.visualization.interfaces.IVisualizationEnabled"
     class=".browser.InvalidateMemCache"
-    permission="cmf.ModifyPortalContent" />
+    permission="eea.app.visualization.configure" />
 
   <subscriber
     for="eea.app.visualization.interfaces.IVisualizationEnabled

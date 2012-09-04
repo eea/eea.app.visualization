@@ -26,7 +26,7 @@ def fix_layout(context):
             continue
         support = queryMultiAdapter(
             (doc, context.REQUEST), name='daviz_support')
-        if support.is_exhibit:
+        if support.is_visualization:
             doc.reindexObject(['object_provides', ])
 
     # Fix daviz layouts

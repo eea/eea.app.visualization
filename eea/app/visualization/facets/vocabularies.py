@@ -1,4 +1,4 @@
-""" Vocabulary logic for returning available registered exhibit views
+""" Vocabulary logic for returning available registered visualization views
 """
 from zope.component import queryAdapter
 from zope.interface import implements
@@ -8,7 +8,7 @@ from zope.schema.vocabulary import SimpleTerm
 from eea.app.visualization.interfaces import IVisualizationConfig
 
 class FacetsVocabulary(object):
-    """ Available registered exhibit views
+    """ Available registered visualization facets
     """
     implements(IVocabularyFactory)
 

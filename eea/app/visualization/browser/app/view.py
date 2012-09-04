@@ -3,12 +3,12 @@
 import logging
 import json as simplejson
 from zope.security import checkPermission
-from zope.component import queryAdapter, queryMultiAdapter
-from Products.CMFCore.utils import getToolByName
+from zope.component import queryUtility, queryAdapter, queryMultiAdapter
 from Products.Five.browser import BrowserView
 from eea.app.visualization.interfaces import IVisualizationConfig
 from eea.app.visualization.cache import ramcache, cacheJsonKey
 from eea.app.visualization.converter.converter import sortProperties
+from eea.app.visualization.zopera import IPropertiesTool
 
 logger = logging.getLogger('eea.app.visualization')
 
@@ -23,7 +23,7 @@ class JSONView(BrowserView):
 
 
 class View(JSONView):
-    """ daviz-view.json for IExhibitJson objects
+    """ daviz-view.json for IVisualizationEnabled objects
     """
     def __init__(self, context, request):
         super(View, self).__init__(context, request)
@@ -66,9 +66,15 @@ class View(JSONView):
         """ Get Google Maps key from
             portal_properties.geographical_properties.google_key
         """
-        ptool = getToolByName(self.context, 'portal_properties')
+        ptool = queryUtility(IPropertiesTool)
         props = getattr(ptool, 'geographical_properties', '')
-        return getattr(props, 'google_key', '')
+        if callable(props):
+            try:
+                props = props(context=self.context, request=self.request)
+            except Exception, err:
+                logger.debug(err)
+        key = props.getProperty('google_key', '')
+        return key
 
     def get_facet(self, name):
         """ Get faceted by name
@@ -150,7 +156,7 @@ class HTMLView(View):
     def __call__(self, **kwargs):
         """ If daviz is not configured redirects to edit page.
         """
-        if not checkPermission('cmf.ModifyPortalContent', self.context):
+        if not checkPermission('eea.app.visualization.configure', self.context):
             return self.index()
 
         referer = getattr(self.request, 'HTTP_REFERER', '')
@@ -179,7 +185,9 @@ class RelatedItemsJSON(JSONView):
         else:
             my_json = {}
 
-        relatedItems = self.context.getRelatedItems()
+        relatedItems = getattr(self.context, 'getRelatedItems', ())
+        if relatedItems:
+            relatedItems = relatedItems()
 
         new_json = {'items': [], 'properties': {}}
         for item in relatedItems:

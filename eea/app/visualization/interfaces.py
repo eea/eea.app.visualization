@@ -19,11 +19,17 @@ from eea.app.visualization.events.interfaces import (
 # Converter
 from eea.app.visualization.converter.interfaces import IGuessType
 from eea.app.visualization.converter.interfaces import IGuessTypes
-from eea.app.visualization.converter.interfaces import IExhibitJsonConverter
+from eea.app.visualization.converter.interfaces import ITable2JsonConverter
 
 # Views
 from eea.app.visualization.views.interfaces import IVisualizationView
 from eea.app.visualization.views.interfaces import IVisualizationViews
+
+# JS/CSS Utilities
+from eea.app.visualization.browser.res.interfaces import (
+    IVisualizationViewResources,
+    IVisualizationEditResources
+)
 
 __all__ = (
     IPossibleVisualization.__name__,
@@ -36,7 +42,9 @@ __all__ = (
     IVisualizationFacetDeletedEvent.__name__,
     IGuessType.__name__,
     IGuessTypes.__name__,
-    IExhibitJsonConverter.__name__,
+    ITable2JsonConverter.__name__,
     IVisualizationView.__name__,
     IVisualizationViews.__name__,
+    IVisualizationViewResources.__name__,
+    IVisualizationEditResources.__name__,
 )

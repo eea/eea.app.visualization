@@ -2,8 +2,12 @@
 """
 from App.Common import rfc1123_date
 from DateTime import DateTime
-from Products.CMFCore.utils import getToolByName
-from Products.ResourceRegistries.tools.packer import CSSPacker
+from zope.component import getMultiAdapter, getAllUtilitiesRegisteredFor
+from zope.publisher.browser import TestRequest
+from eea.app.visualization.zopera import getToolByName
+from eea.app.visualization.zopera import packer
+from eea.app.visualization.interfaces import IVisualizationViewResources
+from eea.app.visualization.interfaces import IVisualizationEditResources
 
 class CSS(object):
     """ Handle criteria
@@ -13,6 +17,7 @@ class CSS(object):
         self.request = request
         self._resources = resources
         self.duration = 3600*24*365
+        self.debug = False
 
         self.csstool = getToolByName(context, 'portal_css', None)
         if self.csstool:
@@ -27,7 +32,18 @@ class CSS(object):
     def get_resource(self, resource):
         """ Get resource content
         """
-        obj = self.context.restrictedTraverse(resource, None)
+        # If resources are retrieved via GET, the request headers
+        # are used for caching AND are mangled.
+        # That can result in getting 304 responses
+        # There is no API to extract the data from the view without
+        # mangling the headers, so we must use a fake request
+        # that can be modified without harm
+        if resource.startswith('++resource++'):
+            traverser = getMultiAdapter((self.context, TestRequest()),
+                name='resource')
+            obj = traverser.traverse(resource[12:], None)
+        else:
+            obj = self.context.restrictedTraverse(resource, None)
         if not obj:
             return '/* ERROR */'
         try:
@@ -47,7 +63,7 @@ class CSS(object):
             content = self.get_resource(resource)
             header = '\n/* - %s - */\n' % resource
             if not self.debug:
-                content = CSSPacker('safe').pack(content)
+                content = packer.CSSPacker('safe').pack(content)
             output.append(header + content)
         return '\n'.join(output)
 
@@ -64,9 +80,10 @@ class ViewCSS(CSS):
     def css_libs(self):
         """ CSS libs
         """
-        return (
-            '++resource++eea.daviz.view.css',
-        )
+        res = []
+        for util in getAllUtilitiesRegisteredFor(IVisualizationViewResources):
+            res.extend(util.css)
+        return res
 
     @property
     def resources(self):
@@ -86,6 +103,18 @@ class ViewCSS(CSS):
                                         'max-age=%d' % self.duration)
         return self.get_content()
 
+class ViewRequiresCSS(ViewCSS):
+    """ CSS libraries required by daviz-view.css
+    """
+    @property
+    def css_libs(self):
+        """ CSS libs
+        """
+        res = []
+        for util in getAllUtilitiesRegisteredFor(IVisualizationViewResources):
+            res.extend(util.extcss)
+        return res
+
 class EditCSS(CSS):
     """ CSS libs used in edit form
     """
@@ -93,9 +122,10 @@ class EditCSS(CSS):
     def css_libs(self):
         """ CSS Libs
         """
-        return (
-            '++resource++eea.daviz.edit.css',
-        )
+        res = []
+        for util in getAllUtilitiesRegisteredFor(IVisualizationEditResources):
+            res.extend(util.css)
+        return res
 
     @property
     def resources(self):
@@ -114,3 +144,15 @@ class EditCSS(CSS):
         self.request.RESPONSE.setHeader('Cache-Control',
                                         'max-age=%d' % self.duration)
         return self.get_content()
+
+class EditRequiresCSS(EditCSS):
+    """ CSS libraries required by daviz-edit.css
+    """
+    @property
+    def css_libs(self):
+        """ CSS Libs
+        """
+        res = []
+        for util in getAllUtilitiesRegisteredFor(IVisualizationEditResources):
+            res.extend(util.extcss)
+        return res

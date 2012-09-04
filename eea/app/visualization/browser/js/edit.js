@@ -590,7 +590,7 @@ DavizEdit.View.prototype = {
     if(self.jsondata.length){
       var jsondata = new DavizEdit.JsonGrid(self.jsondata);
     }
-    self.table = jQuery('div.field:has(label[for=daviz.properties.sources]) table', self.form);
+    self.table = jQuery('div:has(label[for=daviz.properties.sources]) table', self.form);
     if(self.table.length){
       self.table.addClass('daviz-sources-table');
       var table = new DavizEdit.SourceTable(self.table);
@@ -601,10 +601,12 @@ DavizEdit.View.prototype = {
       return false;
     });
 
-    self.buttons = jQuery('.actionButtons input[type=submit]', self.form).click(function(){
-      var button = jQuery(this);
-      self.submit(button);
-    });
+    self.buttons = jQuery('.actionButtons input[type=submit]', self.form)
+      .addClass('btn')
+      .click(function(){
+        var button = jQuery(this);
+        self.submit(button);
+      });
 
     self.inputs = jQuery(':input', self.form).change(function(evt){
       jQuery('fieldset', self.form).addClass('changed');

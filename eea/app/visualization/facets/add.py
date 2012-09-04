@@ -2,10 +2,10 @@
 """
 from zope.component import queryAdapter
 from zope.formlib.form import SubPageForm
-from Products.statusmessages.interfaces import IStatusMessage
 from zope.formlib.form import action as formAction
 from zope.formlib.form import setUpInputWidgets, haveInputWidgets
 from eea.app.visualization.interfaces import IVisualizationConfig
+from eea.app.visualization.zopera import IStatusMessage
 from zope.formlib.form import Fields
 
 from eea.app.visualization.facets.interfaces import IVisualizationAddFacet
@@ -15,7 +15,7 @@ from eea.app.visualization.config import EEAMessageFactory as _
 class AddForm(SubPageForm):
     """
     Basic layer to add daviz facets. For more details on how to use this,
-    see implementation in eea.exhibit.facets.list.add.Add.
+    see implementation in eea.app.visualization.facets.list.add.Add.
 
     Assign these attributes in your subclass:
       - form_fields: Fields(Interface)
@@ -95,7 +95,8 @@ class AddForm(SubPageForm):
     def nextURL(self):
         """ Next
         """
-        IStatusMessage(self.request).addStatusMessage(
-            'Facet added', type='info')
+        status = queryAdapter(self.request, IStatusMessage)
+        if status:
+            status.addStatusMessage('Facet added', type='info')
         nexturl = self.context.absolute_url() + '/daviz-edit.html'
         self.request.response.redirect(nexturl)

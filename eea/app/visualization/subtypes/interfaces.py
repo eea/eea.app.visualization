@@ -17,19 +17,22 @@ class IVisualizationSubtyper(Interface):
     """ Support for subtyping objects
     """
 
-    can_enable = schema.Bool(u'Can enable exhibit view',
-                             readonly=True)
-    can_disable = schema.Bool(u'Can disable disable exhibit view',
-                              readonly=True)
-    is_exhibit = schema.Bool(u'Is current object exhibit enabled',
-                             readonly=True)
+    can_enable = schema.Bool(
+        u'Can enable visualization',
+        readonly=True)
+    can_disable = schema.Bool(
+        u'Can disable visualization',
+        readonly=True)
+    is_visualization = schema.Bool(
+        u'Is visualization enabled for current object',
+        readonly=True)
 
     def enable():
-        """ Enable exhibit view
+        """ Enable visualization
         """
 
     def disable():
-        """ Disable exhibit view
+        """ Disable visualization
         """
 
 __all__ = [

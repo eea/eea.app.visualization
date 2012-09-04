@@ -1,8 +1,7 @@
-""" Module to enable or disable Exhibit support
+""" Module to enable or disable visualization
 """
 import logging
 from Products.Five.browser import BrowserView
-from Products.statusmessages.interfaces import IStatusMessage
 from StringIO import StringIO
 
 from zope.component import queryAdapter, queryUtility
@@ -10,12 +9,13 @@ from zope.event import notify
 from zope.interface import alsoProvides, noLongerProvides, implements
 from zope.publisher.interfaces import NotFound
 
-from eea.app.visualization.converter.interfaces import IExhibitJsonConverter
+from eea.app.visualization.converter.interfaces import ITable2JsonConverter
 from eea.app.visualization.events import VisualizationEnabledEvent
 from eea.app.visualization.events import VisualizationDisabledEvent
 from eea.app.visualization.interfaces import IVisualizationConfig
 from eea.app.visualization.interfaces import IVisualizationEnabled
 from eea.app.visualization.subtypes.interfaces import IVisualizationSubtyper
+from eea.app.visualization.zopera import IStatusMessage
 
 logger = logging.getLogger('eea.app.visualization.converter')
 
@@ -34,8 +34,9 @@ class DavizPublicSupport(BrowserView):
         """
         if self.request:
             if msg:
-                IStatusMessage(self.request).addStatusMessage(
-                    str(msg), type='info')
+                status = queryAdapter(self.request, IStatusMessage)
+                if status:
+                    status.addStatusMessage(str(msg), type='info')
             if to:
                 self.request.response.redirect(self.context.absolute_url() + to)
             else:
@@ -56,11 +57,13 @@ class DavizPublicSupport(BrowserView):
         return False
 
     @property
-    def is_exhibit(self):
-        """ Is exhibit?
+    def is_visualization(self):
+        """ Is visualization enabled?
         """
         return False
 
+    #BBB: This will be removed in the next version of this package
+    is_exhibit = is_visualization
 
     def enable(self):
         """ See IVisualizationSubtyper
@@ -74,7 +77,7 @@ class DavizPublicSupport(BrowserView):
 
 
 class DavizSupport(DavizPublicSupport):
-    """ Enable/Disable Exhibit
+    """ Enable/Disable visualization
     """
 
     def _redirect(self, msg='', to='/daviz-edit.html'):
@@ -82,8 +85,9 @@ class DavizSupport(DavizPublicSupport):
         """
         if self.request:
             if msg:
-                IStatusMessage(self.request).addStatusMessage(
-                    str(msg), type='info')
+                status = queryAdapter(self.request, IStatusMessage)
+                if status:
+                    status.addStatusMessage(str(msg), type='info')
             if to:
                 self.request.response.redirect(self.context.absolute_url() + to)
             else:
@@ -95,25 +99,31 @@ class DavizSupport(DavizPublicSupport):
     def can_enable(self):
         """ See IVisualizationSubtyper
         """
-        return not self.is_exhibit
+        return not self.is_visualization
 
     @property
     def can_disable(self):
         """ See IVisualizationSubtyper
         """
-        return self.is_exhibit
+        return self.is_visualization
 
     @property
-    def is_exhibit(self):
-        """ Is exhibit viewable?
+    def is_visualization(self):
+        """ Is visualization enabled?
         """
         return IVisualizationEnabled.providedBy(self.context)
 
+    #BBB: This will be removed in the next version of this package
+    is_exhibit = is_visualization
+
     def enable(self):
-        """ Enable Exhibit
+        """ Enable visualization
         """
-        datafile = StringIO(self.context.getFile().data)
-        converter = queryUtility(IExhibitJsonConverter)
+        if hasattr(self.context, 'getFile'):
+            datafile = StringIO(self.context.getFile().data)
+        else:
+            datafile = StringIO(getattr(self.context, 'data', ''))
+        converter = queryUtility(ITable2JsonConverter)
         try:
             columns, json = converter(datafile)
         except Exception, err:
@@ -132,7 +142,7 @@ class DavizSupport(DavizPublicSupport):
         return self._redirect('Visualization enabled')
 
     def disable(self):
-        """ Disable Exhibit
+        """ Disable visualization
         """
         noLongerProvides(self.context, IVisualizationEnabled)
         notify(VisualizationDisabledEvent(self.context))

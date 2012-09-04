@@ -6,17 +6,17 @@ from zope import event
 from zope.component import queryUtility
 from zope.component import queryAdapter, queryMultiAdapter
 from zope.component import getMultiAdapter
-from Products.statusmessages.interfaces import IStatusMessage
 from zope.schema.interfaces import IVocabularyFactory
 from Products.Five.browser import BrowserView
 from zope.schema.vocabulary import SimpleTerm
 from eea.app.visualization.interfaces import IVisualizationConfig
 from eea.app.visualization.events import VisualizationFacetDeletedEvent
+from eea.app.visualization.zopera import IStatusMessage
 logger = logging.getLogger('eea.app.visualization')
 
 DAVIZ_WARNING_WRONG_DATASET = """Data is missing, or is not well formated."""
 DAVIZ_WARNING_NO_DATA = """Your data contains no rows."""
-DAVIZ_WARNING_DATA_2000 = """Your data contains more than 2000 rows. 
+DAVIZ_WARNING_DATA_2000 = """Your data contains more than 2000 rows.
     The visualisation may be slow in Internet Explorer below version 9."""
 DAVIZ_WARNING_DATA_4000 = """Your data contains more than 4000 rows.
     The visualisation may be slow or become unresponsive."""
@@ -131,8 +131,9 @@ class Configure(BrowserView):
         if not self.request:
             return msg
 
-        if msg:
-            IStatusMessage(self.request).addStatusMessage(str(msg), type='info')
+        status = queryAdapter(self.request, IStatusMessage)
+        if msg and status:
+            status.addStatusMessage(str(msg), type='info')
         self.request.response.redirect(to)
         return msg
 

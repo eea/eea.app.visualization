@@ -1,0 +1,11 @@
+<configure
+  xmlns="http://namespaces.zope.org/zope"
+  xmlns:zcml="http://namespaces.zope.org/zcml"
+  i18n_domain="eea">
+
+  <utility zcml:condition="not-installed Products.CMFCore"
+    provides="eea.app.visualization.zopera.IPropertiesTool"
+    factory=".utils.PropertiesTool"
+    />
+
+</configure>

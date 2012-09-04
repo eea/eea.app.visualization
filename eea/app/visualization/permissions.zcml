@@ -1,0 +1,11 @@
+<configure
+  xmlns="http://namespaces.zope.org/zope"
+  i18n_domain="eea">
+
+  <permission
+    id="eea.app.visualization.configure"
+    title="eea.app.visualization: Configure Visualization"
+    description="Edit visualizations (google charts, dashboard, etc)"
+    />
+
+</configure>

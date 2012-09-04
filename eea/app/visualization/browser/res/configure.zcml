@@ -1,10 +1,19 @@
-<configure xmlns:browser="http://namespaces.zope.org/browser"
+<configure
+  xmlns="http://namespaces.zope.org/zope"
+  xmlns:browser="http://namespaces.zope.org/browser"
   i18n_domain="eea">
 
   <browser:page
     for="*"
     name="daviz-view.js"
     class=".javascript.ViewJavascript"
+    permission="zope.Public"
+    />
+
+  <browser:page
+    for="*"
+    name="daviz-view.requires.js"
+    class=".javascript.ViewRequiresJavascript"
     permission="zope.Public"
     />
 
@@ -17,8 +26,22 @@
 
   <browser:page
     for="*"
+    name="daviz-edit.requires.js"
+    class=".javascript.EditRequiresJavascripts"
+    permission="zope.Public"
+    />
+
+  <browser:page
+    for="*"
     name="daviz-view.css"
     class=".css.ViewCSS"
+    permission="zope.Public"
+    />
+
+  <browser:page
+    for="*"
+    name="daviz-view.requires.css"
+    class=".css.ViewRequiresCSS"
     permission="zope.Public"
     />
 
@@ -28,5 +51,22 @@
     class=".css.EditCSS"
     permission="zope.Public"
     />
+
+  <browser:page
+    for="*"
+    name="daviz-edit.requires.css"
+    class=".css.EditRequiresCSS"
+    permission="zope.Public"
+    />
+
+  <utility
+    name="eea.app.visualization.resources.view"
+    provides="eea.app.visualization.interfaces.IVisualizationViewResources"
+    factory=".resources.VisualizationViewResources" />
+
+  <utility
+    name="eea.app.visualization.resources.edit"
+    provides="eea.app.visualization.interfaces.IVisualizationEditResources"
+    factory=".resources.VisualizationEditResources" />
 
 </configure>

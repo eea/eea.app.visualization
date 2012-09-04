@@ -5,11 +5,13 @@ def set_default_layout(doc, evt):
     """
     if hasattr(doc, 'setLayout'):
         doc.setLayout('daviz-view.html')
-    doc.reindexObject(['object_provides', ])
+    if hasattr(doc, 'reindexObject'):
+        doc.reindexObject(['object_provides', ])
 
 def unset_default_layout(doc, evt):
     """ EVENT: Visualization disabled
     """
     if doc.hasProperty('layout'):
         doc.manage_delProperties(['layout'])
-    doc.reindexObject(['object_provides', ])
+    if hasattr(doc, 'reindexObject'):
+        doc.reindexObject(['object_provides', ])

@@ -2,8 +2,12 @@
 """
 from App.Common import rfc1123_date
 from DateTime import DateTime
-from Products.CMFCore.utils import getToolByName
-from Products.ResourceRegistries.tools.packer import JavascriptPacker
+from zope.component import getMultiAdapter, getAllUtilitiesRegisteredFor
+from zope.publisher.browser import TestRequest
+from eea.app.visualization.zopera import getToolByName
+from eea.app.visualization.zopera import packer
+from eea.app.visualization.interfaces import IVisualizationViewResources
+from eea.app.visualization.interfaces import IVisualizationEditResources
 
 class Javascript(object):
     """ Handle criteria
@@ -13,6 +17,7 @@ class Javascript(object):
         self.request = request
         self._resources = resources
         self.duration = 3600*24*365
+        self.debug = True
 
         self.jstool = getToolByName(context, 'portal_javascripts', None)
         if self.jstool:
@@ -27,7 +32,18 @@ class Javascript(object):
     def get_resource(self, resource):
         """ Get resource content
         """
-        obj = self.context.restrictedTraverse(resource, None)
+        # If resources are retrieved via GET, the request headers
+        # are used for caching AND are mangled.
+        # That can result in getting 304 responses
+        # There is no API to extract the data from the view without
+        # mangling the headers, so we must use a fake request
+        # that can be modified without harm
+        if resource.startswith('++resource++'):
+            traverser = getMultiAdapter((self.context, TestRequest()),
+                name='resource')
+            obj = traverser.traverse(resource[12:], None)
+        else:
+            obj = self.context.restrictedTraverse(resource, None)
         if not obj:
             return '/* ERROR */'
         try:
@@ -36,8 +52,10 @@ class Javascript(object):
             return str(obj)
         except Exception, err:
             return '/* ERROR: %s */' % err
-        else:
-            return content
+
+        if isinstance(content, str):
+            content = content.decode('utf-8')
+        return content
 
     def get_content(self, **kwargs):
         """ Get content
@@ -45,11 +63,11 @@ class Javascript(object):
         output = []
         for resource in self.resources:
             content = self.get_resource(resource)
-            header = '\n/* - %s - */\n' % resource
+            header = u'\n/* - %s - */\n' % resource
             if not self.debug:
-                content = JavascriptPacker('safe').pack(content)
+                content = packer.JavascriptPacker('safe').pack(content)
             output.append(header + content)
-        return '\n'.join(output)
+        return u'\n'.join(output)
 
     @property
     def helper_js(self):
@@ -64,9 +82,10 @@ class ViewJavascript(Javascript):
     def js_libs(self):
         """ JS libs
         """
-        return (
-            '++resource++eea.daviz.view.js',
-        )
+        res = []
+        for util in getAllUtilitiesRegisteredFor(IVisualizationViewResources):
+            res.extend(util.js)
+        return res
 
     @property
     def resources(self):
@@ -86,6 +105,18 @@ class ViewJavascript(Javascript):
                                         'max-age=%d' % self.duration)
         return self.get_content()
 
+class ViewRequiresJavascript(ViewJavascript):
+    """ JS libraries required by daviz-view.js
+    """
+    @property
+    def js_libs(self):
+        """ JS libs
+        """
+        res = []
+        for util in getAllUtilitiesRegisteredFor(IVisualizationViewResources):
+            res.extend(util.extjs)
+        return res
+
 class EditJavascript(Javascript):
     """ Javascript libs used in edit form
     """
@@ -93,9 +124,10 @@ class EditJavascript(Javascript):
     def js_libs(self):
         """ JS libs
         """
-        return (
-            '++resource++eea.daviz.edit.js',
-        )
+        res = []
+        for util in getAllUtilitiesRegisteredFor(IVisualizationEditResources):
+            res.extend(util.js)
+        return res
 
     @property
     def resources(self):
@@ -114,3 +146,15 @@ class EditJavascript(Javascript):
         self.request.RESPONSE.setHeader('Cache-Control',
                                         'max-age=%d' % self.duration)
         return self.get_content()
+
+class EditRequiresJavascripts(EditJavascript):
+    """ JS libraries required by daviz-edit.js
+    """
+    @property
+    def js_libs(self):
+        """ JS libs
+        """
+        res = []
+        for util in getAllUtilitiesRegisteredFor(IVisualizationEditResources):
+            res.extend(util.extjs)
+        return res

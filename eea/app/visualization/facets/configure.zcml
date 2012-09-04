@@ -1,6 +1,7 @@
 <configure
   xmlns="http://namespaces.zope.org/zope"
   xmlns:browser="http://namespaces.zope.org/browser"
+  xmlns:zcml="http://namespaces.zope.org/zcml"
   i18n_domain="eea">
 
   <utility
@@ -10,14 +11,14 @@
 
   <adapter
     for=".edit.EditForm"
-    factory="plone.app.form.default_subpage_template"
+    factory="eea.app.visualization.zopera.default_subpage_template"
     name="default"
     provides="zope.formlib.namedtemplate.INamedTemplate"
     />
 
   <adapter
     for=".add.AddForm"
-    factory="plone.app.form.default_subpage_template"
+    factory="eea.app.visualization.zopera.default_subpage_template"
     name="default"
     provides="zope.formlib.namedtemplate.INamedTemplate"
     />
@@ -32,7 +33,7 @@
     for="eea.app.visualization.interfaces.IVisualizationEnabled"
     name="daviz.facet.add"
     class=".add.AddForm"
-    permission="cmf.ModifyPortalContent"
+    permission="eea.app.visualization.configure"
     />
 
   <include package=".list" />
