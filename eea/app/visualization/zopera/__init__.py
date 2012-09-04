@@ -64,9 +64,13 @@ try:
     default_subpage_template = form.default_subpage_template
 except ImportError:
     try:
-        from zope.browserpage import ViewPageTemplateFile, namedtemplate
+        from zope import browserpage
+        ViewPageTemplateFile = browserpage.ViewPageTemplateFile
+        namedtemplate = browserpage.namedtemplate
     except ImportError:
-        from zope.app.pagetemplate import ViewPageTemplateFile, namedtemplate
+        from zope.app import pagetemplate
+        ViewPageTemplateFile = pagetemplate.ViewPageTemplateFile
+        namedtemplate = pagetemplate.namedtemplate
     from zope.formlib.interfaces import ISubPageForm
     default_subpage_template = namedtemplate.NamedTemplateImplementation(
         ViewPageTemplateFile('subpageform.pt'), ISubPageForm)
