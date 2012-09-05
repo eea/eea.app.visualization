@@ -2,6 +2,23 @@
 
 SETUPTOOLS=`grep "setuptools\s*\=\s*" versions.cfg | sed 's/\s*=\s*/==/g'`
 ZCBUILDOUT=`grep "zc\.buildout\s*=\s*" versions.cfg | sed 's/\s*=\s*/==/g'`
+VPARAMS="--clear"
+
+if [ -z "$SETUPTOOLS" ]; then
+  SETUPTOOLS="setuptools"
+fi
+
+if [ -z "$ZCBUILDOUT" ]; then
+  ZCBUILDOUT="zc.buildout"
+fi
+
+if [ "$1" = "deployment.cfg" ]; then
+  VPARAMS=$VPARAMS" --system-site-packages"
+fi
+
+if [ "$2" = "deployment.cfg" ]; then
+  VPARAMS=$VPARAMS" --system-site-packages"
+fi
 
 if [ -s "bin/activate" ]; then
   echo "Updating setuptools: ./bin/easy_install" $SETUPTOOLS
@@ -16,13 +33,11 @@ if [ -s "bin/activate" ]; then
 fi
 
 echo "Installing virtualenv"
-wget "http://eggrepo.eea.europa.eu/pypi/virtualenv/virtualenv-1.6.4.tar.gz" -O "/tmp/virtualenv-1.6.4.tar.gz"
-tar -zxvf "/tmp/virtualenv-1.6.4.tar.gz" -C "/tmp/"
+wget "https://raw.github.com/pypa/virtualenv/master/virtualenv.py" -O "/tmp/virtualenv.py"
 
-echo "Running: python2.6 virtualenv.py --clear --no-site-packages ."
-python2.6 "/tmp/virtualenv-1.6.4/virtualenv.py" --clear  --no-site-packages .
-rm "/tmp/virtualenv-1.6.4.tar.gz"
-rm -r "/tmp/virtualenv-1.6.4"
+echo "Running: python2.6 /tmp/virtualenv.py $VPARAMS ."
+python2.6 "/tmp/virtualenv.py" $VPARAMS .
+rm /tmp/virtualenv.py*
 
 echo "Updating setuptools: ./bin/easy_install" $SETUPTOOLS
 ./bin/easy_install $SETUPTOOLS
@@ -30,6 +45,11 @@ echo "Updating setuptools: ./bin/easy_install" $SETUPTOOLS
 echo "Installing zc.buildout: $ ./bin/easy_install" $ZCBUILDOUT
 ./bin/easy_install $ZCBUILDOUT
 
-echo "\n===================================================="
-echo "All set. Now you can run ./bin/buildout -c devel.cfg"
-echo "====================================================\n"
+echo "Disabling the SSL CERTIFICATION for git"
+git config --global http.sslVerify false
+
+echo ""
+echo "======================================="
+echo "All set. Now you can run ./bin/buildout"
+echo "======================================="
+echo ""

@@ -49,7 +49,7 @@ echo "Disabling the SSL CERTIFICATION for git"
 git config --global http.sslVerify false
 
 echo ""
-echo "===================================================="
-echo "All set. Now you can run ./bin/buildout -c devel.cfg"
-echo "===================================================="
+echo "======================================="
+echo "All set. Now you can run ./bin/buildout"
+echo "======================================="
 echo ""
