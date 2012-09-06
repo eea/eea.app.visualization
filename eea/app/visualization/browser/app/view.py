@@ -67,13 +67,18 @@ class View(JSONView):
             portal_properties.geographical_properties.google_key
         """
         ptool = queryUtility(IPropertiesTool)
-        props = getattr(ptool, 'geographical_properties', '')
+        props = getattr(ptool, 'geographical_properties', None)
         if callable(props):
             try:
                 props = props(context=self.context, request=self.request)
             except Exception, err:
                 logger.debug(err)
-        key = props.getProperty('google_key', '')
+
+        if getattr(props, 'getProperty', None):
+            key = props.getProperty('google_key', '')
+        else:
+            key = getattr(props, 'google_key', '')
+
         return key
 
     def get_facet(self, name):
