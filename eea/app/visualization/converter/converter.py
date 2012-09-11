@@ -132,13 +132,13 @@ class Table2JsonConverter(object):
             popul => number
 
             >>> jsondict['properties']['year']
-            {'valueType': 'date', 'order': 1}
+            {'valueType': 'date', 'columnType': 'date', 'order': 1}
 
             >>> jsondict['items'][0]['year']
             '2010-...'
 
             >>> jsondict['properties']['latit']
-            {'valueType': u'text', 'order': 3}
+            {'valueType': u'text', 'columnType': u'latitude', 'order': 3}
 
             >>> jsondict['items'][0]['longitude']
             '27.983333'
@@ -155,7 +155,7 @@ class Table2JsonConverter(object):
             [('label', 'text'), ('year', u'number'), ('country', 'text')]
 
             >>> jsondict['properties']['year']
-            {'valueType': u'number', 'order': 1}
+            {'valueType': u'number', 'columnType': u'number', 'order': 1}
 
         """
         if isinstance(datafile, (unicode, str)):

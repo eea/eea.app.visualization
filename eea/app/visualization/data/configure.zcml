@@ -36,7 +36,7 @@
   <browser:page
     for="eea.app.visualization.interfaces.IVisualizationEnabled"
     name="daviz-relateditems.json"
-    class=".handlers.RelatedItems"
+    class=".browser.RelatedItems"
     attribute="json"
     permission="zope2.View"
     />

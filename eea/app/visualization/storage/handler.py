@@ -107,12 +107,17 @@ class Configure(object):
     def set_json(self, value):
         """ Set json dict
 
-            >>> visualization.json = {'a': 'b'}
+        Items are not persisted within annotations, they should be
+        dynamically generated each time according with JSON['properties']
+
+            >>> visualization.json = {
+            ...   'items': [1, 2, 3],
+            ...   'properties': {'a': 'b'}}
             >>> visualization.json
-            {'a': 'b'}
+            {'items': [], 'properties': {'a': 'b'}}
+
         """
-        # Items are not persisted within annotations, they should be
-        # dynamically generated each time according with JSON['properties']
+
         value['items'] = []
         value.setdefault('properties', {})
         anno = IAnnotations(self.context)
@@ -122,12 +127,13 @@ class Configure(object):
         """ Return json from annotations
 
             >>> visualization.json
-            {'a': 'b'}
+            {'items': [], 'properties': {'a': 'b'}}
 
         """
         anno = IAnnotations(self.context)
         json = anno.get(ANNO_JSON, {})
         return json
+
     json = property(get_json, set_json)
 
     def view(self, key, default=None):
