@@ -1,0 +1,16 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+           xmlns:browser="http://namespaces.zope.org/browser">
+
+    <utility
+        provides=".interfaces.IDavizSettings"
+        factory=".controlpanel.DavizSettings" />
+
+    <!-- Control panel --> 
+    <browser:page 
+        name="daviz-settings"
+        for="Products.CMFPlone.interfaces.IPloneSiteRoot" 
+        class=".controlpanel.DavizSettingsEditForm" 
+        permission="cmf.ManagePortal"
+    />
+
+</configure>
