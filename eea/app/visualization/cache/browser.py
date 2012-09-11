@@ -11,8 +11,7 @@ class InvalidateMemCache(BrowserView):
     """
     def __call__(self, **kwargs):
         keys = frozenset((
-            'eea.app.visualization.converter.browser.json:%s:%s',
-            'eea.app.visualization.browser.app.view.json:%s:%s'
+            'eea.app.visualization.data.browser.json:%s:%s'
         ))
 
         names = frozenset((

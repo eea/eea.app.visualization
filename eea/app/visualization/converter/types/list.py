@@ -51,7 +51,10 @@ class GuessList(GuessType):
                 else:
                     text = fallback
             else:
-                text = [text, ]
+                if text.strip():
+                    text = [text, ]
+                else:
+                    text = []
 
         text = [item.strip() for item in text]
         return text

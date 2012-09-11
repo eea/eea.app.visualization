@@ -1,0 +1,44 @@
+<configure
+  xmlns="http://namespaces.zope.org/zope"
+  xmlns:browser="http://namespaces.zope.org/browser"
+  xmlns:zcml="http://namespaces.zope.org/zcml"
+  i18n_domain="eea">
+
+  <!-- Data adapters -->
+  <adapter
+    for="zope.interface.Interface"
+    provides="eea.app.visualization.interfaces.IVisualizationData"
+    factory=".data.Data"
+    />
+
+  <adapter
+    for="OFS.interfaces.IItem"
+    provides="eea.app.visualization.interfaces.IVisualizationData"
+    factory=".data.OFSFile"
+    />
+
+  <adapter
+    zcml:condition="installed plone.app.blob"
+    for="plone.app.blob.interfaces.IATBlobFile"
+    provides="eea.app.visualization.interfaces.IVisualizationData"
+    factory=".data.Blob"
+    />
+
+  <!-- JSON adapters -->
+  <browser:page
+    for="eea.app.visualization.interfaces.IPossibleVisualization"
+    name="daviz-view.json"
+    class=".browser.JSON"
+    attribute="json"
+    permission="zope2.View"
+    />
+
+  <browser:page
+    for="eea.app.visualization.interfaces.IVisualizationEnabled"
+    name="daviz-relateditems.json"
+    class=".handlers.RelatedItems"
+    attribute="json"
+    permission="zope2.View"
+    />
+
+</configure>

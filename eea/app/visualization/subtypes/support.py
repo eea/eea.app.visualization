@@ -14,6 +14,7 @@ from eea.app.visualization.events import VisualizationEnabledEvent
 from eea.app.visualization.events import VisualizationDisabledEvent
 from eea.app.visualization.interfaces import IVisualizationConfig
 from eea.app.visualization.interfaces import IVisualizationEnabled
+from eea.app.visualization.interfaces import IVisualizationData
 from eea.app.visualization.subtypes.interfaces import IVisualizationSubtyper
 from eea.app.visualization.zopera import IStatusMessage
 
@@ -38,10 +39,11 @@ class DavizPublicSupport(BrowserView):
                 if status:
                     status.addStatusMessage(str(msg), type='info')
             if to:
-                self.request.response.redirect(self.context.absolute_url() + to)
+                self.request.response.redirect(
+                    self.context.absolute_url() + to)
             else:
-                self.request.response.redirect(self.context.absolute_url()
-                                                                + "/view")
+                self.request.response.redirect(
+                    self.context.absolute_url() + "/view")
         return msg
 
     @property
@@ -119,10 +121,8 @@ class DavizSupport(DavizPublicSupport):
     def enable(self):
         """ Enable visualization
         """
-        if hasattr(self.context, 'getFile'):
-            datafile = StringIO(self.context.getFile().data)
-        else:
-            datafile = StringIO(getattr(self.context, 'data', ''))
+        visualization = queryAdapter(self.context, IVisualizationData)
+        datafile = StringIO(visualization.data)
         converter = queryUtility(ITable2JsonConverter)
         try:
             columns, json = converter(datafile)

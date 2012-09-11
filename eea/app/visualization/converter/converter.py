@@ -2,6 +2,7 @@
 """
 import logging
 import csv
+import operator
 import json as simplejson
 from StringIO import StringIO
 from zope.component import getUtility, queryUtility
@@ -187,8 +188,8 @@ class Table2JsonConverter(object):
                     if name.lower().endswith('label'):
                         name = "label"
                         hasLabel = True
-                    name, typo = guess.column_type(name)
-                    columns.append((name, column_types.get(name, typo)))
+                    name, columnType = guess.column_type(name)
+                    columns.append((name, column_types.get(name, columnType)))
                 continue
 
             # Create JSON
@@ -200,17 +201,19 @@ class Table2JsonConverter(object):
                 data['label'] = index
 
             order = 0
-            for col, typo in columns:
+            for col, columnType in columns:
                 text = row.next()
 
                 fmt = None
-                valueType = typo
-                if typo in ('latitude', 'longitude', 'latlong'):
+                valueType = columnType
+                if columnType in ('latitude', 'longitude', 'latlong'):
                     fmt = '%.6f'
                     valueType = u'text'
-                if typo in ('date'):
+                elif columnType in ('date'):
                     fmt = '%Y-%m-%d'
-                util = queryUtility(IGuessType, name=typo)
+                elif columnType in ('list'):
+                    valueType = u'text'
+                util = queryUtility(IGuessType, name=columnType)
 
                 try:
                     text = (util.convert(text, fallback=None, format=fmt)
@@ -221,49 +224,57 @@ class Table2JsonConverter(object):
                 else:
                     data[col] = text
 
-                properties[col] = {"valueType": valueType, "order": order}
+                properties[col] = {
+                    "valueType": valueType,
+                    'columnType': columnType,
+                    "order": order
+                }
                 order += 1
 
             out.append(data)
 
         return columns, {'items': out, 'properties': properties}
 
-def sortProperties(strJson, indent = 0):
+def sortProperties(strJson, indent=1):
     """
     In the json string set the correct order of the columns
     """
+    def compare(a, b):
+        """ Custom cmp
+        """
+        return cmp(a.get('order', 0), b.get('order', 0))
+
     try:
+        indent1 = ' ' * indent
+        indent2 = ' ' * (indent + indent)
+
         json = simplejson.loads(strJson)
         properties = json['properties']
-        indentStr1 = ""
-        indentStr2 = ""
-        indentStr3 = ""
-        if indent > 0:
-            indentStr1 = "\n" + " " * indent
-            indentStr2 = "\n" + " " * indent * 2
-            indentStr3 = "\n" + " " * indent * 3
-        newProperties = []
-        for key, item in properties.items():
-            prop = []
-            prop.append(item['order'])
-            prop.append(key)
-            prop.append(item['valueType'])
-            newProperties.append(prop)
-        newProperties.sort()
+        newProperties = sorted(
+            properties.items(), key=operator.itemgetter(1), cmp=compare)
         json['properties'] = ''
-        newJsonStr = simplejson.dumps(json, indent = indent)
-        newPropStr = '"properties": '
-        newPropStr += "{"
-        for prop in newProperties:
-            newPropStr += indentStr2 + '"' + prop[1] + '": '
-            newPropStr += '{'
-            newPropStr += indentStr3 + '"valueType": "' + prop[2] +'", '
-            newPropStr += indentStr3 + '"order": ' + str(prop[0]) + indentStr2
-            newPropStr += '}, '
-        if newProperties:
-            newPropStr = newPropStr[:-2]
-        newPropStr += indentStr1 + "}"
-        newJsonStr = newJsonStr.replace('"properties": ""', newPropStr)
-        return newJsonStr
-    except Exception:
+        json = simplejson.dumps(json, indent=indent)
+
+        newPropStr = [
+            '"properties"', ':', '{'
+        ]
+
+        for key, value in newProperties:
+            newPropStr.extend([
+                '\n', indent2, '"%s"' % key, ': ', simplejson.dumps(value), ","
+            ])
+
+        if newPropStr[-1] == ',':
+            newPropStr.pop()
+
+        newPropStr.extend([
+            '\n', indent1, '}'
+        ])
+
+        newPropStr = ''.join(newPropStr)
+
+        json = json.replace('"properties": ""', newPropStr)
+        return json
+    except Exception, err:
+        logger.exception(err)
         return strJson

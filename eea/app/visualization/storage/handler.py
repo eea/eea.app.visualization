@@ -110,8 +110,11 @@ class Configure(object):
             >>> visualization.json = {'a': 'b'}
             >>> visualization.json
             {'a': 'b'}
-
         """
+        # Items are not persisted within annotations, they should be
+        # dynamically generated each time according with JSON['properties']
+        value['items'] = []
+        value.setdefault('properties', {})
         anno = IAnnotations(self.context)
         anno[ANNO_JSON] = PersistentDict(value)
 

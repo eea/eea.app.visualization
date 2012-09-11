@@ -8,6 +8,10 @@ from eea.app.visualization.subtypes.interfaces import IVisualizationSubtyper
 # Storage
 from eea.app.visualization.storage.interfaces import IVisualizationConfig
 
+# Visualization Data and JSON
+from eea.app.visualization.data.interfaces import IVisualizationData
+from eea.app.visualization.data.interfaces import IVisualizationJson
+
 # Events
 from eea.app.visualization.events.interfaces import (
     IVisualizationEvent,
@@ -36,6 +40,8 @@ __all__ = (
     IVisualizationEnabled.__name__,
     IVisualizationSubtyper.__name__,
     IVisualizationConfig.__name__,
+    IVisualizationData.__name__,
+    IVisualizationJson.__name__,
     IVisualizationEvent.__name__,
     IVisualizationEnabledEvent.__name__,
     IVisualizationDisabledEvent.__name__,

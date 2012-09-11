@@ -1,21 +1,9 @@
 <configure
   xmlns="http://namespaces.zope.org/zope"
-  xmlns:browser="http://namespaces.zope.org/browser"
-  xmlns:zcml="http://namespaces.zope.org/zcml"
   i18n_domain="eea">
 
   <include package="plone.i18n" />
   <include package=".types" />
-
   <utility factory=".converter.Table2JsonConverter" />
-
-  <browser:page
-    zcml:condition="installed plone.app.blob"
-    for="plone.app.blob.interfaces.IATBlobFile"
-    name="daviz-view.json"
-    class=".browser.TSVFileJSONView"
-    attribute="json"
-    permission="zope2.View"
-    />
 
 </configure>

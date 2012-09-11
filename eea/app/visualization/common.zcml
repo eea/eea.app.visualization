@@ -8,6 +8,7 @@
   <include file="permissions.zcml" />
   <include package=".browser" />
   <include package=".cache" />
+  <include package=".data" />
   <include package=".converter" />
   <include package=".facets" />
   <include package=".storage" />

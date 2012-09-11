@@ -17,7 +17,7 @@
     for="eea.app.visualization.interfaces.IVisualizationEnabled"
     name="exhibit"
     template="zpt/daviz.pt"
-    class=".app.view.HTMLView"
+    class=".app.view.View"
     permission="zope2.View"
     />
 
@@ -25,33 +25,7 @@
     for="eea.app.visualization.interfaces.IVisualizationEnabled"
     name="daviz-view.html"
     template="zpt/view.pt"
-    class=".app.view.HTMLView"
-    permission="zope2.View"
-    />
-
-  <!-- XXX What about Zope2?-->
-  <browser:page
-    zcml:condition="installed Products.Archetypes"
-    for="Products.Archetypes.interfaces.base.IBaseObject"
-    name="daviz-view.json"
-    class=".app.view.JSONView"
-    attribute="json"
-    permission="zope2.View"
-    />
-
-  <browser:page
-    for="eea.app.visualization.interfaces.IVisualizationEnabled"
-    name="daviz-view.json"
     class=".app.view.View"
-    attribute="json"
-    permission="zope2.View"
-    />
-
-  <browser:page
-    for="eea.app.visualization.interfaces.IVisualizationEnabled"
-    name="daviz-relateditems.json"
-    class=".app.view.RelatedItemsJSON"
-    attribute="json"
     permission="zope2.View"
     />
 

@@ -5,6 +5,12 @@ Changelog
 ----------------------
 * Upgrade step: Within "Plone > Site setup > Add-ons" click on
   upgrade button available for eea.app.visualization
+* Change: Added IVisualizationData and IVisualizationJson adapters API
+  in order to dynamically provide data sources for visualization
+  [voineali refs #5511]
+* Bug fix: Allow changing of column types within
+  Edit Visualization > Data settings if data source is copy & pasted
+  [voineali refs #5511]
 * Feature: Added an easy way to register Google Maps key when using without
   Plone by adding 'google_key' property on context (parents) or by providing
   a utility (see eea.app.visualization.zopera.utils.py)
