@@ -16,6 +16,8 @@ class GuessLatLong(GuessType):
 
     """
     order = 50
+    aliases = (u'latlong', u'latlng', u'latlon')
+    fmt = '%.6f'
 
     def convert(self, text, fallback=None, **options):
         """
@@ -96,11 +98,9 @@ class GuessLatLong(GuessType):
             True
 
         """
-        if label and ':latlong' in label.lower():
-            return True
-
-        if label and ':latlng' in label.lower():
-            return True
+        for alias in self.aliases:
+            if ':%s' % alias in label.lower():
+                return True
 
         text = text.split(',')
         if len(text) != 2:

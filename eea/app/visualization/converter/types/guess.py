@@ -17,6 +17,11 @@ def normalizeString(text, context=None, encoding=None):
     """
     return queryUtility(IIDNormalizer).normalize(text)
 
+def compare(a, b):
+    """ Compare utilities tuples
+    """
+    return cmp(a[1].order, b[1].order)
+
 class GuessTypes(object):
     """ Guess types utility
 
@@ -29,6 +34,15 @@ class GuessTypes(object):
 
     """
     implements(IGuessTypes)
+
+    #XXX Move this to ControlPanel
+    missing = (
+        '', 'n/a', 'n.a.', 'na', 'n.a',
+        '.', ':', '-', '_', '/', '\\', "[]", "{}", "()", "<>", "*",
+        'empty', "<empty>", 'not set', "<not set>", "notset", "<notset>",
+        'none', "<none>", "missing", "<missing>", 'undefined', "<undefined>",
+        "null", "<null>"
+    )
 
     def column_type(self, column):
         """ Get column and type from column name
@@ -43,23 +57,73 @@ class GuessTypes(object):
             ('items_one_two', 'list')
 
             >>> guess.column_type("Title")
-            ('title', 'text')
+            ('title', '')
 
             >>> guess.column_type("Title is some-thing. + something @lse")
-            ('title_is_some_thing_something_lse', 'text')
+            ('title_is_some_thing_something_lse', '')
 
         """
 
         if ":" not in column:
             column = normalizeString(column, encoding='utf-8')
             column = REGEX.sub('_', column)
-            return column, "text"
+            return column, ""
 
-        typo = column.split(":")[-1].lower()
+        columnType = column.split(":")[-1].lower()
         column = ":".join(column.split(":")[:-1])
         column = normalizeString(column, encoding='utf-8')
         column = REGEX.sub('_', column)
-        return column, typo
+        return column, columnType
+
+    def guessUtility(self, columnType=''):
+        """ Get guess utility from columnType
+        """
+        if not columnType:
+            return None, None
+
+        for name, util in getUtilitiesFor(IGuessType):
+            if columnType in util.aliases:
+                return name, util
+        return None, None
+
+    def guessHeader(self, header, output):
+        """ Column type is forced in header using :type syntax
+        """
+        for label in header:
+            title, columnType = self.column_type(label)
+            name, util = self.guessUtility(columnType)
+            if util:
+                output[title] = {name: 99999}
+            else:
+                output[title] = {
+                    u'text': queryUtility(IGuessType, u'text').priority
+                }
+        return output
+
+    def guessBody(self, table, header, output):
+        """ Discover column types from table body
+        """
+        utilities = getUtilitiesFor(IGuessType)
+        utilities = sorted(utilities, cmp=compare)
+
+        for row in table:
+            for index, cell in enumerate(row):
+                # Skip missing values
+                if cell.lower().strip() in self.missing:
+                    continue
+
+                label = header[index]
+                title, columnType = self.column_type(label)
+
+                # Type in header, skip this column
+                if columnType:
+                    continue
+
+                output.setdefault(title, {})
+                for name, guess in utilities:
+                    if guess(cell, label):
+                        output[title].setdefault(name, guess.priority)
+                        output[title][name] += 1
 
     def __call__(self, datatable):
         """ Guess CSV column types
@@ -67,8 +131,8 @@ class GuessTypes(object):
             >>> csvtable = [
             ... ['label:label', 'Year', 'country', 'Map', 'Population', 'EU'],
             ... ['romania', '2010', 'Romania', '45.76, 27.98', '21959278', 'y'],
-            ... ['italy', '2012', 'Italy', '42.8333, 12.83', '60340328', ''],
-            ... ['junk', '', '2010', 'Junk', '34, 56', '3423423']
+            ... ['italy', '2012', 'Italy', '42.8333, 12.83', '60340328', 'N'],
+            ... ['china', '', '-', '12.123, 34.542', '3423432', 'N']
             ... ]
 
             >>> mapping = guess(csvtable)
@@ -109,39 +173,19 @@ class GuessTypes(object):
             y => latitude
 
         """
-        def compare(a, b):
-            """ Compare utilities tuples
-            """
-            return cmp(a[1].order, b[1].order)
-
-        utilities = getUtilitiesFor(IGuessType)
-        utilities = sorted(utilities, cmp=compare)
-
         mapping = {}
         if not datatable:
             return mapping
 
         csvtable = datatable[:]
         header = csvtable.pop(0)
-        for row in csvtable:
-            for index, cell in enumerate(row):
-                label = header[index]
-                title, typo = self.column_type(label)
-                mapping.setdefault(title, {typo: 0})
-                for name, guess in utilities:
-                    # Skip latitude and longitude guess utilities
-                    # as they can mess our auto-detection
-                    if name == 'latitude' and 'lat' not in typo:
-                        continue
-                    elif name == 'longitude'and 'long' not in typo:
-                        continue
-                    # Skip number if :date in label
-                    elif name == 'number' and 'date' in typo:
-                        continue
-                    if guess(cell, label):
-                        mapping[title].setdefault(name, 0)
-                        mapping[title][name] += 1
-                        break
+
+        # Discover column types in table header
+        self.guessHeader(header, mapping)
+
+        # Discover column types in table body
+        if set(mapping.keys()).difference(header):
+            self.guessBody(csvtable, header, mapping)
 
         res = {}
         for label, statistics in sorted(mapping.items()):

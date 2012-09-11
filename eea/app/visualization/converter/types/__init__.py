@@ -13,3 +13,7 @@ class GuessType(object):
     implements(IGuessType)
 
     order = 100
+    priority = 0
+    aliases = ()
+    valueType = u'text'
+    fmt = None

@@ -4,7 +4,6 @@ from zope.interface import implements
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.statusmessages.interfaces import IStatusMessage
 from zope import schema
-from Persistence import PersistentMapping
 from persistent.dict import PersistentDict
 
 from eea.app.visualization.controlpanel.interfaces import IDavizSettings
@@ -26,8 +25,8 @@ class DavizSettingsEditForm(EditForm):
         """ Data for edit form
         """
         settingsdict = {}
-        [settingsdict.update(x[1].settings)
-            for x in getUtilitiesFor(IDavizSettings)]
+        for x in getUtilitiesFor(IDavizSettings):
+            settingsdict.update(x[1].settings)
         return settingsdict
 
     def setUpWidgets(self, ignore_request=False):

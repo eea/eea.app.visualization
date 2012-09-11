@@ -17,6 +17,8 @@ class GuessBoolean(GuessType):
 
     """
     order = 65
+    aliases = (u'bool', u'boolean')
+    valueType = u'boolean'
 
     def convert(self, text, fallback=None, **options):
         """
@@ -109,8 +111,9 @@ class GuessBoolean(GuessType):
 
         """
 
-        if label and ":bool" in label.lower():
-            return True
+        for alias in self.aliases:
+            if ':%s' % alias in label.lower():
+                return True
 
         res = text.strip().lower()
         if res in TRUE:

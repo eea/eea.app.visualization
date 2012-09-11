@@ -116,9 +116,9 @@ class Table2JsonConverter(object):
 
             >>> csvfile = '\n'.join((
             ...   'label, year:date, country, latit:lat, longitude:long, popul',
-            ...   'romania, 2010, Romania, 45.7666667, 27.9833333, 2195',
-            ...   'italy, 2012, Italy, 42.763667, 12.9833333, 2010',
-            ...   'junk, , 2001, Junk, 34, 12'
+            ...   'romania, 2010, Romania, 45.7666667, 27.9833333, 95',
+            ...   'italy, 2012, Italy, 42.763667, 12.9833333, 10',
+            ...   'junk, , n.a., Junk, 34, 12'
             ... ))
 
             >>> columns, jsondict = converter(csvfile)
@@ -132,7 +132,7 @@ class Table2JsonConverter(object):
             popul => number
 
             >>> jsondict['properties']['year']
-            {'valueType': 'date', 'columnType': 'date', 'order': 1}
+            {'valueType': u'date', 'columnType': u'date', 'order': 1}
 
             >>> jsondict['items'][0]['year']
             '2010-...'
@@ -146,13 +146,13 @@ class Table2JsonConverter(object):
           TSV
 
             >>> tabfile = '\n'.join((
-            ...   'label   \t year:number \t country',
-            ...   'romania \t 2010        \t Romania',
+            ...   'label, year:number, country',
+            ...   'romania, one, Romania',
             ... ))
 
             >>> columns, jsondict = converter(tabfile)
             >>> [x for x in columns]
-            [('label', 'text'), ('year', u'number'), ('country', 'text')]
+            [('label', u'text'), ('year', u'number'), ('country', u'text')]
 
             >>> jsondict['properties']['year']
             {'valueType': u'number', 'columnType': u'number', 'order': 1}
@@ -189,7 +189,9 @@ class Table2JsonConverter(object):
                         name = "label"
                         hasLabel = True
                     name, columnType = guess.column_type(name)
-                    columns.append((name, column_types.get(name, columnType)))
+                    columns.append((
+                        name, column_types.get(name, columnType or u'text')
+                    ))
                 continue
 
             # Create JSON
@@ -203,17 +205,9 @@ class Table2JsonConverter(object):
             order = 0
             for col, columnType in columns:
                 text = row.next()
-
-                fmt = None
-                valueType = columnType
-                if columnType in ('latitude', 'longitude', 'latlong'):
-                    fmt = '%.6f'
-                    valueType = u'text'
-                elif columnType in ('date'):
-                    fmt = '%Y-%m-%d'
-                elif columnType in ('list'):
-                    valueType = u'text'
                 util = queryUtility(IGuessType, name=columnType)
+                valueType = getattr(util, 'valueType', columnType)
+                fmt = getattr(util, 'fmt', None)
 
                 try:
                     text = (util.convert(text, fallback=None, format=fmt)

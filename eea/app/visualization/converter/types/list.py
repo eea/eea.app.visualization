@@ -14,6 +14,7 @@ class GuessList(GuessType):
 
     """
     order = 80
+    aliases = ('list', 'tuple', 'iter', 'iterator')
 
     def convert(self, text, fallback=None, **options):
         """
@@ -78,6 +79,7 @@ class GuessList(GuessType):
             True
 
         """
-        if label and ':list' in label.lower():
-            return True
+        for alias in self.aliases:
+            if ':%s' % alias in label.lower():
+                return True
         return False

@@ -17,6 +17,9 @@ class GuessLatitude(GuessType):
 
     """
     order = 30
+    priority = -1
+    aliases = (u'lat', u'latitude')
+    fmt = '%.6f'
 
     def convert(self, text, fallback=None, **options):
         """
@@ -98,8 +101,9 @@ class GuessLatitude(GuessType):
             True
 
         """
-        if label and ':lat' in label.lower():
-            return True
+        for alias in self.aliases:
+            if ':%s' % alias in label.lower():
+                return True
 
         try:
             text = float(text)

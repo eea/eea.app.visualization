@@ -14,6 +14,9 @@ class GuessLongitude(GuessType):
 
     """
     order = 40
+    priority = -1
+    aliases = ('long', 'lng', 'lon', 'longitude')
+    fmt = '%.6f'
 
     def convert(self, text, fallback=None, **options):
         """
@@ -95,9 +98,9 @@ class GuessLongitude(GuessType):
             True
 
         """
-
-        if label and ':long' in label.lower():
-            return True
+        for alias in self.aliases:
+            if ':%s' % alias in label.lower():
+                return True
 
         try:
             text = float(text)

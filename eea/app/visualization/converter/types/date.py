@@ -18,7 +18,11 @@ class GuessDate(GuessType):
         <eea.app.visualization.converter.types.date.GuessDate object...>
 
     """
-    order = 70
+    order = 60
+    priority = -1
+    aliases = (u'date', u'datetime', u'time')
+    valueType = u'date'
+    fmt = '%Y-%m-%d'
 
     def convert(self, text, fallback=None, **options):
         """
@@ -89,13 +93,13 @@ class GuessDate(GuessType):
             >>> guess('0')
             False
             >>> guess('1')
-            True
+            False
             >>> guess('2012')
             True
             >>> guess('3245')
-            True
+            False
             >>> guess('2500')
-            True
+            False
             >>> guess('2012/12/23')
             True
             >>> guess('23.12.2012')
@@ -131,9 +135,21 @@ class GuessDate(GuessType):
 
         """
 
-        if label and ":date" in label.lower():
-            return True
+        for alias in self.aliases:
+            if ':%s' % alias in label.lower():
+                return True
 
+        # Year
+        try:
+            year = int(text)
+        except Exception:
+            year = 1970
+        else:
+            if 1000 <= year <= 2200:
+                return True
+            return False
+
+        # Date
         try:
             parser.parse(text)
         except Exception:

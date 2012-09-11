@@ -16,7 +16,10 @@ class GuessNumber(GuessType):
         <eea.app.visualization.converter.types.number.GuessNumber...>
 
     """
-    order = 60
+    order = 70
+    aliases = ('number', 'num', 'nr', 'int', 'integer', 'float', 'decimal')
+    valueType = u'number'
+
 
     def convert(self, text, fallback=None, **options):
         """
@@ -125,11 +128,9 @@ class GuessNumber(GuessType):
             True
 
         """
-        if label and ":int" in label.lower():
-            return True
-
-        if label and ":number" in label.lower():
-            return True
+        for alias in self.aliases:
+            if ':%s' % alias in label.lower():
+                return True
 
         text = text.strip()
         if re.match(REGEX, text):

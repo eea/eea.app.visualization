@@ -20,8 +20,9 @@ class GuessURL(GuessType):
         <eea.app.visualization.converter.types.url.GuessURL object...>
 
     """
-
     order = 10
+    aliases = ('url', 'link', 'hyperlink')
+    valueType = u'url'
 
     def convert(self, text, fallback=None, **options):
         """ Convert text to url
@@ -59,8 +60,9 @@ class GuessURL(GuessType):
             True
 
         """
-        if label and ":url" in label.lower():
-            return True
+        for alias in self.aliases:
+            if ':%s' % alias in label.lower():
+                return True
 
         if re.match(REGEX, text):
             return True

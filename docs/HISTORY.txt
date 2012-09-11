@@ -5,6 +5,8 @@ Changelog
 ----------------------
 * Upgrade step: Within "Plone > Site setup > Add-ons" click on
   upgrade button available for eea.app.visualization
+* Bug fix: Fixed columnTypes in table header using :type syntax
+  [voineali refs #5511]
 * Change: Added IVisualizationData and IVisualizationJson adapters API
   in order to dynamically provide data sources for visualization
   [voineali refs #5511]
