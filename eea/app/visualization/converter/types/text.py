@@ -14,9 +14,9 @@ class GuessText(GuessType):
         <eea.app.visualization.converter.types.text.GuessText...>
 
     """
-    priority = -2
+    priority = -3
     order = 200
-    aliases = ('text', 'string')
+    aliases = ('text', 'string', 'label')
 
     def convert(self, text, fallback=None, **options):
         """ Convert text

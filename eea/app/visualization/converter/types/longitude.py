@@ -14,7 +14,7 @@ class GuessLongitude(GuessType):
 
     """
     order = 40
-    priority = -1
+    priority = -2
     aliases = ('long', 'lng', 'lon', 'longitude')
     fmt = '%.6f'
 

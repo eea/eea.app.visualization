@@ -94,10 +94,6 @@ class GuessTypes(object):
             name, util = self.guessUtility(columnType)
             if util:
                 output[title] = {name: 99999}
-            else:
-                output[title] = {
-                    u'text': queryUtility(IGuessType, u'text').priority
-                }
         return output
 
     def guessBody(self, table, header, output):
@@ -184,7 +180,7 @@ class GuessTypes(object):
         self.guessHeader(header, mapping)
 
         # Discover column types in table body
-        if set(mapping.keys()).difference(header):
+        if set(header).difference(mapping.keys()):
             self.guessBody(csvtable, header, mapping)
 
         res = {}

@@ -22,6 +22,12 @@ def test_suite():
             layer=FUNCTIONAL_TESTING),
         layered(
             doctest.DocFileSuite(
+                'docs/converter.txt',
+                optionflags=OPTIONFLAGS,
+                package='eea.app.visualization'),
+            layer=FUNCTIONAL_TESTING),
+        layered(
+            doctest.DocFileSuite(
                 'converter/converter.py',
                 optionflags=OPTIONFLAGS,
                 package='eea.app.visualization'),

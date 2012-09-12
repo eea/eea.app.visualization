@@ -61,7 +61,7 @@ class Table2JsonConverter(object):
         datafile.seek(0)
         return dialect
 
-    def sample(self, datafile, rows=5):
+    def sample(self, datafile, rows=21):
         """ Get CSV sample from datafile
 
         >>> csvfile = '\n'.join((

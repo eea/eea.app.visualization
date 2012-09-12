@@ -1,0 +1,128 @@
+=========================================
+EEA App Visualization Table2JsonConverter
+=========================================
+Table2JsonConverter is a utility that allows you to convert data
+tables (TSV/CSV) to JSON (Simile Exhibit format).
+
+    >>> from pprint import pprint
+    >>> from zope.component import queryUtility
+    >>> from eea.app.visualization.interfaces import ITable2JsonConverter
+    >>> from eea.app.visualization.tests.utils import loadfile
+
+    >>> dfile = loadfile('data/data-sample-v1.csv')
+    >>> datatable = dfile.get('data')
+    >>> converter = queryUtility(ITable2JsonConverter)
+
+Calling this utility will return a tuple of two values, columns and JSON:
+
+    >>> columns, json = converter(datatable)
+    >>> columns
+    [('year', u'number'), ('annotation_a', u'text'), ('eu_15_upper_limit', u'number'), ('annotation_b', u'text'), ('eu_15', u'number'), ('eu_15_million_tonnes_co2_equivalent', u'number'), ('eu_27_upper_limit', u'number'), ('eu_27_million_tonnes_co2_equivalent', u'number'), ('eu_27_lower_limit', u'number')]
+
+    >>> pprint(json['properties'])
+    {'annotation_a': {'columnType': u'text', 'order': 1, 'valueType': u'text'},
+     'annotation_b': {'columnType': u'text', 'order': 3, 'valueType': u'text'},
+     'eu_15': {'columnType': u'number', 'order': 4, 'valueType': u'number'},
+     'eu_15_million_tonnes_co2_equivalent': {'columnType': u'number',
+                                             'order': 5,
+                                             'valueType': u'number'},
+     'eu_15_upper_limit': {'columnType': u'number',
+                           'order': 2,
+                           'valueType': u'number'},
+     'eu_27_lower_limit': {'columnType': u'number',
+                           'order': 8,
+                           'valueType': u'number'},
+     'eu_27_million_tonnes_co2_equivalent': {'columnType': u'number',
+                                             'order': 7,
+                                             'valueType': u'number'},
+     'eu_27_upper_limit': {'columnType': u'number',
+                           'order': 6,
+                           'valueType': u'number'},
+     'year': {'columnType': u'number', 'order': 0, 'valueType': u'number'}}
+
+Now, you can also force column types by calling the utility with the
+json['properties'] dict as the second value. So let's do some changes in the
+properties dict and see what happens:
+
+    >>> column_types = dict((k, v.get('columnType')) for k, v in json['properties'].items())
+    >>> column_types['year'] = u'date'
+    >>> column_types['eu_27_upper_limit'] = u'latitude'
+    >>> column_types['eu_15_upper_limit'] = u'longitude'
+    >>> column_types['eu_15'] = u'boolean'
+    >>> column_types['eu_27_million_tonnes_co2_equivalen'] = u'xxx'
+
+    >>> columns, json = converter(datatable, column_types=column_types)
+    >>> columns
+    [('year', u'date'), ('annotation_a', u'text'), ('eu_15_upper_limit', u'longitude'), ('annotation_b', u'text'), ('eu_15', u'boolean'), ('eu_15_million_tonnes_co2_equivalent', u'number'), ('eu_27_upper_limit', u'latitude'), ('eu_27_million_tonnes_co2_equivalent', u'number'), ('eu_27_lower_limit', u'number')]
+
+    >>> pprint(json['properties'])
+    {'annotation_a': {'columnType': u'text', 'order': 1, 'valueType': u'text'},
+     'annotation_b': {'columnType': u'text', 'order': 3, 'valueType': u'text'},
+     'eu_15': {'columnType': u'boolean', 'order': 4, 'valueType': u'boolean'},
+     'eu_15_million_tonnes_co2_equivalent': {'columnType': u'number',
+                                             'order': 5,
+                                             'valueType': u'number'},
+     'eu_15_upper_limit': {'columnType': u'longitude',
+                           'order': 2,
+                           'valueType': u'text'},
+     'eu_27_lower_limit': {'columnType': u'number',
+                           'order': 8,
+                           'valueType': u'number'},
+     'eu_27_million_tonnes_co2_equivalent': {'columnType': u'number',
+                                             'order': 7,
+                                             'valueType': u'number'},
+     'eu_27_upper_limit': {'columnType': u'latitude',
+                           'order': 6,
+                           'valueType': u'text'},
+     'year': {'columnType': u'date', 'order': 0, 'valueType': u'date'}}
+
+You can also specify column types within TSV/CSV file using the :type syntax:
+
+    >>> dfile = loadfile('data/data-sample-v2.csv')
+    >>> datatable = dfile.get('data')
+    >>> columns, json = converter(datatable)
+    >>> columns
+    [('year', u'text'), ('annotation_a', u'text'), ('eu_15_upper_limit', u'number'), ('annotation_b', u'text'), ('eu_15', u'number'), ('eu_15_million_tonnes_co2_equivalent', u'number'), ('eu_27_upper_limit', u'number'), ('eu_27_million_tonnes_co2_equivalent', u'number'), ('eu_27_lower_limit', u'number')]
+
+    >>> pprint(json['properties'])
+    {'annotation_a': {'columnType': u'text', 'order': 1, 'valueType': u'text'},
+     'annotation_b': {'columnType': u'text', 'order': 3, 'valueType': u'text'},
+     'eu_15': {'columnType': u'number', 'order': 4, 'valueType': u'number'},
+     'eu_15_million_tonnes_co2_equivalent': {'columnType': u'number',
+                                             'order': 5,
+                                             'valueType': u'number'},
+     'eu_15_upper_limit': {'columnType': u'number',
+                           'order': 2,
+                           'valueType': u'number'},
+     'eu_27_lower_limit': {'columnType': u'number',
+                           'order': 8,
+                           'valueType': u'number'},
+     'eu_27_million_tonnes_co2_equivalent': {'columnType': u'number',
+                                             'order': 7,
+                                             'valueType': u'number'},
+     'eu_27_upper_limit': {'columnType': u'number',
+                           'order': 6,
+                           'valueType': u'number'},
+     'year': {'columnType': u'text', 'order': 0, 'valueType': u'text'}}
+
+Another example:
+
+    >>> dfile = loadfile('data/data-sample-v3.csv')
+    >>> datatable = dfile.get('data')
+    >>> columns, json = converter(datatable)
+    >>> columns
+    [('eu_framework_progr', u'text'), ('project_acronym', u'text'), ('project_website', u'url'), ('label', u'text'), ('start_year', u'number'), ('end_year', u'number'), ('cordis_cost_esf_internet_link', u'url'), ('topics', u'list')]
+
+    >>> pprint(json['properties'])
+    {'cordis_cost_esf_internet_link': {'columnType': u'url',
+                                       'order': 6,
+                                       'valueType': u'url'},
+     'end_year': {'columnType': u'number', 'order': 5, 'valueType': u'number'},
+     'eu_framework_progr': {'columnType': u'text',
+                            'order': 0,
+                            'valueType': u'text'},
+     'label': {'columnType': u'text', 'order': 3, 'valueType': u'text'},
+     'project_acronym': {'columnType': u'text', 'order': 1, 'valueType': u'text'},
+     'project_website': {'columnType': u'url', 'order': 2, 'valueType': u'url'},
+     'start_year': {'columnType': u'number', 'order': 4, 'valueType': u'number'},
+     'topics': {'columnType': u'list', 'order': 7, 'valueType': u'text'}}

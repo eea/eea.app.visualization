@@ -17,7 +17,7 @@ class GuessLatitude(GuessType):
 
     """
     order = 30
-    priority = -1
+    priority = -2
     aliases = (u'lat', u'latitude')
     fmt = '%.6f'
 

@@ -17,6 +17,7 @@ class GuessNumber(GuessType):
 
     """
     order = 70
+    priority = 1
     aliases = ('number', 'num', 'nr', 'int', 'integer', 'float', 'decimal')
     valueType = u'number'
 
