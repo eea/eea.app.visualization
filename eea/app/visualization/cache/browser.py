@@ -11,12 +11,12 @@ class InvalidateMemCache(BrowserView):
     """
     def __call__(self, **kwargs):
         keys = frozenset((
-            'eea.app.visualization.data.browser.json:%s:%s'
+            'eea.app.visualization.data.browser.json:%s:%s',
         ))
 
         names = frozenset((
             'daviz-relateditems.json',
-            'daviz-view.json'
+            'daviz-view.json',
         ))
 
         for key in keys:

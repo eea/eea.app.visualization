@@ -744,7 +744,7 @@ DavizEdit.JsonGrid.prototype = {
 
     var dataTypes = {};
     jQuery.each(colNames, function(index, key){
-      dataTypes[key] = data.properties[key].valueType;
+      dataTypes[key] = data.properties[key].columnType || data.properties[key].valueType;
     });
 
     var colModel = jQuery.map(colNames, function(key, index){
@@ -765,7 +765,7 @@ DavizEdit.JsonGrid.prototype = {
             {'type': 'change', fn: function(e){
               var name = e.target.name;
               var value = jQuery(e.target).val();
-              data.properties[name].valueType = value;
+              data.properties[name].columnType = value;
               self.textdialog.val(JSON.stringify(data, null, "  "));
               self.textdialog.change();
             }}
@@ -774,11 +774,14 @@ DavizEdit.JsonGrid.prototype = {
         editoptions: {
           value: {
             'boolean': 'Boolean',
-            'number': 'Number',
             'date': 'Date',
+            'latitude': 'Latitude',
+            'longitude': 'Longitude',
+            'latlong': 'LatLong',
+            'list': 'List',
+            'number': 'Number',
             'text': 'Text',
-            'url': 'URL',
-            'list': 'List'
+            'url': 'URL'
           }
         }
       };

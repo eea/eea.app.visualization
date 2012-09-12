@@ -13,6 +13,7 @@ tables (TSV/CSV) to JSON (Simile Exhibit format).
     >>> datatable = dfile.get('data')
     >>> converter = queryUtility(ITable2JsonConverter)
 
+
 Calling this utility will return a tuple of two values, columns and JSON:
 
     >>> columns, json = converter(datatable)
@@ -40,6 +41,7 @@ Calling this utility will return a tuple of two values, columns and JSON:
                            'valueType': u'number'},
      'year': {'columnType': u'number', 'order': 0, 'valueType': u'number'}}
 
+
 Now, you can also force column types by calling the utility with the
 json['properties'] dict as the second value. So let's do some changes in the
 properties dict and see what happens:
@@ -52,6 +54,7 @@ properties dict and see what happens:
     >>> column_types['eu_27_million_tonnes_co2_equivalen'] = u'xxx'
 
     >>> columns, json = converter(datatable, column_types=column_types)
+
     >>> columns
     [('year', u'date'), ('annotation_a', u'text'), ('eu_15_upper_limit', u'longitude'), ('annotation_b', u'text'), ('eu_15', u'boolean'), ('eu_15_million_tonnes_co2_equivalent', u'number'), ('eu_27_upper_limit', u'latitude'), ('eu_27_million_tonnes_co2_equivalent', u'number'), ('eu_27_lower_limit', u'number')]
 
@@ -75,6 +78,7 @@ properties dict and see what happens:
                            'order': 6,
                            'valueType': u'text'},
      'year': {'columnType': u'date', 'order': 0, 'valueType': u'date'}}
+
 
 You can also specify column types within TSV/CSV file using the :type syntax:
 
@@ -104,6 +108,7 @@ You can also specify column types within TSV/CSV file using the :type syntax:
                            'order': 6,
                            'valueType': u'number'},
      'year': {'columnType': u'text', 'order': 0, 'valueType': u'text'}}
+
 
 Another example:
 

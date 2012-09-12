@@ -35,6 +35,14 @@
 
   <browser:page
     for="eea.app.visualization.interfaces.IVisualizationEnabled"
+    name="daviz-view.json"
+    class=".browser.JSON"
+    attribute="json"
+    permission="zope2.View"
+    />
+
+  <browser:page
+    for="eea.app.visualization.interfaces.IVisualizationEnabled"
     name="daviz-relateditems.json"
     class=".browser.RelatedItems"
     attribute="json"

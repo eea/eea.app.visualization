@@ -47,7 +47,7 @@ class Download(BrowserView):
             prop = []
             prop.append(item.get('order', def_order))
             prop.append(key)
-            prop.append(item['valueType'])
+            prop.append(item.get('columnType', item.get('valueType', 'text')))
             propsList.append(prop)
             def_order += 1
         propsList.sort()
@@ -88,7 +88,8 @@ class Download(BrowserView):
 #        headers = self.data.get('properties', {}).keys()
         for col in headers:
             hprops = self.data.get('properties', {}).get(col[0], {})
-            header = u'%s:%s' % (col[0], hprops.get('valueType', 'text')
+            header = u'%s:%s' % (col[0], hprops.get('columnType',
+                                hprops.get('valueType', 'text'))
                                  if isinstance(hprops, dict) else hprops)
             row.append(header)
         writter.writerow(row)

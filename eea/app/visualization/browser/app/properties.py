@@ -6,12 +6,13 @@ from zope import schema
 from zope.event import notify
 from zope.interface import Interface
 from zope.formlib.form import Fields
-from zope.component import queryAdapter
+from zope.component import queryAdapter, queryUtility
 from zope.formlib.form import SubPageForm
 from zope.lifecycleevent import ObjectModifiedEvent
 from zope.formlib.form import action as formaction
 from zope.formlib.form import setUpWidgets, haveInputWidgets
 from eea.app.visualization.interfaces import IVisualizationConfig
+from eea.app.visualization.interfaces import IGuessType
 from eea.app.visualization.converter.converter import sortProperties
 from eea.app.visualization.zopera import IStatusMessage
 
@@ -97,9 +98,17 @@ class EditForm(SubPageForm):
         except Exception, err:
             logger.exception(err)
             self.message = "ERROR: %s" % err
-        else:
-            mutator.json = json
-            notify(ObjectModifiedEvent(self.context))
+            return
+
+        for _name, props in json.get('properties', {}).items():
+            columnType = props.get('columnType', props.get('valueType', 'text'))
+            util = queryUtility(IGuessType, columnType)
+            if not util:
+                continue
+            props['columnType'] = columnType
+            props['valueType'] = util.valueType
+        mutator.json = json
+        notify(ObjectModifiedEvent(self.context))
 
     def handle_sources(self, data):
         """ Handle sources property
