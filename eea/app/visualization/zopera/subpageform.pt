@@ -1,8 +1,8 @@
-<tal:comment condition="nothing"><!--
+<tal:comment condition="nothing">
 ----------------------------------------
 Copied unchanged from plone.app.form-2.1
 ----------------------------------------
---></tal:comment>
+</tal:comment>
 
 <div metal:define-macro="form"
     i18n:domain="plone"
