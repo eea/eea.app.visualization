@@ -2,14 +2,14 @@
 """
 import logging
 import csv
-import operator
-import json as simplejson
+import warnings
 from StringIO import StringIO
 from zope.component import getUtility, queryUtility
 from zope.interface import implements
 from eea.app.visualization.interfaces import IGuessType
 from eea.app.visualization.interfaces import IGuessTypes
 from eea.app.visualization.interfaces import ITable2JsonConverter
+from eea.app.visualization.interfaces import IVisualizationJsonUtils
 
 logger = logging.getLogger("eea.app.visualization.converter")
 
@@ -230,45 +230,15 @@ class Table2JsonConverter(object):
         return columns, {'items': out, 'properties': properties}
 
 def sortProperties(strJson, indent=1):
+    """ In the json string set the correct order of the columns
     """
-    In the json string set the correct order of the columns
-    """
-    def compare(a, b):
-        """ Custom cmp
-        """
-        return cmp(a.get('order', 0), b.get('order', 0))
+    warnings.warn(
+        "eea.app.visualization.converter.converter.sortProperties is "
+        "deprecated. Please use "
+        "eea.app.visualization.interfaces.IVisualizationJsonUtils "
+        "utility instead",
+        DeprecationWarning
+    )
 
-    try:
-        indent1 = ' ' * indent
-        indent2 = ' ' * (indent + indent)
-
-        json = simplejson.loads(strJson)
-        properties = json['properties']
-        newProperties = sorted(
-            properties.items(), key=operator.itemgetter(1), cmp=compare)
-        json['properties'] = ''
-        json = simplejson.dumps(json, indent=indent)
-
-        newPropStr = [
-            '"properties"', ':', '{'
-        ]
-
-        for key, value in newProperties:
-            newPropStr.extend([
-                '\n', indent2, '"%s"' % key, ': ', simplejson.dumps(value), ","
-            ])
-
-        if newPropStr[-1] == ',':
-            newPropStr.pop()
-
-        newPropStr.extend([
-            '\n', indent1, '}'
-        ])
-
-        newPropStr = ''.join(newPropStr)
-
-        json = json.replace('"properties": ""', newPropStr)
-        return json
-    except Exception, err:
-        logger.exception(err)
-        return strJson
+    utils = queryUtility(IVisualizationJsonUtils)
+    return utils(strJson, indent)

@@ -3,9 +3,9 @@
 import json
 import csv
 import logging
-from zope.component import queryMultiAdapter
+from zope.component import queryMultiAdapter, queryUtility
 from Products.Five.browser import BrowserView
-from eea.app.visualization.converter.converter import sortProperties
+from eea.app.visualization.interfaces import IVisualizationJsonUtils
 
 logger = logging.getLogger('eea.app.visualization')
 
@@ -21,6 +21,12 @@ class Download(BrowserView):
     def __init__(self, context, request):
         super(Download, self).__init__(context, request)
         self._data = {}
+
+    def sortProperties(self, strJson, indent=1):
+        """ Sort JSON properties
+        """
+        utils = queryUtility(IVisualizationJsonUtils)
+        return utils.sortProperties(strJson, indent)
 
     @property
     def data(self):
@@ -147,7 +153,7 @@ class Download(BrowserView):
                 }
             data['results']['bindings'].append(convertedItem)
 
-        return sortProperties(json.dumps(data, indent=2), indent=2)
+        return self.sortProperties(json.dumps(data, indent=2), indent=2)
 
     def exhibit(self):
         """ Download as Exhibit JSON
@@ -157,7 +163,7 @@ class Download(BrowserView):
         self.request.response.setHeader(
             'Content-Disposition',
             'attachment; filename="%s.exhibit.json"' % self.context.getId())
-        return sortProperties(json.dumps(self.data, indent=2), indent=2)
+        return self.sortProperties(json.dumps(self.data, indent=2), indent=2)
 
     def xml(self):
         """ Download as XML

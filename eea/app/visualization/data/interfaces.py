@@ -20,3 +20,14 @@ class IVisualizationJson(Interface):
         description=u'Visualization JSON',
         readonly=True
     )
+
+class IVisualizationJsonUtils(Interface):
+    """ Utility to handle Visualization JSON
+    """
+    def mergeProperties(old, new):
+        """ Merge new dictionary to old one and returns the old one
+        """
+
+    def sortProperties(strJson, indent=1):
+        """ In the JSON string set the correct order of the columns
+        """

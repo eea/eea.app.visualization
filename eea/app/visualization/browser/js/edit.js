@@ -772,6 +772,7 @@ DavizEdit.JsonGrid.prototype = {
           ]
         },
         editoptions: {
+          // XXX Get this list dynamically from the list of IGuessType utilities
           value: {
             'boolean': 'Boolean',
             'date': 'Date',

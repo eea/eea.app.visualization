@@ -4,6 +4,12 @@
   xmlns:zcml="http://namespaces.zope.org/zcml"
   i18n_domain="eea">
 
+  <!-- JSON utilities -->
+  <utility
+    provides="eea.app.visualization.interfaces.IVisualizationJsonUtils"
+    factory="eea.app.visualization.data.utils.VisualizationJsonUtils"
+    />
+
   <!-- Data adapters -->
   <adapter
     for="zope.interface.Interface"

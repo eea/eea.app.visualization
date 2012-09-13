@@ -11,6 +11,7 @@ from eea.app.visualization.storage.interfaces import IVisualizationConfig
 # Visualization Data and JSON
 from eea.app.visualization.data.interfaces import IVisualizationData
 from eea.app.visualization.data.interfaces import IVisualizationJson
+from eea.app.visualization.data.interfaces import IVisualizationJsonUtils
 
 # Events
 from eea.app.visualization.events.interfaces import (
@@ -42,6 +43,7 @@ __all__ = (
     IVisualizationConfig.__name__,
     IVisualizationData.__name__,
     IVisualizationJson.__name__,
+    IVisualizationJsonUtils.__name__,
     IVisualizationEvent.__name__,
     IVisualizationEnabledEvent.__name__,
     IVisualizationDisabledEvent.__name__,

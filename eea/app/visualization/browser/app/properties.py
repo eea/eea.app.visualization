@@ -12,8 +12,8 @@ from zope.lifecycleevent import ObjectModifiedEvent
 from zope.formlib.form import action as formaction
 from zope.formlib.form import setUpWidgets, haveInputWidgets
 from eea.app.visualization.interfaces import IVisualizationConfig
+from eea.app.visualization.interfaces import IVisualizationJsonUtils
 from eea.app.visualization.interfaces import IGuessType
-from eea.app.visualization.converter.converter import sortProperties
 from eea.app.visualization.zopera import IStatusMessage
 
 from eea.app.visualization.config import EEAMessageFactory as _
@@ -68,9 +68,10 @@ class EditForm(SubPageForm):
         """
         accessor = queryAdapter(self.context, IVisualizationConfig)
         json = simplejson.dumps(dict(accessor.json), indent=2)
+        utils = queryUtility(IVisualizationJsonUtils)
         return {
             'name': self.prefix,
-            'json': sortProperties(json, indent=2),
+            'json': utils.sortProperties(json, indent=2),
             'views': [view.get('name') for view in accessor.views],
             'sources':
                 [source.get('name') for source in accessor.sources],
