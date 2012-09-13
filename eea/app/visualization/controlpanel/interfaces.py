@@ -2,7 +2,7 @@
 """
 from zope.interface import Interface
 
-class IDavizSettings(Interface):
+class IDavizSection(Interface):
     """
-    Daviz Settings
+    Daviz Section interface
     """

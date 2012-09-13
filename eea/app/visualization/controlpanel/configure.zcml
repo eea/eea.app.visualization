@@ -1,16 +1,23 @@
 <configure xmlns="http://namespaces.zope.org/zope"
            xmlns:browser="http://namespaces.zope.org/browser">
 
-    <utility
-        provides=".interfaces.IDavizSettings"
-        factory=".controlpanel.DavizSettings" />
+    <!-- ZMI Edit view -->
+    <browser:page 
+        name="zmi_edit_html"
+        for="*" 
+        class=".davizsettings.DavizSettingsZMIEditForm" 
+        permission="zope2.ViewManagementScreens"
+    />
 
     <!-- Control panel --> 
     <browser:page 
         name="daviz-settings"
         for="Products.CMFPlone.interfaces.IPloneSiteRoot" 
-        class=".controlpanel.DavizSettingsEditForm" 
+        class=".davizsettings.DavizSettingsControlPanelEditForm" 
         permission="cmf.ManagePortal"
     />
+
+    <utility component=".controlpanel.DavizSectionFactory"
+        name="eea.app.visualizations.controlpanel.controlpanel.DavizSection" />
 
 </configure>
