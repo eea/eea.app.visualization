@@ -19,11 +19,17 @@ class InvalidateMemCache(BrowserView):
             'daviz-view.json',
         ))
 
+        items = set([self.context])
+        getRelatedItems = getattr(self.context, 'getRelatedItems', None)
+        if getRelatedItems:
+            items.update(getRelatedItems())
+
         for key in keys:
             for name in names:
-                xkey = key % (self.context.absolute_url(1), name)
-                xkey = hashlib.md5(xkey).hexdigest()
-                event.notify(InvalidateCacheEvent(key=xkey, raw=True))
+                for item in items:
+                    xkey = key % (item.absolute_url(1), name)
+                    xkey = hashlib.md5(xkey).hexdigest()
+                    event.notify(InvalidateCacheEvent(key=xkey, raw=True))
         return "Memcache invalidated"
 
 def purgeOnModified(obj, evt):
