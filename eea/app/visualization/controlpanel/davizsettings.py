@@ -91,7 +91,7 @@ zmi_addDavizSettings_html = PageTemplateFile('zmi_davizsettings_add.pt',
 
 def zmi_addDavizSettings(parent, id, title, REQUEST=None):
     """ Create a new DavizSettings """
-    import pdb; pdb.set_trace()
+
     ob = DavizSettings(id, title)
     parent._setObject(id, ob)
     if REQUEST is not None:
