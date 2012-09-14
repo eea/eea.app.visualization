@@ -89,11 +89,11 @@ class DavizSettingsZMIEditForm(EditForm):
 zmi_addDavizSettings_html = PageTemplateFile('zmi_davizsettings_add.pt',
                                             globals())
 
-def zmi_addDavizSettings(parent, p_id, title, REQUEST=None):
+def zmi_addDavizSettings(parent, id, title, REQUEST=None):
     """ Create a new DavizSettings """
-
-    ob = DavizSettings(p_id, title)
-    parent._setObject(p_id, ob)
+    import pdb; pdb.set_trace()
+    ob = DavizSettings(id, title)
+    parent._setObject(id, ob)
     if REQUEST is not None:
         REQUEST.RESPONSE.redirect(parent.absolute_url() +
                                     '/manage_workspace')
