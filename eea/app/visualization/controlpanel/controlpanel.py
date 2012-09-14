@@ -4,6 +4,10 @@ from zope.interface import implements
 from eea.app.visualization.controlpanel.interfaces import IDavizSection
 from zope.formlib.form import FormFields
 from zope import schema
+from Products.Archetypes.public import StringField
+from zope.app.component.hooks import getSite
+class InvalidDavizFolder(schema.ValidationError):
+    __doc__ = "Folder does not exist or doesn't allow visualizations to be added"
 
 class DavizSection(object):
     """ Daviz  Settings Section
@@ -12,10 +16,24 @@ class DavizSection(object):
     prefix = 'daviz'
     title = 'Daviz Settings'
 
+    def validateDefaultFolder(value):
+        portal = getSite()
+        try:
+            folder = portal.restrictedTraverse(value.encode('utf8'))
+            allowedContentTypes = folder.allowedContentTypes()
+            for allowedContentType in allowedContentTypes:
+                if allowedContentType.id == "DavizVisualization":
+                    return True
+
+        except KeyError, AttributeError:
+            raise InvalidDavizFolder(value)
+        raise InvalidDavizFolder(value)
+
     form_fields = FormFields(
         schema.TextLine(
             __name__='daviz.defaultfolder',
             title=u'Default Folder for Visualizations',
+            constraint=validateDefaultFolder,
             required=True)
         )
 
