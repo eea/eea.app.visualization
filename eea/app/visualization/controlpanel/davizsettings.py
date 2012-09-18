@@ -7,22 +7,26 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from zope.formlib.form import EditForm, FormFields, setUpWidgets, action
 from zope.component import getUtilitiesFor
 from eea.app.visualization.controlpanel.interfaces import IDavizSection
+from eea.app.visualization.controlpanel.interfaces import IDavizSettings
 from persistent.dict import PersistentDict
 from Products.statusmessages.interfaces import IStatusMessage
 from datetime import datetime
 from Products.CMFCore.utils import getToolByName
+from zope.interface import implements
 
 class DavizSettings(SimpleItem):
     """ Daviz Settings
     """
     meta_type = "EEA Daviz Settings"
     security = ClassSecurityInfo()
+    implements(IDavizSettings)
+    id = 'portal_davizsettings'
 
     manage_options = (
         {'label': 'Edit', 'action': 'zmi_edit_html'},
     ) + SimpleItem.manage_options
 
-    def __init__(self, p_id, title):
+    def __init__(self, p_id, title="all daviz settings"):
         super(DavizSettings, self).__init__()
         self._setId(p_id)
         self.title = title

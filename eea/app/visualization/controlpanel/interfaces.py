@@ -6,3 +6,8 @@ class IDavizSection(Interface):
     """
     Daviz Section interface
     """
+
+class IDavizSettings(Interface):
+    """
+    Daviz settings
+    """

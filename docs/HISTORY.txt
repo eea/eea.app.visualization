@@ -3,6 +3,8 @@ Changelog
 
 6.0-dev - (unreleased)
 ----------------------
+* WIP: migrate daviz settings from portal_properties to portal_davizsettings
+  [szabozo0]
 * Upgrade step: Within "Plone > Site setup > Add-ons" click on
   upgrade button available for eea.app.visualization
 * Bug fix: Fixed columnTypes in table header using :type syntax
