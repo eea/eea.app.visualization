@@ -26,7 +26,8 @@ ul.chart-tabs {
     background: #2C8DA2;
     border-radius: 10px 10px 0px 0px;
     border: none;
-    height: 37px;
+    min-height: 37px;
+    height: auto;
     list-style: none;
     list-style-image: none !important;
     margin: 0 !important;
@@ -34,7 +35,7 @@ ul.chart-tabs {
 }
 
 ul.chart-tabs li {
-    float: left;
+    display: inline !important;
     list-style-image: none !important;
     margin: 0 !important;
     text-indent: 0;
