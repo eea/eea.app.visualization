@@ -6,13 +6,15 @@ from Products.PageTemplates.PageTemplateFile import PageTemplateFile
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from zope.formlib.form import EditForm, FormFields, setUpWidgets, action
 from zope.component import getUtilitiesFor
+#from zope.component import queryUtility
 from eea.app.visualization.controlpanel.interfaces import IDavizSection
 from eea.app.visualization.controlpanel.interfaces import IDavizSettings
 from persistent.dict import PersistentDict
 from Products.statusmessages.interfaces import IStatusMessage
 from datetime import datetime
-from Products.CMFCore.utils import getToolByName
 from zope.interface import implements
+from zope.component.hooks import getSite
+from Products.CMFCore.utils import getToolByName
 
 class DavizSettings(SimpleItem):
     """ Daviz Settings
@@ -20,7 +22,7 @@ class DavizSettings(SimpleItem):
     meta_type = "EEA Daviz Settings"
     security = ClassSecurityInfo()
     implements(IDavizSettings)
-    id = 'portal_davizsettings'
+    id = 'portal_daviz'
 
     manage_options = (
         {'label': 'Edit', 'action': 'zmi_edit_html'},
@@ -31,6 +33,14 @@ class DavizSettings(SimpleItem):
         self._setId(p_id)
         self.title = title
         self.settings = PersistentDict()
+
+        site = getSite()
+        sm = site.getSiteManager()
+        ds = sm.queryUtility(IDavizSettings)
+        if ds:
+            sm.unregisterUtility(ds, IDavizSettings)
+        sm.registerUtility(self, IDavizSettings)
+
 
     def mergedFields(self):
         """ merge all fields from registered extensions
@@ -108,7 +118,8 @@ class DavizSettingsControlPanelEditForm(DavizSettingsZMIEditForm):
     template = ViewPageTemplateFile("controlpanel_davizsettings_edit.pt")
 
     def __init__(self, context, request):
-        daviz_settings = getToolByName(context, "portal_davizsettings")
+        daviz_settings = getToolByName(context, "portal_daviz")
+#        daviz_settings = queryUtility(IDavizSettings)
         super(DavizSettingsControlPanelEditForm, self).__init__(daviz_settings,
                                                                  request)
 

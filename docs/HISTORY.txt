@@ -6,7 +6,7 @@ Changelog
 * Bug fix: fixed visualisation tabs layout when many tabs spanning 
   several rows are made.
   [demarant]
-* WIP: migrate daviz settings from portal_properties to portal_davizsettings
+* WIP: migrate daviz settings from portal_properties to portal_daviz
   [szabozo0]
 * Upgrade step: Within "Plone > Site setup > Add-ons" click on
   upgrade button available for eea.app.visualization
