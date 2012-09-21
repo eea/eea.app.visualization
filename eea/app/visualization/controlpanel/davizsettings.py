@@ -6,7 +6,7 @@ from Products.PageTemplates.PageTemplateFile import PageTemplateFile
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from zope.formlib.form import EditForm, FormFields, setUpWidgets, action
 from zope.component import getUtilitiesFor
-#from zope.component import queryUtility
+from zope.component import queryUtility
 from eea.app.visualization.controlpanel.interfaces import IDavizSection
 from eea.app.visualization.controlpanel.interfaces import IDavizSettings
 from persistent.dict import PersistentDict
@@ -14,7 +14,6 @@ from Products.statusmessages.interfaces import IStatusMessage
 from datetime import datetime
 from zope.interface import implements
 from zope.component.hooks import getSite
-from Products.CMFCore.utils import getToolByName
 
 class DavizSettings(SimpleItem):
     """ Daviz Settings
@@ -118,8 +117,8 @@ class DavizSettingsControlPanelEditForm(DavizSettingsZMIEditForm):
     template = ViewPageTemplateFile("controlpanel_davizsettings_edit.pt")
 
     def __init__(self, context, request):
-        daviz_settings = getToolByName(context, "portal_daviz")
-#        daviz_settings = queryUtility(IDavizSettings)
+        daviz_settings = queryUtility(IDavizSettings)
+        daviz_settings = context.__of__(daviz_settings)
         super(DavizSettingsControlPanelEditForm, self).__init__(daviz_settings,
                                                                  request)
 
