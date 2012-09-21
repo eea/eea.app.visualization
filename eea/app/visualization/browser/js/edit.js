@@ -719,7 +719,7 @@ DavizEdit.JsonGrid.prototype = {
     self.relatedItems = {};
     var action = self.context.parents('form').attr('action');
     var i = action.indexOf('@@');
-    action = action.slice(0, i) + '@@daviz-relateditems.json';
+    action = action.slice(0, i) + '@@daviz.json';
     DavizEdit.Status.start('Loading ...');
     jQuery.getJSON(action, {}, function(data){
         self.relatedItems = data;

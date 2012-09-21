@@ -34,7 +34,7 @@ class Download(BrowserView):
         """
         if not self._data:
             data = queryMultiAdapter((self.context, self.request),
-                                     name=u'daviz-relateditems.json')
+                                     name=u'daviz.json')
             try:
                 self._data = json.loads(data())
             except Exception, err:

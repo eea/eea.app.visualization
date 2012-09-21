@@ -3,13 +3,16 @@ Changelog
 
 6.0-dev - (unreleased)
 ----------------------
-* Bug fix: fixed visualisation tabs layout when many tabs spanning 
+* Upgrade step: Within "Plone > Site setup > Add-ons" click on
+  upgrade button available for eea.app.visualization
+* Change: Merged daviz-view.json and daviz-relateditems.json into one single
+  json file called daviz.json
+  [voineali refs #5449]
+* Bug fix: fixed visualisation tabs layout when many tabs spanning
   several rows are made.
   [demarant]
 * WIP: migrate daviz settings from portal_properties to portal_daviz
   [szabozo0]
-* Upgrade step: Within "Plone > Site setup > Add-ons" click on
-  upgrade button available for eea.app.visualization
 * Bug fix: Fixed columnTypes in table header using :type syntax
   [voineali refs #5511]
 * Change: Added IVisualizationData and IVisualizationJson adapters API

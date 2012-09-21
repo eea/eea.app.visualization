@@ -13,7 +13,7 @@ class IVisualizationData(Interface):
         )
 
 class IVisualizationJson(Interface):
-    """ Visualization data JSON (daviz-view.json)
+    """ Visualization data JSON (daviz.json)
     """
     json = schema.Text(
         title=u'JSON',

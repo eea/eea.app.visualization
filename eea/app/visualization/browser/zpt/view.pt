@@ -15,9 +15,9 @@
     tal:attributes="href string:${here/absolute_url}/babel-translator" />
 
   <!-- Related items merged JSON with own JSON -->
-  <link tal:condition="exists:here/@@daviz-relateditems.json"
+  <link tal:condition="exists:here/@@daviz.json"
     rel="exhibit/data" type="application/json"
-    tal:attributes="href string:${here/absolute_url}/daviz-relateditems.json" />
+    tal:attributes="href string:${here/absolute_url}/daviz.json" />
 
   <!-- External sources JSONs -->
   <tal:additional repeat="source python:view.sources">
