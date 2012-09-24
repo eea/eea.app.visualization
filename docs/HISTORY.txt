@@ -5,6 +5,8 @@ Changelog
 ----------------------
 * Upgrade step: Within "Plone > Site setup > Add-ons" click on
   upgrade button available for eea.app.visualization
+* Feature: Added API for Visualization data source provenance
+  [voineali refs #5490]
 * Change: Merged daviz-view.json and daviz-relateditems.json into one single
   json file called daviz.json
   [voineali refs #5449]

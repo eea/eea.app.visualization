@@ -30,6 +30,20 @@
     factory=".data.Blob"
     />
 
+  <!-- Data source adapters -->
+  <adapter
+    for="zope.interface.Interface"
+    provides="eea.app.visualization.interfaces.IVisualizationDataProvenance"
+    factory=".source.DataProvenance"
+    />
+
+  <adapter
+    zcml:condition="installed plone.app.blob"
+    for="plone.app.blob.interfaces.IATBlobFile"
+    provides="eea.app.visualization.interfaces.IVisualizationDataProvenance"
+    factory=".source.BlobDataProvenance"
+    />
+
   <!-- JSON adapters -->
   <browser:page
     for="eea.app.visualization.interfaces.IPossibleVisualization"

@@ -7,10 +7,29 @@ class IVisualizationData(Interface):
     """ Visualization Data Adapter.
     """
     data = schema.Text(
-            title=u'Data',
-            description=u'Data to be converted to JSON',
-            readonly=True
+        title=u'Data',
+        description=u'Data to be converted to JSON',
+        readonly=True
         )
+
+class IVisualizationDataProvenance(Interface):
+    """ Visualization Data Provenance
+    """
+    title = schema.TextLine(
+        title=u"Data source title",
+        description=u"Specify data source",
+    )
+
+    link = schema.TextLine(
+        title=u"Data source link",
+        description=u"Specify data source link"
+    )
+
+    owner = schema.TextLine(
+        title=u"Data source Organisation",
+        description=u"Specify data source Organisation"
+    )
+
 
 class IVisualizationJson(Interface):
     """ Visualization data JSON (daviz.json)
