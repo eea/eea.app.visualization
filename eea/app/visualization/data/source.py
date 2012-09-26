@@ -160,6 +160,7 @@ class BlobDataProvenance(object):
             value = (value, "")
         rights = u"%s <%s>" % value
         self.context.getField('rights').getMutator(self.context)(rights.strip())
+        self.context.reindexObject()
     #
     # Title
     #
@@ -190,6 +191,7 @@ class BlobDataProvenance(object):
 
         """
         self.context.getField('title').getMutator(self.context)(value)
+        self.context.reindexObject()
     #
     # Link
     #
