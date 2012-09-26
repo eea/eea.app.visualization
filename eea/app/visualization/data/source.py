@@ -1,11 +1,7 @@
 """ Visualization Data Provenance
 
-    >>> from zope.interface import alsoProvides
     >>> portal = layer['portal']
-
-    >>> from eea.app.visualization.interfaces import (
-    ...   IDataProvenance,
-    ... )
+    >>> from eea.app.visualization.interfaces import IDataProvenance
 
 """
 from zope.interface import implements
