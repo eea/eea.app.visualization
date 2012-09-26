@@ -4,7 +4,7 @@
     >>> portal = layer['portal']
 
     >>> from eea.app.visualization.interfaces import (
-    ...   IVisualizationDataProvenance,
+    ...   IDataProvenance,
     ... )
 
 """
@@ -12,19 +12,19 @@ from zope.interface import implements
 from zope.annotation.interfaces import IAnnotations
 from persistent.dict import PersistentDict
 from eea.app.visualization.config import ANNO_DATA
-from eea.app.visualization.interfaces import IVisualizationDataProvenance
+from eea.app.visualization.interfaces import IDataProvenance
 
 class DataProvenance(object):
     """ Abstract visualization data provenance metadata accessor/mutator
 
     >>> document = portal.invokeFactory('Document', 'document')
     >>> document = portal._getOb(document)
-    >>> source = IVisualizationDataProvenance(document)
+    >>> source = IDataProvenance(document)
     >>> source
     <eea.app.visualization.data.source.DataProvenance object...>
 
     """
-    implements(IVisualizationDataProvenance)
+    implements(IDataProvenance)
 
     def __init__(self, context):
         self.context = context
@@ -128,12 +128,12 @@ class BlobDataProvenance(object):
         >>> blob = portal.invokeFactory('File', 'blob')
         >>> blob = portal._getOb(blob)
         >>> blob.setTitle(u'Blob data')
-        >>> source = IVisualizationDataProvenance(blob)
+        >>> source = IDataProvenance(blob)
         >>> source
         <eea.app.visualization.data.source.BlobDataProvenance object...>
 
     """
-    implements(IVisualizationDataProvenance)
+    implements(IDataProvenance)
 
     def __init__(self, context):
         self.context = context

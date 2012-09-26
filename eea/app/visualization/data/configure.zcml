@@ -33,14 +33,14 @@
   <!-- Data source adapters -->
   <adapter
     for="zope.interface.Interface"
-    provides="eea.app.visualization.interfaces.IVisualizationDataProvenance"
+    provides="eea.app.visualization.interfaces.IDataProvenance"
     factory=".source.DataProvenance"
     />
 
   <adapter
     zcml:condition="installed plone.app.blob"
     for="plone.app.blob.interfaces.IATBlobFile"
-    provides="eea.app.visualization.interfaces.IVisualizationDataProvenance"
+    provides="eea.app.visualization.interfaces.IDataProvenance"
     factory=".source.BlobDataProvenance"
     />
 

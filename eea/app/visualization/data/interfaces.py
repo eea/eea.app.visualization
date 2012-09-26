@@ -3,17 +3,8 @@
 from zope.interface import Interface
 from zope import schema
 
-class IVisualizationData(Interface):
-    """ Visualization Data Adapter.
-    """
-    data = schema.Text(
-        title=u'Data',
-        description=u'Data to be converted to JSON',
-        readonly=True
-        )
-
-class IVisualizationDataProvenance(Interface):
-    """ Visualization Data Provenance
+class IDataProvenance(Interface):
+    """ Data Provenance
     """
     title = schema.TextLine(
         title=u"Data source title",
@@ -30,6 +21,14 @@ class IVisualizationDataProvenance(Interface):
         description=u"Specify data source Organisation"
     )
 
+class IVisualizationData(Interface):
+    """ Visualization Data Adapter.
+    """
+    data = schema.Text(
+        title=u'Data',
+        description=u'Data to be converted to JSON',
+        readonly=True
+        )
 
 class IVisualizationJson(Interface):
     """ Visualization data JSON (daviz.json)
