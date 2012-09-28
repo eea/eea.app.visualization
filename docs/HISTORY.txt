@@ -13,7 +13,7 @@ Changelog
 * Bug fix: fixed visualisation tabs layout when many tabs spanning
   several rows are made.
   [demarant]
-* WIP: migrate daviz settings from portal_properties to portal_daviz
+* Feature: migrate daviz settings from portal_properties to portal_daviz
   [szabozo0]
 * Bug fix: Fixed columnTypes in table header using :type syntax
   [voineali refs #5511]
