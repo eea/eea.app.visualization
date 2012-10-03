@@ -70,9 +70,9 @@ Live demo
 Source code
 ===========
 
-Latest source code (Zope2 compatible):
-
-- https://svn.eionet.europa.eu/repositories/Zope/trunk/eea.app.visualization/trunk
+Latest source code (Zope 2 compatible):
+- `Plone Collective on Github <https://github.com/collective/eea.app.visualization>`_
+- `EEA on Github <https://github.com/eea/eea.app.visualization>`_
 
 
 Copyright and license

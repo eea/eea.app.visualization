@@ -1,12 +1,11 @@
 """ Installer
 """
-from setuptools import setup, find_packages
 import os
-from os.path import join
+from setuptools import setup, find_packages
 
 NAME = 'eea.app.visualization'
 PATH = NAME.split('.') + ['version.txt']
-VERSION = open(join(*PATH)).read().strip()
+VERSION = open(os.path.join(*PATH)).read().strip()
 
 setup(name=NAME,
       version=VERSION,
@@ -16,13 +15,27 @@ setup(name=NAME,
       # Get more strings from
       # http://pypi.python.org/pypi?:action=list_classifiers
       classifiers=[
-        "Programming Language :: Python",
+          "Framework :: Zope2",
+          "Framework :: Zope3",
+          "Framework :: Plone",
+          "Framework :: Plone :: 4.0",
+          "Framework :: Plone :: 4.1",
+          "Framework :: Plone :: 4.2",
+          "Programming Language :: Zope",
+          "Programming Language :: Python",
+          "Topic :: Software Development :: Libraries :: Python Modules",
+          "License :: OSI Approved :: GNU General Public License (GPL)",
+          "License :: OSI Approved :: Mozilla Public License 1.0 (MPL)",
         ],
       keywords=('eea app visualization daviz exhibit googlecharts'
                 'sparql rdf zope plone'),
       author='European Environment Agency',
       author_email="webadmin@eea.europa.eu",
-      url='http://svn.plone.org/svn/collective/',
+      maintainer='Alin Voinea (Eau de Web)',
+      maintainer_email='alin@eaudeweb.ro',
+      bugtrack_url="https://github.com/eea/eea.app.visualization/issues",
+      download_url="http://pypi.python.org/pypi/eea.app.visualization",
+      url='https://eea.github.com/docs/eea.app.visualization',
       license='GPL',
       packages=find_packages(exclude=['ez_setup']),
       namespace_packages=['eea', 'eea.app'],
