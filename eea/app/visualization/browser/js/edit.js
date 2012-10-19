@@ -602,11 +602,16 @@ DavizEdit.View.prototype = {
     });
 
     self.buttons = jQuery('.actionButtons input[type=submit]', self.form)
-      .addClass('btn')
       .click(function(){
         var button = jQuery(this);
         self.submit(button);
       });
+
+    self.buttons.each(function(){
+      if(jQuery(this).attr('name') != 'daviz.view.enable'){
+        jQuery(this).addClass('btn');
+      }
+    });
 
     self.inputs = jQuery(':input', self.form).change(function(evt){
       jQuery('fieldset', self.form).addClass('changed');

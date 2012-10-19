@@ -3,6 +3,8 @@ Changelog
 
 6.1-dev - (unreleased)
 ----------------------
+* Bug fix: Fixed 'Enable View' button CSS
+  [avoinea]
 
 6.0 - (2012-10-08)
 ------------------
