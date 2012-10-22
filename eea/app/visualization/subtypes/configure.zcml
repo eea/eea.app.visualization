@@ -22,6 +22,16 @@
     <implements interface="eea.app.visualization.interfaces.IPossibleVisualization" />
   </class>
 
+  <class zcml:condition="installed Products.ATContentTypes.content.topic"
+    class="Products.ATContentTypes.content.topic.ATTopic">
+    <implements interface="eea.app.visualization.interfaces.IPossibleVisualization" />
+  </class>
+
+  <class zcml:condition="installed plone.app.collection"
+    class="plone.app.collection.collection.Collection">
+    <implements interface="eea.app.visualization.interfaces.IPossibleVisualization" />
+  </class>
+
   <configure zcml:condition="installed plone.app.blob">
     <class class="plone.app.blob.content.ATBlob">
       <implements interface="eea.app.visualization.interfaces.IPossibleVisualization" />

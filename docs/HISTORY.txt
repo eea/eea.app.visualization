@@ -3,6 +3,8 @@ Changelog
 
 6.1-dev - (unreleased)
 ----------------------
+* Feature: Made plone collection as daviz data source
+  [avoinea refs #5604]
 * Bug fix: Fixed 'Enable View' button CSS
   [avoinea]
 

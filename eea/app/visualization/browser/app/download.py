@@ -13,6 +13,7 @@ class ExcelTSV(csv.excel):
     """ CSV Tab Separated Dialect
     """
     delimiter = '\t'
+    quoting = csv.QUOTE_ALL
 csv.register_dialect("eea.app.visualization.tsv", ExcelTSV)
 
 class Download(BrowserView):

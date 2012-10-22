@@ -30,6 +30,21 @@
     factory=".data.Blob"
     />
 
+  <!-- Plone Collection data adapters -->
+  <adapter
+    zcml:condition="installed plone.app.collection"
+    for="plone.app.collection.interfaces.ICollection"
+    provides="eea.app.visualization.interfaces.IVisualizationData"
+    factory=".data.Collection"
+    />
+
+  <adapter
+    zcml:condition="installed Products.ATContentTypes.content.topic"
+    for="Products.ATContentTypes.interfaces.IATTopic"
+    provides="eea.app.visualization.interfaces.IVisualizationData"
+    factory=".data.Collection"
+    />
+
   <!-- Data source adapters -->
   <adapter
     for="zope.interface.Interface"
