@@ -3,6 +3,8 @@ Changelog
 
 6.1-dev - (unreleased)
 ----------------------
+* Bugfix: Fixed KSS issues in daviz controlpanel
+  [szabozo0 refs #5616]
 * Feature: Made plone collection as daviz data source
   [avoinea refs #5604]
 * Bug fix: Fixed 'Enable View' button CSS
