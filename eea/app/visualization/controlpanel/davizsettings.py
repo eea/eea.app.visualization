@@ -60,7 +60,7 @@ class DavizSettings(SimpleItem):
 class DavizSettingsZMIEditForm(EditForm):
     """ ZMI Edit Form
     """
-    prefix = ""
+    prefix = "davizsettings"
     label = "Daviz settings"
     template = ViewPageTemplateFile("zmi_davizsettings_edit.pt")
 
@@ -90,7 +90,10 @@ class DavizSettingsZMIEditForm(EditForm):
     def handle_save_action_daviz(self, saction, data):
         """ Save action"""
         for field in self.form_fields.__FormFields_byname__.keys():
-            value = self.request.get(field, None)
+            field_name = field
+            if self.prefix:
+                field_name = self.prefix + "." + field
+            value = self.request.get(field_name, None)
             self.context.settings[field] = value
 
         self.request.SESSION['messages'] = ["Saved changes. (%s)" 
@@ -126,7 +129,10 @@ class DavizSettingsControlPanelEditForm(DavizSettingsZMIEditForm):
     def handle_save_action_daviz(self, saction, data):
         """ Save action """
         for field in self.form_fields.__FormFields_byname__.keys():
-            value = self.request.get(field, None)
+            field_name = field
+            if self.prefix:
+                field_name = self.prefix + "." + field
+            value = self.request.get(field_name, None)
             self.context.settings[field] = value
         IStatusMessage(self.request).addStatusMessage(u"Settings saved")
         self.request.response.redirect("@@daviz-settings")
