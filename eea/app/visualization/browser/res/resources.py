@@ -54,7 +54,7 @@ class VisualizationEditResources(object):
         return [
             u'++resource++eea.jquery.css',
             u'++resource++eea.jquery.ui.css',
-            u'++resource++jquery.jqgrid.css',
+            u'++resource++jquery.slickgrid.css',
         ]
 
     @property
@@ -74,8 +74,7 @@ class VisualizationEditResources(object):
             u'++resource++eea.jquery.js',
             u'++resource++eea.jquery.tools.js',
             u'++resource++eea.jquery.ui.js',
-            u'++resource++jquery.jqgrid.locale-en.js',
-            u'++resource++jquery.jqgrid.js',
+            u'++resource++jquery.slickgrid.js',
         ]
 
     @property

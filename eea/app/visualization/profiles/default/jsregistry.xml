@@ -2,4 +2,10 @@
 <object name="portal_javascripts">
  <javascript id="daviz-view.js" expression="python:'daviz-view.html' in request.URL0" />
  <javascript id="daviz-edit.js" expression="python:'daviz-edit.html' in request.URL0" />
+
+ <!-- XXX To be removed in Plone 4.3 -->
+ <javascript id="++resource++eea.jquery.js"
+  expression="python:'daviz-edit.html' in request.URL0"
+  insert-after="++resource++plone.app.jquery.js" />
+ <!-- XXX -->
 </object>

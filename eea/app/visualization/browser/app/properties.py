@@ -23,9 +23,9 @@ class IVisualizationPropertiesEdit(Interface):
     """ Edit visualization global properties
     """
     json = schema.Text(
-        title=u"Data table (preview)",
+        title=u"Data table",
         description=(u"<ul>"
-                       "<li>Click on the bottom-left pencil to "
+                       "<li>Click on the top-left pencil to "
                            "inspect and edit generate JSON.</li>"
                        "<li>Click on the table's columns headers to adjust "
                        "their labels (user friendly-names)</li>"
@@ -38,7 +38,8 @@ class IVisualizationPropertiesEdit(Interface):
         title=u'Additional sources',
         required=False,
         description=(
-            u"Add additional external exhibit sources to be merged. "
+            u"(Simile-Exhibit only) "
+            "Add additional external exhibit sources to be merged. "
             "Supported formats: "
             "'Exhibit JSON', 'Google Spreadsheet' and 'RDF/XML'. "
             "See more details "

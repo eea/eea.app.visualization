@@ -27,27 +27,16 @@ DavizEdit.Status = {
     this.message = jQuery('<div>').addClass('daviz-ajax-loader');
     this.lock.prepend(this.message);
     this.area.prepend(this.lock);
-
-    this.lock.dialog({
-      show: 'slow',
-      hide: 'slow',
-      modal: true,
-      closeOnEscape: false,
-      autoOpen: false,
-      draggable: false,
-      resize: false,
-      dialogClass: 'daviz-loading-overlay'
-    });
   },
 
   start: function(msg){
     this.message.html(msg);
-    this.lock.dialog('open');
+    this.lock.slideDown();
   },
 
   stop: function(msg){
     this.message.html(msg);
-    this.lock.dialog('close');
+    this.lock.delay(1500).slideUp();
   }
 };
 
@@ -262,7 +251,7 @@ DavizEdit.FacetAdd.prototype = {
     self.facet = facet;
     self.form = jQuery('form', facet);
     self.action = self.form.attr('action');
-    self.button = jQuery('input[type=submit]', this.form).hide();
+    self.button = jQuery("input[type='submit']", this.form).hide();
 
     self.form.submit(function(){
       return false;
@@ -330,11 +319,11 @@ DavizEdit.Facet.prototype = {
     this.facet = facet;
     this.form = jQuery('form', facet);
     this.action = this.form.attr('action');
-    this.button = jQuery('input[type=submit]', this.form);
+    this.button = jQuery("input[type='submit']", this.form);
     this.button.hide();
 
-    var show = jQuery("div.field:has([id$=.show])", this.form).hide();
-    this.show = jQuery("[id$=.show]", show);
+    var show = jQuery("div.field:has([id$='.show'])", this.form).hide();
+    this.show = jQuery("[id$='.show']", show);
     this.visible = this.show.attr('checked');
 
     var title = jQuery('h1', this.form);
@@ -358,7 +347,7 @@ DavizEdit.Facet.prototype = {
 
     jQuery(':input', this.form).change(function(){
       var form = jQuery(this).parents('form');
-      var label = jQuery('input[name*=.label]', form);
+      var label = jQuery("input[name*='.label']", form);
       var key = label.attr('name').replace('.label', '');
       var value = label.val();
       jQuery(document).trigger(DavizEdit.Events.facet.changed, {
@@ -427,7 +416,7 @@ DavizEdit.Facet.prototype = {
     var self = this;
 
     if(options){
-      var label = jQuery('input[name=' + options.key + '.label]', this.form);
+      var label = jQuery("input[name='" + options.key + ".label']", this.form);
       if(!label.length){
         return;
       }
@@ -586,11 +575,11 @@ DavizEdit.View.prototype = {
       self.form = jQuery('form.daviz-view-form-disabled', self.view);
     }
 
-    self.jsondata = jQuery('div.field:has(label[for=daviz.properties.json])', self.form);
+    self.jsondata = jQuery("div.field:has(label[for='daviz.properties.json'])", self.form);
     if(self.jsondata.length){
       var jsondata = new DavizEdit.JsonGrid(self.jsondata);
     }
-    self.table = jQuery('div:has(label[for=daviz.properties.sources]) table', self.form);
+    self.table = jQuery("div:has(label[for='daviz.properties.sources']) table", self.form);
     if(self.table.length){
       self.table.addClass('daviz-sources-table');
       var table = new DavizEdit.SourceTable(self.table);
@@ -601,7 +590,7 @@ DavizEdit.View.prototype = {
       return false;
     });
 
-    self.buttons = jQuery('.actionButtons input[type=submit]', self.form)
+    self.buttons = jQuery(".actionButtons input[type='submit']", self.form)
       .click(function(){
         var button = jQuery(this);
         self.submit(button);
@@ -695,6 +684,8 @@ DavizEdit.JsonGrid.prototype = {
     self.context = context;
     self.context.addClass('daviz-jsongrid');
 
+    self.grid = null;
+
     self.textarea = jQuery('textarea', self.context).hide();
     self.textdialog = self.textarea.clone().width('98%').height('98%').show();
     self.textdialog.wrap('<div title="Edit JSON" />');
@@ -712,14 +703,11 @@ DavizEdit.JsonGrid.prototype = {
       }
     });
 
+    jQuery("label[for='daviz.properties.json']", self.context).hide();
+
     self.textdialog.change(function(){
       self.textarea.val(self.textdialog.val());
     });
-
-    self.gridview = jQuery('<div>')
-      .addClass('daviz-data-table')
-      .appendTo(self.context)
-      .width(self.context.parents('.daviz-view-edit').width());
 
     self.relatedItems = {};
     var action = self.context.parents('form').attr('action');
@@ -740,113 +728,185 @@ DavizEdit.JsonGrid.prototype = {
 
   reload: function(){
     var self = this;
-    self.gridview.empty();
-    self.table = jQuery('<table>').attr('id', 'jsontable').appendTo(self.gridview);
-    self.pager = jQuery('<div>').attr('id', 'jsonpager').appendTo(self.gridview);
+    if(self.grid){
+      self.grid.destroy();
+      jQuery(".daviz-data-table", self.context).remove();
+    }
+
+    self.gridview = jQuery('<div>')
+      .addClass('daviz-data-table')
+      .appendTo(self.context)
+      .width(self.context.parents('.daviz-settings').width() - 40)
+      .height(300);
 
     var data = JSON.parse(self.textdialog.val());
     var colNames = Object.keys(data.properties || {});
-
-    var dataTypes = {};
-    jQuery.each(colNames, function(index, key){
-      dataTypes[key] = data.properties[key].columnType || data.properties[key].valueType;
-    });
-
-    var colModel = jQuery.map(colNames, function(key, index){
-      var label = jQuery('input[name=' + key + '.label]');
-      label = label ? label.val() : key;
-      return {
-        name: key,
-        label: label,
-        index: key,
-        editable: false,
-        sortable: false,
-        stype: 'select',
-        edittype: "select",
-        align: 'center',
-        searchoptions: {
-          defaultValue: dataTypes[key],
-          dataEvents: [
-            {'type': 'change', fn: function(e){
-              var name = e.target.name;
-              var value = jQuery(e.target).val();
-              data.properties[name].columnType = value;
-              self.textdialog.val(JSON.stringify(data, null, "  "));
-              self.textdialog.change();
-            }}
+    var columns = [
+      {
+        id: "selector",
+        name: "",
+        field: "num",
+        cssClass: "slickgrid-index-column",
+        width: 30,
+        resizable: false,
+        header: {
+          buttons: [
+            {
+              image: "++resource++slickgrid-images/pencil.png",
+              command: "editJSON",
+              tooltip: "Inspect and edit generate JSON"
+            }
           ]
-        },
-        editoptions: {
-          // XXX Get this list dynamically from the list of IGuessType utilities
-          value: {
-            'boolean': 'Boolean',
-            'date': 'Date',
-            'latitude': 'Latitude',
-            'longitude': 'Longitude',
-            'latlong': 'LatLong',
-            'list': 'List',
-            'number': 'Number',
-            'text': 'Text',
-            'url': 'URL'
+        }
+      }
+    ];
+
+    jQuery.each(colNames, function(index, key){
+      var colType = data.properties[key].columnType || data.properties[key].valueType;
+      var label = jQuery("input[name='" + key + ".label']");
+      label = label ? label.val() : key;
+
+      var column = {
+        id: key,
+        name: label,
+        field: key,
+        sortable: false,
+        selectable: true,
+        resizable: false,
+        focusable: true,
+        width: 150,
+        header: {
+          menu: {
+            items: [
+              {
+                title: "Rename",
+                command: "rename",
+                tooltip: "Give this column a friendly name"
+              },
+              {
+                title: "Column type:",
+                tooltip: "Select column-type",
+                iconCssClass: "slick-header-menusection",
+                disabled: true
+              },
+              {
+                title: 'Boolean',
+                command: 'boolean',
+                tooltip: "Convert this column to boolean",
+                iconCssClass: "slick-header-menusectionitem",
+                iconImage: (colType === "boolean") ? "++resource++slickgrid-images/tick.png" : ""
+
+              },
+              {
+                title: 'Date',
+                command: 'date',
+                tooltip: "Convert this column to date",
+                iconCssClass: "slick-header-menusectionitem",
+                iconImage: (colType === "date") ? "++resource++slickgrid-images/tick.png" : ""
+              },
+              {
+                title: 'Latitude',
+                command: 'latitude',
+                tooltip: "Convert this column to latitude",
+                iconCssClass: "slick-header-menusectionitem",
+                iconImage: (colType === "latitude") ? "++resource++slickgrid-images/tick.png" : ""
+              },
+              {
+                title: 'Longitude',
+                command: 'longitude',
+                tooltip: "Convert this column to longitude",
+                iconCssClass: "slick-header-menusectionitem",
+                iconImage: (colType === "longitude") ? "++resource++slickgrid-images/tick.png" : ""
+              },
+              {
+                title: 'LatLong',
+                command: 'latlong',
+                tooltip: "Convert this column to latlong",
+                iconCssClass: "slick-header-menusectionitem",
+                iconImage: (colType === "latlong") ? "++resource++slickgrid-images/tick.png" : ""
+              },
+              {
+                title: 'List',
+                command: 'list',
+                tooltip: "Convert this column to list",
+                iconCssClass: "slick-header-menusectionitem",
+                iconImage: (colType === "list") ? "++resource++slickgrid-images/tick.png" : ""
+              },
+              {
+                title: "Number",
+                command: "number",
+                tooltip: "Convert this column to number",
+                iconCssClass: "slick-header-menusectionitem",
+                iconImage: (colType === "number") ? "++resource++slickgrid-images/tick.png" : ""
+              },
+              {
+                title: 'Text',
+                command: "text",
+                tooltip: "Convert this column to text",
+                iconCssClass: "slick-header-menusectionitem",
+                iconImage: (colType === "text") ? "++resource++slickgrid-images/tick.png" : ""
+              },
+              {
+                title: 'URL',
+                command: "url",
+                tooltip: "Convert this column to URL",
+                iconCssClass: "slick-header-menusectionitem",
+                iconImage: (colType === "url") ? "++resource++slickgrid-images/tick.png" : ""
+              }
+            ]
           }
         }
       };
+
+      columns.push(column);
     });
 
-    self.table.jqGrid({
-      datatype: "local",
-      gridview: true,
-      colModel: colModel,
-      autowidth: true,
-      rowNum: 10,
-      rownumbers: true,
-      pager: self.pager,
-      editurl: '#',
-      onSelectRow: function(id){
-        return;
-      },
-      gridComplete: function(){
-        var header = jQuery('.ui-jqgrid-sortable', self.gridview);
-        header.attr('title', 'Click to edit');
-        header.unbind('click');
-        header.click(function(){
-          self.edit_header(this);
-        });
-      }
+    columns.push({
+      id: "empty",
+      name: "",
+      field: "empty",
+      resizable: true
     });
 
-    // Populate table with remote data
-    jQuery.each(self.relatedItems.items, function(index, item){
-      if(index > 11){
-        return false;
-      }
-      self.table.jqGrid('addRowData', index+1, item);
+    var options = {
+      enableColumnReorder: false,
+      enableCellNavigation: true,
+      forceFitColumns: true,
+      editable: false
+    };
+
+    var items = jQuery.map(self.relatedItems.items, function(item, index){
+      item.num = index;
+      item.empty = "";
+      return item;
     });
 
-    self.table.setGridParam({ rowNum: 6 }).trigger("reloadGrid");
+    self.grid = new Slick.Grid('.daviz-data-table', items, columns, options);
 
-    // Column types
-    self.table.jqGrid('filterToolbar', {
-      searchOnEnter: false,
-      autosearch: false
+    // Plugins
+
+    // Menu
+    var headerMenuPlugin = new Slick.Plugins.HeaderMenu({
+      buttonImage: "++resource++slickgrid-images/down.gif"
     });
 
-    // Table buttons
-    self.table.jqGrid('navGrid', '#jsonpager', {
-      refresh: false,
-      edit: true,
-      add: false,
-      del: false,
-      search: false,
-      edittitle: 'Edit JSON',
-      editfunc: function(index){
-        self.textdialog.parent().dialog('open');
-      }
+    headerMenuPlugin.onCommand.subscribe(function(e, args) {
+      alert("Command: " + args.command);
     });
-    self.gridview.delegate('#edit_jsontable', 'mouseover', function(){
-      var row = self.table.jqGrid('getDataIDs')[0];
-      self.table.jqGrid('setSelection', row);
+
+    // Buttons
+    var headerButtonsPlugin = new Slick.Plugins.HeaderButtons();
+    headerButtonsPlugin.onCommand.subscribe(function(e, args) {
+      self.textdialog.parent().dialog('open');
     });
+
+    self.grid.registerPlugin(headerMenuPlugin);
+    self.grid.registerPlugin(headerButtonsPlugin);
+    self.grid.setSelectionModel(new Slick.CellSelectionModel());
+
+    // Fixes
+    self.gridview.height('auto');
+    self.gridview.width(self.gridview.width() + 2);
   },
 
   edit_header: function(header){
@@ -886,15 +946,15 @@ DavizEdit.SourceTable.prototype = {
   initialize: function(table){
     var self = this;
     self.table = table;
-    self.count = jQuery('input[name=daviz.properties.sources.count]', table.parent());
+    self.count = jQuery("input[name='daviz.properties.sources.count']", table.parent());
 
-    self.button_add = jQuery('input[name=daviz.properties.sources.add]', table);
+    self.button_add = jQuery("input[name='daviz.properties.sources.add']", table);
     self.button_add.click(function(){
       self.add(jQuery(this));
       return false;
     });
 
-    self.button_remove = jQuery('input[name=daviz.properties.sources.remove]', table);
+    self.button_remove = jQuery("input[name='daviz.properties.sources.remove']", table);
     if (!self.button_remove.length){
       self.button_remove = jQuery('<input>').attr('type', 'submit')
         .attr('name', 'daviz.properties.sources.remove')
@@ -934,7 +994,7 @@ DavizEdit.SourceTable.prototype = {
     var self = this;
     button.removeClass('submitting');
 
-    var checked = jQuery('input[type=checkbox]:checked', self.table);
+    var checked = jQuery("input[type='checkbox']:checked", self.table);
     checked.each(function(){
       jQuery(this).parent().parent('tr').remove();
     });

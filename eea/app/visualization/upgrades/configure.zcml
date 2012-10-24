@@ -3,6 +3,24 @@
   xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
   i18n_domain="eea">
 
+  <!-- 6.0 => 6.1 -->
+  <genericsetup:upgradeSteps
+    source="6.0"
+    destination="6.1"
+    profile="eea.app.visualization:default">
+
+    <genericsetup:upgradeDepends
+      title="Install eea.jquery slickgrid plugin"
+      import_profile="eea.jquery:18-slickgrid"
+      />
+
+    <genericsetup:upgradeDepends
+      title="Import profile steps with changes: javascripts"
+      import_steps="jsregistry"
+      />
+
+  </genericsetup:upgradeSteps>
+
   <!-- 4.x => 6.0 -->
   <genericsetup:upgradeSteps
     source="4.6"
