@@ -3,6 +3,11 @@ Changelog
 
 6.1-dev - (unreleased)
 ----------------------
+* Upgrade step: Within "Plone > Site setup > Add-ons" click on
+  upgrade button available for eea.app.visualization
+* Change: Use SlickGrid jQuery plug-in to manipulate data table within
+  Edit Visualization > Data settings Tab
+  [avoinea refs #5599, #5625]
 * Bugfix: Fixed KSS issues in daviz controlpanel
   [szabozo0 refs #5616]
 * Feature: Made plone collection as daviz data source

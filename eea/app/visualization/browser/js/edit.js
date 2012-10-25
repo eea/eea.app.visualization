@@ -168,7 +168,7 @@ DavizEdit.Facets = {
       url: action,
       data: query,
       success: function(data){
-       DavizEdit.Status.stop(data);
+        DavizEdit.Status.stop(data);
       }
     });
   },
@@ -696,28 +696,26 @@ DavizEdit.JsonGrid.prototype = {
       width: 600,
       dialogClass: 'daviz-confirm-overlay',
       close: function(evt, ui){
-        DavizEdit.Status.start('Reloading table ...');
         self.textdialog.change();
-        self.reload();
-        DavizEdit.Status.stop('Done');
       }
     });
 
     jQuery("label[for='daviz.properties.json']", self.context).hide();
 
     self.textdialog.change(function(){
-      self.textarea.val(self.textdialog.val());
+      self.textarea.val(self.textdialog.val()).change();
+      self.reload();
     });
 
     self.relatedItems = {};
     var action = self.context.parents('form').attr('action');
     var i = action.indexOf('@@');
     action = action.slice(0, i) + '@@daviz.json';
-    DavizEdit.Status.start('Loading ...');
+    DavizEdit.Status.start('Loading data table...');
     jQuery.getJSON(action, {}, function(data){
         self.relatedItems = data;
         self.reload();
-        DavizEdit.Status.stop('Done');
+        DavizEdit.Status.stop('Loading data table... Done');
       });
 
     // Events
@@ -770,6 +768,7 @@ DavizEdit.JsonGrid.prototype = {
         id: key,
         name: label,
         field: key,
+        toolTip: colType,
         sortable: false,
         selectable: true,
         resizable: false,
@@ -794,14 +793,15 @@ DavizEdit.JsonGrid.prototype = {
                 command: 'boolean',
                 tooltip: "Convert this column to boolean",
                 iconCssClass: "slick-header-menusectionitem",
+                disabled: (colType === "boolean"),
                 iconImage: (colType === "boolean") ? "++resource++slickgrid-images/tick.png" : ""
-
               },
               {
                 title: 'Date',
                 command: 'date',
                 tooltip: "Convert this column to date",
                 iconCssClass: "slick-header-menusectionitem",
+                disabled: (colType === "date"),
                 iconImage: (colType === "date") ? "++resource++slickgrid-images/tick.png" : ""
               },
               {
@@ -809,6 +809,7 @@ DavizEdit.JsonGrid.prototype = {
                 command: 'latitude',
                 tooltip: "Convert this column to latitude",
                 iconCssClass: "slick-header-menusectionitem",
+                disabled: (colType === "latitude"),
                 iconImage: (colType === "latitude") ? "++resource++slickgrid-images/tick.png" : ""
               },
               {
@@ -816,6 +817,7 @@ DavizEdit.JsonGrid.prototype = {
                 command: 'longitude',
                 tooltip: "Convert this column to longitude",
                 iconCssClass: "slick-header-menusectionitem",
+                disabled: (colType === "longitude"),
                 iconImage: (colType === "longitude") ? "++resource++slickgrid-images/tick.png" : ""
               },
               {
@@ -823,6 +825,7 @@ DavizEdit.JsonGrid.prototype = {
                 command: 'latlong',
                 tooltip: "Convert this column to latlong",
                 iconCssClass: "slick-header-menusectionitem",
+                disabled: (colType === "latlong"),
                 iconImage: (colType === "latlong") ? "++resource++slickgrid-images/tick.png" : ""
               },
               {
@@ -830,6 +833,7 @@ DavizEdit.JsonGrid.prototype = {
                 command: 'list',
                 tooltip: "Convert this column to list",
                 iconCssClass: "slick-header-menusectionitem",
+                disabled: (colType === "list"),
                 iconImage: (colType === "list") ? "++resource++slickgrid-images/tick.png" : ""
               },
               {
@@ -837,6 +841,7 @@ DavizEdit.JsonGrid.prototype = {
                 command: "number",
                 tooltip: "Convert this column to number",
                 iconCssClass: "slick-header-menusectionitem",
+                disabled: (colType === "number"),
                 iconImage: (colType === "number") ? "++resource++slickgrid-images/tick.png" : ""
               },
               {
@@ -844,6 +849,7 @@ DavizEdit.JsonGrid.prototype = {
                 command: "text",
                 tooltip: "Convert this column to text",
                 iconCssClass: "slick-header-menusectionitem",
+                disabled: (colType === "text"),
                 iconImage: (colType === "text") ? "++resource++slickgrid-images/tick.png" : ""
               },
               {
@@ -851,6 +857,7 @@ DavizEdit.JsonGrid.prototype = {
                 command: "url",
                 tooltip: "Convert this column to URL",
                 iconCssClass: "slick-header-menusectionitem",
+                disabled: (colType === "url"),
                 iconImage: (colType === "url") ? "++resource++slickgrid-images/tick.png" : ""
               }
             ]
@@ -891,7 +898,7 @@ DavizEdit.JsonGrid.prototype = {
     });
 
     headerMenuPlugin.onCommand.subscribe(function(e, args) {
-      alert("Command: " + args.command);
+      self.handle_menu_action(args);
     });
 
     // Buttons
@@ -909,32 +916,50 @@ DavizEdit.JsonGrid.prototype = {
     self.gridview.width(self.gridview.width() + 2);
   },
 
-  edit_header: function(header){
+  handle_menu_action: function(args){
     var self = this;
-    header = jQuery(header);
-    var text = header.text();
-    header.empty();
-    var input = jQuery('<input>')
-      .attr('type', 'text')
-      .val(text)
-      .appendTo(header)
-      .focus()
-      .blur(function(){
-        header.text(jQuery(this).val());
-      })
-      .change(function(){
-        var key = header.attr('id').replace('jqgh_jsontable_', '');
-        jQuery(document).trigger(DavizEdit.Events.facet.changed, {
-          key: key,
-          value: jQuery(this).val()
-        });
-      });
+    var command = args.command;
+    if(command === "rename"){
+      self.edit_header(args.column);
+    }else{
+      self.convert_column(command, args.column);
+    }
+  },
+
+  convert_column: function(to, column){
+    var self = this;
+    var data = JSON.parse(self.textdialog.val());
+    data.properties[column.field].columnType = to;
+    self.textdialog.val(JSON.stringify(data, null, "  ")).change();
+  },
+
+  edit_header: function(column){
+    var self = this;
+    var facet = jQuery("input[id='" + column.field + ".label']");
+
+    var popup = jQuery("<div title='Rename column: " + column.field + "' />")
+      .append(
+        jQuery('<input>').attr('type', 'text').val(facet.val()).width('80%')
+      ).dialog({
+        bgiframe: true,
+        modal: true,
+        dialogClass: 'daviz-confirm-overlay',
+        width: 400,
+        buttons: {
+          Cancel: function(){
+            jQuery(this).dialog('close');
+          },
+          Rename: function(){
+            facet.val(jQuery('input', this).val()).change();
+            jQuery(this).dialog('close');
+          }
+        }
+    });
   },
 
   save_header: function(options){
     var self = this;
-    var header = jQuery('#jqgh_jsontable_' + options.key, self.gridview);
-    header.text(options.value);
+    self.grid.updateColumnHeader(options.key, options.value);
   }
 };
 
