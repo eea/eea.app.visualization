@@ -18,7 +18,7 @@ Calling this utility will return a tuple of two values, columns and JSON:
 
     >>> columns, json = converter(datatable)
     >>> columns
-    [('year', u'number'), ('annotation_a', u'text'), ('eu_15_upper_limit', u'number'), ('annotation_b', u'text'), ('eu_15', u'number'), ('eu_15_million_tonnes_co2_equivalent', u'number'), ('eu_27_upper_limit', u'number'), ('eu_27_million_tonnes_co2_equivalent', u'number'), ('eu_27_lower_limit', u'number')]
+    [('year', u'year'), ('annotation_a', u'text'), ('eu_15_upper_limit', u'number'), ('annotation_b', u'text'), ('eu_15', u'number'), ('eu_15_million_tonnes_co2_equivalent', u'number'), ('eu_27_upper_limit', u'number'), ('eu_27_million_tonnes_co2_equivalent', u'number'), ('eu_27_lower_limit', u'number')]
 
     >>> pprint(json['properties'])
     {'annotation_a': {'columnType': u'text', 'order': 1, 'valueType': u'text'},
@@ -39,7 +39,7 @@ Calling this utility will return a tuple of two values, columns and JSON:
      'eu_27_upper_limit': {'columnType': u'number',
                            'order': 6,
                            'valueType': u'number'},
-     'year': {'columnType': u'number', 'order': 0, 'valueType': u'number'}}
+     'year': {'columnType': u'year', 'order': 0, 'valueType': u'number'}}
 
 
 Now, you can also force column types by calling the utility with the

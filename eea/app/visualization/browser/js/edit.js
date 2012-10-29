@@ -859,6 +859,14 @@ DavizEdit.JsonGrid.prototype = {
                 iconCssClass: "slick-header-menusectionitem",
                 disabled: (colType === "url"),
                 iconImage: (colType === "url") ? "++resource++slickgrid-images/tick.png" : ""
+              },
+              {
+                title: 'Year',
+                command: "year",
+                tooltip: "Convert this column to year",
+                iconCssClass: "slick-header-menusectionitem",
+                disabled: (colType === "year"),
+                iconImage: (colType === "year") ? "++resource++slickgrid-images/tick.png" : ""
               }
             ]
           }

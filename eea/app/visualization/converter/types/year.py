@@ -1,4 +1,4 @@
-""" Date utility
+""" Year utility
 """
 import logging
 from datetime import datetime
@@ -7,35 +7,35 @@ from eea.app.visualization.converter.types import GuessType
 logger = logging.getLogger('eea.app.visualization')
 
 
-class GuessDate(GuessType):
-    """ Utility to guess and convert text to date:
+class GuessYear(GuessType):
+    """ Utility to guess and convert text to year:
 
         >>> from zope.component import getUtility
         >>> from eea.app.visualization.converter.types.interfaces import \
         ...     IGuessType
-        >>> guess = getUtility(IGuessType, 'date')
+        >>> guess = getUtility(IGuessType, 'year')
         >>> guess
-        <eea.app.visualization.converter.types.date.GuessDate object...>
+        <eea.app.visualization.converter.types.year.GuessYear object...>
 
     """
-    order = 60
-    priority = -1
-    aliases = (u'date', u'datetime', u'time')
-    valueType = u'date'
-    fmt = '%Y-%m-%d'
+    order = 55
+    priority = 2
+    aliases = (u'year', u'years')
+    valueType = u'number'
+    fmt = '%Y'
 
     def convert(self, text, fallback=None, **options):
         """
-        Convert text to date
+        Convert text to year
 
             >>> guess.convert('2011')
             datetime.datetime(2011...)
-            >>> guess.convert('2012.12.13')
-            datetime.datetime(2012, 12, 13, 0, 0)
+            >>> guess.convert('2012')
+            datetime.datetime(2012, ...)
             >>> guess.convert('13.12.2012')
-            datetime.datetime(2012, 12, 13, 0, 0)
+            datetime.datetime(2012, ...)
             >>> guess.convert('Dec 13, 2012')
-            datetime.datetime(2012, 12, 13, 0, 0)
+            datetime.datetime(2012, ...)
             >>> guess.convert('Jan 1973')
             datetime.datetime(1973, 1...)
 
@@ -62,7 +62,12 @@ class GuessDate(GuessType):
         keyword:
 
             >>> guess.convert('Dec 13, 1601', format=guess.fmt)
-            '1601-12-13'
+            Traceback (most recent call last):
+            ...
+            ValueError: year=1601 is before 1900; the datetime strftime()...
+
+            >>> guess.convert('Dec 13, 1901', format=guess.fmt)
+            1901
 
         """
         try:
@@ -83,8 +88,10 @@ class GuessDate(GuessType):
         if not strftime:
             return text
 
-        return text.isoformat().split('T')[0]
-
+        try:
+            return int(text.strftime(strftime))
+        except Exception:
+            return int(text.strftime(self.fmt))
 
     def __call__(self, text, label=''):
         """
@@ -94,6 +101,8 @@ class GuessDate(GuessType):
             False
             >>> guess('1')
             False
+            >>> guess('1899')
+            False
             >>> guess('2012')
             True
             >>> guess('3245')
@@ -101,19 +110,19 @@ class GuessDate(GuessType):
             >>> guess('2500')
             False
             >>> guess('2012/12/23')
-            True
+            False
             >>> guess('23.12.2012')
-            True
+            False
             >>> guess('Dec 23, 2012')
-            True
+            False
             >>> guess('2012.12.23 12:34PM')
-            True
+            False
             >>> guess('23.12.2001 23:34')
-            True
+            False
             >>> guess('12:34PM')
-            True
+            False
             >>> guess('23:01')
-            True
+            False
 
             >>> guess('I am not a date: 2012.12.13')
             False
@@ -128,9 +137,9 @@ class GuessDate(GuessType):
 
         You can also force the type from column header:
 
-            >>> guess('I was forced to be a Date', label='exists:date')
+            >>> guess('I was forced to be a Date', label='exists:year')
             True
-            >>> guess('I was forced to be a Date', label='exists:DateTime')
+            >>> guess('I was forced to be a Date', label='exists:YEARS')
             True
 
         """
@@ -148,10 +157,4 @@ class GuessDate(GuessType):
             if 1900 <= year <= 2200:
                 return True
             return False
-
-        # Date
-        try:
-            parser.parse(text)
-        except Exception:
-            return False
-        return True
+        return False

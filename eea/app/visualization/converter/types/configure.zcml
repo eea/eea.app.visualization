@@ -24,6 +24,9 @@
   <utility name="boolean"
     provides=".interfaces.IGuessType" factory=".boolean.GuessBoolean" />
 
+  <utility name="year"
+    provides=".interfaces.IGuessType" factory=".year.GuessYear" />
+
   <utility name="date"
     provides=".interfaces.IGuessType" factory=".date.GuessDate" />
 

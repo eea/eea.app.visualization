@@ -76,6 +76,12 @@ def test_suite():
             layer=FUNCTIONAL_TESTING),
         layered(
             doctest.DocFileSuite(
+                'converter/types/year.py',
+                optionflags=OPTIONFLAGS,
+                package='eea.app.visualization'),
+            layer=FUNCTIONAL_TESTING),
+        layered(
+            doctest.DocFileSuite(
                 'converter/types/date.py',
                 optionflags=OPTIONFLAGS,
                 package='eea.app.visualization'),

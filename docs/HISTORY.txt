@@ -5,6 +5,8 @@ Changelog
 ----------------------
 * Upgrade step: Within "Plone > Site setup > Add-ons" click on
   upgrade button available for eea.app.visualization
+* Feature: Added "year" column type in order to format dates columns as years
+  [voineali refs #9583]
 * Change: Use SlickGrid jQuery plug-in to manipulate data table within
   Edit Visualization > Data settings Tab
   [avoinea refs #5599, #5625]

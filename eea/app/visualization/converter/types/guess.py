@@ -138,7 +138,7 @@ class GuessTypes(object):
             label => text
             map => latlong
             population => number
-            year => number
+            year => year
 
         You can't guess latitude and longitude as they are numbers, and you
         don't want to detect, for example, a percent column as latitude:
