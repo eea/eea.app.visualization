@@ -149,11 +149,6 @@
     />
 
   <browser:resource
-    name="eea.daviz.spreadsheet.css"
-    file="./css/spreadsheet.css"
-    />
-
-  <browser:resource
     name="eea.daviz.bootstrap.css"
     file="./css/bootstrap.css"
   />
@@ -166,11 +161,6 @@
   <browser:resource
     name="eea.daviz.edit.js"
     file="./js/edit.js"
-   />
-
-  <browser:resource
-    name="eea.daviz.spreadsheet.js"
-    file="./js/spreadsheet.js"
    />
 
   <browser:resourceDirectory
