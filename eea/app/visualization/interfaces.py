@@ -10,6 +10,7 @@ from eea.app.visualization.storage.interfaces import IVisualizationConfig
 
 # Visualization Data and JSON
 from eea.app.visualization.data.interfaces import IVisualizationData
+from eea.app.visualization.data.interfaces import IExternalData
 from eea.app.visualization.data.interfaces import IDataProvenance
 from eea.app.visualization.data.interfaces import IVisualizationJson
 from eea.app.visualization.data.interfaces import IVisualizationJsonUtils
@@ -25,6 +26,7 @@ from eea.app.visualization.events.interfaces import (
 # Converter
 from eea.app.visualization.converter.interfaces import IGuessType
 from eea.app.visualization.converter.interfaces import IGuessTypes
+from eea.app.visualization.converter.interfaces import IData2TableConverter
 from eea.app.visualization.converter.interfaces import ITable2JsonConverter
 
 # Views
@@ -43,6 +45,7 @@ __all__ = (
     IVisualizationSubtyper.__name__,
     IVisualizationConfig.__name__,
     IVisualizationData.__name__,
+    IExternalData.__name__,
     IDataProvenance.__name__,
     IVisualizationJson.__name__,
     IVisualizationJsonUtils.__name__,
@@ -52,6 +55,7 @@ __all__ = (
     IVisualizationFacetDeletedEvent.__name__,
     IGuessType.__name__,
     IGuessTypes.__name__,
+    IData2TableConverter.__name__,
     ITable2JsonConverter.__name__,
     IVisualizationView.__name__,
     IVisualizationViews.__name__,

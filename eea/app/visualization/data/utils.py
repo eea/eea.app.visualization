@@ -51,7 +51,7 @@ class VisualizationJsonUtils(object):
             indent2 = u' ' * (indent + indent)
 
             json = simplejson.loads(strJson)
-            properties = json['properties']
+            properties = json.get('properties', {})
             newProperties = sorted(
                 properties.items(), key=operator.itemgetter(1), cmp=compare)
             json['properties'] = ''

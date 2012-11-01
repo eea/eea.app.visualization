@@ -110,5 +110,17 @@ def test_suite():
                 optionflags=OPTIONFLAGS,
                 package='eea.app.visualization'),
             layer=FUNCTIONAL_TESTING),
+        layered(
+            doctest.DocFileSuite(
+                'data/external.py',
+                optionflags=OPTIONFLAGS,
+                package='eea.app.visualization'),
+            layer=FUNCTIONAL_TESTING),
+        layered(
+            doctest.DocFileSuite(
+                'converter/data.py',
+                optionflags=OPTIONFLAGS,
+                package='eea.app.visualization'),
+            layer=FUNCTIONAL_TESTING),
     ])
     return suite

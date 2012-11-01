@@ -10,6 +10,12 @@
     factory="eea.app.visualization.data.utils.VisualizationJsonUtils"
     />
 
+  <!-- External data utility -->
+  <utility
+    provides="eea.app.visualization.interfaces.IExternalData"
+    factory="eea.app.visualization.data.external.ExternalData"
+    />
+
   <!-- Data adapters -->
   <adapter
     for="zope.interface.Interface"

@@ -6,4 +6,20 @@
   <include package=".types" />
   <utility factory=".converter.Table2JsonConverter" />
 
+  <!-- CSV -->
+  <utility name="text/csv" factory=".data.CSV" />
+  <utility name="text/x-comma-separated-values" factory=".data.CSV" />
+  <utility name="text/comma-separated-values" factory=".data.CSV" />
+
+  <!-- TSV -->
+  <utility name="text/tsv" factory=".data.CSV" />
+  <utility name="text/x-tab-separated-values" factory=".data.CSV" />
+  <utility name="text/tab-separated-values" factory=".data.CSV" />
+
+  <!-- JSON -->
+  <utility name="application/json" factory=".data.JSON" />
+
+  <!-- Text -->
+  <utility name="text/plain" factory=".data.Text" />
+
 </configure>

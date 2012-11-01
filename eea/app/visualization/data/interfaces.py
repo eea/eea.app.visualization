@@ -30,6 +30,10 @@ class IVisualizationData(Interface):
         readonly=True
         )
 
+class IExternalData(Interface):
+    """ External Data Utility
+    """
+
 class IVisualizationJson(Interface):
     """ Visualization data JSON (daviz.json)
     """
