@@ -44,4 +44,6 @@ jQuery(document).ready(function(){
     return false;
   });
 
+  jQuery(".daviz-tab-view-noscript").removeClass("daviz-tab-view-noscript");
+
 });

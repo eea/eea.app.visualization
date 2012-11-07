@@ -81,3 +81,12 @@ ul.chart-tabs li:first-of-type a:hover {
   clear: both;
   visibility: hidden;
 }
+
+/* noscript */
+.daviz-tab-view-noscript {
+    display:none;
+}
+
+.daviz-tab-view-noscript:target {
+    display:block
+}
