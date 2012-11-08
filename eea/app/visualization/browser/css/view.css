@@ -88,5 +88,11 @@ ul.chart-tabs li:first-of-type a:hover {
 }
 
 .daviz-tab-view-noscript:target {
-    display:block
+    display:block;
+}
+
+.daviz-tab-norealchart {
+    border:1px solid red;
+    color:red;
+    float:left;
 }
