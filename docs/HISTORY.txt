@@ -3,6 +3,8 @@ Changelog
 
 6.1-dev - (unreleased)
 ----------------------
+* Feature: Display image when javascript is disabled
+  [szabozo0 refs #9562]
 * Upgrade step: Within "Plone > Site setup > Add-ons" click on
   upgrade button available for eea.app.visualization
 * Feature: Added utilities to get and convert external URL to
