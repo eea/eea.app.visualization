@@ -84,15 +84,31 @@ ul.chart-tabs li:first-of-type a:hover {
 
 /* noscript */
 .daviz-tab-view-noscript {
-    display:none;
+  display:none;
 }
 
 .daviz-tab-view-noscript:target {
     display:block;
 }
 
+.daviz-preview-chart {
+}
+
+.daviz-preview-chart img {
+  float: left;
+  padding-bottom: 2em;
+}
+
 .daviz-tab-norealchart {
-    border:1px solid red;
-    color:red;
-    float:left;
+  border: 1px solid #d14836;
+  color: #d14836;
+  position: absolute;
+  top: 250px;
+  left: 150px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 0 50px #000;
+  width: 300px;
+  padding: 1em;
+  font-weight: bold;
 }
