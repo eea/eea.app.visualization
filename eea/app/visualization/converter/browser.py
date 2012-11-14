@@ -13,7 +13,7 @@ class Table2Json(BrowserView):
         form.update(kwargs)
         table = form.get('table', '')
         convert = queryUtility(ITable2JsonConverter)
-        columns, data = convert(table)
+        _columns, data = convert(table)
         self.request.response.setHeader(
             'Content-Type', 'application/json')
         return json.dumps(data)
