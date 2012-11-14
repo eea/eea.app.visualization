@@ -34,7 +34,7 @@ class ViewForm(BrowserView):
              'css': tabname,
              'tabname': tabname,
              'fallback-image': self.context.absolute_url() + \
-                                "/++resource++" + self.__name__ + ".preview.png"
+                                "/" + self.__name__ + ".preview.png"
              },
         ]
 

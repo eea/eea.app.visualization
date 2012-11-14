@@ -17,6 +17,7 @@ class EditForm(SubPageForm):
 
     """
     form_fields = None
+    previewname = None
 
     def __init__(self, context, request):
         """ EditForm init
@@ -49,6 +50,15 @@ class EditForm(SubPageForm):
         """
         mutator = queryAdapter(self.context, IVisualizationConfig)
         mutator.edit_view(self.prefix, **data)
+
+        if self.previewname:
+            if not self.context.get(self.previewname, None):
+                img = self.context.restrictedTraverse(
+                    "++resource++" + self.previewname)
+                self.context.invokeFactory('Image', 
+                    id=self.previewname, 
+                    title=self.previewname, 
+                    image=img.GET())
 
         name = saction.__name__.encode('utf-8')
         value = self.request.form.get(name, '')
