@@ -5,6 +5,8 @@ Changelog
 ----------------------
 * Upgrade step: Within "Plone > Site setup > Add-ons" click on
   upgrade button available for eea.app.visualization
+* Change: Move column label settings from facet annotations directly to JSON
+  [voineali refs $9610]
 * Feature: On saving a chart, copy the generic chart image in the visualization
   [szabozo0 refs #10019]
 * Change: Added a common.js and common.css in order to reuse common components

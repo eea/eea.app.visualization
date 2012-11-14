@@ -29,3 +29,7 @@
 .daviz-data-table .slick-column-name {
   color: #000;
 }
+
+.slick-header-menu {
+  z-index: 999;
+}

@@ -159,6 +159,11 @@ class Configure(object):
         for facet in self.facets:
             if facet.get('name') != key:
                 continue
+            config = self.json.get('properties', {}).get(key, {})
+            label = config.get('label', '')
+            if label and facet.get('label', '') != label:
+                facet['label'] = label
+            facet.setdefault('label', key)
             return facet
         return default
 
@@ -245,7 +250,7 @@ class Configure(object):
             >>> _ = visualization.add_facet('country', a=1, b=2)
             >>> facet = visualization.facet('country')
             >>> sorted(facet.items())
-            [('a', 1), ('b', 2), ('name', 'country'), ('type', ...]
+            [('a', 1), ('b', 2), ('label', 'country'), ('name', ...]
 
         """
         config = self._facets()
@@ -258,15 +263,21 @@ class Configure(object):
     def edit_facet(self, key, **kwargs):
         """ Edit facet properties
 
-            >>> visualization.edit_facet('country', c=3, a=2)
+            >>> visualization.edit_facet('country', label='One', a=2)
             >>> facet = visualization.facet('country')
             >>> sorted(facet.items())
-            [('a', 2), ('b', 2), ('c', 3), ('name', 'country'), ('type', ...]
+            [('a', 2), ('b', 2), ('label', 'One'), ('name', ...]
 
         """
         facet = self.facet(key)
         if not facet:
             raise KeyError, key
+
+        if 'label' in kwargs:
+            data = self.json
+            properties = data.get('properties', {})
+            properties.setdefault(key, {})
+            properties[key]['label'] = kwargs.get('label')
         facet.update(kwargs)
 
     def delete_facet(self, key):

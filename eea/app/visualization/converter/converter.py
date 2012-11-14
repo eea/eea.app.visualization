@@ -132,13 +132,13 @@ class Table2JsonConverter(object):
             popul => number
 
             >>> jsondict['properties']['year']
-            {'valueType': u'date', 'columnType': u'date', 'order': 1}
+            {'valueType': u'date', 'columnType': u'date', 'order': 1, ...}
 
             >>> jsondict['items'][0]['year']
             '2010-...'
 
             >>> jsondict['properties']['latit']
-            {'valueType': u'text', 'columnType': u'latitude', 'order': 3}
+            {'valueType': u'text', 'columnType': u'latitude', 'order': 3, ...}
 
             >>> jsondict['items'][0]['longitude']
             '27.983333'
@@ -155,7 +155,7 @@ class Table2JsonConverter(object):
             [('label', u'text'), ('year', u'number'), ('country', u'text')]
 
             >>> jsondict['properties']['year']
-            {'valueType': u'number', 'columnType': u'number', 'order': 1}
+            {'valueType': u'number', 'columnType': u'number', 'order': 1, ...}
 
         """
         if isinstance(datafile, (unicode, str)):
@@ -184,13 +184,16 @@ class Table2JsonConverter(object):
             if columns == []:
                 for name in row:
                     name = name.strip()
+                    columnLabel = guess.column_label(name)
                     name = name.replace(' ', '+')
                     if name.lower().endswith('label'):
                         name = "label"
                         hasLabel = True
                     name, columnType = guess.column_type(name)
                     columns.append((
-                        name, column_types.get(name, columnType or u'text')
+                        name,
+                        column_types.get(name, columnType or u'text'),
+                        columnLabel
                     ))
                 continue
 
@@ -203,7 +206,7 @@ class Table2JsonConverter(object):
                 data['label'] = index
 
             order = 0
-            for col, columnType in columns:
+            for col, columnType, columnLabel in columns:
                 text = row.next()
                 util = queryUtility(IGuessType, name=columnType)
                 valueType = getattr(util, 'valueType', columnType)
@@ -221,13 +224,17 @@ class Table2JsonConverter(object):
                 properties[col] = {
                     "valueType": valueType,
                     'columnType': columnType,
+                    'label': columnLabel,
                     "order": order
                 }
                 order += 1
 
             out.append(data)
 
-        return columns, {'items': out, 'properties': properties}
+            return (
+                [(x[0], x[1]) for x in columns],
+                {'items': out, 'properties': properties}
+            )
 
 def sortProperties(strJson, indent=1):
     """ In the json string set the correct order of the columns

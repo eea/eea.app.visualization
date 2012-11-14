@@ -17,7 +17,8 @@ class FacetsVocabulary(object):
         """
         accessor = queryAdapter(context, IVisualizationConfig)
         for facet in accessor.facets:
-            yield facet
+            name = facet.get('name')
+            yield accessor.facet(name)
 
     def __call__(self, context=None):
         """ See IVocabularyFactory interface

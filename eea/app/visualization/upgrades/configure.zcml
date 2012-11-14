@@ -9,6 +9,11 @@
     destination="6.2"
     profile="eea.app.visualization:default">
 
+    <genericsetup:upgradeStep
+      title="Move column label settings from facet annotations directly to daviz JSON"
+      handler="eea.app.visualization.upgrades.evolve62.fix_column_labels"
+      />
+
     <genericsetup:upgradeDepends
       title="Import profile steps with changes: javascripts"
       import_steps="jsregistry"
