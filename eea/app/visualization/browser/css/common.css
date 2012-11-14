@@ -1,0 +1,17 @@
+.daviz-jsongrid th.ui-state-default,
+.daviz-jsongrid td.ui-state-default,
+.daviz-jsongrid div.ui-state-default {
+  background-color: #f3f3f3;
+  color: #000;
+}
+
+.daviz-data-table {
+  border: 1px solid silver;
+  border-top: none;
+}
+
+.slickgrid-index-column {
+  background: whitesmoke;
+  border-bottom: 1px solid silver;
+  text-align: center;
+}

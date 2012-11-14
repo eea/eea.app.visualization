@@ -154,6 +154,16 @@
   />
 
   <browser:resource
+    name="eea.daviz.common.css"
+    file="./css/common.css"
+  />
+
+  <browser:resource
+    name="eea.daviz.common.js"
+    file="./js/common.js"
+   />
+
+  <browser:resource
     name="eea.daviz.view.js"
     file="./js/view.js"
    />

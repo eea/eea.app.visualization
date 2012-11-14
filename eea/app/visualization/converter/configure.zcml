@@ -1,5 +1,6 @@
 <configure
   xmlns="http://namespaces.zope.org/zope"
+  xmlns:browser="http://namespaces.zope.org/browser"
   i18n_domain="eea">
 
   <include package="plone.i18n" />
@@ -21,5 +22,13 @@
 
   <!-- Text -->
   <utility name="text/plain" factory=".data.Text" />
+
+  <!-- Utilities accessible via URL -->
+  <browser:page
+    for="zope.interface.Interface"
+    name="daviz-table2json.json"
+    class=".browser.Table2Json"
+    permission="eea.app.visualization.configure"
+    />
 
 </configure>

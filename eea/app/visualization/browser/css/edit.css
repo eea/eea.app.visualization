@@ -378,26 +378,8 @@ h1 {
   border: none;
 }
 
-.daviz-jsongrid th.ui-state-default,
-.daviz-jsongrid td.ui-state-default,
-.daviz-jsongrid div.ui-state-default {
-  background-color: #f3f3f3;
-  color: #000;
-}
-
-.daviz-data-table {
-  border: 1px solid silver;
-  border-top: none;
-}
-
 .daviz-warning-helper {
     font-size:90%;
     font-weight:normal;
     margin-top:5px;
-}
-
-.slickgrid-index-column {
-  background: whitesmoke;
-  border-bottom: 1px solid silver;
-  text-align: center;
 }
