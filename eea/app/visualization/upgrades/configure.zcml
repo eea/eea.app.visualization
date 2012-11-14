@@ -3,6 +3,19 @@
   xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
   i18n_domain="eea">
 
+  <!-- 6.1 => 6.2 -->
+  <genericsetup:upgradeSteps
+    source="6.1"
+    destination="6.2"
+    profile="eea.app.visualization:default">
+
+    <genericsetup:upgradeDepends
+      title="Import profile steps with changes: javascripts"
+      import_steps="jsregistry"
+      />
+
+  </genericsetup:upgradeSteps>
+
   <!-- 6.0 => 6.1 -->
   <genericsetup:upgradeSteps
     source="6.0"

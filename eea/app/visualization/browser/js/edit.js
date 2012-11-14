@@ -771,22 +771,14 @@ DavizEdit.JsonGrid.prototype = {
         toolTip: colType,
         sortable: false,
         selectable: true,
-        resizable: false,
+        resizable: true,
         focusable: true,
-        width: 150,
         header: {
           menu: EEA.Daviz.ColumnMenu({columnType: colType})
         }
       };
 
       columns.push(column);
-    });
-
-    columns.push({
-      id: "empty",
-      name: "",
-      field: "empty",
-      resizable: true
     });
 
     var options = {
@@ -798,7 +790,6 @@ DavizEdit.JsonGrid.prototype = {
 
     var items = jQuery.map(self.relatedItems.items, function(item, index){
       item.num = index;
-      item.empty = "";
       return item;
     });
 

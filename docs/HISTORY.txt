@@ -3,6 +3,8 @@ Changelog
 
 6.2-dev - (unreleased)
 ----------------------
+* Upgrade step: Within "Plone > Site setup > Add-ons" click on
+  upgrade button available for eea.app.visualization
 * Feature: On saving a chart, copy the generic chart image in the visualization
   [szabozo0 refs #10019]
 * Change: Added a common.js and common.css in order to reuse common components
