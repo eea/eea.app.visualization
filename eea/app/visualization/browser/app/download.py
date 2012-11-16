@@ -73,26 +73,27 @@ class Download(BrowserView):
         for item in self.data.get('items', []):
             yield item
 
-    def csv(self, dialect='excel'):
+    def csv(self, dialect='excel', attachment=True):
         """ Download as Comma Separated File
         """
         if dialect == 'excel':
             self.request.response.setHeader(
                 'Content-Type', 'application/csv')
-            self.request.response.setHeader(
-                'Content-Disposition',
-                'attachment; filename="%s.csv"' % self.context.getId())
+            if attachment:
+                self.request.response.setHeader(
+                    'Content-Disposition',
+                    'attachment; filename="%s.csv"' % self.context.getId())
         else:
             self.request.response.setHeader(
                 'Content-Type', 'application/tsv')
-            self.request.response.setHeader(
-                'Content-Disposition',
-                'attachment; filename="%s.tsv"' % self.context.getId())
+            if attachment:
+                self.request.response.setHeader(
+                    'Content-Disposition',
+                    'attachment; filename="%s.tsv"' % self.context.getId())
 
         writter = csv.writer(self.request.response, dialect=dialect)
         row = []
         headers = self.headers
-#        headers = self.data.get('properties', {}).keys()
         for col in headers:
             hprops = self.data.get('properties', {}).get(col[0], {})
             header = u'%s:%s' % (col[0], hprops.get('columnType',
@@ -108,10 +109,10 @@ class Download(BrowserView):
             writter.writerow(row)
         return ''
 
-    def tsv(self, dialect='eea.app.visualization.tsv'):
+    def tsv(self, dialect='eea.app.visualization.tsv', attachment=True):
         """ Download as Tab Separated File
         """
-        return self.csv(dialect=dialect)
+        return self.csv(dialect=dialect, attachment=attachment)
 
     def json(self):
         """ Downlaod as JSON

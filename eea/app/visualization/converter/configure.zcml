@@ -31,4 +31,11 @@
     permission="eea.app.visualization.configure"
     />
 
+  <browser:page
+    for="zope.interface.Interface"
+    name="daviz-json2table.tsv"
+    class=".browser.Json2Table"
+    permission="eea.app.visualization.configure"
+    />
+
 </configure>

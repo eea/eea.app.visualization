@@ -207,7 +207,10 @@ class Table2JsonConverter(object):
 
             order = 0
             for col, columnType, columnLabel in columns:
-                text = row.next()
+                try:
+                    text = row.next()
+                except StopIteration:
+                    text = u''
                 util = queryUtility(IGuessType, name=columnType)
                 valueType = getattr(util, 'valueType', columnType)
                 fmt = getattr(util, 'fmt', None)

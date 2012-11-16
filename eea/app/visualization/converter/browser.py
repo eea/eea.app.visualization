@@ -1,7 +1,7 @@
 """ Browser views converter utilities
 """
 import json
-from zope.component import queryUtility
+from zope.component import queryUtility, queryMultiAdapter
 from eea.app.visualization.interfaces import ITable2JsonConverter
 from Products.Five.browser import BrowserView
 
@@ -17,3 +17,16 @@ class Table2Json(BrowserView):
         self.request.response.setHeader(
             'Content-Type', 'application/json')
         return json.dumps(data)
+
+class Json2Table(BrowserView):
+    """ Convert JSOn to CSV
+    """
+    def __call__(self, **kwargs):
+        form = getattr(self.request, 'form', {})
+        form.update(kwargs)
+        data = form.get('json', '{}')
+        data = json.loads(data)
+        download = queryMultiAdapter((self.context, self.request),
+                                     name=u'download.table')
+        download._data = data
+        return download.tsv(attachment=False)
