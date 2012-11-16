@@ -96,9 +96,15 @@ class Download(BrowserView):
         headers = self.headers
         for col in headers:
             hprops = self.data.get('properties', {}).get(col[0], {})
-            header = u'%s:%s' % (col[0], hprops.get('columnType',
-                                hprops.get('valueType', 'text'))
-                                 if isinstance(hprops, dict) else hprops)
+            columnLabel = (
+                hprops.get('label', col[0])
+                if isinstance(hprops, dict) else col[0]
+            )
+            columnType = (
+                hprops.get('columnType', hprops.get('valueType', 'text'))
+                if isinstance(hprops, dict) else hprops
+            )
+            header = u'%s:%s' % (columnLabel, columnType)
             row.append(header)
         writter.writerow(row)
 

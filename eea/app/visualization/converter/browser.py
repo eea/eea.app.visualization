@@ -1,8 +1,9 @@
 """ Browser views converter utilities
 """
 import json
-from zope.component import queryUtility, queryMultiAdapter
+from zope.component import queryUtility, queryMultiAdapter, queryUtility
 from eea.app.visualization.interfaces import ITable2JsonConverter
+from eea.app.visualization.interfaces import IVisualizationJsonUtils
 from Products.Five.browser import BrowserView
 
 class Table2Json(BrowserView):
@@ -16,7 +17,9 @@ class Table2Json(BrowserView):
         _columns, data = convert(table)
         self.request.response.setHeader(
             'Content-Type', 'application/json')
-        return json.dumps(data)
+
+        utils = queryUtility(IVisualizationJsonUtils)
+        return utils.sortProperties(json.dumps(data))
 
 class Json2Table(BrowserView):
     """ Convert JSOn to CSV
