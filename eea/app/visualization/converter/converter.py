@@ -234,10 +234,10 @@ class Table2JsonConverter(object):
 
             out.append(data)
 
-            return (
-                [(x[0], x[1]) for x in columns],
-                {'items': out, 'properties': properties}
-            )
+        return (
+            [(x[0], x[1]) for x in columns],
+            {'items': out, 'properties': properties}
+        )
 
 def sortProperties(strJson, indent=1):
     """ In the json string set the correct order of the columns
