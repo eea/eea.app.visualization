@@ -1,7 +1,7 @@
 """ Browser views converter utilities
 """
 import json
-from zope.component import queryUtility, queryMultiAdapter, queryUtility
+from zope.component import queryUtility, queryMultiAdapter
 from eea.app.visualization.interfaces import ITable2JsonConverter
 from eea.app.visualization.interfaces import IVisualizationJsonUtils
 from Products.Five.browser import BrowserView
