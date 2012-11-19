@@ -122,5 +122,11 @@ def test_suite():
                 optionflags=OPTIONFLAGS,
                 package='eea.app.visualization'),
             layer=FUNCTIONAL_TESTING),
+        layered(
+            doctest.DocFileSuite(
+                'browser/app/download.py',
+                optionflags=OPTIONFLAGS,
+                package='eea.app.visualization'),
+            layer=FUNCTIONAL_TESTING),
     ])
     return suite

@@ -1,8 +1,22 @@
 """ Downloads controllers
+
+    >>> portal = layer['portal']
+    >>> from eea.app.visualization.tests.utils import loadblobfile
+    >>> sid = portal.invokeFactory('File', 'sandbox')
+    >>> sandbox = portal._getOb(sid)
+    >>> _ = loadblobfile(sandbox, 'data/data-sample-v4.tsv', 'text/tsv')
+    >>> support = sandbox.restrictedTraverse('@@daviz_support')
+    >>> _ = support.enable()
+
+    >>> from eea.app.visualization.interfaces import IVisualizationEnabled
+    >>> IVisualizationEnabled.providedBy(sandbox)
+    True
+
 """
 import json
 import csv
 import logging
+from StringIO import StringIO
 from zope.component import queryMultiAdapter, queryUtility
 from Products.Five.browser import BrowserView
 from eea.app.visualization.interfaces import IVisualizationJsonUtils
@@ -18,6 +32,7 @@ csv.register_dialect("eea.app.visualization.tsv", ExcelTSV)
 
 class Download(BrowserView):
     """ Download Visualization data in various formats
+
     """
     def __init__(self, context, request):
         super(Download, self).__init__(context, request)
@@ -55,26 +70,42 @@ class Download(BrowserView):
             prop.append(item.get('order', def_order))
             prop.append(key)
             prop.append(item.get('columnType', item.get('valueType', 'text')))
+            prop.append(item.get('label', key))
             propsList.append(prop)
             def_order += 1
         propsList.sort()
-        finalProps = []
-        for prop in propsList:
-            finalProp = []
-            finalProp.append(prop[1])
-            finalProp.append(prop[2])
-            finalProps.append(finalProp)
-        return finalProps
-#        return self.data.get('properties', {})
+
+        return [prop[1:4] for prop in propsList]
 
     def table(self):
         """ Download as HTML table
+
+            >>> output = sandbox.restrictedTraverse('@@download.table')
+            >>> print output()
+            <html lang="en-US"...
+            ...
+            <th>
+              FacilityID
+            </th>
+            ...
+            <td>
+              Energy - Mineral oil and gas refineries
+            </td>
+            ...
+
         """
         for item in self.data.get('items', []):
             yield item
 
     def csv(self, dialect='excel', attachment=True):
         """ Download as Comma Separated File
+
+            >>> output = sandbox.restrictedTraverse('@@download.csv')
+            >>> print output(attachment=False)
+            FacilityID:number,FacilityName:text...
+            ...
+            118563,ENI SpA Divisione Refining & Marketing...
+
         """
         if dialect == 'excel':
             self.request.response.setHeader(
@@ -91,7 +122,12 @@ class Download(BrowserView):
                     'Content-Disposition',
                     'attachment; filename="%s.tsv"' % self.context.getId())
 
-        writter = csv.writer(self.request.response, dialect=dialect)
+        if attachment:
+            output = self.request.response
+        else:
+            output = StringIO()
+            writter = csv.writer(output, dialect=dialect)
+
         row = []
         headers = self.headers
         for col in headers:
@@ -105,23 +141,54 @@ class Download(BrowserView):
                 if isinstance(hprops, dict) else hprops
             )
             header = u'%s:%s' % (columnLabel, columnType)
-            row.append(header)
+            row.append(header.encode('utf-8'))
         writter.writerow(row)
 
         for item in self.data['items']:
             row = []
             for col in headers:
-                row.append(unicode(item.get(col[0], '')))
+                row.append(
+                    unicode(item.get(col[0], '')).encode('utf-8')
+                )
             writter.writerow(row)
+
+        if not attachment:
+            output.seek(0)
+            return output.read()
         return ''
 
     def tsv(self, dialect='eea.app.visualization.tsv', attachment=True):
         """ Download as Tab Separated File
+
+            >>> output = sandbox.restrictedTraverse('@@download.tsv')
+            >>> print output(attachment=False)
+            "FacilityID:number"	"FacilityName:text"...
+            ...
+            "118563"	"ENI SpA Divisione Refining & Marketing...
+
         """
         return self.csv(dialect=dialect, attachment=attachment)
 
     def json(self):
         """ Downlaod as JSON
+
+            >>> output = sandbox.restrictedTraverse('@@download.json')
+            >>> print output()
+            {
+              "head": {
+                "vars": [
+                  "facilityid",
+            ...
+              "results": {
+                "bindings": [
+            ...
+                "country": {
+                  "datatype": "http://www.w3.org/2001/XMLSchema#string",
+                  "type": "typed-literal",
+                  "value": "Italy"
+                },
+            ...
+
         """
         headers = {'Accept' : 'application/sparql-results+json'}
         self.request.response.setHeader(
@@ -161,10 +228,25 @@ class Download(BrowserView):
                 }
             data['results']['bindings'].append(convertedItem)
 
-        return self.sortProperties(json.dumps(data, indent=2), indent=2)
+        return json.dumps(data, indent=2)
 
     def exhibit(self):
         """ Download as Exhibit JSON
+
+            >>> output = sandbox.restrictedTraverse('@@download.exhibit')
+            >>> print output()
+            {
+              "items": [
+                {
+            ...
+                    "main_activity": "Energy - Mineral oil and gas refineries",
+            ...
+              ],
+              "properties":{
+            ...
+                "main_activity": {"valueType": "text", "columnType": ...
+            ...
+
         """
         self.request.response.setHeader(
             'Content-Type', 'application/json')
@@ -175,6 +257,24 @@ class Download(BrowserView):
 
     def xml(self):
         """ Download as XML
+
+            >>> output = sandbox.restrictedTraverse('@@download.xml')
+            >>> print output()
+            <?xml version='1.0' encoding='UTF-8'?>
+            <sparql xmlns="http://www.w3.org/2005/sparql-results#">
+              <head>
+                <variable name="facilityid"/>
+            ...
+            <results>
+              <result>
+                <binding name="facilityid">
+                  <literal ...>1298</literal>
+            ...
+            <binding name="main_activity">
+              <literal...>Energy - Mineral oil and gas refineries</literal>
+            </binding>
+            ...
+
         """
         self.request.response.setHeader(
             'Content-Type', 'application/xml')
@@ -195,6 +295,24 @@ class Download(BrowserView):
 
     def schema(self):
         """ Download as XML with schema
+
+            >>> output = sandbox.restrictedTraverse('@@download.schema.xml')
+            >>> print output()
+            <?xml version="1.0" encoding="UTF-8"?>
+            <root xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+              <dataroot>
+                <resources>
+                  <facilityid>1298</facilityid>
+            ...
+                  <main_activity>Energy - Mineral oil and gas refineries...
+            ...
+              </dataroot>
+              <xsd:schema>
+                <xsd:element name="dataroot">
+            ...
+                <xsd:element minOccurs="0" type="xsd:double" name="facilityid"/>
+            ...
+
         """
         self.request.response.setHeader(
             'Content-Type', 'application/xml')

@@ -18,7 +18,7 @@
     headers view/headers">
     <tr>
       <th tal:repeat="header headers">
-        <tal:header replace="python: header[0]" />
+        <tal:header replace="python: header[2]" />
       </th>
     </tr>
     <tr tal:repeat="item view/table">

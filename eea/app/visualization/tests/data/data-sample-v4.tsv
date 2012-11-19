@@ -1,0 +1,4 @@
+"FacilityID"	"FacilityName"	"City"	"Country"	"Main activity"	"CO2 (tonnes):number"	"Nox (tonnes):number"	"Sox (tonnes):number"	"PM10  (tonnes):number"	"NMVOC  (tonnes):number"	"NH3  (tonnes):number"	"CO2 damage costs (million €):number"	"Low VOLY damage costs (million €):number"	"High VSL damage costs (million €):number"	"HMs and organics damage costs (million €):number"	"Low VOLY (million €):number"	"High VSL (million €):number"
+"1298"	"PGE Elektrownia Bełchatów S.A."	"Rogowiec"	"Poland"	"Energy - Thermal power stations and other combustion installations"	29500000	42900	50700	1810			991	557	1525	1.855	1550	2518
+"7691"	"Central Tèrmica De Cercs"	"Cercs"	"Spain"	"Energy - Thermal power stations and other combustion installations"	395000	1930	3340				13	22	60	0.000	35	73
+"118563"	"ENI SpA Divisione Refining & Marketing - Raffineria di Livorno"	"Collesalvetti"	"Italy"	"Energy - Mineral oil and gas refineries"	466000	900	1860		1270		16	20	53	0.004	35	69
