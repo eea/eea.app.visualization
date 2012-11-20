@@ -152,10 +152,13 @@ class Download(BrowserView):
                 )
             writter.writerow(row)
 
+        text = u''
         if not attachment:
             output.seek(0)
-            return output.read()
-        return ''
+            text = output.read()
+            if isinstance(text, str):
+                text = text.decode('utf-8')
+        return text
 
     def tsv(self, dialect='eea.app.visualization.tsv', attachment=True):
         """ Download as Tab Separated File

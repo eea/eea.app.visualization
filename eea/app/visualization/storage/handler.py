@@ -161,6 +161,8 @@ class Configure(object):
                 continue
             config = self.json.get('properties', {}).get(key, {})
             label = config.get('label', '')
+            if isinstance(label, str):
+                label = label.decode('utf-8')
             if label and facet.get('label', '') != label:
                 facet['label'] = label
             facet.setdefault('label', key)

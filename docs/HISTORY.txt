@@ -5,6 +5,8 @@ Changelog
 ----------------------
 * Upgrade step: Within "Plone > Site setup > Add-ons" click on
   upgrade button available for eea.app.visualization
+* Feature: Support non-ASCII datasets (column headers and body)
+  [voineali refs #9610]
 * Bug fix: Fixed download.(csv, tsv, html) methods for non-ASCII data
   [voineali refs #9610]
 * Change: Move column label settings from facet annotations directly to JSON

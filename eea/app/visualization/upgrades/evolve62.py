@@ -29,6 +29,10 @@ def fix_column_labels(context):
         for facet in facets:
             name = facet.get('name')
             label = facet.get('label', name)
+            if isinstance(label, str):
+                label = label.decode('utf-8')
             config = properties.get(name, {})
             config.setdefault('label', label)
+            if isinstance(config['label'], str):
+                config['label'] = config['label'].decode('utf-8')
         mutator.json = data

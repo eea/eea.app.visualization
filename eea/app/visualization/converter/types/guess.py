@@ -78,9 +78,11 @@ class GuessTypes(object):
     def column_label(self, column):
         """ Extract column label from column name
         """
-        if ":" not in column:
+        if isinstance(column, str):
+            column = column.decode('utf-8')
+        if u":" not in column:
             return column
-        return ":".join(column.split(":")[:-1])
+        return u":".join(column.split(u":")[:-1])
 
     def guessUtility(self, columnType=''):
         """ Get guess utility from columnType
