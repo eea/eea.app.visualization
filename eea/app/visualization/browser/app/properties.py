@@ -82,6 +82,11 @@ class EditForm(SubPageForm):
         """ Setup widgets
         """
         self.adapters = {}
+        for key, value in self.request.form.items():
+            if isinstance(value, str):
+                value = value.decode('utf-8')
+                self.request.form[key] = value
+
         self.widgets = setUpWidgets(
             self.form_fields, self.prefix, self.context, self.request,
             form=self, data=self._data, adapters=self.adapters,

@@ -686,26 +686,15 @@ DavizEdit.JsonGrid.prototype = {
 
     self.grid = null;
 
-    self.textarea = jQuery('textarea', self.context).hide();
-    self.textdialog = self.textarea.clone().width('98%').height('98%').show();
-    self.textdialog.wrap('<div title="Edit JSON" />');
-    self.textdialog.parent().dialog({
-      bgiframe: true,
-      autoOpen: false,
-      modal: true,
-      width: 600,
-      dialogClass: 'daviz-confirm-overlay',
-      close: function(evt, ui){
-        self.textdialog.change();
-      }
-    });
+    self.textarea = jQuery('textarea', self.context)
+      .css({width: '99%', margin: '0px'})
+      .slideUp()
+      .change(function(){
+        self.reload();
+      });
 
+    self.table = JSON.parse(self.textarea.val());
     jQuery("label[for='daviz.properties.json']", self.context).hide();
-
-    self.textdialog.change(function(){
-      self.textarea.val(self.textdialog.val()).change();
-      self.reload();
-    });
 
     self.relatedItems = {};
     var action = self.context.parents('form').attr('action');
@@ -733,12 +722,13 @@ DavizEdit.JsonGrid.prototype = {
 
     self.gridview = jQuery('<div>')
       .addClass('daviz-data-table')
-      .appendTo(self.context)
       .width(self.context.parents('.daviz-settings').width() - 40)
       .height(300);
 
-    var data = JSON.parse(self.textdialog.val());
-    var colNames = Object.keys(data.properties || {});
+    self.textarea.after(self.gridview);
+
+    self.table = JSON.parse(self.textarea.val());
+    var colNames = Object.keys(self.table.properties || {});
     var columns = [
       {
         id: "selector",
@@ -760,9 +750,8 @@ DavizEdit.JsonGrid.prototype = {
     ];
 
     jQuery.each(colNames, function(index, key){
-      var colType = data.properties[key].columnType || data.properties[key].valueType;
-      var label = jQuery("input[name='" + key + ".label']");
-      label = label ? label.val() : key;
+      var colType = self.table.properties[key].columnType || self.table.properties[key].valueType;
+      var label = self.table.properties[key].label || key;
 
       var column = {
         id: key,
@@ -809,12 +798,18 @@ DavizEdit.JsonGrid.prototype = {
     // Buttons
     var headerButtonsPlugin = new Slick.Plugins.HeaderButtons();
     headerButtonsPlugin.onCommand.subscribe(function(e, args) {
-      self.textdialog.parent().dialog('open');
+      self.edit_body(args);
     });
 
     self.grid.registerPlugin(headerMenuPlugin);
     self.grid.registerPlugin(headerButtonsPlugin);
     self.grid.setSelectionModel(new Slick.CellSelectionModel());
+
+    // Header right-click
+    self.grid.onHeaderContextMenu.subscribe(function(e, args){
+      e.preventDefault();
+      jQuery('.slick-header-menubutton', e.srcElement).click();
+    });
 
     // Fixes
     self.gridview.height('auto');
@@ -833,18 +828,25 @@ DavizEdit.JsonGrid.prototype = {
 
   convert_column: function(to, column){
     var self = this;
-    var data = JSON.parse(self.textdialog.val());
-    data.properties[column.field].columnType = to;
-    self.textdialog.val(JSON.stringify(data, null, "  ")).change();
+    self.table.properties[column.field].columnType = to;
+    self.textarea.val(JSON.stringify(self.table, null, "  ")).change();
+  },
+
+  edit_body: function(args){
+    var self = this;
+    if(self.textarea.is(':visible')){
+      self.textarea.slideUp();
+    }else{
+      self.textarea.slideDown();
+    }
   },
 
   edit_header: function(column){
     var self = this;
-    var facet = jQuery("input[id='" + column.field + ".label']");
-
-    var popup = jQuery("<div title='Rename column: " + column.field + "' />")
+    var text = column.name;
+    var popup = jQuery("<div title='Rename column: " + column.name + "' />")
       .append(
-        jQuery('<input>').attr('type', 'text').val(facet.val()).width('80%')
+        jQuery('<input>').attr('type', 'text').val(text).width('80%')
       ).dialog({
         bgiframe: true,
         modal: true,
@@ -855,7 +857,11 @@ DavizEdit.JsonGrid.prototype = {
             jQuery(this).dialog('close');
           },
           Rename: function(){
-            facet.val(jQuery('input', this).val()).change();
+            var value = jQuery('input', popup).val();
+            self.table.properties[column.id].label = value;
+            jQuery("[name='" + column.id + ".label']").val(value);
+            self.grid.updateColumnHeader(column.id, value);
+            self.textarea.val(JSON.stringify(self.table, null, "  ")).change();
             jQuery(this).dialog('close');
           }
         }
@@ -864,6 +870,8 @@ DavizEdit.JsonGrid.prototype = {
 
   save_header: function(options){
     var self = this;
+    self.table.properties[options.key].label = options.value;
+    self.textarea.val(JSON.stringify(self.table, null, "  "));
     self.grid.updateColumnHeader(options.key, options.value);
   }
 };
