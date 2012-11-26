@@ -597,8 +597,15 @@ DavizEdit.View.prototype = {
       });
 
     self.buttons.each(function(){
-      if(jQuery(this).attr('name') != 'daviz.view.enable'){
-        jQuery(this).addClass('btn');
+      if(jQuery(this).attr('name') == 'daviz.view.enable'){
+        return;
+      }
+      jQuery(this).addClass('btn').addClass('btn-large');
+      if(jQuery(this).attr('name').indexOf('.disable') !== -1){
+        jQuery(this).addClass('btn-danger');
+      }
+      if(jQuery(this).attr('name').indexOf('.save') !== -1){
+        jQuery(this).addClass('btn-success');
       }
     });
 

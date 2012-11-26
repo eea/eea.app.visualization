@@ -188,6 +188,10 @@ h1 {
   font-weight: normal;
 }
 
+.daviz-view-edit #actionsView {
+  margin-top: 1em;
+}
+
 .daviz-sources-table {
   width: 100%;
 }
