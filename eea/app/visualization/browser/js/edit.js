@@ -253,7 +253,8 @@ DavizEdit.FacetAdd.prototype = {
     self.action = self.form.attr('action');
     self.button = jQuery("input[type='submit']", this.form).hide();
 
-    self.form.submit(function(){
+    self.form.submit(function(evt){
+      evt.preventDefault();
       return false;
     });
 
@@ -586,15 +587,16 @@ DavizEdit.View.prototype = {
     }
 
 
-    self.form.submit(function(){
+    self.form.submit(function(evt){
+      evt.preventDefault();
       return false;
     });
 
-    self.buttons = jQuery(".actionButtons input[type='submit']", self.form)
-      .click(function(){
-        var button = jQuery(this);
-        self.submit(button);
-      });
+    self.buttons = jQuery(".actionButtons input[type='submit']", self.form);
+    self.buttons.click(function(evt, args){
+      var button = jQuery(this);
+      self.submit(button);
+    });
 
     self.buttons.each(function(){
       if(jQuery(this).attr('name') == 'daviz.view.enable'){
@@ -633,6 +635,40 @@ DavizEdit.View.prototype = {
   },
 
   submit: function(button){
+    var self = this;
+    if(!button.hasClass('btn-danger')){
+      return self.onSubmit(button);
+    }
+
+    jQuery('<div>')
+      .html(['',
+        '<span>',
+          'This will ',
+          '<strong>erase</strong> ',
+          'all configuration for this visualization.',
+        '</span><span>',
+          'Are you sure you want to',
+          '<strong>disable</strong>',
+          'this visualization? ',
+        '</span>'
+        ].join('\n'))
+      .dialog({
+        title: 'Disable visualization',
+        modal: true,
+        dialogClass: 'googlechart-dialog',
+        buttons: {
+          Yes: function(){
+            self.onSubmit(button);
+            jQuery(this).dialog('close');
+          },
+          No: function(){
+            jQuery(this).dialog('close');
+          }
+        }
+      });
+  },
+
+  onSubmit: function(button){
     var self = this;
     var action = self.form.attr('action');
     var query = {};
