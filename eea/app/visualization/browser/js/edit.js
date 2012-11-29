@@ -56,6 +56,12 @@ DavizEdit.Confirm = {
       autoOpen: false,
       modal: true,
       dialogClass: 'daviz-confirm-overlay',
+      open: function(evt, ui){
+        var buttons = jQuery(this).parent().find('button');
+        buttons.attr('class', 'btn');
+        jQuery(buttons[0]).addClass('btn-danger');
+        jQuery(buttons[1]).addClass('btn-inverse');
+      },
       buttons:  {
         Yes: function(){
           if(self.event !== null){
@@ -656,6 +662,12 @@ DavizEdit.View.prototype = {
         title: 'Disable visualization',
         modal: true,
         dialogClass: 'googlechart-dialog',
+        open: function(evt, ui){
+          var buttons = jQuery(this).parent().find('button');
+          buttons.attr('class', 'btn');
+          jQuery(buttons[0]).addClass('btn-danger');
+          jQuery(buttons[1]).addClass('btn-inverse');
+        },
         buttons: {
           Yes: function(){
             self.onSubmit(button);
@@ -895,6 +907,12 @@ DavizEdit.JsonGrid.prototype = {
         modal: true,
         dialogClass: 'daviz-confirm-overlay',
         width: 400,
+        open: function(evt, ui){
+          var buttons = jQuery(this).parent().find('button');
+          buttons.attr('class', 'btn');
+          jQuery(buttons[0]).addClass('btn-inverse');
+          jQuery(buttons[1]).addClass('btn-success');
+        },
         buttons: {
           Cancel: function(){
             jQuery(this).dialog('close');
