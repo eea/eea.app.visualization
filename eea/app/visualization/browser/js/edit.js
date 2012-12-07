@@ -651,11 +651,11 @@ DavizEdit.View.prototype = {
         '<span>',
           'This will ',
           '<strong>erase</strong> ',
-          'all configuration for this visualization.',
+          'all configuration settings for this visualization.',
         '</span><span>',
-          'Are you sure you want to',
+          'Are you sure that you want to',
           '<strong>disable</strong>',
-          'this visualization? ',
+          'it? ',
         '</span>'
         ].join('\n'))
       .dialog({
