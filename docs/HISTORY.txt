@@ -9,9 +9,9 @@ Changelog
   visualizations
   [voineali refs #9572]
 * Feature: Support non-ASCII datasets (column headers and body)
-  [voineali refs #9610]
+  [voineali refs #9610, #10168]
 * Bug fix: Fixed download.(csv, tsv, html) methods for non-ASCII data
-  [voineali refs #9610]
+  [voineali refs #9610, #10168]
 * Change: Move column label settings from facet annotations directly to JSON
   [voineali refs $9610]
 * Feature: On saving a chart, copy the generic chart image in the visualization

@@ -126,7 +126,8 @@ class Download(BrowserView):
             output = self.request.response
         else:
             output = StringIO()
-            writter = csv.writer(output, dialect=dialect)
+
+        writter = csv.writer(output, dialect=dialect)
 
         row = []
         headers = self.headers
