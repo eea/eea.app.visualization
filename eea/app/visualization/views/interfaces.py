@@ -7,7 +7,6 @@ class IVisualizationView(Interface):
     """ Access / update visualization view configuration
     """
     label = TextLine(title=u'Label for visualization view')
-    section = TextLine(title=u"Section of this view, e.g. Exhibit, Google, etc")
 
 class IViewDirective(Interface):
     """

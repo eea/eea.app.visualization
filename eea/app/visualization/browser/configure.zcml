@@ -15,14 +15,6 @@
 
   <browser:page
     for="eea.app.visualization.interfaces.IVisualizationEnabled"
-    name="exhibit"
-    template="zpt/daviz.pt"
-    class=".app.view.View"
-    permission="zope2.View"
-    />
-
-  <browser:page
-    for="eea.app.visualization.interfaces.IVisualizationEnabled"
     name="daviz-view.html"
     template="zpt/view.pt"
     class=".app.view.View"

@@ -9,8 +9,10 @@ class ViewForm(BrowserView):
     see implementation in eea.exhibit.views.map.view.View.
     """
     label = ''
-    section = 'Exhibit'
-    _data = {}
+
+    def __init__(self, context, request):
+        super(ViewForm, self).__init__(context, request)
+        self._data = {}
 
     @property
     def data(self):

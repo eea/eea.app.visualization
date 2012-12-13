@@ -94,47 +94,6 @@ class View(BrowserView):
             tabs.extend(getattr(browser, 'tabs', []))
         return tabs
 
-    @property
-    def sections(self):
-        """ Returns view sections
-        """
-        views = self.accessor.views
-
-        sections = {}
-        for view in views:
-            name = view.get('name')
-            browser = queryMultiAdapter(
-                (self.context, self.request), name=name)
-            section = getattr(browser, 'section', 'Default')
-            section_id = section.lower().replace(' ', '-')
-            sections[section_id] = section
-        return sections
-
-    def section_views(self, section):
-        """ Returns views for a section
-        """
-        views = self.accessor.views
-        myviews = []
-        for view in views:
-            name = view.get('name')
-            browser = queryMultiAdapter(
-                            (self.context, self.request), name=name)
-            section_name = getattr(browser, 'section', 'Default')
-            if section_name.lower().replace(' ', '-') != section:
-                continue
-            myviews.append(name)
-        return myviews
-
-    def section(self, name):
-        """ Get section by name
-        """
-        view = queryMultiAdapter((self.context, self.request), name=name)
-        if not view:
-            logger.warn('There is no %s view registered for %s',
-                        name, self.context.absolute_url(1))
-            return ''
-        return view()
-
     def __call__(self, **kwargs):
         """ If daviz is not configured redirects to edit page.
         """
