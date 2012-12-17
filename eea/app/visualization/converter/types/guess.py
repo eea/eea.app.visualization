@@ -7,6 +7,8 @@ from zope.interface import implements
 from plone.i18n.normalizer.interfaces import IIDNormalizer
 from eea.app.visualization.converter.types.interfaces import IGuessType
 from eea.app.visualization.converter.types.interfaces import IGuessTypes
+from eea.app.visualization.config import DATA_ANNOTATIONS
+from eea.app.visualization.interfaces import IDavizSettings
 
 REGEX = re.compile(r"[\W]+")
 
@@ -35,14 +37,21 @@ class GuessTypes(object):
     """
     implements(IGuessTypes)
 
-    #XXX Move this to ControlPanel
-    missing = (
-        '', 'n/a', 'n.a.', 'na', 'n.a',
-        '.', ':', '-', '_', '/', '\\', "[]", "{}", "()", "<>", "*",
-        'empty', "<empty>", 'not set', "<not set>", "notset", "<notset>",
-        'none', "<none>", "missing", "<missing>", 'undefined', "<undefined>",
-        "null", "<null>"
-    )
+    @property
+    def missing(self):
+        """ Missing annotations
+        """
+        tool = queryUtility(IDavizSettings)
+        if not tool:
+            return set(DATA_ANNOTATIONS)
+
+        anno = tool.settings.get('data.annotations')
+        if anno is None:
+            return set(DATA_ANNOTATIONS)
+
+        anno = set(anno.splitlines())
+        anno.add('')
+        return anno
 
     def column_type(self, column):
         """ Get column and type from column name
@@ -111,10 +120,12 @@ class GuessTypes(object):
         utilities = getUtilitiesFor(IGuessType)
         utilities = sorted(utilities, cmp=compare)
 
+        missing = self.missing
+
         for row in table:
             for index, cell in enumerate(row):
                 # Skip missing values
-                if cell.lower().strip() in self.missing:
+                if cell.lower().strip() in missing:
                     continue
 
                 label = header[index]

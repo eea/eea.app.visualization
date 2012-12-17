@@ -96,9 +96,9 @@ class DavizSettingsZMIEditForm(EditForm):
             value = self.request.get(field_name, None)
             self.context.settings[field] = value
 
-        self.request.SESSION['messages'] = ["Saved changes. (%s)" 
+        self.request.SESSION['messages'] = ["Saved changes. (%s)"
             % (datetime.now())]
-        self.request.RESPONSE.redirect(self.context.absolute_url() + 
+        self.request.RESPONSE.redirect(self.context.absolute_url() +
             '/manage_workspace')
 
 
@@ -133,6 +133,8 @@ class DavizSettingsControlPanelEditForm(DavizSettingsZMIEditForm):
             if self.prefix:
                 field_name = self.prefix + "." + field
             value = self.request.get(field_name, None)
+            if isinstance(value, (str, unicode)):
+                value = value.replace('\r\n', '\n')
             self.context.settings[field] = value
         IStatusMessage(self.request).addStatusMessage(u"Settings saved")
         self.request.response.redirect("@@daviz-settings")
@@ -142,4 +144,3 @@ class DavizSettingsControlPanelEditForm(DavizSettingsZMIEditForm):
         """ Cancel action """
         IStatusMessage(self.request).addStatusMessage(u"Edit cancelled")
         self.request.response.redirect("@@overview-controlpanel")
-

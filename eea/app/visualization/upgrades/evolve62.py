@@ -1,10 +1,12 @@
 """ Evolve to version 6.2
 """
 import logging
-from zope.component import queryAdapter
+from zope.component import queryAdapter, queryUtility
 from zope.component.interface import interfaceToName
 from eea.app.visualization.interfaces import IVisualizationConfig
 from eea.app.visualization.interfaces import IVisualizationEnabled
+from eea.app.visualization.interfaces import IDavizSettings
+from eea.app.visualization.config import DATA_ANNOTATIONS
 from Products.CMFCore.utils import getToolByName
 logger = logging.getLogger("eea.app.visualization.upgrades")
 
@@ -36,3 +38,19 @@ def fix_column_labels(context):
             if isinstance(config['label'], str):
                 config['label'] = config['label'].decode('utf-8')
         mutator.json = data
+
+def update_davizSettings(context):
+    """ Add data settings to daviz settings
+    """
+    logger.info('Adding daviz data settings...')
+    tool = queryUtility(IDavizSettings)
+    if not tool:
+        logger.info('Adding daviz data settings... Nothing to do')
+        return
+
+    if tool.settings.get('data.annotations'):
+        logger.info('Adding daviz data settings... Nothing to do')
+        return
+
+    tool.settings['data.annotations'] = u"\n".join(DATA_ANNOTATIONS)
+    logger.info('Adding daviz data settings... DONE')

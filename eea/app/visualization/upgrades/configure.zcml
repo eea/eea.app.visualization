@@ -14,6 +14,11 @@
       handler="eea.app.visualization.upgrades.evolve62.fix_column_labels"
       />
 
+    <genericsetup:upgradeStep
+      title="Add daviz data settings to portal_daviz"
+      handler="eea.app.visualization.upgrades.evolve62.update_davizSettings"
+      />
+
     <genericsetup:upgradeDepends
       title="Import profile steps with changes: javascripts"
       import_steps="jsregistry"

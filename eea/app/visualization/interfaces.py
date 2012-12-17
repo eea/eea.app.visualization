@@ -39,6 +39,10 @@ from eea.app.visualization.browser.res.interfaces import (
     IVisualizationEditResources
 )
 
+# Settings
+from eea.app.visualization.controlpanel.interfaces import IDavizSettings
+from eea.app.visualization.controlpanel.interfaces import IDavizSection
+
 __all__ = (
     IPossibleVisualization.__name__,
     IVisualizationEnabled.__name__,
@@ -61,4 +65,6 @@ __all__ = (
     IVisualizationViews.__name__,
     IVisualizationViewResources.__name__,
     IVisualizationEditResources.__name__,
+    IDavizSettings.__name__,
+    IDavizSection.__name__,
 )

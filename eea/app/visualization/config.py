@@ -8,3 +8,11 @@ ANNO_DATA = 'eea.daviz.config.datasource'
 
 from zope.i18nmessageid.message import MessageFactory
 EEAMessageFactory = MessageFactory('eea')
+
+DATA_ANNOTATIONS = [
+    '', 'n/a', 'n.a.', 'na', 'n.a',
+    '.', ':', '-', '_', '/', '\\', "[]", "{}", "()", "<>", "*",
+    'empty', "<empty>", 'not set', "<not set>", "notset",
+    "<notset>", 'none', "<none>", "missing", "<missing>",
+    'undefined', "<undefined>", "null", "<null>"
+]

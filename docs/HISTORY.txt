@@ -5,6 +5,8 @@ Changelog
 ----------------------
 * Upgrade step: Within "Plone > Site setup > Add-ons" click on
   upgrade button available for eea.app.visualization
+* Change: Moved data annotations to Daviz settings Control Panel
+  [voineali refs #9558]
 * Change: Cleanup old 'sections' code
   [avoinea]
 * Feature: Added confirm dialog in order to prevent accidentally disable of
