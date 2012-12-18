@@ -17,6 +17,11 @@ DavizEdit.Events.views = {
   clicked: 'daviz-view-clicked'
 };
 
+DavizEdit.Events.table = {
+  change: 'daviz-table-change',
+  changed: 'daviz-table-changed'
+};
+
 /** Status
 */
 DavizEdit.Status = {
@@ -729,6 +734,44 @@ DavizEdit.View.prototype = {
   }
 };
 
+DavizEdit.Annotations = function(context, options){
+  var self = this;
+  self.context = context;
+  self.settings = {};
+
+  if(options){
+    jQuery.extend(self.settings, options);
+  }
+
+  self.initialize();
+};
+
+DavizEdit.Annotations.prototype = {
+  initialize: function(){
+    var self = this;
+
+    if(self.settings.column.indexOf('__annotations__') !== -1){
+      self.settings.column = self.settings.column.replace('__annotations__', '');
+    }
+
+    self.target = self.settings.table.properties[self.settings.column];
+
+    if(!self.settings.table.properties[self.settings.column + '__annotations__']){
+      self.settings.table.properties[self.settings.column + '__annotations__'] = {
+        valueType: 'text',
+        columnType: 'annotations',
+        column: self.settings.column,
+        label: self.target.label + ':annotations',
+        order: self.target.order,
+        annotations: {}
+      };
+    };
+
+    self.annotations = self.settings.table.properties[self.settings.column + '__annotations__'];
+    console.log(self);
+  }
+};
+
 DavizEdit.JsonGrid = function(context){
   this.initialize(context);
 };
@@ -818,7 +861,10 @@ DavizEdit.JsonGrid.prototype = {
         resizable: true,
         focusable: true,
         header: {
-          menu: EEA.Daviz.ColumnMenu({columnType: colType})
+          menu: EEA.Daviz.ColumnMenu({
+            columnType: colType,
+            annotations: true
+          })
         }
       };
 
@@ -875,10 +921,24 @@ DavizEdit.JsonGrid.prototype = {
     var self = this;
     var command = args.command;
     if(command === "rename"){
-      self.edit_header(args.column);
-    }else{
-      self.convert_column(command, args.column);
+      return self.edit_header(args.column);
     }
+
+    if(command === 'annotations'){
+      return self.edit_annotations(args.column);
+    }
+
+    if(command === 'delete'){
+      return self.delete_column(args.column);
+    }
+
+    return self.convert_column(command, args.column);
+  },
+
+  delete_column: function(column){
+    var self = this;
+    delete self.table.properties[column.id];
+    self.textarea.val(JSON.stringify(self.table, null, "  ")).change();
   },
 
   convert_column: function(to, column){
@@ -927,6 +987,16 @@ DavizEdit.JsonGrid.prototype = {
           }
         }
     });
+  },
+
+  edit_annotations: function(column){
+    var self = this;
+    var settings = {
+      table: self.table,
+      column: column.id,
+    }
+    var annotations = new DavizEdit.Annotations(self.context, settings);
+    return annotations;
   },
 
   save_header: function(options){

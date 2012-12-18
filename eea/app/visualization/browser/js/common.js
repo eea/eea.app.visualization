@@ -9,15 +9,46 @@ if(EEA.Daviz === undefined){
 EEA.Daviz.ColumnMenu = function(options){
 
   var settings = {
-    columnType: ''
+    columnType: '',
+    annotations: false
   };
 
   if(options){
     jQuery.extend(settings, options);
   }
 
-  return {
-    items: [
+  var menu = {};
+  var items = [];
+
+  if(settings.columnType === 'annotations'){
+    items = [
+      {
+        title: "Rename",
+        command: "rename",
+        tooltip: "Give this column a friendly name"
+      },
+      {
+        title: "Delete",
+        command: "delete",
+        tooltip: "Delete annotations"
+      },
+      {
+      title: "Column type:",
+      tooltip: "Select column-type",
+      iconCssClass: "slick-header-menusection",
+      disabled: true
+      },
+      {
+        title: 'Annotations',
+        command: 'annotations',
+        tooltip: "Convert this column to boolean",
+        iconCssClass: "slick-header-menusectionitem",
+        disabled: true,
+        iconImage: "++resource++slickgrid-images/tick.png"
+      }
+    ];
+  }else{
+    items = [
       {
         title: "Rename",
         command: "rename",
@@ -109,8 +140,19 @@ EEA.Daviz.ColumnMenu = function(options){
         disabled: (settings.columnType === "year"),
         iconImage: (settings.columnType === "year") ? "++resource++slickgrid-images/tick.png" : ""
       }
-    ]
-  };
+    ];
+  }
+
+  if(settings.annotations){
+    items.splice(1, 0, {
+      title: "Annotations",
+      command: "annotations",
+      tooltip: "Extract annotations for this column"
+    });
+  }
+
+  menu.items = items;
+  return menu;
 };
 
 EEA.Daviz.Status = {
