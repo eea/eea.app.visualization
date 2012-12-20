@@ -666,7 +666,7 @@ DavizEdit.View.prototype = {
       .dialog({
         title: 'Disable visualization',
         modal: true,
-        dialogClass: 'googlechart-dialog',
+        dialogClass: 'daviz-confirm-overlay',
         open: function(evt, ui){
           var buttons = jQuery(this).parent().find('button');
           buttons.attr('class', 'btn');
@@ -757,18 +757,139 @@ DavizEdit.Annotations.prototype = {
     self.target = self.settings.table.properties[self.settings.column];
 
     if(!self.settings.table.properties[self.settings.column + '__annotations__']){
-      self.settings.table.properties[self.settings.column + '__annotations__'] = {
-        valueType: 'text',
-        columnType: 'annotations',
-        column: self.settings.column,
-        label: self.target.label + ':annotations',
-        order: self.target.order,
-        annotations: {}
-      };
-    };
+      var order = 0;
+      var properties = {};
+      jQuery.each(self.settings.table.properties, function(key, val){
+        val.order = order;
+        order += 1;
+        properties[key] = val;
+        if(key == self.settings.column){
+          properties[self.settings.column + '__annotations__'] = {
+            valueType: 'text',
+            columnType: 'annotations',
+            column: self.settings.column,
+            label: self.target.label + ':annotations',
+            order: order,
+            annotations: [
+              {name: 'n/a', title: 'Not available'}
+            ]
+          };
+          order += 1;
+        }
+      });
+      self.settings.table.properties = properties;
+    }
 
     self.annotations = self.settings.table.properties[self.settings.column + '__annotations__'];
-    console.log(self);
+
+    self.grid = null;
+    self.reload();
+  },
+
+  reload: function(){
+    var self = this;
+    jQuery('.daviz-annotations-box', self.context).remove();
+    self.box = jQuery('<div>')
+      .addClass('daviz-annotations-box')
+      .appendTo(self.context)
+      .dialog({
+        bgiframe: true,
+        title: 'Annotations for ' + self.target.label,
+        modal: true,
+        dialogClass: 'daviz-confirm-overlay',
+        minHeight: 480,
+        minWidth: 600,
+        open: function(evt, ui){
+          var buttons = jQuery(this).parent().find('button');
+          buttons.attr('class', 'btn');
+          jQuery(buttons[0]).addClass('btn-inverse');
+          jQuery(buttons[1]).addClass('btn-success');
+        },
+        close: function(evt, ui){
+          if(self.grid){
+            self.grid.destroy();
+            self.box.remove();
+          }
+        },
+        buttons: {
+          Cancel: function(){
+            jQuery(this).dialog('close');
+          },
+          Save: function(){
+            self.save();
+            jQuery(this).dialog('close');
+          }
+        }
+      });
+    self.template();
+  },
+
+  template: function(){
+    var self = this;
+    jQuery([
+    '<div class="field">',
+      '<label>',
+        '<span class="formHelp">Define specific annotations for data values (e.g. :=not available, (p)=provisional, (b)=break in series, etc)</span>',
+      '</label>',
+      '<div class="daviz-slick-table daviz-annotations-table" style="width: 550px; height: 400px"></div>',
+    '</div>'
+    ].join('\n')).appendTo(self.box);
+    self.body();
+  },
+
+  body: function(){
+    var self = this;
+
+    var columns = [
+      {
+        id: 'name',
+        name: 'Id',
+        field: 'name',
+        toolTip: 'e.g. (p), n/a, :, (b)',
+        sortable: false,
+        selectable: true,
+        resizable: true,
+        focusable: true,
+        editor: Slick.Editors.Text
+      }, {
+        id: 'title',
+        name: 'Friendly Name',
+        field: 'title',
+        toolTip: 'e.g. Provisional, Not available',
+        sortable: false,
+        selectable: true,
+        resizable: true,
+        focusable: true,
+        editor: Slick.Editors.Text
+      }];
+
+    var options = {
+      enableColumnReorder: false,
+      editable: true,
+      enableAddRow: true,
+      forceFitColumns: true,
+      enableCellNavigation: true,
+      autoEdit: true
+    };
+
+    self.grid = new Slick.Grid('.daviz-annotations-table', self.annotations.annotations, columns, options);
+
+    self.grid.onAddNewRow.subscribe(function (e, args) {
+      var item = args.item;
+      self.grid.invalidateRow(self.annotations.annotations.length);
+      self.annotations.annotations.push(item);
+      self.grid.updateRowCount();
+      self.grid.render();
+    });
+
+    self.grid.onCellChange.subscribe(function(e, args){
+      console.log('Cell changed');
+    });
+  },
+
+  save: function(){
+    var self = this;
+    jQuery(document).trigger(DavizEdit.Events.table.changed, self.settings.table);
   }
 };
 
@@ -806,8 +927,14 @@ DavizEdit.JsonGrid.prototype = {
       });
 
     // Events
-    jQuery(document).bind(DavizEdit.Events.facet.changed, function(evt, data){
+    jQuery(document).unbind('.DavizJsonGrid');
+    jQuery(document).bind(DavizEdit.Events.facet.changed + '.DavizJsonGrid', function(evt, data){
       self.save_header(data);
+    });
+
+    jQuery(document).bind(DavizEdit.Events.table.changed + '.DavizJsonGrid', function(evt, data){
+      self.table = data;
+      self.textarea.val(JSON.stringify(self.table, null, "  ")).change();
     });
   },
 
@@ -819,6 +946,7 @@ DavizEdit.JsonGrid.prototype = {
     }
 
     self.gridview = jQuery('<div>')
+      .addClass('daviz-slick-table')
       .addClass('daviz-data-table')
       .width(self.context.parents('.daviz-settings').width() - 40)
       .height(300);
@@ -938,13 +1066,13 @@ DavizEdit.JsonGrid.prototype = {
   delete_column: function(column){
     var self = this;
     delete self.table.properties[column.id];
-    self.textarea.val(JSON.stringify(self.table, null, "  ")).change();
+    jQuery(document).trigger(DavizEdit.Events.table.changed, self.table);
   },
 
   convert_column: function(to, column){
     var self = this;
     self.table.properties[column.field].columnType = to;
-    self.textarea.val(JSON.stringify(self.table, null, "  ")).change();
+    jQuery(document).trigger(DavizEdit.Events.table.changed, self.table);
   },
 
   edit_body: function(args){
@@ -982,7 +1110,7 @@ DavizEdit.JsonGrid.prototype = {
             self.table.properties[column.id].label = value;
             jQuery("[name='" + column.id + ".label']").val(value);
             self.grid.updateColumnHeader(column.id, value);
-            self.textarea.val(JSON.stringify(self.table, null, "  ")).change();
+            jQuery(document).trigger(DavizEdit.Events.table.changed, self.table);
             jQuery(this).dialog('close');
           }
         }
@@ -992,9 +1120,9 @@ DavizEdit.JsonGrid.prototype = {
   edit_annotations: function(column){
     var self = this;
     var settings = {
-      table: self.table,
-      column: column.id,
-    }
+      table: jQuery.extend({}, self.table),
+      column: column.id
+    };
     var annotations = new DavizEdit.Annotations(self.context, settings);
     return annotations;
   },
