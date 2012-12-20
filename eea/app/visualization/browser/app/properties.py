@@ -14,6 +14,7 @@ from zope.formlib.form import setUpWidgets, haveInputWidgets
 from eea.app.visualization.interfaces import IVisualizationConfig
 from eea.app.visualization.interfaces import IVisualizationJsonUtils
 from eea.app.visualization.interfaces import IGuessType
+from eea.app.visualization.interfaces import IDavizSettings
 from eea.app.visualization.zopera import IStatusMessage
 
 from eea.app.visualization.config import EEAMessageFactory as _
@@ -147,6 +148,17 @@ class EditForm(SubPageForm):
                 properties['type'] = 'rdf+xml'
 
             mutator.add_source(**properties)
+
+    @property
+    def annotations(self):
+        """ Global annotations from portal_daviz
+        """
+        tool = queryUtility(IDavizSettings)
+        annotations = tool.settings.get('data.annotations', '')
+
+        annotations = [{'name': key, 'title': key}
+                       for key in annotations.splitlines()]
+        return simplejson.dumps(annotations)
 
     @formaction(_('Save'), condition=haveInputWidgets)
     def save(self, action, data):

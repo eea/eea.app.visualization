@@ -81,8 +81,9 @@
   class="daviz-view-edit">
 
   <form method="post" class="daviz-view-form daviz-global-settings"
-    tal:define="name python:editform.__name__"
-    tal:attributes="action string:${here/absolute_url}/@@$name">
+    tal:define="name python:editform.__name__" tal:attributes="
+      action string:${here/absolute_url}/@@$name;
+      data-annotations python:editform.annotations;">
     <tal:editform replace="structure editform" />
   </form>
 

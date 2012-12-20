@@ -587,16 +587,28 @@ DavizEdit.View.prototype = {
       self.form = jQuery('form.daviz-view-form-disabled', self.view);
     }
 
+    //
+    // Data settings tab
+    //
+
+    // Table
     self.jsondata = jQuery("div.field:has(label[for='daviz.properties.json'])", self.form);
     if(self.jsondata.length){
       var jsondata = new DavizEdit.JsonGrid(self.jsondata);
     }
+
+    // Additional sources
     self.table = jQuery("div:has(label[for='daviz.properties.sources']) table", self.form);
     if(self.table.length){
       self.table.addClass('daviz-sources-table');
       var table = new DavizEdit.SourceTable(self.table);
     }
 
+    // Annotations
+    if(self.form.attr('data-annotations')){
+      self.form.data('annotations', JSON.parse(self.form.attr('data-annotations')));
+      self.form.removeAttr('data-annotations');
+    }
 
     self.form.submit(function(evt){
       evt.preventDefault();
@@ -750,6 +762,9 @@ DavizEdit.Annotations.prototype = {
   initialize: function(){
     var self = this;
 
+    var annotations = [];
+    var all = self.context.closest('.daviz-view-form').data('annotations') || [];
+
     if(self.settings.column.indexOf('__annotations__') !== -1){
       self.settings.column = self.settings.column.replace('__annotations__', '');
     }
@@ -770,9 +785,7 @@ DavizEdit.Annotations.prototype = {
             column: self.settings.column,
             label: self.target.label + ':annotations',
             order: order,
-            annotations: [
-              {name: 'n/a', title: 'Not available'}
-            ]
+            annotations: jQuery.extend([], all)
           };
           order += 1;
         }
@@ -799,6 +812,7 @@ DavizEdit.Annotations.prototype = {
         dialogClass: 'daviz-confirm-overlay',
         minHeight: 480,
         minWidth: 600,
+        closeOnEscape: false,
         open: function(evt, ui){
           var buttons = jQuery(this).parent().find('button');
           buttons.attr('class', 'btn');
@@ -821,6 +835,7 @@ DavizEdit.Annotations.prototype = {
           }
         }
       });
+
     self.template();
   },
 
@@ -873,6 +888,14 @@ DavizEdit.Annotations.prototype = {
     };
 
     self.grid = new Slick.Grid('.daviz-annotations-table', self.annotations.annotations, columns, options);
+    self.grid.setSelectionModel(new Slick.CellSelectionModel());
+
+    self.box.delegate('.selected', 'keydown', function(e){
+      if (e.keyCode === jQuery.ui.keyCode.DELETE){
+        console.log('Aleluia');
+      }
+      console.log(e.keyCode);
+    });
 
     self.grid.onAddNewRow.subscribe(function (e, args) {
       var item = args.item;
@@ -883,7 +906,12 @@ DavizEdit.Annotations.prototype = {
     });
 
     self.grid.onCellChange.subscribe(function(e, args){
-      console.log('Cell changed');
+      var item = args.item;
+      var index = args.row;
+      if( !(item.name || item.title) ){
+        self.annotations.annotations.splice(index, 1);
+        self.grid.invalidate();
+      }
     });
   },
 
