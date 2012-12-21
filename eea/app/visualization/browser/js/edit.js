@@ -763,7 +763,7 @@ DavizEdit.Annotations.prototype = {
     var self = this;
 
     var annotations = [];
-    var all = self.context.closest('.daviz-view-form').data('annotations') || [];
+    self.all = self.context.closest('.daviz-view-form').data('annotations') || [];
 
     if(self.settings.column.indexOf('__annotations__') !== -1){
       self.settings.column = self.settings.column.replace('__annotations__', '');
@@ -785,7 +785,7 @@ DavizEdit.Annotations.prototype = {
             column: self.settings.column,
             label: self.target.label + ':annotations',
             order: order,
-            annotations: jQuery.extend([], all)
+            annotations: jQuery.extend([], self.all)
           };
           order += 1;
         }
@@ -796,6 +796,19 @@ DavizEdit.Annotations.prototype = {
     self.annotations = self.settings.table.properties[self.settings.column + '__annotations__'];
 
     self.grid = null;
+
+    jQuery(document).bind('keydown.DavizAnnotations', function(e){
+      if (e.keyCode != jQuery.ui.keyCode.DELETE){
+        return;
+      }
+
+      if(!self.grid){
+        return;
+      }
+
+      self.remove()
+    });
+
     self.reload();
   },
 
@@ -820,6 +833,7 @@ DavizEdit.Annotations.prototype = {
           jQuery(buttons[1]).addClass('btn-success');
         },
         close: function(evt, ui){
+          jQuery(document).unbind('.DavizAnnotations');
           if(self.grid){
             self.grid.destroy();
             self.box.remove();
@@ -890,13 +904,6 @@ DavizEdit.Annotations.prototype = {
     self.grid = new Slick.Grid('.daviz-annotations-table', self.annotations.annotations, columns, options);
     self.grid.setSelectionModel(new Slick.CellSelectionModel());
 
-    self.box.delegate('.selected', 'keydown', function(e){
-      if (e.keyCode === jQuery.ui.keyCode.DELETE){
-        console.log('Aleluia');
-      }
-      console.log(e.keyCode);
-    });
-
     self.grid.onAddNewRow.subscribe(function (e, args) {
       var item = args.item;
       self.grid.invalidateRow(self.annotations.annotations.length);
@@ -913,6 +920,19 @@ DavizEdit.Annotations.prototype = {
         self.grid.invalidate();
       }
     });
+  },
+
+  remove: function(){
+    var self = this;
+    var rows = self.grid.getSelectedRows();
+    if(!rows.length){
+      return;
+    }
+
+    var index = rows[0];
+    var length = rows.length;
+    self.annotations.annotations.splice(index, length);
+    self.grid.invalidate();
   },
 
   save: function(){

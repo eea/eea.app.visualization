@@ -7,6 +7,13 @@ from zope.schema.vocabulary import SimpleVocabulary
 from zope.schema.vocabulary import SimpleTerm
 from eea.app.visualization.interfaces import IVisualizationConfig
 
+def compare(a, b):
+    """ Compare
+    """
+    order_a = a[1].get('order', -1)
+    order_b = b[1].get('order', -1)
+    return cmp(order_a, order_b)
+
 class FacetsVocabulary(object):
     """ Available registered visualization facets
     """
@@ -16,17 +23,14 @@ class FacetsVocabulary(object):
         """ Returns facets
         """
         accessor = queryAdapter(context, IVisualizationConfig)
-        for facet in accessor.facets:
-            name = facet.get('name')
-            yield accessor.facet(name)
+        properties = accessor.json.get('properties', {}).items()
+        properties.sort(cmp=compare)
+
+        for name, facet in properties:
+            yield (name, facet.get('label', name))
 
     def __call__(self, context=None):
         """ See IVocabularyFactory interface
         """
-        return SimpleVocabulary([
-            SimpleTerm(facet.get('name'),
-                       facet.get('name'),
-                       facet.get('label', facet.get('name')))
-            for facet in self._facets(context)])
-
-FacetsVocabularyFactory = FacetsVocabulary()
+        return SimpleVocabulary([SimpleTerm(name, name, label)
+            for name, label in self._facets(context)])
