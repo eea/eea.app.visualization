@@ -11,6 +11,7 @@ from zope.formlib.form import SubPageForm
 from zope.lifecycleevent import ObjectModifiedEvent
 from zope.formlib.form import action as formaction
 from zope.formlib.form import setUpWidgets, haveInputWidgets
+from eea.app.visualization.events import VisualizationFacetDeletedEvent
 from eea.app.visualization.interfaces import IVisualizationConfig
 from eea.app.visualization.interfaces import IVisualizationJsonUtils
 from eea.app.visualization.interfaces import IGuessType
@@ -97,6 +98,8 @@ class EditForm(SubPageForm):
         """ Handle json property
         """
         mutator = queryAdapter(self.context, IVisualizationConfig)
+        old_columns = set(mutator.json.get('properties', {}).keys())
+
         json = data.get('json', None)
         if json is None:
             return
@@ -108,13 +111,21 @@ class EditForm(SubPageForm):
             self.message = "ERROR: %s" % err
             return
 
-        for _name, props in json.get('properties', {}).items():
+        properties = json.get('properties', {})
+        new_columns = set(properties.keys())
+
+        for _name, props in properties.items():
             columnType = props.get('columnType', props.get('valueType', 'text'))
             util = queryUtility(IGuessType, columnType)
             if not util:
                 continue
             props['columnType'] = columnType
             props['valueType'] = util.valueType
+
+        # Columns deleted
+        for column in old_columns.difference(new_columns):
+            notify(VisualizationFacetDeletedEvent(self.context, facet=column))
+
         mutator.json = json
         notify(ObjectModifiedEvent(self.context))
 
