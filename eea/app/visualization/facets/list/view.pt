@@ -1,11 +1,15 @@
-<tal:facet define="
-  name python:view.gett('name', '');
-  label python:view.gett('label', '');">
+<tal:block xmlns:ex="http://simile.mit.edu/2006/11/exhibit#">
 
-<div ex:role="facet" tal:attributes="
-  ex:expression string:.$name;
-  ex:facetLabel string:$label;"
-  tal:condition="name"
-></div>
+    <tal:facet define="
+      name python:view.gett('name', '');
+      label python:view.gett('label', '');">
 
-</tal:facet>
+    <div ex:role="facet" tal:attributes="
+      ex:expression string:.$name;
+      ex:facetLabel string:$label;"
+      tal:condition="name"
+    ></div>
+
+    </tal:facet>
+
+</tal:block>

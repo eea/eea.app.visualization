@@ -1,7 +1,9 @@
 <tal:left define="hidden python:request.set('disable_plone.leftcolumn', 1)" />
 <tal:right define="hidden python:request.set('disable_plone.rightcolumn', 1)" />
 <tal:html define="macro here/main_template/macros/master | here/@@daviz-fallback.html/macros/view">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US"
+<html
+  xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US"
+  xmlns:ex="http://simile.mit.edu/2006/11/exhibit#"
   lang="en-US"
   metal:use-macro="macro"
   i18n:domain="eea">
@@ -20,13 +22,14 @@
     tal:attributes="href string:${here/absolute_url}/daviz.json" />
 
   <!-- External sources JSONs -->
-  <tal:additional repeat="source python:view.sources">
-  <link rel="exhibit/data"
-    tal:attributes="
-    type string:application/${source/type};
-    href string:${source/name};
-    ex:converter python:source.get('converter', None) or None;" />
-  </tal:additional>
+    <tal:additional repeat="source python:view.sources"
+                    >
+    <link rel="exhibit/data"
+      tal:attributes="
+      type string:application/${source/type};
+      href string:${source/name};
+      ex:converter python:source.get('converter', None) or None;" />
+    </tal:additional>
 
   <!-- include exhibit api -->
   <script type="text/javascript">
