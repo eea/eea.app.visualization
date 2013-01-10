@@ -22,6 +22,7 @@ Changelog
   [szabozo0 refs #10019]
 * Change: Added a common.js and common.css in order to reuse common components
   [voineali refs #9610]
+* Bug fix: add namespace declaration for exhibit (makes Chameleon happy) [simahawk]
 
 6.1 - (2012-11-09)
 ------------------
