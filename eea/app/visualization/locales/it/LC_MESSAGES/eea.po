@@ -16,59 +16,59 @@ msgstr ""
 
 #: ../../visualization/facets/add.py:55
 msgid "Add"
-msgstr ""
+msgstr "Aggiungi"
 
 #: ../../visualization/browser/zpt/edit.pt:33
 msgid "Check these ${data-examples} or read ${prepare-data}"
-msgstr ""
+msgstr "Controlla questi ${data-examples} o leggi ${prepare-data}"
 
 #: ../../visualization/browser/zpt/edit.pt:18
 msgid "Configure Visualization"
-msgstr ""
+msgstr "Configura Visualizzazione"
 
 #: ../../visualization/browser/zpt/view.pt:105
 msgid "Data owner"
-msgstr ""
+msgstr "Proprietario dati"
 
 #: ../../visualization/browser/zpt/view.pt:97
 msgid "Data source"
-msgstr ""
+msgstr "Sorgente dati"
 
 #: ../../visualization/browser/zpt/view.pt:112
 msgid "Data source download"
-msgstr ""
+msgstr "Download sorgente dati"
 
 #: ../../visualization/views/edit.py:59
 msgid "Disable"
-msgstr ""
+msgstr "Disabilita"
 
 #: ../../visualization/browser/zpt/view.pt:113
 msgid "Formats suitable for human consumption"
-msgstr ""
+msgstr "Formati consultabili"
 
 #: ../../visualization/browser/zpt/view.pt:123
 msgid "Formats suitable for machine-to-machine communication"
-msgstr ""
+msgstr "Formati per intercomunicazione 'machine-to-machine'"
 
 #: ../../visualization/browser/app/properties.py:146
 #: ../../visualization/facets/edit.py:65
 #: ../../visualization/views/edit.py:46
 msgid "Save"
-msgstr ""
+msgstr "Salva"
 
 #: ../../visualization/browser/zpt/edit.pt:23
 msgid "Warning:"
-msgstr ""
+msgstr "Attenzione:"
 
 #: ../../visualization/browser/zpt/view.pt:131
 msgid "XML with Schema"
-msgstr ""
+msgstr "XML con Schema"
 
 #: ../../visualization/browser/zpt/edit.pt:30
 msgid "data examples"
-msgstr ""
+msgstr "esempi di dati"
 
 #: ../../visualization/browser/zpt/edit.pt:34
 msgid "how to prepare data"
-msgstr ""
+msgstr "come preparare i dati"
 
