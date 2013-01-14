@@ -1,8 +1,13 @@
 Changelog
 =========
 
-6.2-dev - (unreleased)
+6.3-dev - (unreleased)
 ----------------------
+* Feature: Added italian translations
+  [simahawk]
+
+6.2 - (2013-01-10)
+------------------
 * Upgrade step: Within "Plone > Site setup > Add-ons" click on
   upgrade button available for eea.app.visualization
 * Change: Moved data annotations to Daviz settings Control Panel
@@ -22,6 +27,7 @@ Changelog
   [szabozo0 refs #10019]
 * Change: Added a common.js and common.css in order to reuse common components
   [voineali refs #9610]
+* Bug fix: add namespace declaration for exhibit (makes Chameleon happy) [simahawk]
 
 6.1 - (2012-11-09)
 ------------------

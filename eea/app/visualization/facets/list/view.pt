@@ -2,7 +2,9 @@
   name python:view.gett('name', '');
   label python:view.gett('label', '');">
 
-<div ex:role="facet" tal:attributes="
+<div
+  xmlns:ex="http://simile.mit.edu/2006/11/exhibit#"
+  ex:role="facet" tal:attributes="
   ex:expression string:.$name;
   ex:facetLabel string:$label;"
   tal:condition="name"

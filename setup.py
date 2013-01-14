@@ -46,7 +46,7 @@ setup(name=NAME,
           'plone.i18n',
           'z3c.autoinclude',
           'collective.js.jqueryui < 1.9.1.0',
-          'eea.jquery >= 6.1',
+          'eea.jquery >= 6.3',
           # -*- Extra requirements: -*-
       ],
       extras_require={
