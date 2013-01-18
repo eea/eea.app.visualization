@@ -22,22 +22,25 @@ def fix_column_labels(context):
 
     logger.info('Fixing daviz column labels: %s', len(brains))
     for brain in brains:
-        doc = brain.getObject()
-        mutator = queryAdapter(doc, IVisualizationConfig)
-        data = mutator.json
-        properties = data.get('properties', {})
-        facets = mutator.facets
-        logger.info("Fixing column labels for %s", doc.absolute_url())
-        for facet in facets:
-            name = facet.get('name')
-            label = facet.get('label', name)
-            if isinstance(label, str):
-                label = label.decode('utf-8')
-            config = properties.get(name, {})
-            config.setdefault('label', label)
-            if isinstance(config['label'], str):
-                config['label'] = config['label'].decode('utf-8')
-        mutator.json = data
+        try:
+            doc = brain.getObject()
+            mutator = queryAdapter(doc, IVisualizationConfig)
+            data = mutator.json
+            properties = data.get('properties', {})
+            facets = mutator.facets
+            logger.info("Fixing column labels for %s", doc.absolute_url())
+            for facet in facets:
+                name = facet.get('name')
+                label = facet.get('label', name)
+                if isinstance(label, str):
+                    label = label.decode('utf-8')
+                config = properties.get(name, {})
+                config.setdefault('label', label)
+                if isinstance(config['label'], str):
+                    config['label'] = config['label'].decode('utf-8')
+            mutator.json = data
+        except:
+            logger.info("Failed to fix");
 
 def update_davizSettings(context):
     """ Add data settings to daviz settings
