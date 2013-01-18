@@ -5,6 +5,8 @@ Changelog
 ----------------------
 * Bug fix: Fixed fix_column_labels upgrade step from version 6.2
   [szabozo0]
+* Bug fix: Fixed table layout
+  [szabozo0]
 
 6.3 - (2013-01-15)
 ------------------
