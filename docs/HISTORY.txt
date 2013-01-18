@@ -1,6 +1,9 @@
 Changelog
 =========
 
+6.5-dev - (unreleased)
+----------------------
+
 6.4 - (2013-01-18)
 ------------------
 * Bug fix: Fixed fix_column_labels upgrade step from version 6.2
