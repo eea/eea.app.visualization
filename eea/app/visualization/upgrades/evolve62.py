@@ -39,8 +39,8 @@ def fix_column_labels(context):
                 if isinstance(config['label'], str):
                     config['label'] = config['label'].decode('utf-8')
             mutator.json = data
-        except:
-            logger.info("Failed to fix");
+        except Exception:
+            logger.info("Failed to fix")
 
 def update_davizSettings(context):
     """ Add data settings to daviz settings
