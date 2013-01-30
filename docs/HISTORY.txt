@@ -1,8 +1,18 @@
 Changelog
 =========
 
-6.3-dev - (unreleased)
+6.5-dev - (unreleased)
 ----------------------
+
+6.4 - (2013-01-18)
+------------------
+* Bug fix: Fixed fix_column_labels upgrade step from version 6.2
+  [szabozo0]
+* Bug fix: Fixed table layout
+  [szabozo0]
+
+6.3 - (2013-01-15)
+------------------
 * Feature: Added italian translations
   [simahawk]
 
