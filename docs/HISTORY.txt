@@ -3,6 +3,8 @@ Changelog
 
 6.5-dev - (unreleased)
 ----------------------
+* Feature: Handling specific annotations for data values
+  [voineali refs #9558]
 
 6.4 - (2013-01-18)
 ------------------

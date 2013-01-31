@@ -92,7 +92,27 @@ class Table2JsonConverter(object):
             sample.append(row)
         return sample
 
-    def __call__(self, datafile, column_types=None):
+    def text_annotation(self, text, annotations=()):
+        """ Extract text and annotation from given text based on
+        annotations dict
+
+        >>> converter.text_annotation('4438868(s)', annotations=[
+        ...   {'name': u'(s)', 'title': u'Eurostat estimate'},
+        ...   {'name': u':', 'title': u'Not available'},
+        ... ])
+        (u'4438868', u'Eurostat estimate')
+
+        """
+        for annotation in annotations:
+            name = annotation.get('name')
+            if not name:
+                continue
+
+            if text.find(name) != -1:
+                return text.replace(name, ''), annotation.get('title', name)
+        return text, u''
+
+    def __call__(self, datafile, column_types=None, **kwargs):
         """
         Returns: columns_headers_with_type, exhibit_dict:
 
@@ -165,6 +185,7 @@ class Table2JsonConverter(object):
         hasLabel = False
         out = []
         properties = {}
+        annotations = kwargs.get('annotations', {})
 
         guess = getUtility(IGuessTypes)
 
@@ -195,6 +216,15 @@ class Table2JsonConverter(object):
                         column_types.get(name, columnType or u'text'),
                         columnLabel
                     ))
+
+                    # Annotations
+                    if name in annotations:
+                        anno = annotations[name]
+                        columns.append((
+                            anno.get('name', name + u'__annotations__'),
+                            anno.get('columnType', u'annotations'),
+                            anno.get('label', name + u':annotations')
+                        ))
                 continue
 
             # Create JSON
@@ -207,13 +237,25 @@ class Table2JsonConverter(object):
 
             order = 0
             for col, columnType, columnLabel in columns:
+                if columnType == u'annotations':
+                    continue
+
                 try:
                     text = row.next()
                 except StopIteration:
                     text = u''
+
                 util = queryUtility(IGuessType, name=columnType)
                 valueType = getattr(util, 'valueType', columnType)
                 fmt = getattr(util, 'fmt', None)
+
+                # Annotations
+                anno = annotations.get(col, None)
+                if anno:
+                    text, annotation = self.text_annotation(
+                        text, anno.get('annotations', []))
+                    data[anno.get('name',
+                                  col + u'__annotations__')] = annotation
 
                 try:
                     text = (util.convert(text, fallback=None, format=fmt)
@@ -224,6 +266,7 @@ class Table2JsonConverter(object):
                 else:
                     data[col] = text
 
+
                 properties[col] = {
                     "valueType": valueType,
                     'columnType': columnType,
@@ -231,6 +274,16 @@ class Table2JsonConverter(object):
                     "order": order
                 }
                 order += 1
+
+                # Annotations
+                if anno:
+                    properties[anno.get('name', col + u'__annotations__')] = {
+                        "valueType": anno.get('valueType', u'text'),
+                        'columnType': anno.get('columnType', u'annotations'),
+                        'label': anno.get('label', col + u':annotations'),
+                        "order": order
+                    }
+                    order += 1
 
             out.append(data)
 

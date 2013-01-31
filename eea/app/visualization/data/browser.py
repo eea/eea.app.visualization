@@ -2,6 +2,7 @@
 """
 import logging
 import json as simplejson
+from copy import deepcopy
 from StringIO import StringIO
 from zope.interface import implements
 from zope.component import queryUtility, queryAdapter
@@ -32,8 +33,29 @@ class JSON(BrowserView):
         utils = queryUtility(IVisualizationJsonUtils)
         return utils.sortProperties(strJson, indent)
 
+    def column_types(self, json):
+        """ Get column types from given json dict
+        """
+        return dict(
+            (key, value.get('columnType', value.get('valueType', 'text'))
+             if isinstance(value, dict) else value)
+            for key, value in json.get('properties', {}).items()
+        )
+
+    def annotations(self, json):
+        """ Get data annotations from given json dict
+        """
+        annotations = {}
+        for key, prop in json.get('properties', {}).items():
+            if prop.get('columnType') != u'annotations':
+                continue
+            name = prop.get('column')
+            annotations[name] = deepcopy(prop)
+            annotations[name]['name'] = key
+        return annotations
+
     @ramcache(cacheJsonKey, dependencies=['eea.daviz'])
-    def json(self, column_types=None):
+    def json(self, **kwargs):
         """ Implement this method in order to provide a valid exhibit JSON
         """
         res = {'items': [], 'properties': {}}
@@ -48,19 +70,18 @@ class JSON(BrowserView):
         my_json = {'items': [], 'properties': {}}
         if accessor:
             my_json = accessor.json
-            if not column_types:
-                column_types = dict(
-                    (key, value.get('columnType',
-                                    value.get('valueType', 'text'))
-                     if isinstance(value, dict) else value)
-                    for key, value in my_json.get('properties', {}).items()
-                )
+            column_types = kwargs.get('column_types',
+                                      None) or self.column_types(my_json)
+            annotations = kwargs.get('annotations',
+                                     None) or self.annotations(my_json)
 
         # Convert to JSON
         datafile = StringIO(adapter.data)
         converter = queryUtility(ITable2JsonConverter)
         try:
-            _cols, res = converter(datafile, column_types)
+            _cols, res = converter(datafile,
+                                   column_types=column_types,
+                                   annotations=annotations)
         except Exception, err:
             logger.debug(err)
             return simplejson.dumps(res)
