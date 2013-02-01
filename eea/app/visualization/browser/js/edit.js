@@ -937,6 +937,7 @@ DavizEdit.Annotations.prototype = {
 
   save: function(){
     var self = this;
+    self.context.closest('.daviz-view-form').data('annotations', self.annotations.annotations);
     jQuery(document).trigger(DavizEdit.Events.table.changed, self.settings.table);
   }
 };
