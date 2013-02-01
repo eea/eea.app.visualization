@@ -806,7 +806,7 @@ DavizEdit.Annotations.prototype = {
         return;
       }
 
-      self.remove()
+      self.remove();
     });
 
     self.reload();
