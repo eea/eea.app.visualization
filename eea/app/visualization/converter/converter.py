@@ -108,6 +108,9 @@ class Table2JsonConverter(object):
             if not name:
                 continue
 
+            if not isinstance(text, (str, unicode)):
+                text = repr(text)
+
             if text.find(name) != -1:
                 return text.replace(name, ''), annotation.get('title', name)
         return text, u''
