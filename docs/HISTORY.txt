@@ -1,8 +1,11 @@
 Changelog
 =========
 
-6.5-dev - (unreleased)
+6.6-dev - (unreleased)
 ----------------------
+
+6.5 - (2013-02-04)
+------------------
 * Feature: Handling specific annotations for data values
   [voineali refs #9558]
 
