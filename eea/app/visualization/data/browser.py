@@ -68,12 +68,12 @@ class JSON(BrowserView):
         # Update JSON with existing annotations properties
         accessor = queryAdapter(self.context, IVisualizationConfig)
         my_json = {'items': [], 'properties': {}}
-        if accessor:
-            my_json = accessor.json
-            column_types = kwargs.get('column_types',
-                                      None) or self.column_types(my_json)
-            annotations = kwargs.get('annotations',
-                                     None) or self.annotations(my_json)
+
+        my_json = getattr(accessor, 'json', {})
+        column_types = kwargs.get('column_types',
+                                  None) or self.column_types(my_json)
+        annotations = kwargs.get('annotations',
+                                 None) or self.annotations(my_json)
 
         # Convert to JSON
         datafile = StringIO(adapter.data)

@@ -54,7 +54,7 @@ class Table2JsonConverter(object):
         datafile.seek(0)
         sniffer = csv.Sniffer()
         try:
-            dialect = sniffer.sniff(datafile.read(1024))
+            dialect = sniffer.sniff(datafile.read(2048))
         except Exception, err:
             logger.debug(err)
             dialect = 'eea-tab'
