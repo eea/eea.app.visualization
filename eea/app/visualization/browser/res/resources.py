@@ -22,6 +22,7 @@ class VisualizationViewResources(object):
         """ CSS resources
         """
         return [
+            '++resource++eea.daviz.buttons.css',
             '++resource++eea.daviz.view.css',
         ]
 

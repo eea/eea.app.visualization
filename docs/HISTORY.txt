@@ -3,6 +3,8 @@ Changelog
 
 7.0-dev - (unreleased)
 ----------------------
+* Bug fix: Fix "embed" and "export to png" buttons CSS
+  [voineali]
 * Bug fix: Improved CSV dialect detection for files with a lot of missing values
   [voineali fixes #13851]
 * Bug fix: Fixed daviz.json for uploaded files (.tsv, .csv)

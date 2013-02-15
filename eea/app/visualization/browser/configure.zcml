@@ -151,6 +151,11 @@
   />
 
   <browser:resource
+    name="eea.daviz.buttons.css"
+    file="./css/buttons.css"
+  />
+
+  <browser:resource
     name="eea.daviz.common.js"
     file="./js/common.js"
    />
