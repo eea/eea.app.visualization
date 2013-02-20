@@ -19,19 +19,6 @@
     </li>
   </tal:editheader>
 
-  <!-- Global settings header -->
-  <li class="formTab" tal:define="
-    name string:daviz.properties;
-    editform python:view.get_edit(name);
-    label python:editform.label;
-    id python:name.replace('.', '-');"
-    tal:condition="editform"
-    tal:attributes="id string:$id-header">
-    <a tal:attributes="href string:#$id-tab; class string:enabled;">
-      <span tal:content="label">Edit View</span>
-    </a>
-  </li>
-
 </ul>
 
 <div class="panes">
@@ -50,7 +37,9 @@
     class="daviz-view-edit">
     <form method="post" class="daviz-view-form" tal:condition="enabled"
       tal:define="name python:editform.__name__"
-      tal:attributes="action string:${here/absolute_url}/@@$name">
+      tal:attributes="
+        action string:${here/absolute_url}/@@$name;
+        data-annotations python:getattr(editform, 'annotations', None)">
       <tal:editform replace="structure editform" />
     </form>
     <form method="post" class="daviz-view-form-disabled" tal:condition="not:enabled"
@@ -69,25 +58,6 @@
     </form>
   </div>
 </tal:edittab>
-
-<!-- Global settings body -->
-<div tal:define="
-  name string:daviz.properties;
-  editform python:view.get_edit(name);
-  label python:editform.label;
-  id python:name.replace('.', '-');"
-  tal:attributes="id string:$id-tab"
-  tal:condition="editform"
-  class="daviz-view-edit">
-
-  <form method="post" class="daviz-view-form daviz-global-settings"
-    tal:define="name python:editform.__name__" tal:attributes="
-      action string:${here/absolute_url}/@@$name;
-      data-annotations python:editform.annotations;">
-    <tal:editform replace="structure editform" />
-  </form>
-
-</div>
 
 </div>
 </tal:views>

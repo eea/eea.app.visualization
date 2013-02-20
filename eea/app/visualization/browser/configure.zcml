@@ -61,13 +61,6 @@
     />
 
   <browser:page
-    name="daviz.properties.edit"
-    for="eea.app.visualization.interfaces.IVisualizationEnabled"
-    class=".app.properties.EditForm"
-    permission="eea.app.visualization.configure"
-    />
-
-  <browser:page
     for="eea.app.visualization.interfaces.IVisualizationEnabled"
     name="daviz-edit.save"
     class=".app.edit.Configure"

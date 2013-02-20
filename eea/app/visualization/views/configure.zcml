@@ -25,5 +25,6 @@
     />
 
   <include file="meta.zcml" />
+  <include package=".data" />
 
 </configure>

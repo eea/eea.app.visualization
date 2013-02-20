@@ -1,0 +1,26 @@
+<configure
+  xmlns="http://namespaces.zope.org/zope"
+  xmlns:daviz="http://namespaces.zope.org/daviz"
+  xmlns:browser="http://namespaces.zope.org/browser">
+
+  <daviz:view name="daviz.properties" />
+
+  <browser:page
+    for="eea.app.visualization.interfaces.IVisualizationEnabled"
+    name="daviz.properties"
+    template="view.pt"
+    class=".view.View"
+    permission="zope2.View"
+    />
+
+  <browser:page
+    for="eea.app.visualization.interfaces.IVisualizationEnabled"
+    name="daviz.properties.edit"
+    class=".edit.Edit"
+    permission="eea.app.visualization.configure"
+    />
+
+  <browser:resource name="daviz.properties.icon.png" file="icon.png" />
+  <browser:resource name="daviz.properties.preview.png" file="preview.png" />
+
+</configure>
