@@ -11,7 +11,7 @@
 
 <body>
     <metal:form metal:define-macro="form">
-    <metal:override define-slot="main">    
+    <metal:override define-slot="main">
 
 <span tal:replace="structure here/manage_page_header" />
 <span tal:replace="structure here/manage_tabs" />
@@ -37,7 +37,7 @@
                 <dd tal:content="status" />
             </dl>
         </tal:status>
-    
+
         <h1  class="documentFirstHeading"
              i18n:translate=""
              tal:condition="view/label"
@@ -53,11 +53,11 @@
                                   class string:kssattr-formname-${view/__name__}"
                   method="post"
                   enctype="multipart/form-data"
-                  id="zc.page.browser_form">              
-              
+                  id="zc.page.browser_form">
+
                   <metal:block define-macro="header">
 
-                      <tal:block replace="nothing">  
+                      <tal:block replace="nothing">
                           <div class="form-status"
                            tal:define="status view/status"
                            tal:condition="status">
@@ -80,16 +80,11 @@
 
                   <div metal:define-slot="extra_info" tal:replace="nothing"></div>
 
-                  <fieldset tal:define="form_name view/form_name|nothing"
-                            tal:omit-tag="not:form_name">
-                    <legend tal:condition="form_name"
-                            tal:content="form_name"
-                            i18n:translate="">Form name</legend>
-                      <tal:block tal:define="sections view/sections" tal:repeat="widget view/widgets">
-                        <tal:block tal:define="nr repeat/widget/index" tal:repeat="section sections">
-                            <h3 tal:condition="python:section[2]==nr" tal:content="python:section[1]">
-                            </h3>
-                        </tal:block>
+    <tal:sections tal:repeat="section view/sections">
+      <fieldset class="formPanel" tal:attributes="id string:fieldset-${section/name}">
+        <legend tal:attributes="id string:fieldsetlegend-${section/name}" tal:content="section/title" />
+        <tal:widgets tal:repeat="widget view/widgets">
+          <tal:widget condition="python:widget.name in section.get('widgets', [])">
 
                         <div class="field"
                              tal:define="description widget/hint;
@@ -112,16 +107,17 @@
                                      tal:condition="description"
                                      >field description</span>
                               </label>
-                    	  <tal:comment tal:condition="nothing">
-                    	    <!-- The structure keyword is necessary as Invariant strings have a
-                    	         span tag. It is often useful to set Invariant errors on the
-                    		 fields they refer to. -->
-                    	  </tal:comment>
+                              <tal:comment tal:condition="nothing">
+                                <!-- The structure keyword is necessary as Invariant strings have a
+                                     span tag. It is often useful to set Invariant errors on the
+                                     fields they refer to. -->
+                              </tal:comment>
                               <div class="fieldErrorBox" tal:content="structure error">
                                 The Error
                               </div>
                               <div class="widget formlibInlineValidation" tal:content="structure widget">
-                              <input type="text" /></div>
+                                <input type="text" />
+                              </div>
                               <tal:comment tal:condition="nothing">
                                 <!-- TODO Put this back, the Zope3 way.
                                 <img src="alert.gif" alt="Error"
@@ -130,14 +126,17 @@
                               </tal:comment>
                         </div>
 
-                      </tal:block>
+          </tal:widget>
+        </tal:widgets>
+      </fieldset>
+    </tal:sections>
 
                       <metal:block define-slot="authenticator">
                         <input tal:replace="structure context/@@authenticator/authenticator" />
                       </metal:block>
 
                       <metal:block define-slot="above_buttons" />
-                      <div id="actionsView">
+                      <div id="actionsView" class="formControls">
                         <span class="actionButtons"
                               tal:condition="view/availableActions"
                               metal:define-slot="bottom_buttons">
@@ -146,11 +145,10 @@
                                  />
                         </span>
                       </div>
-                  </fieldset>
-              
+
             </form>
-    
-    
+
+
             <script type="text/javascript"
                 tal:define="extra_script view/extra_script | nothing"
                 tal:condition="extra_script"

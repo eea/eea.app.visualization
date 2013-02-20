@@ -3,6 +3,9 @@ Changelog
 
 7.0-dev - (unreleased)
 ----------------------
+* Change: Use jQuery tabs for "Daviz Visualization Settings"
+  within Plone ControlPanel
+  [voineali]
 * Bug fix: Fix "embed" and "export to png" buttons CSS
   [voineali]
 * Bug fix: Improved CSV dialect detection for files with a lot of missing values

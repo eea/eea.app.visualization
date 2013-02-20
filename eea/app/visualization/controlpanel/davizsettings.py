@@ -40,23 +40,6 @@ class DavizSettings(SimpleItem):
             sm.unregisterUtility(ds, IDavizSettings)
         sm.registerUtility(self, IDavizSettings)
 
-
-    def mergedFields(self):
-        """ merge all fields from registered extensions
-        """
-        form_fields = FormFields()
-        sections = []
-        extensions = [x for x in getUtilitiesFor(IDavizSection)]
-        pos = 0
-        for extension in extensions:
-            if hasattr(extension[1], "form_fields"):
-                form_fields = \
-                    form_fields.__add__(extension[1].form_fields)
-                sections.append(
-                    (extension[1].prefix, extension[1].title, pos))
-                pos += len(extension[1].form_fields)
-        return {'form_fields':form_fields, 'sections': sections}
-
 class DavizSettingsZMIEditForm(EditForm):
     """ ZMI Edit Form
     """
@@ -65,11 +48,45 @@ class DavizSettingsZMIEditForm(EditForm):
     template = ViewPageTemplateFile("zmi_davizsettings_edit.pt")
 
     def __init__(self, context, request):
-        self.context = context
-        mergedFields = context.mergedFields()
-        self.form_fields = mergedFields['form_fields']
-        self.sections = mergedFields['sections']
         super(DavizSettingsZMIEditForm, self).__init__(context, request)
+        self._sections = None
+        self._form_fields = None
+
+    @property
+    def sections(self):
+        """ Sections
+        """
+        if self._sections is not None:
+            return self._sections
+
+        self._sections = []
+        extensions = [ex for _name, ex in getUtilitiesFor(IDavizSection)]
+        for extension in extensions:
+            if not hasattr(extension, "form_fields"):
+                continue
+
+            self._sections.append({
+                'name': extension.prefix,
+                'title': extension.title,
+                'widgets': [(self.prefix + '.' + field.__name__)
+                            for field in extension.form_fields]
+            })
+        return self._sections
+
+    @property
+    def form_fields(self):
+        """ Form fields
+        """
+        if self._form_fields is not None:
+            return self._form_fields
+
+        self._form_fields = FormFields()
+        extensions = [ex for _name, ex in getUtilitiesFor(IDavizSection)]
+        for extension in extensions:
+            if not hasattr(extension, "form_fields"):
+                continue
+            self._form_fields += extension.form_fields
+        return self._form_fields
 
     @property
     def _data(self):
