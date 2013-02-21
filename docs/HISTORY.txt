@@ -5,6 +5,9 @@ Changelog
 ----------------------
 * Upgrade step: Within "Plone > Site setup > Add-ons" click on
   upgrade button available for eea.app.visualization
+* Change: Refactoring "Data settings" as a daviz:view in order to easily
+  disable it if necessary
+  [voineali]
 * Change: Use jQuery tabs for "Daviz Visualization Settings"
   within Plone ControlPanel
   [voineali]
