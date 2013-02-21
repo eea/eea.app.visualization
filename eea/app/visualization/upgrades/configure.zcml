@@ -3,6 +3,19 @@
   xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
   i18n_domain="eea">
 
+  <!-- 6.2 => 7.0 -->
+  <genericsetup:upgradeSteps
+    source="6.2"
+    destination="7.0"
+    profile="eea.app.visualization:default">
+
+    <genericsetup:upgradeStep
+      title="Add daviz data settings to portal_daviz"
+      handler="eea.app.visualization.upgrades.evolve70.enable_davizSettings"
+      />
+
+  </genericsetup:upgradeSteps>
+
   <!-- 6.1 => 6.2 -->
   <genericsetup:upgradeSteps
     source="6.1"

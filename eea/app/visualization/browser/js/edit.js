@@ -32,6 +32,7 @@ DavizEdit.Status = {
     this.message = jQuery('<div>').addClass('daviz-ajax-loader');
     this.lock.prepend(this.message);
     this.area.prepend(this.lock);
+    this.lock.slideUp();
   },
 
   start: function(msg){
@@ -514,16 +515,16 @@ DavizEdit.Views = {
     });
 
     // Make tabs sortable
-    jQuery('li:not(#daviz-properties-header)', ul)
+    jQuery('li', ul)
       .attr('title', 'Click and drag to change tabs order');
     ul.sortable({
-      items: 'li.formTab:not(#daviz-properties-header)',
+      items: 'li.formTab',
       placeholder: 'formTab ui-state-highlight',
       cursor: 'crosshair',
       tolerance: 'pointer',
       delay: 300,
       update: function(event, ui){
-        var order = jQuery('li:not(#daviz-properties-header)', ul);
+        var order = jQuery('li', ul);
         self.sort(order, action);
       }
     });

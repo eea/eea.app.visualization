@@ -3,6 +3,8 @@ Changelog
 
 7.0-dev - (unreleased)
 ----------------------
+* Upgrade step: Within "Plone > Site setup > Add-ons" click on
+  upgrade button available for eea.app.visualization
 * Change: Use jQuery tabs for "Daviz Visualization Settings"
   within Plone ControlPanel
   [voineali]

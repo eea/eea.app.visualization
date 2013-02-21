@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <metadata>
   <description>EEA Visualization API</description>
-  <version>6.2</version>
+  <version>7.0</version>
   <dependencies>
     <dependency>profile-collective.js.jqueryui:default</dependency>
     <dependency>profile-eea.jquery:18-slickgrid</dependency>

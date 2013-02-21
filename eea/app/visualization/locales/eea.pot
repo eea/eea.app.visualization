@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2012-11-09 13:11+0000\n"
+"POT-Creation-Date: 2013-02-21 13:02+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,8 +17,24 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: eea\n"
 
+#: ../../visualization/views/data/interfaces.py:30
+msgid "(Simile-Exhibit only) Add additional external exhibit sources to be merged. Supported formats: 'Exhibit JSON', 'Google Spreadsheet' and 'RDF/XML'. See more details http://www.simile-widgets.org/wiki/Exhibit/Creating%2C_Importing%2C_and_Managing_Data#Conversion_at_Load_Time"
+msgstr ""
+
+#: ../../visualization/views/data/interfaces.py:17
+msgid "<ul><li>Click on the top-left pencil to inspect and edit generate JSON.</li><li>Click on the table's columns headers to adjust their labels (user friendly-names)</li></ul>"
+msgstr ""
+
 #: ../../visualization/facets/add.py:55
 msgid "Add"
+msgstr ""
+
+#: ../../visualization/views/data/interfaces.py:28
+msgid "Additional sources"
+msgstr ""
+
+#: ../../visualization/controlpanel/controlpanel.py:20
+msgid "Annotations"
 msgstr ""
 
 #: ../../visualization/browser/zpt/edit.pt:33
@@ -29,33 +45,42 @@ msgstr ""
 msgid "Configure Visualization"
 msgstr ""
 
-#: ../../visualization/browser/zpt/view.pt:105
+#: ../../visualization/controlpanel/controlpanel.py:21
+msgid "Data annotations - lowercase - to be ignored/handled as annotations when processing data tables. One per line (e.g. 'n/a', 'n.a.', ':')"
+msgstr ""
+
+#: ../../visualization/browser/zpt/view.pt:109
 msgid "Data owner"
 msgstr ""
 
-#: ../../visualization/browser/zpt/view.pt:97
+#: ../../visualization/browser/zpt/view.pt:101
 msgid "Data source"
 msgstr ""
 
-#: ../../visualization/browser/zpt/view.pt:112
+#: ../../visualization/browser/zpt/view.pt:116
 msgid "Data source download"
 msgstr ""
 
-#: ../../visualization/views/edit.py:59
+#: ../../visualization/views/data/interfaces.py:16
+msgid "Data table"
+msgstr ""
+
+#: ../../visualization/views/data/edit.py:151
+#: ../../visualization/views/edit.py:69
 msgid "Disable"
 msgstr ""
 
-#: ../../visualization/browser/zpt/view.pt:113
+#: ../../visualization/browser/zpt/view.pt:117
 msgid "Formats suitable for human consumption"
 msgstr ""
 
-#: ../../visualization/browser/zpt/view.pt:123
+#: ../../visualization/browser/zpt/view.pt:127
 msgid "Formats suitable for machine-to-machine communication"
 msgstr ""
 
-#: ../../visualization/browser/app/properties.py:146
-#: ../../visualization/facets/edit.py:65
-#: ../../visualization/views/edit.py:46
+#: ../../visualization/facets/edit.py:70
+#: ../../visualization/views/data/edit.py:137
+#: ../../visualization/views/edit.py:47
 msgid "Save"
 msgstr ""
 
@@ -63,7 +88,7 @@ msgstr ""
 msgid "Warning:"
 msgstr ""
 
-#: ../../visualization/browser/zpt/view.pt:131
+#: ../../visualization/browser/zpt/view.pt:135
 msgid "XML with Schema"
 msgstr ""
 

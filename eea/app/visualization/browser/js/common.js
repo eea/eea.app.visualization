@@ -163,6 +163,7 @@ EEA.Daviz.Status = {
     this.message = jQuery('<div>').addClass('daviz-ajax-loader');
     this.lock.prepend(this.message);
     this.area.prepend(this.lock);
+    this.lock.slideUp();
   },
 
   start: function(msg){

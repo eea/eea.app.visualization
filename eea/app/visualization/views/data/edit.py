@@ -26,6 +26,7 @@ class Edit(EditForm):
     label = u"Data settings"
     form_fields = Fields(IDataEdit)
     previewname = "daviz.properties.preview.png"
+    message = 'Changes saved'
 
     @property
     def _data(self):
@@ -145,4 +146,17 @@ class Edit(EditForm):
         value = self.request.form.get(name, '')
         if value == 'ajax':
             return self.message
+        return self.nextUrl
+
+    @formaction(_('Disable'))
+    def disable(self, saction, data):
+        """ Handle disable action
+        """
+        mutator = queryAdapter(self.context, IVisualizationConfig)
+        mutator.delete_view(self.prefix)
+
+        name = saction.__name__.encode('utf-8')
+        value = self.request.form.get(name, '')
+        if value == 'ajax':
+            return 'View disabled'
         return self.nextUrl
