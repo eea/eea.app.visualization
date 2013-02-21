@@ -184,7 +184,7 @@ class Configure(object):
     #
     # View mutators
     #
-    def add_view(self, name, **kwargs):
+    def add_view(self, name, order=None, **kwargs):
         """ Add view
 
             >>> _ = visualization.add_view(name='daviz.map',
@@ -197,7 +197,10 @@ class Configure(object):
         config = self._views()
         kwargs.update({'name': name})
         view = PersistentDict(kwargs)
-        config.append(view)
+        if isinstance(order, int):
+            config.insert(order, view)
+        else:
+            config.append(view)
         return view.get('name', '')
 
     def edit_view(self, key, **kwargs):

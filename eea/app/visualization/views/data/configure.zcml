@@ -23,4 +23,9 @@
   <browser:resource name="daviz.properties.icon.png" file="icon.png" />
   <browser:resource name="daviz.properties.preview.png" file="preview.png" />
 
+  <subscriber
+    for="eea.app.visualization.interfaces.IVisualizationEnabled
+         eea.app.visualization.interfaces.IVisualizationEnabledEvent"
+    handler=".events.create_default_views"
+    />
 </configure>
