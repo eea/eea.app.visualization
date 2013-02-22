@@ -10,7 +10,7 @@ def create_default_views(obj, evt):
     """ Create default views
     """
     settings = queryUtility(IDavizSettings)
-    if settings.disabled('daviz.properties', obj):
+    if settings and settings.disabled('daviz.properties', obj):
         return
 
     mutator = queryAdapter(obj, IVisualizationConfig)

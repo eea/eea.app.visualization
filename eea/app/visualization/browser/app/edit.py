@@ -61,9 +61,8 @@ class Edit(BrowserView):
             yield SimpleTerm(name, name, mapping.get(name, name))
 
         settings = queryUtility(IDavizSettings)
-        ptype = getattr(self.context, 'portal_type', None)
         for view in views:
-            if settings.disabled(view.value, ptype):
+            if settings and settings.disabled(view.value, self.context):
                 continue
             if view.value in enabled:
                 continue
