@@ -5,6 +5,9 @@ Changelog
 ----------------------
 * Upgrade step: Within "Plone > Site setup > Add-ons" click on
   upgrade button available for eea.app.visualization
+* Change: Refactoring ZCML slugs for daviz:view and daviz:edit. See
+  eea.app.visualisation.views.data.configure.zcml for examples.
+  [voineali]
 * Change: Refactoring "Data settings" as a daviz:view in order to easily
   disable it if necessary
   [voineali]

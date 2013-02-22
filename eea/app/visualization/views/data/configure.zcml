@@ -3,21 +3,21 @@
   xmlns:daviz="http://namespaces.zope.org/daviz"
   xmlns:browser="http://namespaces.zope.org/browser">
 
-  <daviz:view name="daviz.properties" />
-
-  <browser:page
+  <daviz:view
     for="eea.app.visualization.interfaces.IVisualizationEnabled"
     name="daviz.properties"
     template="view.pt"
     class=".view.View"
     permission="zope2.View"
+    title="Data settings"
     />
 
-  <browser:page
+  <daviz:edit
     for="eea.app.visualization.interfaces.IVisualizationEnabled"
-    name="daviz.properties.edit"
+    name="daviz.properties"
     class=".edit.Edit"
     permission="eea.app.visualization.configure"
+    title="Data settings"
     />
 
   <browser:resource name="daviz.properties.icon.png" file="icon.png" />

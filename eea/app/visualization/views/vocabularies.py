@@ -1,7 +1,7 @@
 """ Vocabularies for views
 """
 import operator
-from zope.component import getUtility, queryMultiAdapter
+from zope.component import getUtility
 from zope.interface import implements
 from zope.schema.interfaces import IVocabularyFactory
 from zope.schema.vocabulary import SimpleVocabulary
@@ -17,9 +17,8 @@ class ViewsVocabulary(object):
         """ Return adapters
         """
         views = getUtility(IVisualizationViews)
-        for view in views():
-            browser = queryMultiAdapter((context, context.REQUEST), name=view)
-            yield view, getattr(browser, 'label', view)
+        for key, label in views.views.items():
+            yield key, label
 
     def __call__(self, context=None):
         """ See IVocabularyFactory interface

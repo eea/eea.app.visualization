@@ -1,3 +1,0 @@
-<div class="daviz-tab-view daviz-tab-view-noscript" tal:attributes="id view/tabname" i18n:domain="eea">
-  <div class="daviz-views"></div>
-</div>
