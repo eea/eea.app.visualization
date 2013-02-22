@@ -5,6 +5,9 @@ Changelog
 ----------------------
 * Upgrade step: Within "Plone > Site setup > Add-ons" click on
   upgrade button available for eea.app.visualization
+* Feature: Possibility to disable daviz views per Content-Type. See
+  Site Setup > Daviz Visualization > Enable / Disable
+  [voineali]
 * Change: Refactoring ZCML slugs for daviz:view and daviz:edit. See
   eea.app.visualisation.views.data.configure.zcml for examples.
   [voineali]

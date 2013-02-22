@@ -19,6 +19,11 @@
     />
 
   <utility
+    name="eea.app.visualizations.ForbiddenVisualizations"
+    factory=".controlpanel.ForbiddenVisualizations"
+    />
+
+  <utility
     name="eea.app.visualizations.DataSection"
     factory=".controlpanel.DataSection"
     />

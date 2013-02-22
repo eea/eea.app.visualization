@@ -12,6 +12,7 @@ from zope.schema.vocabulary import SimpleTerm
 from eea.app.visualization.interfaces import IVisualizationConfig
 from eea.app.visualization.events import VisualizationFacetDeletedEvent
 from eea.app.visualization.zopera import IStatusMessage
+from eea.app.visualization.interfaces import IDavizSettings
 logger = logging.getLogger('eea.app.visualization')
 
 DAVIZ_WARNING_WRONG_DATASET = """Data is missing, or is not well formated."""
@@ -59,7 +60,11 @@ class Edit(BrowserView):
         for name in enabled:
             yield SimpleTerm(name, name, mapping.get(name, name))
 
+        settings = queryUtility(IDavizSettings)
+        ptype = getattr(self.context, 'portal_type', None)
         for view in views:
+            if settings.disabled(view.value, ptype):
+                continue
             if view.value in enabled:
                 continue
             yield SimpleTerm(view.value, "", view.title)

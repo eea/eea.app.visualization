@@ -2,13 +2,13 @@
   xmlns:metal="http://xml.zope.org/namespaces/metal"
   xmlns:tal="http://xml.zope.org/namespaces/tal"
   xmlns:i18n="http://xml.zope.org/namespaces/i18n"
-  metal:use-macro="context/main_template/macros/master"
+  metal:use-macro="here/prefs_main_template/macros/master"
   i18n:domain="plone">
 <head>
 </head>
 
 <body>
-<metal:main fill-slot="main">
+<metal:main fill-slot="prefs_configlet_main">
 <metal:form metal:define-macro="form">
 <metal:override define-slot="main">
 

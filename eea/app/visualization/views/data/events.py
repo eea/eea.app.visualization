@@ -1,13 +1,18 @@
 """ Handle events
 """
 import logging
-from zope.component import queryAdapter
+from zope.component import queryAdapter, queryUtility
 from eea.app.visualization.interfaces import IVisualizationConfig
+from eea.app.visualization.interfaces import IDavizSettings
 logger = logging.getLogger('eea.app.visualization')
 
 def create_default_views(obj, evt):
     """ Create default views
     """
+    settings = queryUtility(IDavizSettings)
+    if settings.disabled('daviz.properties', obj):
+        return
+
     mutator = queryAdapter(obj, IVisualizationConfig)
     if not mutator:
         logger.warn("Couldn't find any IVisualizationConfig adapter for %s",

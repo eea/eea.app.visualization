@@ -40,11 +40,22 @@ class DavizSettings(SimpleItem):
             sm.unregisterUtility(ds, IDavizSettings)
         sm.registerUtility(self, IDavizSettings)
 
+    def disabled(self, view, content_type):
+        """ Is view disabled for given content_type
+        """
+        if not isinstance(view, (str, unicode)):
+            view = getattr(view, '__name__', '')
+        if not isinstance(content_type, (str, unicode)):
+            content_type = getattr(content_type, 'portal_type',
+                           getattr(content_type, 'meta_type', None))
+        portal_types = self.settings.get(u'forbidden.%s' % view, None) or []
+        return content_type in portal_types
+
 class DavizSettingsZMIEditForm(EditForm):
     """ ZMI Edit Form
     """
     prefix = "davizsettings"
-    label = "Daviz settings"
+    label = "Daviz Visualization Settings"
     template = ViewPageTemplateFile("zmi_davizsettings_edit.pt")
 
     def __init__(self, context, request):
@@ -103,24 +114,24 @@ class DavizSettingsZMIEditForm(EditForm):
             form=self, data=self._data, adapters=self.adapters,
             ignore_request=ignore_request)
 
+    def handle_save_action(self, saction, data):
+        """ Handle save
+        """
+        for field in self.form_fields.__FormFields_byname__.keys():
+            self.context.settings[field] = data.get(field, None)
+
     @action(u"Save Changes", name=u'save')
     def handle_save_action_daviz(self, saction, data):
         """ Save action"""
-        for field in self.form_fields.__FormFields_byname__.keys():
-            field_name = field
-            if self.prefix:
-                field_name = self.prefix + "." + field
-            value = self.request.get(field_name, None)
-            self.context.settings[field] = value
-
-        self.request.SESSION['messages'] = ["Saved changes. (%s)"
-            % (datetime.now())]
-        self.request.RESPONSE.redirect(self.context.absolute_url() +
-            '/manage_workspace')
+        self.handle_save_action(saction, data)
+        self.request.SESSION['messages'] = [
+            "Saved changes. (%s)" % (datetime.now())]
+        self.request.RESPONSE.redirect(
+            self.context.absolute_url() + '/manage_workspace')
 
 
-zmi_addDavizSettings_html = PageTemplateFile('zmi_davizsettings_add.pt',
-                                            globals())
+zmi_addDavizSettings_html = PageTemplateFile(
+    'zmi_davizsettings_add.pt', globals())
 
 def zmi_addDavizSettings(parent, id, title, REQUEST=None):
     """ Create a new DavizSettings """
@@ -128,8 +139,8 @@ def zmi_addDavizSettings(parent, id, title, REQUEST=None):
     ob = DavizSettings(id, title)
     parent._setObject(id, ob)
     if REQUEST is not None:
-        REQUEST.RESPONSE.redirect(parent.absolute_url() +
-                                    '/manage_workspace')
+        REQUEST.RESPONSE.redirect(
+            parent.absolute_url() + '/manage_workspace')
 
 class DavizSettingsControlPanelEditForm(DavizSettingsZMIEditForm):
     """ Plone Control Panel Edit Form
@@ -139,20 +150,13 @@ class DavizSettingsControlPanelEditForm(DavizSettingsZMIEditForm):
     def __init__(self, context, request):
         daviz_settings = queryUtility(IDavizSettings)
         daviz_settings = context.__of__(daviz_settings)
-        super(DavizSettingsControlPanelEditForm, self).__init__(daviz_settings,
-                                                                 request)
+        super(DavizSettingsControlPanelEditForm, self).__init__(
+            daviz_settings, request)
 
     @action(u"Save", name=u'save')
     def handle_save_action_daviz(self, saction, data):
         """ Save action """
-        for field in self.form_fields.__FormFields_byname__.keys():
-            field_name = field
-            if self.prefix:
-                field_name = self.prefix + "." + field
-            value = self.request.get(field_name, None)
-            if isinstance(value, (str, unicode)):
-                value = value.replace('\r\n', '\n')
-            self.context.settings[field] = value
+        self.handle_save_action(saction, data)
         IStatusMessage(self.request).addStatusMessage(u"Settings saved")
         self.request.response.redirect("@@daviz-settings")
 
