@@ -1,8 +1,11 @@
 Changelog
 =========
 
-7.0-dev - (unreleased)
+7.1-dev - (unreleased)
 ----------------------
+
+7.0 - (2013-02-25)
+------------------
 * Upgrade step: Within "Plone > Site setup > Add-ons" click on
   upgrade button available for eea.app.visualization
 * Feature: Possibility to disable daviz views per Content-Type. See
