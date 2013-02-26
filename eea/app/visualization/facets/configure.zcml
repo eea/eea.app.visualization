@@ -5,8 +5,17 @@
   i18n_domain="eea">
 
   <utility
+    provides=".interfaces.IVisualizationFacets"
+    factory=".meta.VisualizationFacets" />
+
+  <utility
     factory=".vocabularies.FacetsVocabulary"
     name="eea.daviz.vocabularies.FacetsVocabulary"
+    />
+
+  <utility
+    factory=".vocabularies.FacetTypesVocabulary"
+    name="eea.daviz.vocabularies.FacetTypesVocabulary"
     />
 
   <adapter
@@ -36,6 +45,7 @@
     permission="eea.app.visualization.configure"
     />
 
+  <include file="meta.zcml" />
   <include package=".list" />
 
 </configure>

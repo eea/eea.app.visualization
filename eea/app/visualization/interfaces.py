@@ -33,6 +33,9 @@ from eea.app.visualization.converter.interfaces import ITable2JsonConverter
 from eea.app.visualization.views.interfaces import IVisualizationView
 from eea.app.visualization.views.interfaces import IVisualizationViews
 
+# Facets
+from eea.app.visualization.facets.interfaces import IVisualizationFacets
+
 # JS/CSS Utilities
 from eea.app.visualization.browser.res.interfaces import (
     IVisualizationViewResources,
@@ -63,6 +66,7 @@ __all__ = (
     ITable2JsonConverter.__name__,
     IVisualizationView.__name__,
     IVisualizationViews.__name__,
+    IVisualizationFacets.__name__,
     IVisualizationViewResources.__name__,
     IVisualizationEditResources.__name__,
     IDavizSettings.__name__,

@@ -1,21 +1,23 @@
 <configure
   xmlns="http://namespaces.zope.org/zope"
+  xmlns:facet="http://namespaces.zope.org/davizfacet"
   xmlns:browser="http://namespaces.zope.org/browser">
 
-  <browser:page
+  <facet:view
     for="eea.app.visualization.interfaces.IVisualizationEnabled"
     name="daviz.list.facet"
-    template="view.pt"
     class=".view.View"
+    allowed_interface="eea.app.visualization.facets.interfaces.IVisualizationFacet"
     permission="zope2.View"
-    allowed_interface=".interfaces.IExhibitListFacet"
+    title="List"
     />
 
-  <browser:page
+  <facet:edit
     for="eea.app.visualization.interfaces.IVisualizationEnabled"
-    name="daviz.list.facet.edit"
+    name="daviz.list.facet"
     class=".edit.Edit"
     permission="eea.app.visualization.configure"
+    title="List"
     />
 
 </configure>

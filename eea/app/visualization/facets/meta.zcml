@@ -3,7 +3,7 @@
   xmlns:zcml="http://namespaces.zope.org/zcml"
   xmlns:meta="http://namespaces.zope.org/meta">
 
-  <meta:directives namespace="http://namespaces.zope.org/daviz">
+  <meta:directives namespace="http://namespaces.zope.org/davizfacet">
      <!--Plone 4.1+-->
     <configure zcml:condition="installed zope.browserpage">
       <meta:directive

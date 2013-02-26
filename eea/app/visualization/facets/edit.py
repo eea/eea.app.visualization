@@ -4,9 +4,10 @@ from zope.component import queryAdapter
 from zope.formlib.form import SubPageForm
 from zope.formlib.form import action as formAction
 from zope.formlib.form import setUpWidgets, haveInputWidgets
+from zope.formlib.form import Fields
 from eea.app.visualization.interfaces import IVisualizationConfig
 from eea.app.visualization.zopera import IStatusMessage
-
+from eea.app.visualization.facets.interfaces import IVisualizationEditFacet
 from eea.app.visualization.config import EEAMessageFactory as _
 
 class EditForm(SubPageForm):
@@ -89,3 +90,8 @@ class EditForm(SubPageForm):
             status.addStatusMessage('Changes saved', type='info')
         to = self.context.absolute_url() + '/daviz-edit.html'
         self.request.response.redirect(to)
+
+class Edit(EditForm):
+    """ Edit list facet
+    """
+    form_fields = Fields(IVisualizationEditFacet)

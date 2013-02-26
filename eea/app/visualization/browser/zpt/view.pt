@@ -102,7 +102,7 @@
     <a tal:attributes="href source/url"
       tal:content="source/title | source/url" />
   </tal:source>
-     
+
   <tal:owner
     define="owner info/owner | python:{}"
     condition="owner/url | nothing" >
