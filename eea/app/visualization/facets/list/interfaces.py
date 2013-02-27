@@ -38,17 +38,20 @@ class IListProperties(IVisualizationEditFacet):
             ])
         )
 
-    ex_sortDirection = schema.Choice(
+    ex_showMissing = schema.Bool(
         title=_(u"Show missing"),
         description=_(u"whether to provide a selection for items missing "
                       "the facet -- this will suppress the "
                       "'(missing this field)' text"),
         required=False,
-        default=u"true",
-        vocabulary=SimpleVocabulary([
-            SimpleTerm(u"true", u"true", u"Yes"),
-            SimpleTerm(u"false", u"false", u"No"),
-        ])
+        default=True
+    )
+
+    ex_missingLabel = schema.TextLine(
+        title=_(u"Missing label"),
+        description=_(u"missing label"),
+        required=False,
+        default=u""
     )
 
     ex_selection = schema.TextLine(
@@ -67,17 +70,13 @@ class IListProperties(IVisualizationEditFacet):
         default=u""
     )
 
-    ex_scroll = schema.Choice(
+    ex_scroll = schema.Bool(
         title=_(u"Scroll"),
         description=_(u"if true, facet values are in a scrollable window "
                       "of fixed size. If false, all facet values are shown "
                       "in as much space as needed, without a scroll bar."),
         required=False,
-        default=u"true",
-        vocabulary=SimpleVocabulary([
-            SimpleTerm(u"true", u"true", u"Yes"),
-            SimpleTerm(u"false", u"false", u"No"),
-        ])
+        default=True
     )
 
     ex_collapsible = schema.Bool(
@@ -92,13 +91,6 @@ class IListProperties(IVisualizationEditFacet):
         description=_(u"collapsed"),
         required=False,
         default=False
-    )
-
-    ex_missingLabel = schema.TextLine(
-        title=_(u"Missing label"),
-        description=_(u"missing label"),
-        required=False,
-        default=u""
     )
 
     ex_colorCoder = schema.TextLine(
