@@ -23,10 +23,19 @@ class IVisualizationAddFacet(Interface):
         title=_(u'Id'),
         description=_(u"Facet id. Same as the key id in your JSON. "
                       "(e.g. publishDate)"))
+
     label = schema.TextLine(
         title=_(u'Friendly name'),
         description=_(u"Label for facet (e.g. Effective Date)"),
         required=False
+    )
+
+    type = schema.Choice(
+        title=_(u"Facet type"),
+        description=_('Exhibit facet type'),
+        default=u'daviz.list.facet',
+        required=True,
+        vocabulary=u"eea.daviz.vocabularies.FacetTypesVocabulary"
     )
 
 class IVisualizationEditFacet(Interface):

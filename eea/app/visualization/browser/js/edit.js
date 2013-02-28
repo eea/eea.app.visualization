@@ -454,7 +454,7 @@ DavizEdit.Facet.prototype = {
       data: query,
       success: function(data){
         DavizEdit.Status.stop(data);
-        if(options.trigger && options.trigger.attr('name').indexOf('.type') !== -1){
+        if(options && options.trigger && options.trigger.attr('name').indexOf('.type') !== -1){
           var action = self.form.attr('action');
           jQuery(document).trigger(DavizEdit.Events.facet.refresh, {
             init: false, action: action
@@ -1192,7 +1192,11 @@ DavizEdit.JsonGrid.prototype = {
 
   save_header: function(options){
     var self = this;
-    self.table.properties[options.key].label = options.value;
+    var column = self.table.properties[options.key];
+    if(!column){
+      return;
+    }
+    column.label = options.value;
     self.textarea.val(JSON.stringify(self.table, null, "  "));
     self.grid.updateColumnHeader(options.key, options.value);
   }
