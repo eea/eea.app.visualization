@@ -8,6 +8,8 @@ Changelog
 
 7.0 - (2013-02-25)
 ------------------
+* Feature: added information for contributors
+  [ciobabog refs #13892]
 * Upgrade step: Within "Plone > Site setup > Add-ons" click on
   upgrade button available for eea.app.visualization
 * Feature: Possibility to disable daviz views per Content-Type. See
