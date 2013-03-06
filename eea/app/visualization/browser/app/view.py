@@ -1,10 +1,12 @@
 """ Module that contains default view
 """
 import logging
+from zope.component import getAllUtilitiesRegisteredFor
 from zope.security import checkPermission
 from zope.component import queryUtility, queryAdapter, queryMultiAdapter
 from Products.Five.browser import BrowserView
 from eea.app.visualization.interfaces import IVisualizationConfig
+from eea.app.visualization.interfaces import IVisualizationViewHeader
 from eea.app.visualization.zopera import IPropertiesTool
 
 logger = logging.getLogger('eea.app.visualization')
@@ -14,7 +16,15 @@ class View(BrowserView):
     """
     def __init__(self, context, request):
         super(View, self).__init__(context, request)
-        self.accessor = queryAdapter(self.context, IVisualizationConfig)
+        self._accessor = None
+
+    @property
+    def accessor(self):
+        """ Get config
+        """
+        if not self._accessor:
+            self._accessor = queryAdapter(self.context, IVisualizationConfig)
+        return self._accessor
 
     @property
     def facets(self):
@@ -33,14 +43,6 @@ class View(BrowserView):
         views = self.accessor.views
         for view in views:
             yield view.get('name')
-
-    @property
-    def sources(self):
-        """ External sources
-        """
-        sources = self.accessor.sources
-        for source in sources:
-            yield source
 
     @property
     def gmapkey(self):
@@ -93,6 +95,14 @@ class View(BrowserView):
                 (self.context, self.request), name=name)
             tabs.extend(getattr(browser, 'tabs', []))
         return tabs
+
+    @property
+    def headers(self):
+        """ Custom HTML to insert within head.
+        """
+        headers = getAllUtilitiesRegisteredFor(IVisualizationViewHeader)
+        for header in headers:
+            yield header(self.context, self.request)
 
     def __call__(self, **kwargs):
         """ If daviz is not configured redirects to edit page.

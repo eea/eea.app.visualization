@@ -65,3 +65,10 @@ class IVisualizationEditResources(Interface):
         value_type=schema.TextLine(title=u'JS'),
         readonly=True
     )
+
+class IVisualizationViewHeader(Interface):
+    """ Custom HTML to be included by daviz-view.html within <head>
+    """
+    def __call__(context, request):
+        """ Get HTML header
+        """

@@ -36,10 +36,11 @@ from eea.app.visualization.views.interfaces import IVisualizationViews
 # Facets
 from eea.app.visualization.facets.interfaces import IVisualizationFacets
 
-# JS/CSS Utilities
+# JS/CSS/HTML Utilities
 from eea.app.visualization.browser.res.interfaces import (
     IVisualizationViewResources,
-    IVisualizationEditResources
+    IVisualizationEditResources,
+    IVisualizationViewHeader,
 )
 
 # Settings
@@ -69,6 +70,7 @@ __all__ = (
     IVisualizationFacets.__name__,
     IVisualizationViewResources.__name__,
     IVisualizationEditResources.__name__,
+    IVisualizationViewHeader.__name__,
     IDavizSettings.__name__,
     IDavizSection.__name__,
 )
