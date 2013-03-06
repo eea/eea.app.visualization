@@ -11,7 +11,7 @@
 <metal:jsslot fill-slot="javascript_head_slot">
   <tal:headers repeat="header view/headers">
     <tal:header replace="structure header" />
-  </tal:header>
+  </tal:headers>
 </metal:jsslot>
 
 <body>
