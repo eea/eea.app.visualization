@@ -3,6 +3,10 @@ Changelog
 
 7.1-dev - (unreleased)
 ----------------------
+* Change: Moved eea.exhibit specific code to eea.exhibit package and added API
+  to easily insert HTML code within daviz-view.html head element.
+  See IVisualizationViewHeader
+  [voineali refs #14003]
 * Feature: Support all Simile Exhibit facets
   [voineali refs #10007]
 
