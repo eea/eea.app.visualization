@@ -3,11 +3,10 @@
 import logging
 from zope.component import getAllUtilitiesRegisteredFor
 from zope.security import checkPermission
-from zope.component import queryUtility, queryAdapter, queryMultiAdapter
+from zope.component import queryAdapter, queryMultiAdapter
 from Products.Five.browser import BrowserView
 from eea.app.visualization.interfaces import IVisualizationConfig
 from eea.app.visualization.interfaces import IVisualizationViewHeader
-from eea.app.visualization.zopera import IPropertiesTool
 
 logger = logging.getLogger('eea.app.visualization')
 
@@ -43,26 +42,6 @@ class View(BrowserView):
         views = self.accessor.views
         for view in views:
             yield view.get('name')
-
-    @property
-    def gmapkey(self):
-        """ Get Google Maps key from
-            portal_properties.geographical_properties.google_key
-        """
-        ptool = queryUtility(IPropertiesTool)
-        props = getattr(ptool, 'geographical_properties', None)
-        if callable(props):
-            try:
-                props = props(context=self.context, request=self.request)
-            except Exception, err:
-                logger.debug(err)
-
-        if getattr(props, 'getProperty', None):
-            key = props.getProperty('google_key', '')
-        else:
-            key = getattr(props, 'google_key', '')
-
-        return key
 
     def get_facet(self, name):
         """ Get faceted by name
