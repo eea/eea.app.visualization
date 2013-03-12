@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-02-21 13:02+0000\n"
+"POT-Creation-Date: 2013-03-12 16:12+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -30,7 +30,7 @@ msgstr "Aggiungi"
 msgid "Additional sources"
 msgstr ""
 
-#: ../../visualization/controlpanel/controlpanel.py:20
+#: ../../visualization/controlpanel/controlpanel.py:22
 msgid "Annotations"
 msgstr ""
 
@@ -38,62 +38,190 @@ msgstr ""
 msgid "Check these ${data-examples} or read ${prepare-data}"
 msgstr "Controlla questi ${data-examples} o leggi ${prepare-data}"
 
+#: ../../visualization/facets/list/interfaces.py:90
+msgid "Collapsed"
+msgstr ""
+
+#: ../../visualization/facets/list/interfaces.py:83
+msgid "Collapsible"
+msgstr ""
+
+#: ../../visualization/facets/list/interfaces.py:97
+msgid "Color coder"
+msgstr ""
+
 #: ../../visualization/browser/zpt/edit.pt:18
 msgid "Configure Visualization"
 msgstr "Configura Visualizzazione"
 
-#: ../../visualization/controlpanel/controlpanel.py:21
+#: ../../visualization/controlpanel/controlpanel.py:23
 msgid "Data annotations - lowercase - to be ignored/handled as annotations when processing data tables. One per line (e.g. 'n/a', 'n.a.', ':')"
 msgstr ""
 
-#: ../../visualization/browser/zpt/view.pt:109
-msgid "Data owner"
-msgstr "Proprietario dati"
-
-#: ../../visualization/browser/zpt/view.pt:101
+#: ../../visualization/browser/zpt/view.pt:59
 msgid "Data source"
 msgstr "Sorgente dati"
-
-#: ../../visualization/browser/zpt/view.pt:116
-msgid "Data source download"
-msgstr "Download sorgente dati"
 
 #: ../../visualization/views/data/interfaces.py:16
 msgid "Data table"
 msgstr ""
 
 #: ../../visualization/views/data/edit.py:151
-#: ../../visualization/views/edit.py:69
+#: ../../visualization/views/edit.py:68
 msgid "Disable"
 msgstr "Disabilita"
 
-#: ../../visualization/browser/zpt/view.pt:117
+#: ../../visualization/browser/zpt/view.pt:73
+msgid "Download data"
+msgstr ""
+
+#: ../../visualization/facets/interfaces.py:35
+msgid "Exhibit facet type"
+msgstr ""
+
+#: ../../visualization/facets/interfaces.py:24
+msgid "Facet id. Same as the key id in your JSON. (e.g. publishDate)"
+msgstr ""
+
+#: ../../visualization/facets/interfaces.py:34
+msgid "Facet type"
+msgstr ""
+
+#: ../../visualization/facets/list/interfaces.py:65
+msgid "Fixed Order"
+msgstr ""
+
+#: ../../visualization/browser/zpt/view.pt:74
 msgid "Formats suitable for human consumption"
 msgstr "Formati consultabili"
 
-#: ../../visualization/browser/zpt/view.pt:127
+#: ../../visualization/browser/zpt/view.pt:84
 msgid "Formats suitable for machine-to-machine communication"
 msgstr "Formati per intercomunicazione 'machine-to-machine'"
 
-#: ../../visualization/facets/edit.py:70
+#: ../../visualization/facets/list/interfaces.py:104
+msgid "Formatter"
+msgstr ""
+
+#: ../../visualization/facets/interfaces.py:28
+msgid "Friendly name"
+msgstr ""
+
+#: ../../visualization/facets/list/interfaces.py:13
+msgid "Height"
+msgstr ""
+
+#: ../../visualization/facets/interfaces.py:23
+msgid "Id"
+msgstr ""
+
+#: ../../visualization/facets/interfaces.py:51
+msgid "Is this facet visible?"
+msgstr ""
+
+#: ../../visualization/facets/interfaces.py:46
+msgid "Label for exhibit facet"
+msgstr ""
+
+#: ../../visualization/facets/interfaces.py:29
+msgid "Label for facet (e.g. Effective Date)"
+msgstr ""
+
+#: ../../visualization/facets/list/interfaces.py:51
+msgid "Missing label"
+msgstr ""
+
+#: ../../visualization/facets/edit.py:71
 #: ../../visualization/views/data/edit.py:137
 #: ../../visualization/views/edit.py:47
 msgid "Save"
 msgstr "Salva"
 
+#: ../../visualization/facets/list/interfaces.py:74
+msgid "Scroll"
+msgstr ""
+
+#: ../../visualization/facets/list/interfaces.py:58
+msgid "Selection"
+msgstr ""
+
+#: ../../visualization/facets/list/interfaces.py:42
+msgid "Show missing"
+msgstr ""
+
+#: ../../visualization/facets/list/interfaces.py:31
+msgid "Sort direction"
+msgstr ""
+
+#: ../../visualization/facets/list/interfaces.py:20
+msgid "Sort mode"
+msgstr ""
+
+#: ../../visualization/facets/interfaces.py:50
+msgid "Visible"
+msgstr ""
+
 #: ../../visualization/browser/zpt/edit.pt:23
 msgid "Warning:"
 msgstr "Attenzione:"
 
-#: ../../visualization/browser/zpt/view.pt:135
+#: ../../visualization/browser/zpt/view.pt:92
 msgid "XML with Schema"
 msgstr "XML con Schema"
+
+#: ../../visualization/facets/list/interfaces.py:91
+msgid "collapsed"
+msgstr ""
+
+#: ../../visualization/facets/list/interfaces.py:84
+msgid "collapsible"
+msgstr ""
+
+#: ../../visualization/facets/list/interfaces.py:98
+msgid "color coder"
+msgstr ""
 
 #: ../../visualization/browser/zpt/edit.pt:30
 msgid "data examples"
 msgstr "esempi di dati"
 
+#: ../../visualization/facets/list/interfaces.py:105
+msgid "formatter"
+msgstr ""
+
+#: ../../visualization/facets/list/interfaces.py:14
+msgid "height of the facet's body, e.g., '20em', '200px'"
+msgstr ""
+
 #: ../../visualization/browser/zpt/edit.pt:34
 msgid "how to prepare data"
 msgstr "come preparare i dati"
+
+#: ../../visualization/facets/list/interfaces.py:21
+msgid "how to sort the choices in the facet"
+msgstr ""
+
+#: ../../visualization/facets/list/interfaces.py:75
+msgid "if true, facet values are in a scrollable window of fixed size. If false, all facet values are shown in as much space as needed, without a scroll bar."
+msgstr ""
+
+#: ../../visualization/facets/list/interfaces.py:52
+msgid "missing label"
+msgstr ""
+
+#: ../../visualization/facets/list/interfaces.py:59
+msgid "semicolon-separated list of default selections"
+msgstr ""
+
+#: ../../visualization/facets/list/interfaces.py:66
+msgid "semicolon-separated list of values specifying a fixed order for sorting the choices in the facet, e.g., 'Mo;Tu;We;Th;Fr' for weekdays"
+msgstr ""
+
+#: ../../visualization/facets/list/interfaces.py:43
+msgid "whether to provide a selection for items missing the facet -- this will suppress the '(missing this field)' text"
+msgstr ""
+
+#: ../../visualization/facets/list/interfaces.py:32
+msgid "whether to reverse the sort direction"
+msgstr ""
 
