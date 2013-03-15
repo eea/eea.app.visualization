@@ -1,8 +1,8 @@
 Changelog
 =========
 
-7.1-dev - (unreleased)
-----------------------
+7.1 - (2013-03-15)
+------------------
 * Change: Moved eea.exhibit specific code to eea.exhibit package and added API
   to easily insert HTML code within daviz-view.html head element.
   See IVisualizationViewHeader
