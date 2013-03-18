@@ -1,8 +1,8 @@
 Changelog
 =========
 
-7.2-dev - (unreleased)
-----------------------
+7.2 - (2013-03-18)
+------------------
 * Bug fix: Remove collective.js.jqueryui < 1.9 pin as it make this package
   unusable with Plone 4.3+
   [avoinea]
