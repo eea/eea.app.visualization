@@ -45,7 +45,6 @@ setup(name=NAME,
           "python-dateutil",
           'plone.i18n',
           'z3c.autoinclude',
-          'collective.js.jqueryui < 1.9.1.0',
           'eea.jquery >= 6.3',
           # -*- Extra requirements: -*-
       ],
