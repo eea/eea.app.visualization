@@ -3,6 +3,9 @@ Changelog
 
 7.3-dev - (unreleased)
 ----------------------
+* Bug fix: Wrap visualization info and download section within daviz-view.html
+  with a div container in order to easily customize theme these sections
+  [avoinea]
 
 7.2 - (2013-03-18)
 ------------------
