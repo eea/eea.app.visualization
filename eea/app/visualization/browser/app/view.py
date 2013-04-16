@@ -90,7 +90,7 @@ class View(BrowserView):
             return self.index()
 
         referer = getattr(self.request, 'HTTP_REFERER', '')
-        if not (referer.endswith('/edit') or referer.endswith('/atct_edit')):
+        if '/portal_factory/' not in referer:
             return self.index()
 
         return self.request.response.redirect(
