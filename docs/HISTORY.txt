@@ -1,8 +1,8 @@
 Changelog
 =========
 
-7.3-dev - (unreleased)
-----------------------
+7.3 - (2013-04-17)
+------------------
 * Bug fix: Redirect to daviz-edit.html only when users add new visualizations
   [avoinea]
 * Bug fix: Wrap visualization info and download section within daviz-view.html
