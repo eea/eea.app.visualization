@@ -1,6 +1,9 @@
 Changelog
 =========
 
+7.4-dev - (unreleased)
+----------------------
+
 7.3 - (2013-04-17)
 ------------------
 * Bug fix: Redirect to daviz-edit.html only when users add new visualizations
