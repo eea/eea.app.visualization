@@ -3,7 +3,7 @@
 Module copied unchanged from Products.ResourcesRegistry-2.1.2.tools in order
 to be used without Products.CMFCore
 """
-# pylint: disable-msg=C0301, C0111, W0622, W0231, W0631
+# pylint: disable-msg=C0301, C0111, W0622, W0231, W0631, W1401
 import sys, re, unittest, textwrap
 from optparse import OptionParser, OptionValueError
 

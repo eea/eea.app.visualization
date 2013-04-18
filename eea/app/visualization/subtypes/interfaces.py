@@ -36,6 +36,6 @@ class IVisualizationSubtyper(Interface):
         """
 
 __all__ = [
-    IAnnotations,
-    AttributeAnnotations
+    IAnnotations.__name__,
+    AttributeAnnotations.__name__
 ]

@@ -3,7 +3,7 @@
 import re
 from eea.app.visualization.converter.types import GuessType
 
-REGEX = re.compile('[0-9]*(\,|\.)?[0-9]+$')
+REGEX = re.compile(r'[0-9]*(\,|\.)?[0-9]+$')
 
 class GuessNumber(GuessType):
     """ Utility to guess and convert text to number:
