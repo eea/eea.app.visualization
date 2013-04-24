@@ -3,6 +3,9 @@ Changelog
 
 7.4-dev - (unreleased)
 ----------------------
+* Feature: Also support content-type='text/html' as some external JSON/TSV
+  external URLs doesn't correctly set response headers
+  [avoinea]
 
 7.3 - (2013-04-17)
 ------------------

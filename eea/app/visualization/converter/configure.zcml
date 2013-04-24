@@ -23,6 +23,9 @@
   <!-- Text -->
   <utility name="text/plain" factory=".data.Text" />
 
+  <!-- HTML -->
+  <utility name="text/html" factory=".data.Text" />
+
   <!-- Utilities accessible via URL -->
   <browser:page
     for="zope.interface.Interface"

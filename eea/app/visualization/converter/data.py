@@ -94,7 +94,11 @@ class JSON(object):
             row = []
             for column in columns:
                 row.append(item.get(column, u''))
-            writer.writerow(row)
+            try:
+                writer.writerow(row)
+            except Exception, err:
+                logger.exception(err)
+                continue
 
         output.seek(0)
         return output.read()
