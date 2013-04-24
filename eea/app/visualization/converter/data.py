@@ -7,6 +7,7 @@ from StringIO import StringIO
 from zope.interface import implements
 from zope.component import queryUtility
 from eea.app.visualization.interfaces import IData2TableConverter
+from eea.app.visualization.converter.csvutils import UnicodeWriter
 logger = logging.getLogger('eea.app.visualization')
 
 class CSV(object):
@@ -53,13 +54,16 @@ class JSON(object):
         columns = columns.keys()
 
         output = StringIO()
-        writer = csv.writer(output)
+        writer = UnicodeWriter(output)
 
         writer.writerow(columns)
         for item in data:
             row = []
             for key in columns:
-                row.append(item.get(key, u''))
+                value = item.get(key, u'')
+                if isinstance(value, (list, tuple)):
+                    value = u';'.join(value)
+                row.append(value)
             writer.writerow(row)
 
         output.seek(0)
@@ -78,7 +82,7 @@ class JSON(object):
             columns = items[0].keys()
 
         output = StringIO()
-        writer = csv.writer(output)
+        writer = UnicodeWriter(output)
 
         row = []
         for column in columns:
@@ -93,12 +97,11 @@ class JSON(object):
         for item in items:
             row = []
             for column in columns:
-                row.append(item.get(column, u''))
-            try:
-                writer.writerow(row)
-            except Exception, err:
-                logger.exception(err)
-                continue
+                value = item.get(column, u'')
+                if isinstance(value, (list, tuple)):
+                    value = u';'.join(value)
+                row.append(value)
+            writer.writerow(row)
 
         output.seek(0)
         return output.read()
@@ -115,7 +118,7 @@ class JSON(object):
             columns = items[0].keys()
 
         output = StringIO()
-        writer = csv.writer(output)
+        writer = UnicodeWriter(output)
 
         row = []
         for column in columns:
@@ -132,7 +135,10 @@ class JSON(object):
         for item in items:
             row = []
             for column in columns:
-                row.append(item.get(column, {}).get('value', u''))
+                value = item.get(column, {}).get('value', u'')
+                if isinstance(value, (tuple, list)):
+                    value = u';'.join(value)
+                row.append(value)
             writer.writerow(row)
 
         output.seek(0)

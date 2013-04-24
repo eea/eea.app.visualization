@@ -3,9 +3,12 @@ Changelog
 
 7.4-dev - (unreleased)
 ----------------------
+* Bug fix: Added CSV UnicodeWriter as by default python csv module doesn't
+  know how to write unicode (see http://docs.python.org/2/library/csv.html)
+  [voineali refs #14360]
 * Feature: Also support content-type='text/html' as some external JSON/TSV
   external URLs doesn't correctly set response headers
-  [avoinea]
+  [voineali refs #14360]
 
 7.3 - (2013-04-17)
 ------------------
