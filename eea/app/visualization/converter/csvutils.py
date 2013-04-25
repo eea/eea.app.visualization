@@ -13,6 +13,8 @@ class UTF8Recoder:
         return self
 
     def next(self):
+        """ Next
+        """
         return self.reader.next().encode("utf-8")
 
 class UnicodeReader:
@@ -26,6 +28,8 @@ class UnicodeReader:
         self.reader = csv.reader(f, dialect=dialect, **kwds)
 
     def next(self):
+        """ Next
+        """
         row = self.reader.next()
         return [unicode(s, "utf-8") for s in row]
 
@@ -46,6 +50,8 @@ class UnicodeWriter:
         self.encoder = codecs.getincrementalencoder(encoding)()
 
     def writerow(self, row):
+        """ Write row
+        """
         self.writer.writerow([s.encode("utf-8") for s in row])
         # Fetch UTF-8 output from the queue ...
         data = self.queue.getvalue()
@@ -58,5 +64,7 @@ class UnicodeWriter:
         self.queue.truncate(0)
 
     def writerows(self, rows):
+        """ Write multiple rows
+        """
         for row in rows:
             self.writerow(row)
