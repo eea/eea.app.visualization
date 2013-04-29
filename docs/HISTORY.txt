@@ -9,6 +9,8 @@ Changelog
 * Feature: Also support content-type='text/html' as some external JSON/TSV
   external URLs doesn't correctly set response headers
   [voineali refs #14360]
+* Feature: Removed lovely.memcached dependency
+  [voineali refs #14343]
 
 7.3 - (2013-04-17)
 ------------------
