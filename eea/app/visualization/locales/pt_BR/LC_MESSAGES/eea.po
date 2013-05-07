@@ -1,0 +1,227 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2013-03-12 16:12+0000\n"
+"PO-Revision-Date: 2013-05-04 18:53-0300\n"
+"Last-Translator: Gustavo Lepri <gustavolepri@gmail.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: en\n"
+"Language-Name: English\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: DOMAIN\n"
+
+#: ../../visualization/views/data/interfaces.py:30
+msgid "(Simile-Exhibit only) Add additional external exhibit sources to be merged. Supported formats: 'Exhibit JSON', 'Google Spreadsheet' and 'RDF/XML'. See more details http://www.simile-widgets.org/wiki/Exhibit/Creating%2C_Importing%2C_and_Managing_Data#Conversion_at_Load_Time"
+msgstr "(Apenas exibição símile) Adicionar "
+
+#: ../../visualization/views/data/interfaces.py:17
+msgid "<ul><li>Click on the top-left pencil to inspect and edit generate JSON.</li><li>Click on the table's columns headers to adjust their labels (user friendly-names)</li></ul>"
+msgstr "<ul><li>Clique no lápis que está no canto esquerdo para inspecionar e editar o JSON gerado.</li><li>Clique no cabeçalho das colunas da tabela para ajustar seus rótulos (nomes amigáveis para o usuário)</li></ul>"
+
+#: ../../visualization/facets/add.py:55
+msgid "Add"
+msgstr "Adicionar"
+
+#: ../../visualization/views/data/interfaces.py:28
+msgid "Additional sources"
+msgstr "Fontes adicionais"
+
+#: ../../visualization/controlpanel/controlpanel.py:22
+msgid "Annotations"
+msgstr "Anotações"
+
+#: ../../visualization/browser/zpt/edit.pt:33
+msgid "Check these ${data-examples} or read ${prepare-data}"
+msgstr "Confira estes ${data-examples} ou leia ${prepare-data}"
+
+#: ../../visualization/facets/list/interfaces.py:90
+msgid "Collapsed"
+msgstr "Ruiu"
+
+#: ../../visualization/facets/list/interfaces.py:83
+msgid "Collapsible"
+msgstr "Desmontável"
+
+#: ../../visualization/facets/list/interfaces.py:97
+msgid "Color coder"
+msgstr "Codificador de cor"
+
+#: ../../visualization/browser/zpt/edit.pt:18
+msgid "Configure Visualization"
+msgstr "Configurar Visualização"
+
+#: ../../visualization/controlpanel/controlpanel.py:23
+msgid "Data annotations - lowercase - to be ignored/handled as annotations when processing data tables. One per line (e.g. 'n/a', 'n.a.', ':')"
+msgstr "Anotações de dados - minúsculas - para ser ignorado/manuseado como anotações durante o processamento  das tabelas de dados. Uma por linha (ex: 'n/a','n.a',':')"
+
+#: ../../visualization/browser/zpt/view.pt:59
+msgid "Data source"
+msgstr "Dados de origem"
+
+#: ../../visualization/views/data/interfaces.py:16
+msgid "Data table"
+msgstr "Tabela de dados"
+
+#: ../../visualization/views/data/edit.py:151
+#: ../../visualization/views/edit.py:68
+msgid "Disable"
+msgstr "Desabilitar"
+
+#: ../../visualization/browser/zpt/view.pt:73
+msgid "Download data"
+msgstr "Download dos dados"
+
+#: ../../visualization/facets/interfaces.py:35
+msgid "Exhibit facet type"
+msgstr "Tipo da exibição da faceta"
+
+#: ../../visualization/facets/interfaces.py:24
+msgid "Facet id. Same as the key id in your JSON. (e.g. publishDate)"
+msgstr "Id da faceta. O mesmo id da chave em seu JSON. (ex: publishDate)"
+
+#: ../../visualization/facets/interfaces.py:34
+msgid "Facet type"
+msgstr "Tipo da faceta"
+
+#: ../../visualization/facets/list/interfaces.py:65
+msgid "Fixed Order"
+msgstr "Ordem Fixa"
+
+#: ../../visualization/browser/zpt/view.pt:74
+msgid "Formats suitable for human consumption"
+msgstr "Formatos adequados para consumo humano"
+
+#: ../../visualization/browser/zpt/view.pt:84
+msgid "Formats suitable for machine-to-machine communication"
+msgstr "Formatos adequados para comunicação máquina a máquina"
+
+#: ../../visualization/facets/list/interfaces.py:104
+msgid "Formatter"
+msgstr "Formatador"
+
+#: ../../visualization/facets/interfaces.py:28
+msgid "Friendly name"
+msgstr "Nome amigável"
+
+#: ../../visualization/facets/list/interfaces.py:13
+msgid "Height"
+msgstr "Altura"
+
+#: ../../visualization/facets/interfaces.py:23
+msgid "Id"
+msgstr "Id"
+
+#: ../../visualization/facets/interfaces.py:51
+msgid "Is this facet visible?"
+msgstr "Esta faceta é visível?"
+
+#: ../../visualization/facets/interfaces.py:46
+msgid "Label for exhibit facet"
+msgstr "Rótulo para exibição da faceta"
+
+#: ../../visualization/facets/interfaces.py:29
+msgid "Label for facet (e.g. Effective Date)"
+msgstr "Rótulo para faceta (ex: Data de Efetivação)"
+
+#: ../../visualization/facets/list/interfaces.py:51
+msgid "Missing label"
+msgstr "Rótulo faltando"
+
+#: ../../visualization/facets/edit.py:71
+#: ../../visualization/views/data/edit.py:137
+#: ../../visualization/views/edit.py:47
+msgid "Save"
+msgstr "Salvar"
+
+#: ../../visualization/facets/list/interfaces.py:74
+msgid "Scroll"
+msgstr "Rolar"
+
+#: ../../visualization/facets/list/interfaces.py:58
+msgid "Selection"
+msgstr "Seleção"
+
+#: ../../visualization/facets/list/interfaces.py:42
+msgid "Show missing"
+msgstr "Exibir faltando"
+
+#: ../../visualization/facets/list/interfaces.py:31
+msgid "Sort direction"
+msgstr "Direção da classificação"
+
+#: ../../visualization/facets/list/interfaces.py:20
+msgid "Sort mode"
+msgstr "Modo de ordenação"
+
+#: ../../visualization/facets/interfaces.py:50
+msgid "Visible"
+msgstr "Visível"
+
+#: ../../visualization/browser/zpt/edit.pt:23
+msgid "Warning:"
+msgstr "Aviso:"
+
+#: ../../visualization/browser/zpt/view.pt:92
+msgid "XML with Schema"
+msgstr "XML com Schema"
+
+#: ../../visualization/facets/list/interfaces.py:91
+msgid "collapsed"
+msgstr "ruiu"
+
+#: ../../visualization/facets/list/interfaces.py:84
+msgid "collapsible"
+msgstr "Desmontável"
+
+#: ../../visualization/facets/list/interfaces.py:98
+msgid "color coder"
+msgstr "Codificador de cor"
+
+#: ../../visualization/browser/zpt/edit.pt:30
+msgid "data examples"
+msgstr "dados de exemplo"
+
+#: ../../visualization/facets/list/interfaces.py:105
+msgid "formatter"
+msgstr "formatador"
+
+#: ../../visualization/facets/list/interfaces.py:14
+msgid "height of the facet's body, e.g., '20em', '200px'"
+msgstr "altura do corpo da faceta, ex: '20em', '200px'"
+
+#: ../../visualization/browser/zpt/edit.pt:34
+msgid "how to prepare data"
+msgstr "como preparar dados"
+
+#: ../../visualization/facets/list/interfaces.py:21
+msgid "how to sort the choices in the facet"
+msgstr "como ordenar as escolhar na faceta"
+
+#: ../../visualization/facets/list/interfaces.py:75
+msgid "if true, facet values are in a scrollable window of fixed size. If false, all facet values are shown in as much space as needed, without a scroll bar."
+msgstr "Se verdadeiro, os valores da faceta estarão em uma janela com barra de rolagem ou com um tamanho fixo. Se falso, todos os valores da faceta serão exibidos em tanto espaço quanto necessário, sem uma barra de rolagem."
+
+#: ../../visualization/facets/list/interfaces.py:52
+msgid "missing label"
+msgstr "rótulo faltando"
+
+#: ../../visualization/facets/list/interfaces.py:59
+msgid "semicolon-separated list of default selections"
+msgstr "lista de seleções padrão separada por ponto e vírgula"
+
+#: ../../visualization/facets/list/interfaces.py:66
+msgid "semicolon-separated list of values specifying a fixed order for sorting the choices in the facet, e.g., 'Mo;Tu;We;Th;Fr' for weekdays"
+msgstr "lista de valores, separada por ponto e vírgula, especificando uma ordem fixa ou ordenando as escolhas na faceta. Ex: 'Seg;Ter;Qua;Qui;Sex' para os dias da semana"
+
+#: ../../visualization/facets/list/interfaces.py:43
+msgid "whether to provide a selection for items missing the facet -- this will suppress the '(missing this field)' text"
+msgstr "caso se forneça uma seleção para itens, sem a faceta, haverá supressão do  texto '(faltando este campo')"
+
+#: ../../visualization/facets/list/interfaces.py:32
+msgid "whether to reverse the sort direction"
+msgstr "se inverter a direção de ordenação"
+
