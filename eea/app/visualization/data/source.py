@@ -7,8 +7,9 @@
 from zope.interface import implements
 from zope.annotation.interfaces import IAnnotations
 from persistent.dict import PersistentDict
-from eea.app.visualization.config import ANNO_DATA
-from eea.app.visualization.interfaces import IDataProvenance
+from persistent.list import PersistentList
+from eea.app.visualization.config import ANNO_DATA, ANNO_MULTIDATA
+from eea.app.visualization.interfaces import IDataProvenance, IMultipleDataProvenance
 
 class DataProvenance(object):
     """ Abstract visualization data provenance metadata accessor/mutator
@@ -267,3 +268,23 @@ class BlobDataProvenance(object):
         owner, link = self.copyrights
         owner = value
         self.copyrights = (owner, link)
+
+class SparqlDataProvenance(object):
+    implements(IMultipleDataProvenance)
+
+    def __init__(self, context):
+        self.context = context
+
+    @property
+    def datasources(self):
+        """ Config
+        """
+        anno = IAnnotations(self.context)
+        ds = anno.get(ANNO_MULTIDATA, None)
+        if ds is None:
+            ds = anno[ANNO_MULTIDATA] = PersistentList()
+        return config
+
+    @datasources.setter
+    def datasources(self, value):
+        import pdb; pdb.set_trace()

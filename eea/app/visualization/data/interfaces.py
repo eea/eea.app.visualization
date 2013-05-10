@@ -3,6 +3,11 @@
 from zope.interface import Interface
 from zope import schema
 
+from Products.DataGridField import DataGridField, DataGridWidget
+from Products.DataGridField.Column import Column
+from Products.DataGridField.SelectColumn import SelectColumn
+
+
 class IDataProvenance(Interface):
     """ Data Provenance
     """
@@ -20,6 +25,10 @@ class IDataProvenance(Interface):
         title=u"Data source Organisation",
         description=u"Specify data source Organisation"
     )
+
+class IMultipleDataProvenance(Interface):
+    """ Multiple Data Provenance
+    """
 
 class IVisualizationData(Interface):
     """ Visualization Data Adapter.

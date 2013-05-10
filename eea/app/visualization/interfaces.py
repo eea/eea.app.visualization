@@ -12,6 +12,7 @@ from eea.app.visualization.storage.interfaces import IVisualizationConfig
 from eea.app.visualization.data.interfaces import IVisualizationData
 from eea.app.visualization.data.interfaces import IExternalData
 from eea.app.visualization.data.interfaces import IDataProvenance
+from eea.app.visualization.data.interfaces import IMultipleDataProvenance
 from eea.app.visualization.data.interfaces import IVisualizationJson
 from eea.app.visualization.data.interfaces import IVisualizationJsonUtils
 
@@ -55,6 +56,7 @@ __all__ = (
     IVisualizationData.__name__,
     IExternalData.__name__,
     IDataProvenance.__name__,
+    IMultipleDataProvenance.__name__,
     IVisualizationJson.__name__,
     IVisualizationJsonUtils.__name__,
     IVisualizationEvent.__name__,

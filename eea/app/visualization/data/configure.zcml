@@ -65,6 +65,13 @@
     factory=".source.BlobDataProvenance"
     />
 
+  <adapter
+    zcml:condition="installed eea.sparql"
+    for="eea.sparql.interfaces.ISparql"
+    provides="eea.app.visualization.interfaces.IMultipleDataProvenance"
+    factory=".source.SparqlDataProvenance"
+    />
+
   <!-- JSON adapters -->
   <browser:page
     for="eea.app.visualization.interfaces.IPossibleVisualization"
