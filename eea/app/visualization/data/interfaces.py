@@ -26,7 +26,7 @@ class IDataProvenance(Interface):
         description=u"Specify data source Organisation"
     )
 
-class IMultipleDataProvenance(Interface):
+class IMultiDataProvenance(Interface):
     """ Multiple Data Provenance
     """
 

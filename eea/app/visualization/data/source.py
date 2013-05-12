@@ -9,7 +9,7 @@ from zope.annotation.interfaces import IAnnotations
 from persistent.dict import PersistentDict
 from persistent.list import PersistentList
 from eea.app.visualization.config import ANNO_DATA, ANNO_MULTIDATA
-from eea.app.visualization.interfaces import IDataProvenance, IMultipleDataProvenance
+from eea.app.visualization.interfaces import IDataProvenance, IMultiDataProvenance
 
 class DataProvenance(object):
     """ Abstract visualization data provenance metadata accessor/mutator
@@ -269,22 +269,73 @@ class BlobDataProvenance(object):
         owner = value
         self.copyrights = (owner, link)
 
-class SparqlDataProvenance(object):
-    implements(IMultipleDataProvenance)
+class MultiDataProvenance(object):
+    implements(IMultiDataProvenance)
 
     def __init__(self, context):
         self.context = context
 
     @property
-    def datasources(self):
+    def provenances(self):
         """ Config
         """
         anno = IAnnotations(self.context)
-        ds = anno.get(ANNO_MULTIDATA, None)
-        if ds is None:
+        anno_provenances = anno.get(ANNO_MULTIDATA, None)
+        if anno_provenances is None:
             ds = anno[ANNO_MULTIDATA] = PersistentList()
-        return config
+        return ds
 
-    @datasources.setter
-    def datasources(self, value):
-        import pdb; pdb.set_trace()
+    @provenances.setter
+    def provenances(self, value):
+        anno = IAnnotations(self.context)
+        anno[ANNO_MULTIDATA] = value
+
+class BlobMultiDataProvenance(object):
+    implements(IMultiDataProvenance)
+
+    def __init__(self, context):
+        self.context = context
+
+    @property
+    def copyrights(self):
+        """ Parse owner and link from object rights field
+        """
+        field = self.context.getField('rights')
+        rights = field.getAccessor(self.context)()
+        index = rights.find('<')
+        if index == -1:
+            return rights.strip(), ''
+        owner = rights[:index].strip()
+        link = rights[index:].replace('<', '').replace('>', '').strip()
+        return owner, link
+
+    @copyrights.setter
+    def copyrights(self, value):
+        """ Set owner and link within object rights field.
+
+        value -- tuple like (owner, link)
+
+        """
+        if isinstance(value, (str, unicode)):
+            value = (value, "")
+        rights = u"%s <%s>" % value
+        self.context.getField('rights').getMutator(self.context)(rights.strip())
+        self.context.reindexObject()
+
+    @property
+    def provenances(self):
+        title=self.context.getField('title').getAccessor(self.context)()
+        link=self.copyrights[1]
+        owner=self.copyrights[0]
+
+        return ({'title': title, 'link': link, 'owner': owner},)
+
+    @provenances.setter
+    def provenances(self, value):
+        self.context.getField('title').getMutator(self.context)(getattr(value[0], 'title', ''))
+
+        link = getattr(value[0], 'link', '')
+        owner = getattr(value[0], 'owner', '')
+        self.copyrights = (owner, link)
+
+        self.context.reindexObject()

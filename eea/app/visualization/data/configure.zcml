@@ -65,11 +65,18 @@
     factory=".source.BlobDataProvenance"
     />
 
+  <!-- Multiple data sources -->
   <adapter
-    zcml:condition="installed eea.sparql"
-    for="eea.sparql.interfaces.ISparql"
-    provides="eea.app.visualization.interfaces.IMultipleDataProvenance"
-    factory=".source.SparqlDataProvenance"
+    for="zope.interface.Interface"
+    provides="eea.app.visualization.interfaces.IMultiDataProvenance"
+    factory=".source.MultiDataProvenance"
+    />
+
+  <adapter
+    zcml:condition="installed plone.app.blob"
+    for="plone.app.blob.interfaces.IATBlobFile"
+    provides="eea.app.visualization.interfaces.IMultiDataProvenance"
+    factory=".source.BlobMultiDataProvenance"
     />
 
   <!-- JSON adapters -->
