@@ -3,10 +3,6 @@
 from zope.interface import Interface
 from zope import schema
 
-from Products.DataGridField import DataGridField, DataGridWidget
-from Products.DataGridField.Column import Column
-from Products.DataGridField.SelectColumn import SelectColumn
-
 
 class IDataProvenance(Interface):
     """ Data Provenance

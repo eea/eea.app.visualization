@@ -9,7 +9,8 @@ from zope.annotation.interfaces import IAnnotations
 from persistent.dict import PersistentDict
 from persistent.list import PersistentList
 from eea.app.visualization.config import ANNO_DATA, ANNO_MULTIDATA
-from eea.app.visualization.interfaces import IDataProvenance, IMultiDataProvenance
+from eea.app.visualization.interfaces import IDataProvenance, \
+                                            IMultiDataProvenance
 
 class DataProvenance(object):
     """ Abstract visualization data provenance metadata accessor/mutator
@@ -270,6 +271,8 @@ class BlobDataProvenance(object):
         self.copyrights = (owner, link)
 
 class MultiDataProvenance(object):
+    """ Multiple Data Provenances
+    """
     implements(IMultiDataProvenance)
 
     def __init__(self, context):
@@ -277,7 +280,7 @@ class MultiDataProvenance(object):
 
     @property
     def provenances(self):
-        """ Config
+        """ getter
         """
         anno = IAnnotations(self.context)
         anno_provenances = anno.get(ANNO_MULTIDATA, None)
@@ -287,10 +290,14 @@ class MultiDataProvenance(object):
 
     @provenances.setter
     def provenances(self, value):
+        """ setter
+        """
         anno = IAnnotations(self.context)
         anno[ANNO_MULTIDATA] = value
 
 class BlobMultiDataProvenance(object):
+    """ Multiple Data Provenances
+    """
     implements(IMultiDataProvenance)
 
     def __init__(self, context):
@@ -324,15 +331,20 @@ class BlobMultiDataProvenance(object):
 
     @property
     def provenances(self):
-        title=self.context.getField('title').getAccessor(self.context)()
-        link=self.copyrights[1]
-        owner=self.copyrights[0]
+        """ getter
+        """
+        title = self.context.getField('title').getAccessor(self.context)()
+        link = self.copyrights[1]
+        owner = self.copyrights[0]
 
         return ({'title': title, 'link': link, 'owner': owner},)
 
     @provenances.setter
     def provenances(self, value):
-        self.context.getField('title').getMutator(self.context)(getattr(value[0], 'title', ''))
+        """ setter
+        """
+        field = self.context.getField('title')
+        field.getMutator(self.context)(getattr(value[0], 'title', ''))
 
         link = getattr(value[0], 'link', '')
         owner = getattr(value[0], 'owner', '')
