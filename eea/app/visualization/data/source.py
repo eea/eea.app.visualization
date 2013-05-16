@@ -7,7 +7,6 @@
 from zope.interface import implements
 from zope.annotation.interfaces import IAnnotations
 from persistent.dict import PersistentDict
-from persistent.list import PersistentList
 from eea.app.visualization.config import ANNO_DATA, ANNO_MULTIDATA
 from eea.app.visualization.interfaces import IDataProvenance, \
                                             IMultiDataProvenance
@@ -270,6 +269,17 @@ class BlobDataProvenance(object):
         owner = value
         self.copyrights = (owner, link)
 
+def getRelevantProvenances(provenances):
+    """ remove empty provenances
+    """
+    return [{'title' : op.get('title',''),
+            'owner' : op.get('owner',''),
+            'link' : op.get('link','')} \
+            for op in provenances \
+            if len(op.get('title','')) > 0 or
+                len(op.get('link','')) > 0 or
+                len(op.get('owner','')) > 0]
+
 class MultiDataProvenance(object):
     """ Multiple Data Provenances
     """
@@ -278,22 +288,36 @@ class MultiDataProvenance(object):
     def __init__(self, context):
         self.context = context
 
-    @property
-    def provenances(self):
+    def defaultProvenances(self):
+        """ default provenances
+        """
+        return ()
+
+    def _getProvenances(self):
         """ getter
         """
         anno = IAnnotations(self.context)
-        anno_provenances = anno.get(ANNO_MULTIDATA, None)
-        if anno_provenances is None:
-            ds = anno[ANNO_MULTIDATA] = PersistentList()
-        return ds
+        anno_provenances = anno.get(ANNO_MULTIDATA, ({},))
 
-    @provenances.setter
-    def provenances(self, value):
+        relevantProvenances = getRelevantProvenances(anno_provenances)
+
+        if len(relevantProvenances) > 0:
+            return relevantProvenances
+
+        return self.defaultProvenances()
+
+    def _setProvenances(self, value):
         """ setter
         """
-        anno = IAnnotations(self.context)
-        anno[ANNO_MULTIDATA] = value
+        oldProvenances = list(self._getProvenances())
+        relevantOldProvenances = getRelevantProvenances(oldProvenances)
+        relevantNewProvenances = getRelevantProvenances(value)
+
+        if relevantOldProvenances != relevantNewProvenances:
+            anno = IAnnotations(self.context)
+            anno[ANNO_MULTIDATA] = value
+
+    provenances = property(_getProvenances, _setProvenances)
 
 class BlobMultiDataProvenance(object):
     """ Multiple Data Provenances
@@ -303,7 +327,6 @@ class BlobMultiDataProvenance(object):
     def __init__(self, context):
         self.context = context
 
-    @property
     def copyrights(self):
         """ Parse owner and link from object rights field
         """
@@ -316,38 +339,11 @@ class BlobMultiDataProvenance(object):
         link = rights[index:].replace('<', '').replace('>', '').strip()
         return owner, link
 
-    @copyrights.setter
-    def copyrights(self, value):
-        """ Set owner and link within object rights field.
-
-        value -- tuple like (owner, link)
-
-        """
-        if isinstance(value, (str, unicode)):
-            value = (value, "")
-        rights = u"%s <%s>" % value
-        self.context.getField('rights').getMutator(self.context)(rights.strip())
-        self.context.reindexObject()
-
-    @property
-    def provenances(self):
-        """ getter
+    def defaultProvenances(self):
+        """ default provenances
         """
         title = self.context.getField('title').getAccessor(self.context)()
-        link = self.copyrights[1]
-        owner = self.copyrights[0]
+        link = self.copyrights()[1]
+        owner = self.copyrights()[0]
 
         return ({'title': title, 'link': link, 'owner': owner},)
-
-    @provenances.setter
-    def provenances(self, value):
-        """ setter
-        """
-        field = self.context.getField('title')
-        field.getMutator(self.context)(getattr(value[0], 'title', ''))
-
-        link = getattr(value[0], 'link', '')
-        owner = getattr(value[0], 'owner', '')
-        self.copyrights = (owner, link)
-
-        self.context.reindexObject()
