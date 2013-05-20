@@ -1,6 +1,9 @@
 Changelog
 =========
 
+7.5-dev - (unreleased)
+----------------------
+
 7.4 - (2013-05-20)
 ------------------
 * Bug fix: Added CSV UnicodeWriter as by default python csv module doesn't
