@@ -6,10 +6,12 @@
 """
 from zope.interface import implements
 from zope.annotation.interfaces import IAnnotations
+from zope.component import queryAdapter
 from persistent.dict import PersistentDict
 from eea.app.visualization.config import ANNO_DATA, ANNO_MULTIDATA
 from eea.app.visualization.interfaces import IDataProvenance, \
                                             IMultiDataProvenance
+
 
 class DataProvenance(object):
     """ Abstract visualization data provenance metadata accessor/mutator
@@ -318,6 +320,39 @@ class MultiDataProvenance(object):
             anno[ANNO_MULTIDATA] = value
 
     provenances = property(_getProvenances, _setProvenances)
+
+    @property
+    def isInheritedProvenance(self):
+        anno = IAnnotations(self.context)
+        anno_provenances = anno.get(ANNO_MULTIDATA, ({},))
+
+        relevantProvenances = getRelevantProvenances(anno_provenances)
+
+        if len(relevantProvenances) > 0:
+            return False
+
+        relatedProvenances = ()
+        relatedItems = self.context.getRelatedItems()
+        orderindex = 0
+        for item in relatedItems:
+            source = queryAdapter(item, IMultiDataProvenance)
+            item_provenances = getattr(source, 'provenances')
+            for item_provenance in item_provenances:
+                dict_item_provenance = dict(item_provenance)
+                if dict_item_provenance.get('title', '') != '' and \
+                    dict_item_provenance.get('link', '') != '' and \
+                    dict_item_provenance.get('owner', '') != '':
+                    dict_item_provenance['orderindex_'] = orderindex
+                    orderindex = orderindex + 1
+                    relatedProvenances = relatedProvenances + \
+                                        (dict_item_provenance,)
+        relatedProvenances = getRelevantProvenances(relatedProvenances)
+        defaultProvenances = self.defaultProvenances()
+        defaultProvenances = getRelevantProvenances(defaultProvenances)
+        if len(relatedProvenances) > 0 and relatedProvenances == defaultProvenances:
+            return True
+
+        return False
 
 class BlobMultiDataProvenance(object):
     """ Multiple Data Provenances
