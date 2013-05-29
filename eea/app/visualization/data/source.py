@@ -349,7 +349,8 @@ class MultiDataProvenance(object):
         relatedProvenances = getRelevantProvenances(relatedProvenances)
         defaultProvenances = self.defaultProvenances()
         defaultProvenances = getRelevantProvenances(defaultProvenances)
-        if len(relatedProvenances) > 0 and relatedProvenances == defaultProvenances:
+        if len(relatedProvenances) > 0 and \
+            relatedProvenances == defaultProvenances:
             return True
 
         return False
