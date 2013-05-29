@@ -1,10 +1,13 @@
 Changelog
 =========
 
-7.4-dev - (unreleased)
+7.5-dev - (unreleased)
 ----------------------
 * Feature: Changed data provenance to allow multiple data provenances
   [szabozo0 #9561]
+
+7.4 - (2013-05-20)
+------------------
 * Bug fix: Added CSV UnicodeWriter as by default python csv module doesn't
   know how to write unicode (see http://docs.python.org/2/library/csv.html)
   [voineali refs #14360]
