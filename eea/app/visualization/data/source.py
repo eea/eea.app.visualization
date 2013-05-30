@@ -355,7 +355,7 @@ class MultiDataProvenance(object):
 
         return False
 
-class BlobMultiDataProvenance(object):
+class BlobMultiDataProvenance(MultiDataProvenance):
     """ Multiple Data Provenances
     """
     implements(IMultiDataProvenance)

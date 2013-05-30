@@ -79,6 +79,13 @@
     factory=".source.BlobMultiDataProvenance"
     />
 
+  <!-- Multiple data source schema extender -->
+  <adapter
+    zcml:condition="installed plone.app.blob"
+    for="plone.app.blob.interfaces.IATBlobFile"
+    factory="eea.daviz.content.schema.MultiDataProvenanceSchemaExtender"
+    />
+
   <!-- JSON adapters -->
   <browser:page
     for="eea.app.visualization.interfaces.IPossibleVisualization"
