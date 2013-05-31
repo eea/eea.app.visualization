@@ -78,7 +78,7 @@ class EditForm(SubPageForm):
         name = action.__name__.encode('utf-8')
         value = self.request.form.get(name, '')
         if value == 'ajax':
-            return 'Changes saved'
+            return _('Changes saved')
         return self.nextUrl
 
     @property
@@ -87,7 +87,7 @@ class EditForm(SubPageForm):
         """
         status = queryAdapter(self.request, IStatusMessage)
         if status:
-            status.addStatusMessage('Changes saved', type='info')
+            status.addStatusMessage(_('Changes saved'), type='info')
         to = self.context.absolute_url() + '/daviz-edit.html'
         self.request.response.redirect(to)
 

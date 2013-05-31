@@ -86,7 +86,7 @@ class AddForm(SubPageForm):
         if self._finished_add:
             ajax = (self.request.form.get(self._action, '') == 'ajax')
             if ajax:
-                return 'Facet added'
+                return _('Facet added')
             self.request.response.redirect(self.nextURL())
             return ""
 
@@ -97,6 +97,6 @@ class AddForm(SubPageForm):
         """
         status = queryAdapter(self.request, IStatusMessage)
         if status:
-            status.addStatusMessage('Facet added', type='info')
+            status.addStatusMessage(_('Facet added'), type='info')
         nexturl = self.context.absolute_url() + '/daviz-edit.html'
         self.request.response.redirect(nexturl)

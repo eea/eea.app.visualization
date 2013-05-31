@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-03-12 16:12+0000\n"
+"POT-Creation-Date: 2013-05-29 18:30+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -37,6 +37,12 @@ msgstr ""
 msgid "Annotations"
 msgstr ""
 
+#: ../../visualization/facets/edit.py:81
+#: ../../visualization/views/data/edit.py:29
+#: ../../visualization/views/edit.py:65
+msgid "Changes saved"
+msgstr ""
+
 #: ../../visualization/browser/zpt/edit.pt:33
 msgid "Check these ${data-examples} or read ${prepare-data}"
 msgstr ""
@@ -61,6 +67,11 @@ msgstr ""
 msgid "Data annotations - lowercase - to be ignored/handled as annotations when processing data tables. One per line (e.g. 'n/a', 'n.a.', ':')"
 msgstr ""
 
+#: ../../visualization/views/data/edit.py:26
+#: ../../visualization/views/data/view.py:12
+msgid "Data settings"
+msgstr ""
+
 #: ../../visualization/browser/zpt/view.pt:59
 msgid "Data source"
 msgstr ""
@@ -69,17 +80,61 @@ msgstr ""
 msgid "Data table"
 msgstr ""
 
+#: ../../visualization/profiles/default/controlpanel.xml
+msgid "Daviz Visualization"
+msgstr ""
+
 #: ../../visualization/views/data/edit.py:151
 #: ../../visualization/views/edit.py:68
 msgid "Disable"
 msgstr ""
 
-#: ../../visualization/browser/zpt/view.pt:73
+#: ../../visualization/profiles/default/actions.xml
+msgid "Disable Visualization"
+msgstr ""
+
+#: ../../visualization/browser/zpt/view.pt:74
 msgid "Download data"
+msgstr ""
+
+#: ../../visualization/profiles/default/actions.xml
+msgid "Edit Visualizations"
+msgstr ""
+
+#: ../../visualization/controlpanel/controlpanel.py:35
+msgid "Enable / Disable"
+msgstr ""
+
+#: ../../visualization/profiles/default/actions.xml
+msgid "Enable Visualization"
+msgstr ""
+
+#: ../../visualization/browser/app/edit.py:193
+msgid "Exhibit facet deleted"
 msgstr ""
 
 #: ../../visualization/facets/interfaces.py:35
 msgid "Exhibit facet type"
+msgstr ""
+
+#: ../../visualization/browser/app/edit.py:155
+msgid "Exhibit facets settings not saved: Nothing to do"
+msgstr ""
+
+#: ../../visualization/browser/app/edit.py:176
+msgid "Exhibit facets settings saved"
+msgstr ""
+
+#: ../../visualization/browser/res/interfaces.py:27
+msgid "External or required javascripts"
+msgstr ""
+
+#: ../../visualization/browser/res/interfaces.py:12
+msgid "External or required stylesheets"
+msgstr ""
+
+#: ../../visualization/facets/add.py:89
+msgid "Facet added"
 msgstr ""
 
 #: ../../visualization/facets/interfaces.py:24
@@ -94,11 +149,11 @@ msgstr ""
 msgid "Fixed Order"
 msgstr ""
 
-#: ../../visualization/browser/zpt/view.pt:74
+#: ../../visualization/browser/zpt/view.pt:75
 msgid "Formats suitable for human consumption"
 msgstr ""
 
-#: ../../visualization/browser/zpt/view.pt:84
+#: ../../visualization/browser/zpt/view.pt:85
 msgid "Formats suitable for machine-to-machine communication"
 msgstr ""
 
@@ -122,6 +177,10 @@ msgstr ""
 msgid "Is this facet visible?"
 msgstr ""
 
+#: ../../visualization/browser/res/interfaces.py:34
+msgid "Javascripts"
+msgstr ""
+
 #: ../../visualization/facets/interfaces.py:46
 msgid "Label for exhibit facet"
 msgstr ""
@@ -130,8 +189,40 @@ msgstr ""
 msgid "Label for facet (e.g. Effective Date)"
 msgstr ""
 
+#: ../../visualization/views/interfaces.py:12
+msgid "Label for visualization view"
+msgstr ""
+
+#: ../../visualization/browser/res/interfaces.py:21
+msgid "List of CSS resources to be included by daviz-view.html"
+msgstr ""
+
+#: ../../visualization/browser/res/interfaces.py:45
+msgid "List of CSS resources to be included in edit mode before CSS reources provided by css attribute"
+msgstr ""
+
+#: ../../visualization/browser/res/interfaces.py:13
+msgid "List of CSS resources to be included in view mode before CSS reources provided by css attribute"
+msgstr ""
+
+#: ../../visualization/browser/res/interfaces.py:35
+msgid "List of JS resources to be included by daviz-view.html"
+msgstr ""
+
+#: ../../visualization/browser/res/interfaces.py:59
+msgid "List of JS resources to be included in edit mode before JS reources provided by js attribute"
+msgstr ""
+
+#: ../../visualization/browser/res/interfaces.py:28
+msgid "List of JS resources to be included in view mode before JS reources provided by js attribute"
+msgstr ""
+
 #: ../../visualization/facets/list/interfaces.py:51
 msgid "Missing label"
+msgstr ""
+
+#: ../../visualization/views/meta.py:61
+msgid "No name provided"
 msgstr ""
 
 #: ../../visualization/facets/edit.py:71
@@ -160,6 +251,31 @@ msgstr ""
 msgid "Sort mode"
 msgstr ""
 
+#: ../../visualization/browser/res/interfaces.py:20
+msgid "Stylesheets"
+msgstr ""
+
+#: ../../visualization/views/data/edit.py:161
+#: ../../visualization/views/edit.py:78
+msgid "View disabled"
+msgstr ""
+
+#: ../../visualization/browser/app/edit.py:206
+msgid "View enabled"
+msgstr ""
+
+#: ../../visualization/browser/app/edit.py:237
+msgid "Views order changed"
+msgstr ""
+
+#: ../../visualization/browser/app/edit.py:221
+msgid "Views order not saved: Nothing to do"
+msgstr ""
+
+#: ../../visualization/browser/app/edit.py:217
+msgid "Views settings not saved: Nothing to do"
+msgstr ""
+
 #: ../../visualization/facets/interfaces.py:50
 msgid "Visible"
 msgstr ""
@@ -168,7 +284,7 @@ msgstr ""
 msgid "Warning:"
 msgstr ""
 
-#: ../../visualization/browser/zpt/view.pt:92
+#: ../../visualization/browser/zpt/view.pt:93
 msgid "XML with Schema"
 msgstr ""
 
