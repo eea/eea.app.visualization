@@ -13,6 +13,8 @@ from eea.app.visualization.interfaces import IVisualizationConfig
 from eea.app.visualization.events import VisualizationFacetDeletedEvent
 from eea.app.visualization.zopera import IStatusMessage
 from eea.app.visualization.interfaces import IDavizSettings
+from eea.app.visualization.config import EEAMessageFactory as _
+
 logger = logging.getLogger('eea.app.visualization')
 
 DAVIZ_WARNING_WRONG_DATASET = """Data is missing, or is not well formated."""
@@ -150,15 +152,15 @@ class Configure(BrowserView):
 
         if not order:
             return self._redirect(
-                'Exhibit facets settings not saved: Nothing to do', ajax)
+                _('Exhibit facets settings not saved: Nothing to do'), ajax)
 
         if not isinstance(order, list):
             return self._redirect(
-                'Exhibit facets settings not saved: Nothing to do', ajax)
+                _('Exhibit facets settings not saved: Nothing to do'), ajax)
 
         if len(order) == 1:
             return self._redirect(
-                'Exhibit facets settings not saved: Nothing to do', ajax)
+                _('Exhibit facets settings not saved: Nothing to do'), ajax)
 
         facets = mutator.facets
         facets = dict((facet.get('name'), dict(facet)) for facet in facets)
@@ -171,7 +173,7 @@ class Configure(BrowserView):
                 continue
             mutator.add_facet(**properties)
 
-        return self._redirect('Exhibit facets settings saved', ajax)
+        return self._redirect(_('Exhibit facets settings saved'), ajax)
 
     def handle_facetDelete(self, **kwargs):
         """ Delete facet
@@ -188,7 +190,7 @@ class Configure(BrowserView):
             event.notify(VisualizationFacetDeletedEvent(
                 self.context, facet=name))
 
-        return self._redirect('Exhibit facet deleted', ajax)
+        return self._redirect(_('Exhibit facet deleted'), ajax)
 
     def handle_viewEnable(self, **kwargs):
         """ Enable view
@@ -201,7 +203,7 @@ class Configure(BrowserView):
         except Exception, err:
             logger.exception(err)
             return self._redirect(err, ajax)
-        return self._redirect('View enabled', ajax)
+        return self._redirect(_('View enabled'), ajax)
 
     def handle_views(self, **kwargs):
         """ Sort views
@@ -212,15 +214,15 @@ class Configure(BrowserView):
 
         if not order:
             return self._redirect(
-                'Views settings not saved: Nothing to do', ajax)
+                _('Views settings not saved: Nothing to do'), ajax)
 
         if not isinstance(order, list):
             return self._redirect(
-                'Views order not saved: Nothing to do', ajax)
+                _('Views order not saved: Nothing to do'), ajax)
 
         if len(order) == 1:
             return self._redirect(
-                'Views order not saved: Nothing to do', ajax)
+                _('Views order not saved: Nothing to do'), ajax)
 
         views = mutator.views
         views = dict((view.get('name'), dict(view)) for view in views)
@@ -232,7 +234,7 @@ class Configure(BrowserView):
                 continue
             mutator.add_view(**properties)
 
-        return self._redirect('Views order changed', ajax)
+        return self._redirect(_('Views order changed'), ajax)
 
 
 

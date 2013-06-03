@@ -32,7 +32,7 @@ class ForbiddenVisualizations(object):
     """
     implements(IDavizSection)
     prefix = 'forbidden'
-    title = 'Enable / Disable'
+    title = _('Enable / Disable')
 
     def __init__(self):
         voc = queryUtility(IVocabularyFactory,

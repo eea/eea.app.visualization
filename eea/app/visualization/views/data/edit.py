@@ -23,10 +23,10 @@ logger = logging.getLogger('eea.app.visualization')
 class Edit(EditForm):
     """ Edit view
     """
-    label = u"Data settings"
+    label = _(u"Data settings")
     form_fields = Fields(IDataEdit)
     previewname = "daviz.properties.preview.png"
-    message = 'Changes saved'
+    message = _('Changes saved')
 
     @property
     def _data(self):
@@ -158,5 +158,5 @@ class Edit(EditForm):
         name = saction.__name__.encode('utf-8')
         value = self.request.form.get(name, '')
         if value == 'ajax':
-            return 'View disabled'
+            return _('View disabled')
         return self.nextUrl

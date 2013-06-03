@@ -5,6 +5,8 @@ from eea.app.visualization.views.interfaces import IVisualizationViews
 from zope.publisher.interfaces.browser import IDefaultBrowserLayer
 from Products.Five.browser.metaconfigure import page
 
+from eea.app.visualization.config import EEAMessageFactory as _
+
 class VisualizationViews(object):
     """ Registry for daviz views registered via ZCML
     """
@@ -56,7 +58,7 @@ def ViewDirective(_context, name, permission=None, for_=Interface,
     """ Daviz View
     """
     if not name:
-        raise TypeError("No name provided")
+        raise TypeError(_("No name provided"))
 
     label = title
     if title and not menu:
@@ -77,7 +79,7 @@ def EditDirective(_context, name, permission=None, for_=Interface,
     """ Daviz Edit
     """
     if not name:
-        raise TypeError("No name provided")
+        raise TypeError(_("No name provided"))
 
     label = title
     if title and not menu:

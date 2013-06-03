@@ -1,9 +1,11 @@
 <?xml version="1.0"?>
-<object name="portal_controlpanel" meta_type="Plone Control Panel Tool">
+<object name="portal_controlpanel" meta_type="Plone Control Panel Tool"
+        i18n:domain="eea" xmlns:i18n="http://xml.zope.org/namespaces/i18n">
  <configlet title="Daviz Visualization" action_id="daviz" appId="eea.daviz"
     category="Products" condition_expr=""
     icon_expr="string:${portal_url}/++resource++eea.daviz.images/presentation_icon.png"
-    url_expr="string:${portal_url}/@@daviz-settings" visible="True">
+    url_expr="string:${portal_url}/@@daviz-settings" visible="True"
+    i18n:attributes="title">
   <permission>Manage portal</permission>
  </configlet>
 </object>
