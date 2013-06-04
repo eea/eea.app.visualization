@@ -323,6 +323,8 @@ class MultiDataProvenance(object):
 
     @property
     def isInheritedProvenance(self):
+        """ check if provenance is inherited
+        """
         anno = IAnnotations(self.context)
         anno_provenances = anno.get(ANNO_MULTIDATA, ({},))
 
@@ -359,9 +361,6 @@ class BlobMultiDataProvenance(MultiDataProvenance):
     """ Multiple Data Provenances
     """
     implements(IMultiDataProvenance)
-
-    def __init__(self, context):
-        self.context = context
 
     def copyrights(self):
         """ Parse owner and link from object rights field
