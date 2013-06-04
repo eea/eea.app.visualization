@@ -18,7 +18,8 @@ class IVisualizationViewResources(Interface):
 
     css = schema.List(
         title=_(u'Stylesheets'),
-        description=_(u'List of CSS resources to be included by daviz-view.html'),
+        description=\
+            _(u'List of CSS resources to be included by daviz-view.html'),
         value_type=schema.TextLine(title=u'CSS'),
         readonly=True
     )
@@ -32,7 +33,8 @@ class IVisualizationViewResources(Interface):
     )
     js = schema.List(
         title=_(u'Javascripts'),
-        description=_(u'List of JS resources to be included by daviz-view.html'),
+        description=\
+            _(u'List of JS resources to be included by daviz-view.html'),
         value_type=schema.TextLine(title=u'JS'),
         readonly=True
     )
@@ -50,7 +52,8 @@ class IVisualizationEditResources(Interface):
 
     css = schema.List(
         title=_(u'Stylesheets'),
-        description=_(u'List of CSS resources to be included by daviz-view.html'),
+        description=\
+            _(u'List of CSS resources to be included by daviz-view.html'),
         value_type=schema.TextLine(title=u'CSS'),
         readonly=True
     )
@@ -63,7 +66,8 @@ class IVisualizationEditResources(Interface):
         )
     js = schema.List(
         title=_(u'Javascripts'),
-        description=_(u'List of JS resources to be included by daviz-view.html'),
+        description=\
+            _(u'List of JS resources to be included by daviz-view.html'),
         value_type=schema.TextLine(title=u'JS'),
         readonly=True
     )
