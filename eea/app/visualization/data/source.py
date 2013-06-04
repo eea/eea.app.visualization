@@ -6,9 +6,12 @@
 """
 from zope.interface import implements
 from zope.annotation.interfaces import IAnnotations
+from zope.component import queryAdapter
 from persistent.dict import PersistentDict
-from eea.app.visualization.config import ANNO_DATA
-from eea.app.visualization.interfaces import IDataProvenance
+from eea.app.visualization.config import ANNO_DATA, ANNO_MULTIDATA
+from eea.app.visualization.interfaces import IDataProvenance, \
+                                            IMultiDataProvenance
+
 
 class DataProvenance(object):
     """ Abstract visualization data provenance metadata accessor/mutator
@@ -267,3 +270,116 @@ class BlobDataProvenance(object):
         owner, link = self.copyrights
         owner = value
         self.copyrights = (owner, link)
+
+def getRelevantProvenances(provenances):
+    """ remove empty provenances
+    """
+    return [{'title' : op.get('title',''),
+            'owner' : op.get('owner',''),
+            'link' : op.get('link','')} \
+            for op in provenances \
+            if len(op.get('title','')) > 0 or
+                len(op.get('link','')) > 0 or
+                len(op.get('owner','')) > 0]
+
+class MultiDataProvenance(object):
+    """ Multiple Data Provenances
+    """
+    implements(IMultiDataProvenance)
+
+    def __init__(self, context):
+        self.context = context
+
+    def defaultProvenances(self):
+        """ default provenances
+        """
+        return ()
+
+    def _getProvenances(self):
+        """ getter
+        """
+        anno = IAnnotations(self.context)
+        anno_provenances = anno.get(ANNO_MULTIDATA, ({},))
+
+        relevantProvenances = getRelevantProvenances(anno_provenances)
+
+        if len(relevantProvenances) > 0:
+            return relevantProvenances
+
+        return self.defaultProvenances()
+
+    def _setProvenances(self, value):
+        """ setter
+        """
+        oldProvenances = list(self._getProvenances())
+        relevantOldProvenances = getRelevantProvenances(oldProvenances)
+        relevantNewProvenances = getRelevantProvenances(value)
+
+        if relevantOldProvenances != relevantNewProvenances:
+            anno = IAnnotations(self.context)
+            anno[ANNO_MULTIDATA] = value
+
+    provenances = property(_getProvenances, _setProvenances)
+
+    @property
+    def isInheritedProvenance(self):
+        anno = IAnnotations(self.context)
+        anno_provenances = anno.get(ANNO_MULTIDATA, ({},))
+
+        relevantProvenances = getRelevantProvenances(anno_provenances)
+
+        if len(relevantProvenances) > 0:
+            return False
+
+        relatedProvenances = ()
+        relatedItems = self.context.getRelatedItems()
+        orderindex = 0
+        for item in relatedItems:
+            source = queryAdapter(item, IMultiDataProvenance)
+            item_provenances = getattr(source, 'provenances')
+            for item_provenance in item_provenances:
+                dict_item_provenance = dict(item_provenance)
+                if dict_item_provenance.get('title', '') != '' and \
+                    dict_item_provenance.get('link', '') != '' and \
+                    dict_item_provenance.get('owner', '') != '':
+                    dict_item_provenance['orderindex_'] = orderindex
+                    orderindex = orderindex + 1
+                    relatedProvenances = relatedProvenances + \
+                                        (dict_item_provenance,)
+        relatedProvenances = getRelevantProvenances(relatedProvenances)
+        defaultProvenances = self.defaultProvenances()
+        defaultProvenances = getRelevantProvenances(defaultProvenances)
+        if len(relatedProvenances) > 0 and \
+            relatedProvenances == defaultProvenances:
+            return True
+
+        return False
+
+class BlobMultiDataProvenance(MultiDataProvenance):
+    """ Multiple Data Provenances
+    """
+    implements(IMultiDataProvenance)
+
+    def __init__(self, context):
+        self.context = context
+
+    def copyrights(self):
+        """ Parse owner and link from object rights field
+        """
+        field = self.context.getField('rights')
+        rights = field.getAccessor(self.context)()
+        index = rights.find('<')
+        if index == -1:
+            return rights.strip(), ''
+        owner = rights[:index].strip()
+        link = rights[index:].replace('<', '').replace('>', '').strip()
+        return owner, link
+
+    def defaultProvenances(self):
+        """ default provenances
+        """
+        title = self.context.getField('title').getAccessor(self.context)()
+        link = self.copyrights()[1]
+        owner = self.copyrights()[0]
+
+        return ({'title': title, 'link': link, 'owner': owner},)

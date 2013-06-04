@@ -65,6 +65,27 @@
     factory=".source.BlobDataProvenance"
     />
 
+  <!-- Multiple data sources -->
+  <adapter
+    for="zope.interface.Interface"
+    provides="eea.app.visualization.interfaces.IMultiDataProvenance"
+    factory=".source.MultiDataProvenance"
+    />
+
+  <adapter
+    zcml:condition="installed plone.app.blob"
+    for="plone.app.blob.interfaces.IATBlobFile"
+    provides="eea.app.visualization.interfaces.IMultiDataProvenance"
+    factory=".source.BlobMultiDataProvenance"
+    />
+
+  <!-- Multiple data source schema extender -->
+  <adapter
+    zcml:condition="installed plone.app.blob"
+    for="plone.app.blob.interfaces.IATBlobFile"
+    factory="eea.daviz.content.schema.MultiDataProvenanceSchemaExtender"
+    />
+
   <!-- JSON adapters -->
   <browser:page
     for="eea.app.visualization.interfaces.IPossibleVisualization"

@@ -53,20 +53,27 @@
 
 <div tal:define="info here/@@data.info | python:{}" tal:condition="info" class="visualization-info">
 
-  <tal:source
-    define="source info/source | python:{}"
-    condition="source/url | nothing">
-    <h3 i18n:translate="">Data source</h3>
-    <a tal:attributes="href source/url"
-      tal:content="source/title | source/url" />
-  </tal:source>
+  <tal:provenances
+    define="provenances info/provenances | python:[]">
+    <h3 i18n:translate="">Data sources</h3>
+    <tal:provenance repeat="provenance provenances">
 
-  <tal:owner
-    define="owner info/owner | python:{}"
-    condition="owner/url | nothing" >
-    provided by <a tal:attributes="href owner/url"
-      tal:content="owner/title | owner/url" />
-  </tal:owner>
+      <tal:source
+        define="source provenance/source | python:{}"
+        condition="source/url | nothing">
+        <a tal:attributes="href source/url"
+          tal:content="source/title | source/url" />
+      </tal:source>
+
+      <tal:owner
+        define="owner provenance/owner | python:{}"
+        condition="owner/url | nothing" >
+        provided by <a tal:attributes="href owner/url"
+          tal:content="owner/title | owner/url" />
+      </tal:owner>
+      <br/>
+    </tal:provenance>
+  </tal:provenances>
 
 </div>
 

@@ -3,6 +3,7 @@
 from zope.interface import Interface
 from zope import schema
 
+
 class IDataProvenance(Interface):
     """ Data Provenance
     """
@@ -20,6 +21,10 @@ class IDataProvenance(Interface):
         title=u"Data source Organisation",
         description=u"Specify data source Organisation"
     )
+
+class IMultiDataProvenance(Interface):
+    """ Multiple Data Provenance
+    """
 
 class IVisualizationData(Interface):
     """ Visualization Data Adapter.

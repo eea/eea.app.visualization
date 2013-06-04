@@ -4,6 +4,8 @@ Changelog
 7.5-dev - (unreleased)
 ----------------------
 * Feature: Package localization enhanced [lepri]
+* Feature: Changed data provenance to allow multiple data provenances
+  [szabozo0 #9561]
 
 7.4 - (2013-05-20)
 ------------------
