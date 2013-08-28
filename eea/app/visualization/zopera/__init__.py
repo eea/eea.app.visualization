@@ -64,9 +64,9 @@ try:
     default_subpage_template = form.default_subpage_template
 except ImportError:
     try:
-        from zope import browserpage
-        ViewPageTemplateFile = browserpage.ViewPageTemplateFile
-        namedtemplate = browserpage.namedtemplate
+        from zope.browserpage import ViewPageTemplateFile
+        from zope.browserpage import namedtemplate
+        __pyflakes__ = (namedtemplate, ViewPageTemplateFile)
     except ImportError:
         from zope.app import pagetemplate
         ViewPageTemplateFile = pagetemplate.ViewPageTemplateFile
