@@ -3,6 +3,8 @@ Changelog
 
 7.6-dev - (unreleased)
 ----------------------
+* Bugfix: Increased max_length for column names
+  [szabozo0 refs #16684]
 
 7.5 - (2013-06-17)
 ------------------
