@@ -1,7 +1,6 @@
 """update long column names
 """
 import logging
-from Products.CMFCore.utils import getToolByName
 from eea.app.visualization.converter.interfaces import ITable2JsonConverter
 from zope.component import queryUtility
 from plone.i18n.normalizer.interfaces import IIDNormalizer
