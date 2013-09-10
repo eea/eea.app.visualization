@@ -3,6 +3,21 @@
   xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
   i18n_domain="eea">
 
+
+  <!-- * => 7.6 -->
+  <genericsetup:upgradeSteps
+    source="*"
+    destination="7.6"
+    profile="eea.app.visualization:default">
+
+    <genericsetup:upgradeStep
+      title="Update long column labels"
+      handler="eea.app.visualization.upgrades.evolve76.fix_long_column_labels"
+      />
+
+  </genericsetup:upgradeSteps>
+
+
   <!-- 6.2 => 7.0 -->
   <genericsetup:upgradeSteps
     source="6.2"
