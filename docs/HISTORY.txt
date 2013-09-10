@@ -1,8 +1,8 @@
 Changelog
 =========
 
-7.6-dev - (unreleased)
-----------------------
+7.6 - (2013-09-10)
+------------------
 * Bugfix: Increased max_length for column names; Added migration step
   [szabozo0 refs #16684]
 
