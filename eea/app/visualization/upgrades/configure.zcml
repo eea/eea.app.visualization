@@ -4,6 +4,20 @@
   i18n_domain="eea">
 
 
+  <!-- * => 7.7 -->
+  <genericsetup:upgradeSteps
+    source="*"
+    destination="7.7"
+    profile="eea.app.visualization:default">
+
+    <genericsetup:upgradeDepends
+      title="Import profile steps with changes: javascripts"
+      import_steps="jsregistry"
+      />
+
+  </genericsetup:upgradeSteps>
+
+
   <!-- * => 7.6 -->
   <genericsetup:upgradeSteps
     source="*"

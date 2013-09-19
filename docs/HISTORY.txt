@@ -3,6 +3,7 @@ Changelog
 
 7.7-dev - (unreleased)
 ----------------------
+* Change: Removed eea.jquery.js from jsregistry as it's no more required in Plone 4.3
 
 7.6 - (2013-09-10)
 ------------------
