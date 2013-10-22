@@ -1,343 +1,398 @@
+# Bitouzé Denis <dbitouze@wanadoo.fr>, 2013.
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: \n"
 "POT-Creation-Date: 2013-05-29 18:30+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2013-10-15 16:17+0200\n"
+"Last-Translator: Bitouzé Denis <dbitouze@wanadoo.fr>\n"
+"Language-Team: French <>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0\n"
 "Language-Code: en\n"
 "Language-Name: English\n"
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: DOMAIN\n"
+"Language: fr\n"
+"X-Generator: Lokalize 1.5\n"
 
 #: ../../visualization/views/data/interfaces.py:30
-msgid "(Simile-Exhibit only) Add additional external exhibit sources to be merged. Supported formats: 'Exhibit JSON', 'Google Spreadsheet' and 'RDF/XML'. See more details http://www.simile-widgets.org/wiki/Exhibit/Creating%2C_Importing%2C_and_Managing_Data#Conversion_at_Load_Time"
+msgid ""
+"(Simile-Exhibit only) Add additional external exhibit sources to be merged. "
+"Supported formats: 'Exhibit JSON', 'Google Spreadsheet' and 'RDF/XML'. See "
+"more details http://www.simile-widgets.org/wiki/Exhibit/Creating%2C_Importing%"
+"2C_and_Managing_Data#Conversion_at_Load_Time"
 msgstr ""
+"(Simile-Exhibit seulement) Ajouter des sources exhibit externes à fusionner. "
+"Formats supportés : « Exhibit JSON », « Google Spreadsheet » and « RDF/XML ». "
+"Pour plus de détails, voir http://www.simile-widgets.org/wiki/Exhibit/Creating"
+"%2C_Importing%2C_and_Managing_Data#Conversion_at_Load_Time"
 
 #: ../../visualization/views/data/interfaces.py:17
-msgid "<ul><li>Click on the top-left pencil to inspect and edit generate JSON.</li><li>Click on the table's columns headers to adjust their labels (user friendly-names)</li></ul>"
+msgid ""
+"<ul><li>Click on the top-left pencil to inspect and edit generate JSON.</li><"
+"li>Click on the table's columns headers to adjust their labels (user "
+"friendly-names)</li></ul>"
 msgstr ""
+"<ul><li>Cliquer sur le crayon en haut à gauche pour examiner and éditer le "
+"JSON généré.</li><li>Cliquer sur les entêtes de colonnes du tableau pour "
+"ajuster leurs labels (noms plus conviviaux)</li></ul>"
 
 #: ../../visualization/facets/add.py:55
 msgid "Add"
-msgstr ""
+msgstr "Ajouter"
 
 #: ../../visualization/views/data/interfaces.py:28
 msgid "Additional sources"
-msgstr ""
+msgstr "Sources additionnelles"
 
 #: ../../visualization/controlpanel/controlpanel.py:22
 msgid "Annotations"
-msgstr ""
+msgstr "Annotations"
 
 #: ../../visualization/facets/edit.py:81
 #: ../../visualization/views/data/edit.py:29
 #: ../../visualization/views/edit.py:65
 msgid "Changes saved"
-msgstr ""
+msgstr "Modifications sauvées"
 
 #: ../../visualization/browser/zpt/edit.pt:33
 msgid "Check these ${data-examples} or read ${prepare-data}"
-msgstr ""
+msgstr "Examiner ${data-examples} ou lire ${prepare-data}"
 
 #: ../../visualization/facets/list/interfaces.py:90
 msgid "Collapsed"
-msgstr ""
+msgstr "Plié"
 
 #: ../../visualization/facets/list/interfaces.py:83
 msgid "Collapsible"
-msgstr ""
+msgstr "Pliable"
 
 #: ../../visualization/facets/list/interfaces.py:97
 msgid "Color coder"
-msgstr ""
+msgstr "Codeur de couleurs"
 
 #: ../../visualization/browser/zpt/edit.pt:18
 msgid "Configure Visualization"
-msgstr ""
+msgstr "Configurer la visualisation"
 
 #: ../../visualization/controlpanel/controlpanel.py:23
-msgid "Data annotations - lowercase - to be ignored/handled as annotations when processing data tables. One per line (e.g. 'n/a', 'n.a.', ':')"
+msgid ""
+"Data annotations - lowercase - to be ignored/handled as annotations when "
+"processing data tables. One per line (e.g. 'n/a', 'n.a.', ':')"
 msgstr ""
+"Annotations de données — en minuscules — à ignorer/considérer comme "
+"annotations lors du traitement des tableaux de données (par exemple « n/a », "
+"« n/a »,  « : »)"
 
 #: ../../visualization/views/data/edit.py:26
 #: ../../visualization/views/data/view.py:12
 msgid "Data settings"
-msgstr ""
+msgstr "Configuration des données"
 
 #: ../../visualization/browser/zpt/view.pt:59
 msgid "Data source"
-msgstr ""
+msgstr "Source des données"
 
 #: ../../visualization/views/data/interfaces.py:16
 msgid "Data table"
-msgstr ""
+msgstr "Tableau des données"
 
 #: ../../visualization/profiles/default/controlpanel.xml
 msgid "Daviz Visualization"
-msgstr ""
+msgstr "Visualisation Daviz"
 
 #: ../../visualization/views/data/edit.py:151
 #: ../../visualization/views/edit.py:68
 msgid "Disable"
-msgstr ""
+msgstr "Désactiver"
 
 #: ../../visualization/profiles/default/actions.xml
 msgid "Disable Visualization"
-msgstr ""
+msgstr "Désactiver la visualisation"
 
 #: ../../visualization/browser/zpt/view.pt:74
 msgid "Download data"
-msgstr ""
+msgstr "Télécharger les données"
 
 #: ../../visualization/profiles/default/actions.xml
 msgid "Edit Visualizations"
-msgstr ""
+msgstr "Éditer les visualisations"
 
 #: ../../visualization/controlpanel/controlpanel.py:35
 msgid "Enable / Disable"
-msgstr ""
+msgstr "Activer / désactiver"
 
 #: ../../visualization/profiles/default/actions.xml
 msgid "Enable Visualization"
-msgstr ""
+msgstr "Activer la visualisation"
 
 #: ../../visualization/browser/app/edit.py:193
 msgid "Exhibit facet deleted"
-msgstr ""
+msgstr "Facette Exhibit supprimée"
 
 #: ../../visualization/facets/interfaces.py:35
 msgid "Exhibit facet type"
-msgstr ""
+msgstr "Type de facette Exhibit"
 
 #: ../../visualization/browser/app/edit.py:155
 msgid "Exhibit facets settings not saved: Nothing to do"
-msgstr ""
+msgstr "Configuration de facettes Exhibit non enregistrée : rien à faire"
 
 #: ../../visualization/browser/app/edit.py:176
 msgid "Exhibit facets settings saved"
-msgstr ""
+msgstr "Configuration de facettes Exhibit enregistrée"
 
 #: ../../visualization/browser/res/interfaces.py:27
 msgid "External or required javascripts"
-msgstr ""
+msgstr "Javascripts externes ou requis"
 
 #: ../../visualization/browser/res/interfaces.py:12
 msgid "External or required stylesheets"
-msgstr ""
+msgstr "Feuilles de style externes ou requis"
 
 #: ../../visualization/facets/add.py:89
 msgid "Facet added"
-msgstr ""
+msgstr "Facette ajoutée"
 
 #: ../../visualization/facets/interfaces.py:24
 msgid "Facet id. Same as the key id in your JSON. (e.g. publishDate)"
 msgstr ""
+"Identifiant de facette. Identique à l'identifiant dans votre JSON (par "
+"exemple publishDate)"
 
 #: ../../visualization/facets/interfaces.py:34
 msgid "Facet type"
-msgstr ""
+msgstr "Type de facette"
 
 #: ../../visualization/facets/list/interfaces.py:65
 msgid "Fixed Order"
-msgstr ""
+msgstr "Ordre fixé"
 
 #: ../../visualization/browser/zpt/view.pt:75
 msgid "Formats suitable for human consumption"
-msgstr ""
+msgstr "Formats lisibles par des humains"
 
 #: ../../visualization/browser/zpt/view.pt:85
 msgid "Formats suitable for machine-to-machine communication"
-msgstr ""
+msgstr "Formats propres à la communication entre ordinateurs"
 
 #: ../../visualization/facets/list/interfaces.py:104
 msgid "Formatter"
-msgstr ""
+msgstr "Format"
 
 #: ../../visualization/facets/interfaces.py:28
 msgid "Friendly name"
-msgstr ""
+msgstr "Nom convivial"
 
 #: ../../visualization/facets/list/interfaces.py:13
 msgid "Height"
-msgstr ""
+msgstr "Hauteur"
 
 #: ../../visualization/facets/interfaces.py:23
 msgid "Id"
-msgstr ""
+msgstr "Identifiant"
 
 #: ../../visualization/facets/interfaces.py:51
 msgid "Is this facet visible?"
-msgstr ""
+msgstr "Cette facette est-elle visible ?"
 
 #: ../../visualization/browser/res/interfaces.py:34
 msgid "Javascripts"
-msgstr ""
+msgstr "Javascripts"
 
 #: ../../visualization/facets/interfaces.py:46
 msgid "Label for exhibit facet"
-msgstr ""
+msgstr "Label de facette Exhibit"
 
 #: ../../visualization/facets/interfaces.py:29
 msgid "Label for facet (e.g. Effective Date)"
-msgstr ""
+msgstr "Label de facette Exhibit (par exemple « Date Effective »)"
 
 #: ../../visualization/views/interfaces.py:12
 msgid "Label for visualization view"
-msgstr ""
+msgstr "Label de la vue de visualisation"
 
 #: ../../visualization/browser/res/interfaces.py:21
 msgid "List of CSS resources to be included by daviz-view.html"
-msgstr ""
+msgstr "Liste des resources CSS devant être incluses par daviz-view.html"
 
 #: ../../visualization/browser/res/interfaces.py:45
-msgid "List of CSS resources to be included in edit mode before CSS reources provided by css attribute"
+msgid ""
+"List of CSS resources to be included in edit mode before CSS reources "
+"provided by css attribute"
 msgstr ""
+"Liste des resources CSS devant être incluses dans le mode « édition » avant "
+"les ressources CSS fournies par les attributs css"
 
 #: ../../visualization/browser/res/interfaces.py:13
-msgid "List of CSS resources to be included in view mode before CSS reources provided by css attribute"
+msgid ""
+"List of CSS resources to be included in view mode before CSS reources "
+"provided by css attribute"
 msgstr ""
+"Liste des resources CSS devant être incluses dans le mode « vue » avant les "
+"ressources CSS fournies par les attributs css"
 
 #: ../../visualization/browser/res/interfaces.py:35
 msgid "List of JS resources to be included by daviz-view.html"
-msgstr ""
+msgstr "Liste des resources JS devant être incluses par daviz-view.html"
 
 #: ../../visualization/browser/res/interfaces.py:59
-msgid "List of JS resources to be included in edit mode before JS reources provided by js attribute"
+msgid ""
+"List of JS resources to be included in edit mode before JS reources provided "
+"by js attribute"
 msgstr ""
+"Liste des resources JS devant être incluses dans le mode « édition » avant "
+"les ressources JS fournies par les attributs js"
 
 #: ../../visualization/browser/res/interfaces.py:28
-msgid "List of JS resources to be included in view mode before JS reources provided by js attribute"
+msgid ""
+"List of JS resources to be included in view mode before JS reources provided "
+"by js attribute"
 msgstr ""
+"Liste des resources JS devant être incluses dans le mode « vue » avant les "
+"ressources JS fournies par les attributs js"
 
 #: ../../visualization/facets/list/interfaces.py:51
 msgid "Missing label"
-msgstr ""
+msgstr "Label manquant"
 
 #: ../../visualization/views/meta.py:61
 msgid "No name provided"
-msgstr ""
+msgstr "Aucun nom fourni"
 
 #: ../../visualization/facets/edit.py:71
 #: ../../visualization/views/data/edit.py:137
 #: ../../visualization/views/edit.py:47
 msgid "Save"
-msgstr ""
+msgstr "Enregistrer"
 
 #: ../../visualization/facets/list/interfaces.py:74
 msgid "Scroll"
-msgstr ""
+msgstr "Défilement"
 
 #: ../../visualization/facets/list/interfaces.py:58
 msgid "Selection"
-msgstr ""
+msgstr "Sélection"
 
 #: ../../visualization/facets/list/interfaces.py:42
 msgid "Show missing"
-msgstr ""
+msgstr "Afficher ce qui manque"
 
 #: ../../visualization/facets/list/interfaces.py:31
 msgid "Sort direction"
-msgstr ""
+msgstr "Sens de tri"
 
 #: ../../visualization/facets/list/interfaces.py:20
 msgid "Sort mode"
-msgstr ""
+msgstr "Mode de tri"
 
 #: ../../visualization/browser/res/interfaces.py:20
 msgid "Stylesheets"
-msgstr ""
+msgstr "Feuilles de style"
 
 #: ../../visualization/views/data/edit.py:161
 #: ../../visualization/views/edit.py:78
 msgid "View disabled"
-msgstr ""
+msgstr "Vue désactivée"
 
 #: ../../visualization/browser/app/edit.py:206
 msgid "View enabled"
-msgstr ""
+msgstr "Vue activée"
 
 #: ../../visualization/browser/app/edit.py:237
 msgid "Views order changed"
-msgstr ""
+msgstr "Ordre des vues modifié"
 
 #: ../../visualization/browser/app/edit.py:221
 msgid "Views order not saved: Nothing to do"
-msgstr ""
+msgstr "Ordre des vues non enregistré : rien à faire"
 
 #: ../../visualization/browser/app/edit.py:217
 msgid "Views settings not saved: Nothing to do"
-msgstr ""
+msgstr "Configuration des vues non enregistrée : rien à faire"
 
 #: ../../visualization/facets/interfaces.py:50
 msgid "Visible"
-msgstr ""
+msgstr "Visible"
 
 #: ../../visualization/browser/zpt/edit.pt:23
 msgid "Warning:"
-msgstr ""
+msgstr "Avertissement:"
 
 #: ../../visualization/browser/zpt/view.pt:93
 msgid "XML with Schema"
-msgstr ""
+msgstr "XML avec schéma"
 
 #: ../../visualization/facets/list/interfaces.py:91
 msgid "collapsed"
-msgstr ""
+msgstr "plié"
 
 #: ../../visualization/facets/list/interfaces.py:84
 msgid "collapsible"
-msgstr ""
+msgstr "pliable"
 
 #: ../../visualization/facets/list/interfaces.py:98
 msgid "color coder"
-msgstr ""
+msgstr "codeur de couleurs"
 
 #: ../../visualization/browser/zpt/edit.pt:30
 msgid "data examples"
-msgstr ""
+msgstr "Exemples de données"
 
 #: ../../visualization/facets/list/interfaces.py:105
 msgid "formatter"
-msgstr ""
+msgstr "format"
 
 #: ../../visualization/facets/list/interfaces.py:14
 msgid "height of the facet's body, e.g., '20em', '200px'"
-msgstr ""
+msgstr "Hauteur de corps de la facette, « 20em », « 200px »"
 
 #: ../../visualization/browser/zpt/edit.pt:34
 msgid "how to prepare data"
-msgstr ""
+msgstr "Comment préparer les données"
 
 #: ../../visualization/facets/list/interfaces.py:21
 msgid "how to sort the choices in the facet"
-msgstr ""
+msgstr "Comment trier les choix dans la facette"
 
 #: ../../visualization/facets/list/interfaces.py:75
-msgid "if true, facet values are in a scrollable window of fixed size. If false, all facet values are shown in as much space as needed, without a scroll bar."
+msgid ""
+"if true, facet values are in a scrollable window of fixed size. If false, all "
+"facet values are shown in as much space as needed, without a scroll bar."
 msgstr ""
+"Si vrai, les valeurs de la facette sont affichées dans une fenêtre de taille "
+"fixe « défilable ». Si faux, toutes les valeurs de la facette sont affichées "
+"dans autant d'espace que nécessaire, sans barre de défilement."
 
 #: ../../visualization/facets/list/interfaces.py:52
 msgid "missing label"
-msgstr ""
+msgstr "label manquant"
 
 #: ../../visualization/facets/list/interfaces.py:59
 msgid "semicolon-separated list of default selections"
-msgstr ""
+msgstr "liste des sélections par défaut séparées par des points-virgules"
 
 #: ../../visualization/facets/list/interfaces.py:66
-msgid "semicolon-separated list of values specifying a fixed order for sorting the choices in the facet, e.g., 'Mo;Tu;We;Th;Fr' for weekdays"
+msgid ""
+"semicolon-separated list of values specifying a fixed order for sorting the "
+"choices in the facet, e.g., 'Mo;Tu;We;Th;Fr' for weekdays"
 msgstr ""
+"liste des valeurs spécifiant un ordre fixe pour les choix de  tri, séparées "
+"par des points-virgules, par exemple « lu;ma;me;je;ve » pour les jours de la "
+"semaine"
 
 #: ../../visualization/facets/list/interfaces.py:43
-msgid "whether to provide a selection for items missing the facet -- this will suppress the '(missing this field)' text"
+msgid ""
+"whether to provide a selection for items missing the facet -- this will "
+"suppress the '(missing this field)' text"
 msgstr ""
+"s'il convient de fournir une sélection des items manquant à la facette - ce "
+"supprimera le texte « (il manque ce champ) »"
 
 #: ../../visualization/facets/list/interfaces.py:32
 msgid "whether to reverse the sort direction"
-msgstr ""
+msgstr "s'il convient d'inverser le sens du tri"
+
 
