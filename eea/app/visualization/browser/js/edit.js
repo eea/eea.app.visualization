@@ -64,7 +64,7 @@ DavizEdit.Confirm = {
       modal: true,
       dialogClass: 'daviz-confirm-overlay',
       open: function(evt, ui){
-        var buttons = jQuery(this).parent().find('button');
+        var buttons = jQuery(this).parent().find("button[title!='close']");
         buttons.attr('class', 'btn');
         jQuery(buttons[0]).addClass('btn-danger');
         jQuery(buttons[1]).addClass('btn-inverse');
@@ -694,7 +694,7 @@ DavizEdit.View.prototype = {
         modal: true,
         dialogClass: 'daviz-confirm-overlay',
         open: function(evt, ui){
-          var buttons = jQuery(this).parent().find('button');
+          var buttons = jQuery(this).parent().find("button[title!='close']");
           buttons.attr('class', 'btn');
           jQuery(buttons[0]).addClass('btn-danger');
           jQuery(buttons[1]).addClass('btn-inverse');
@@ -841,7 +841,7 @@ DavizEdit.Annotations.prototype = {
         minWidth: 600,
         closeOnEscape: false,
         open: function(evt, ui){
-          var buttons = jQuery(this).parent().find('button');
+          var buttons = jQuery(this).parent().find("button[title!='close']");
           buttons.attr('class', 'btn');
           jQuery(buttons[0]).addClass('btn-inverse');
           jQuery(buttons[1]).addClass('btn-success');
@@ -1159,7 +1159,7 @@ DavizEdit.JsonGrid.prototype = {
         dialogClass: 'daviz-confirm-overlay',
         width: 400,
         open: function(evt, ui){
-          var buttons = jQuery(this).parent().find('button');
+          var buttons = jQuery(this).parent().find("button[title!='close']");
           buttons.attr('class', 'btn');
           jQuery(buttons[0]).addClass('btn-inverse');
           jQuery(buttons[1]).addClass('btn-success');
