@@ -1,6 +1,9 @@
 Changelog
 =========
 
+7.9-dev - (unreleased)
+----------------------
+
 7.8 - (2013-10-24)
 ------------------
 * Bug fix: Fixed modal's close button ui issues
