@@ -32,7 +32,7 @@ jQuery(document).ready(function(){
   var api = jQuery("ul.chart-tabs").data('tabs');
   jQuery(window).bind('hashchange', function(evt){
     jQuery.each(api.getTabs(), function(idx, tab){
-      if(jQuery(tab).attr('href') == window.location.hash){
+      if(jQuery(tab).attr('href') == window.location.hash.split('?')[0]){
         api.click(idx);
         return false;
       }

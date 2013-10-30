@@ -3,6 +3,8 @@ Changelog
 
 7.9-dev - (unreleased)
 ----------------------
+* Feature: Allow query in the url after the hash with the chart id
+  [szabozo0 refs #17066]
 
 7.8 - (2013-10-24)
 ------------------
