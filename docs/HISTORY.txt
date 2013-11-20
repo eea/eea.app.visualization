@@ -1,6 +1,9 @@
 Changelog
 =========
 
+8.0-dev - (unreleased)
+----------------------
+
 7.9 - (2013-11-20)
 ------------------
 * Feature: Allow query in the url after the hash with the chart id
