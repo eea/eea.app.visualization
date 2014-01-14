@@ -55,3 +55,60 @@
 .daviz-data-table .slick-row.even {
   padding:0;
 }
+
+
+/* fix bug #17970:
+   big header on Daviz/Edit Visualisations page.
+   Also fix the same bug for EEA portal */
+body,
+#portal-header dt,
+li {
+  line-height: normal;
+}
+
+#visual-portal-wrapper .row {
+  margin-left: 0px;
+}
+
+#portal-header dl {
+  margin-bottom: 0px;
+}
+
+#portal-header form {
+  margin: 0;
+}
+
+#portal-header input[type="text"] {
+  margin-bottom: 0;
+  box-shadow: 0px 0px 0px #fff;
+  height: 29px;
+}
+
+#portal-header input[type="text"]:focus {
+  outline-color: rgb(229, 151, 0);
+  border-color: rgb(238, 238, 238);
+}
+
+#portal-header input {
+  font-size: 13px;
+  line-height: normal;
+}
+
+.searchSection label {
+  display: inline;
+  font-size: 13px;
+  line-height: normal;
+}
+
+#portal-header input[type="checkbox"] {
+  margin-top: 0;
+}
+
+.template-daviz-edit-html #portal-header input[type="text"] {
+  height: 16px;
+  border-radius: 0px;
+}
+
+.template-daviz-edit-html #portal-header input[type="text"] {
+  padding: 0;
+}
