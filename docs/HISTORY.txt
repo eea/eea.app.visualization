@@ -5,6 +5,8 @@ Changelog
 ----------------------
 * Bug fix: Fix big header on "Edit Visualisations"
   [soniaand refs #17970]
+* Feature: adding Sphinx-generated documentation in Page Template format
+  [batradav refs #9502]
 
 8.0 - (2014-01-14)
 ------------------
