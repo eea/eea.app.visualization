@@ -103,8 +103,8 @@ Links
 
 1. Simile Wiki - Exhibit 2.0: http://simile.mit.edu/wiki/Exhibit
 2. Simile widgets: http://www.simile-widgets.org/exhibit
-3. EEA Daviz howto: https://svn.eionet.europa.eu/projects/Zope/wiki/HowToDaviz
-4. EEA Daviz backlog wiki: https://svn.eionet.europa.eu/projects/Zope/wiki/DaViz
+3. EEA Daviz howto: http://taskman.eionet.europa.eu/projects/zope/wiki/HowToDaviz
+4. EEA Daviz backlog wiki: http://taskman.eionet.europa.eu/projects/zope/wiki/DaViz
 5. Google charts: http://code.google.com/apis/chart/
 
 

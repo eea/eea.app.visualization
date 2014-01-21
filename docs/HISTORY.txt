@@ -7,6 +7,8 @@ Changelog
   [soniaand refs #17970]
 * Feature: adding Sphinx-generated documentation in Page Template format
   [batradav refs #9502]
+* Bug fix: Updated old URLs pointing Trac
+  [ghicaale refs #18003]
 
 8.0 - (2014-01-14)
 ------------------
