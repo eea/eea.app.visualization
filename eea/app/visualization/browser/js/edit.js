@@ -291,8 +291,8 @@ DavizEdit.FacetAdd.prototype = {
 
    var plus = jQuery("<span>")
       .attr('title', 'Add new facet')
-      .text('+')
-      .addClass('ui-icon').addClass('ui-icon-plus').addClass('ui-corner-all');
+//      .text('+')
+      .addClass('eea-icon').addClass('eea-icon-plus').addClass('ui-corner-all');
 
     self.facet.prepend(plus);
 
@@ -381,29 +381,28 @@ DavizEdit.Facet.prototype = {
     var self = this;
 
     var msg = 'Hide facet';
-    var css = 'ui-icon-hide';
+    var css = 'eea-icon-eye';
     if(!self.visible){
       msg = 'Show facet';
-      css = 'ui-icon-show';
+      css = 'eea-icon-eye-slash';
       title.addClass('hidden');
     }
     var icon = jQuery('<div>')
-      .html('h')
       .attr('title', msg)
-      .addClass('ui-icon')
+      .addClass('eea-icon daviz-menuicon')
       .addClass(css);
 
     icon.click(function(){
       if(self.visible){
         self.visible = false;
-        icon.removeClass('ui-icon-hide')
-          .addClass('ui-icon-show')
+        icon.removeClass('eea-icon-eye')
+          .addClass('eea-icon-eye-slash')
           .attr('title', 'Show facet');
           title.addClass('hidden');
       }else{
         self.visible = true;
-        icon.removeClass('ui-icon-show')
-          .addClass('ui-icon-hide')
+        icon.removeClass('eea-icon-eye-slash')
+          .addClass('eea-icon-eye')
           .attr('title', 'Hide facet');
           title.removeClass('hidden');
       }
@@ -416,10 +415,9 @@ DavizEdit.Facet.prototype = {
   delete_icon: function(title){
     var self = this;
     var icon = jQuery('<div>')
-      .html('x')
       .attr('title', 'Delete facet')
-      .addClass('ui-icon')
-      .addClass('ui-icon-trash');
+      .addClass('eea-icon daviz-menuicon')
+      .addClass('eea-icon-trash-o');
 
     icon.click(function(){
       var msg = "Are you sure you want to delete facet: <strong>" + self.facet.attr('id') + "</strong>. ";
@@ -1029,7 +1027,7 @@ DavizEdit.JsonGrid.prototype = {
         header: {
           buttons: [
             {
-              image: "++resource++slickgrid-images/pencil.png",
+              cssClass: "eea-icon eea-icon-pencil",
               command: "editJSON",
               tooltip: "Inspect and edit generate JSON"
             }

@@ -3,6 +3,8 @@ Changelog
 
 8.2-dev - (unreleased)
 ----------------------
+* Feature: Use FontAwesome icons on Data Settings and Exhibit facets configuration
+  [batradav reds #17861]
 
 8.1 - (2014-01-22)
 ------------------

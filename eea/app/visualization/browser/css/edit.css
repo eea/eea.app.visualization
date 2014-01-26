@@ -15,10 +15,11 @@
   width: 100%;
 }
 
-.daviz-facet-add .ui-icon-plus {
+.daviz-facet-add .eea-icon-plus {
   border: 2px solid #CCC;
   float: right;
   margin-bottom: 1em;
+  cursor: pointer;
 }
 
 /* Customize jquery.ui
@@ -386,4 +387,9 @@ h1 {
     font-size:90%;
     font-weight:normal;
     margin-top:5px;
+}
+
+.daviz-menuicon {
+    float:right;
+    cursor:pointer;
 }
