@@ -1027,7 +1027,7 @@ DavizEdit.JsonGrid.prototype = {
         header: {
           buttons: [
             {
-              cssClass: "eea-icon eea-icon-pencil",
+              image: "++resource++slickgrid-images/pencil.png",
               command: "editJSON",
               tooltip: "Inspect and edit generate JSON"
             }
