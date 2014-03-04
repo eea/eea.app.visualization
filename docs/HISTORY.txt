@@ -3,11 +3,13 @@ Changelog
 
 8.3-dev - (unreleased)
 ----------------------
+* Fixed version in metadata.xml
+  [szabozo0]
 
 8.2 - (2014-02-03)
 ------------------
 * Feature: Use FontAwesome icons on Data Settings and Exhibit facets configuration
-  [batradav reds #17861]
+  [batradav refs #17861]
 
 8.1 - (2014-01-22)
 ------------------
