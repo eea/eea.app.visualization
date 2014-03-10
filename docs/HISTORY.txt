@@ -1,8 +1,8 @@
 Changelog
 =========
 
-8.3-dev - (unreleased)
-----------------------
+8.3 - (2014-03-10)
+------------------
 * Fixed version in metadata.xml
   [szabozo0]
 
