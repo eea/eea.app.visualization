@@ -24,6 +24,13 @@
 
   <browser:page
     for="eea.app.visualization.interfaces.IVisualizationEnabled"
+    name="daviz-tutorials.html"
+    template="zpt/tutorials.pt"
+    permission="eea.app.visualization.configure"
+    />
+
+  <browser:page
+    for="eea.app.visualization.interfaces.IVisualizationEnabled"
     name="daviz-fallback.html"
     template="zpt/fallback.pt"
     permission="zope2.View"
@@ -142,6 +149,11 @@
   />
 
   <browser:resource
+    name="eea.daviz.tutorials.css"
+    file="./css/tutorials.css"
+  />
+
+  <browser:resource
     name="eea.daviz.common.js"
     file="./js/common.js"
    />
@@ -154,6 +166,11 @@
   <browser:resource
     name="eea.daviz.edit.js"
     file="./js/edit.js"
+   />
+
+  <browser:resource
+    name="eea.daviz.tutorials.js"
+    file="./js/tutorials.js"
    />
 
   <browser:resourceDirectory

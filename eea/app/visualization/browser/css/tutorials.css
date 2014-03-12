@@ -1,0 +1,10 @@
+#daviz-tutorials iframe {
+    float:left;
+}
+
+#daviz-tutorials .daviz-tutorials-main-playlist{
+    float: left;
+    overflow:auto;
+    padding-left: 10px;
+    background-color: rgb(26,26,26);
+}

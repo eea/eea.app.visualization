@@ -2,6 +2,7 @@
 <object name="portal_javascripts">
  <javascript id="daviz-view.js" expression="python:'daviz-view.html' in request.URL0" />
  <javascript id="daviz-edit.js" expression="python:'daviz-edit.html' in request.URL0" />
+ <javascript id="++resource++eea.daviz.tutorials.js" expression="python:'daviz-tutorials.html' in request.URL0" />
 
  <!-- Removed for Plone 4.3 -->
  <javascript id="++resource++eea.jquery.js" remove="True"/>
