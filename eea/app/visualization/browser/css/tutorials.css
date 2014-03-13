@@ -2,9 +2,61 @@
     float:left;
 }
 
-#daviz-tutorials .daviz-tutorials-main-playlist{
+#daviz-tutorials .daviz-tutorials-search{
     float: left;
-    overflow:auto;
     padding-left: 10px;
     background-color: rgb(26,26,26);
+    width:500px;
+}
+#daviz-tutorials .daviz-tutorials-main-playlist{
+    overflow:auto;
+}
+
+#daviz-tutorials img {
+    height:40px;
+    float:left;
+    border:2px solid rgb(26,26,26);
+}
+
+#daviz-tutorials .daviz-tutorials-videos .daviz-tutorials-videoitem{
+    height:40px;
+    padding:10px;
+    color: #cacaca;
+    cursor: pointer;
+}
+
+#daviz-tutorials .daviz-tutorials-videos .daviz-tutorials-videoitem:hover{
+    background-color: #525252;    
+}
+
+#daviz-tutorials .daviz-tutorials-videos .daviz-tutorials-videoitem div{
+    float:left;
+    width:400px;
+}
+
+#daviz-tutorials .daviz-tutorials-videos .daviz-tutorials-videoitem.hidden-item {
+    display:none;
+}
+
+#daviz-tutorials .daviz-tutorials-videos .daviz-tutorials-videoitem.nowplaying{
+    background-color: #3a3a3a;
+}
+
+#daviz-tutorials .daviz-tutorials-videos .daviz-tutorials-videoitem.nowplaying img{
+    border:2px solid red;
+}
+
+#daviz-tutorials .daviz-tutorials-search a{
+    color: #cacaca;
+    text-decoration: none;
+    border:0;
+}
+
+#daviz-tutorials .daviz-tutorials-tagcloud a.selected {
+    font-weight: bold;
+}
+
+#daviz-tutorials .daviz-tutorials-tagcloud a:hover {
+    font-weight: bold;
+    color: #cacaca !important;
 }

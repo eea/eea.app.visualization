@@ -3,6 +3,8 @@ Changelog
 
 8.4-dev - (unreleased)
 ----------------------
+* Feature: WIP: Added screencasts tutorial page
+  [szabozo0 refs #18400]
 
 8.3 - (2014-03-10)
 ------------------
@@ -290,4 +292,3 @@ Changelog
   the visualization libraries usable as standalone packages outside
   eea.daviz bundle
   [voineali #4996]
-
