@@ -36,15 +36,15 @@ var video_tags = {
     "Embed a static image - Embedding in webpages | DaViz tutorial" : "view, embed, chart",
     "Customize CSS when embedding - Embedding in webpages | DaViz tutorial" : "view, embed, csscustomization",
     "Embed and use DaViz in EEA indicators | DaViz tutorial" : "view, embed, chart, dashboard, indicators"
-}
+};
 
 function updateTagCloud(tags){
-    tag_data = jQuery(".daviz-tutorials-tagcloud").data("tags")
+    tag_data = jQuery(".daviz-tutorials-tagcloud").data("tags");
     for (i = 0; i < tags.length; i++) {
-        var tag = tags[i].trim()
+        var tag = tags[i].trim();
         if (tag !== "") {
             if (tag_data[tag] === undefined) {
-                tag_data[tag] = 0
+                tag_data[tag] = 0;
             }
             tag_data[tag] ++;
         }
@@ -56,13 +56,13 @@ function updateTagCloud(tags){
     });
     sorted_tags.sort(function (a,b){
         if (a.count > b.count) {
-            return -1
+            return -1;
         }
         else if (a.count < b.count) {
-            return 1
+            return 1;
         }
         else {
-            return 0
+            return 0;
         }
     });
     jQuery(".daviz-tutorials-tagcloud")
@@ -73,7 +73,7 @@ function updateTagCloud(tags){
             .attr("tag", sorted_tags[i].tag)
             .attr("href", "daviz-tutorials.html#" + sorted_tags[i].tag)
             .text(sorted_tags[i].tag + "(" + sorted_tags[i].count+ ") ")
-            .appendTo(".daviz-tutorials-tagcloud")
+            .appendTo(".daviz-tutorials-tagcloud");
     }
 }
 
@@ -81,30 +81,31 @@ jQuery(document).ready(function(){
     jQuery(window).bind('hashchange', function(evt){
         var hash = window.location.hash;
         if (hash === "") {
-            hash = "#all tutorials"
+            hash = "#all tutorials";
         }
         hash = hash.substr(1);
         jQuery(".daviz-tutorials-tagcloud a")
-            .removeClass("selected")
+            .removeClass("selected");
         jQuery(".daviz-tutorials-tagcloud a[tag='" + hash + "']")
-            .addClass("selected")
+            .addClass("selected");
         jQuery(".daviz-tutorials-videoitem")
             .addClass("hidden-item")
-            .removeClass("nowplaying")
+            .removeClass("nowplaying");
         jQuery("#daviz-tutorials iframe")
-            .attr("src", "")
+            .attr("src", "");
         jQuery.each(jQuery(".daviz-tutorials-videoitem"), function(idx, item){
             item = jQuery(item);
             if (jQuery.inArray(hash, item.data("tags")) !== -1) {
                 if (jQuery("#daviz-tutorials iframe").attr("src") === ""){
                     item.addClass("nowplaying");
                     jQuery("#daviz-tutorials iframe")
-                        .attr("src", "http://www.youtube.com/embed/"+item.attr("videoid"))
+                        .attr("src", "http://www.youtube.com/embed/"+item.attr("videoid"));
                 }
                 item.removeClass("hidden-item");
             }
         });
-    })
+    });
+
     jQuery(window).trigger('hashchange');
     var playlists = ["PLVPSQz7ahsByeq8nVKC7TT9apArEXBrV0", "PLVPSQz7ahsBxbe8pwzFWLQuvDSP9JFn8I"];
     jQuery("<iframe>")
@@ -113,69 +114,67 @@ jQuery(document).ready(function(){
         .attr("frameborder", 0)
         .attr("allowfullscreen", true)
         .attr("src", "")
-        .appendTo("#daviz-tutorials")
+        .appendTo("#daviz-tutorials");
 
     jQuery("<div>")
         .addClass("daviz-tutorials-search")
         .css("height", jQuery("#daviz-tutorials iframe").attr("height"))
-        .appendTo("#daviz-tutorials")
+        .appendTo("#daviz-tutorials");
 
     jQuery("<div>")
         .addClass("daviz-tutorials-tagcloud")
         .data("tags", {})
         .css("height", 100)
-        .appendTo(".daviz-tutorials-search")
+        .appendTo(".daviz-tutorials-search");
 
     jQuery("<div>")
         .addClass("daviz-tutorials-main-playlist")
         .css("height", jQuery("#daviz-tutorials iframe").attr("height") - 100)
-        .appendTo(".daviz-tutorials-search")
+        .appendTo(".daviz-tutorials-search");
 
-       for (var i = 0; i < playlists.length; i++){
-        jQuery.getJSON("http://gdata.youtube.com/feeds/api/playlists/" + playlists[i] + "?v=2&alt=jsonc&orderby=position", function(data){
+    jQuery.each(playlists, function(playlist_idx, playlist){
+        jQuery.getJSON("http://gdata.youtube.com/feeds/api/playlists/" + playlist + "?v=2&alt=jsonc&orderby=position", function(data){
             var div = jQuery("<div>")
                 .addClass("daviz-tutorials-playlist")
                 .attr("playlistid", data.data.id)
-                .appendTo("#daviz-tutorials .daviz-tutorials-main-playlist")
+                .appendTo("#daviz-tutorials .daviz-tutorials-main-playlist");
             jQuery("<div>")
                 .addClass("daviz-tutorials-videos")
                 .appendTo(".daviz-tutorials-playlist[playlistid='" + data.data.id + "']");
-            for (var j = 0; j < data.data.items.length; j++){
-                var description = [data.data.items[j].video.description, video_tags[data.data.items[j].video.title]].join(",");
-                var tmp_tags = description.split(",")
+            jQuery.each(data.data.items, function(item_idx, item){
+                var description = [item.video.description, video_tags[item.video.title]].join(",");
+                var tmp_tags = description.split(",");
                 tmp_tags.push("all tutorials");
                 var tags = [];
                 for (i = 0; i < tmp_tags.length; i++) {
-                    var tag = tmp_tags[i].trim()
+                    var tag = tmp_tags[i].trim();
                     if (tag !== "") {
-                        tags.push(tag)
+                        tags.push(tag);
                     }
                 }
-
-                updateTagCloud(tags)
+                updateTagCloud(tags);
                 var img = jQuery("<img>")
-                    .attr("src", data.data.items[j].video.thumbnail.sqDefault)
-                var item = jQuery("<div>")
+                    .attr("src", item.video.thumbnail.sqDefault);
+                var item_obj = jQuery("<div>")
                     .addClass("daviz-tutorials-videoitem")
                     .addClass("hidden-item")
                     .data("tags", tags)
-                    .attr("videoid", data.data.items[j].video.id)
+                    .attr("videoid", item.video.id)
                     .appendTo(".daviz-tutorials-playlist[playlistid='" + data.data.id + "'] .daviz-tutorials-videos")
-                    .prepend(img)
                     .click(function(){
                         jQuery("#daviz-tutorials iframe")
-                            .attr("src", "http://www.youtube.com/embed/"+jQuery(this).attr("videoid")+"?autoplay=1")
+                            .attr("src", "http://www.youtube.com/embed/"+jQuery(this).attr("videoid")+"?autoplay=1");
                         jQuery(".nowplaying")
-                            .removeClass("nowplaying")
+                            .removeClass("nowplaying");
                         jQuery(this)
-                            .addClass("nowplaying")
-                        });
+                            .addClass("nowplaying");
+                    })
+                    .prepend(img);
                 jQuery("<div>")
-                    .text(data.data.items[j].video.title)
-                    .appendTo(item);
-            }
+                    .text(item.video.title)
+                    .appendTo(item_obj);
+            });
             jQuery(window).trigger('hashchange');
         });
-    }
-
+    });
 });
