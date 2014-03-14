@@ -4,11 +4,11 @@
 
 #daviz-tutorials .daviz-tutorials-search{
     float: left;
-    padding-left: 10px;
     background-color: rgb(26,26,26);
-    width:500px;
+    width:580px;
 }
 #daviz-tutorials .daviz-tutorials-main-playlist{
+    padding-left:10px;
     overflow:auto;
 }
 
@@ -26,7 +26,7 @@
 }
 
 #daviz-tutorials .daviz-tutorials-videos .daviz-tutorials-videoitem:hover{
-    background-color: #525252;    
+    background-color: #525252;
 }
 
 #daviz-tutorials .daviz-tutorials-videos .daviz-tutorials-videoitem div{
@@ -50,6 +50,11 @@
     color: #cacaca;
     text-decoration: none;
     border:0;
+}
+
+#daviz-tutorials .daviz-tutorials-tagcloud {
+    border-bottom: 1px solid rgb(153,153,153);
+    padding-left: 10px;
 }
 
 #daviz-tutorials .daviz-tutorials-tagcloud a.selected {
