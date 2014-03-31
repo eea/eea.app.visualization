@@ -87,13 +87,35 @@ function updateTagCloud(tags){
     });
     jQuery(".daviz-tutorials-tagcloud")
         .empty();
+    jQuery("<div>")
+        .addClass("by-difficulty")
+        .appendTo(".daviz-tutorials-tagcloud");
+    jQuery("<label>")
+        .text("Filter by difficulty:")
+        .appendTo(".by-difficulty");
+    jQuery("<ul>")
+        .appendTo(".by-difficulty");
+
+    jQuery("<div>")
+        .addClass("by-topic")
+        .appendTo(".daviz-tutorials-tagcloud");
+    jQuery("<label>")
+        .text("Filter by topic:")
+        .appendTo(".by-topic");
+    jQuery("<ul>")
+        .appendTo(".by-topic");
     for (i=0; i<sorted_tags.length; i++){
+        var container = ".daviz-tutorials-tagcloud .by-difficulty ul";
+        if (i > 2){
+            container = ".daviz-tutorials-tagcloud .by-topic ul";
+        }
+        var li = jQuery("<li>").appendTo(container);
         jQuery("<a>")
             .css("text-decoration", "none")
             .attr("tag", sorted_tags[i].tag)
             .attr("href", "daviz-tutorials.html#" + sorted_tags[i].tag)
             .text(sorted_tags[i].tag + "(" + sorted_tags[i].count+ ") ")
-            .appendTo(".daviz-tutorials-tagcloud");
+            .appendTo(li);
     }
 }
 
@@ -104,7 +126,10 @@ jQuery(document).ready(function(){
         if (hash === "") {
             hash = "#All tutorials";
         }
+
         hash = hash.substr(1);
+        jQuery(".daviz-tutorials-main-playlist-title")
+            .text(hash);
         jQuery(".daviz-tutorials-tagcloud a")
             .removeClass("selected");
         jQuery(".daviz-tutorials-tagcloud a[tag='" + hash + "']")
@@ -127,7 +152,6 @@ jQuery(document).ready(function(){
         });
     });
 
-    jQuery(window).trigger('hashchange');
     var playlists = ["PLVPSQz7ahsByeq8nVKC7TT9apArEXBrV0", "PLVPSQz7ahsBxbe8pwzFWLQuvDSP9JFn8I"];
     jQuery("<iframe>")
         .attr("width", 580)
@@ -139,18 +163,22 @@ jQuery(document).ready(function(){
 
     jQuery("<div>")
         .addClass("daviz-tutorials-search")
-        .css("height", jQuery("#daviz-tutorials iframe").attr("height"))
         .appendTo("#daviz-tutorials");
 
     jQuery("<div>")
-        .addClass("daviz-tutorials-tagcloud")
-        .data("tags", {})
-        .css("height", 100)
+        .addClass("daviz-tutorials-main-playlist-title")
+        .css("height", 20)
         .appendTo(".daviz-tutorials-search");
 
     jQuery("<div>")
         .addClass("daviz-tutorials-main-playlist")
-        .css("height", jQuery("#daviz-tutorials iframe").attr("height") - 100)
+        .css("height", jQuery("#daviz-tutorials iframe").attr("height") - 30)
+        .appendTo(".daviz-tutorials-search");
+
+    jQuery("<div>")
+        .addClass("daviz-tutorials-tagcloud")
+        .data("tags", {})
+        .css("height", 400)
         .appendTo(".daviz-tutorials-search");
 
     jQuery.each(playlists, function(playlist_idx, playlist){
@@ -198,4 +226,5 @@ jQuery(document).ready(function(){
             jQuery(window).trigger('hashchange');
         });
     });
+    jQuery(window).trigger('hashchange');
 });

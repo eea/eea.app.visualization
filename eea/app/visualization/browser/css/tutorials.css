@@ -4,12 +4,15 @@
 
 #daviz-tutorials .daviz-tutorials-search{
     float: left;
-    background-color: rgb(26,26,26);
     width:580px;
+    border:1px solid rgb(85,85,85);
+    margin-left:2px;
+    padding-right:2px;
 }
 #daviz-tutorials .daviz-tutorials-main-playlist{
-    padding-left:10px;
+    margin-left:10px;
     overflow:auto;
+    border-bottom:1px solid rgb(85,85,85);
 }
 
 #daviz-tutorials img {
@@ -21,12 +24,12 @@
 #daviz-tutorials .daviz-tutorials-videos .daviz-tutorials-videoitem{
     height:40px;
     padding:10px;
-    color: #cacaca;
+    color: rgb(85,85,85);
     cursor: pointer;
 }
 
 #daviz-tutorials .daviz-tutorials-videos .daviz-tutorials-videoitem:hover{
-    background-color: #525252;
+    background-color: #bbbbbb;
 }
 
 #daviz-tutorials .daviz-tutorials-videos .daviz-tutorials-videoitem div{
@@ -39,29 +42,53 @@
 }
 
 #daviz-tutorials .daviz-tutorials-videos .daviz-tutorials-videoitem.nowplaying{
-    background-color: #3a3a3a;
+    background-color: #aaaaaa;
 }
 
 #daviz-tutorials .daviz-tutorials-videos .daviz-tutorials-videoitem.nowplaying img{
     border:2px solid red;
 }
 
-#daviz-tutorials .daviz-tutorials-search a{
-    color: #cacaca;
-    text-decoration: none;
-    border:0;
+.by-difficulty {
+    float:left;
 }
 
-#daviz-tutorials .daviz-tutorials-tagcloud {
-    border-bottom: 1px solid rgb(153,153,153);
-    padding-left: 10px;
+.by-topic {
+    float:right;
 }
 
-#daviz-tutorials .daviz-tutorials-tagcloud a.selected {
-    font-weight: bold;
+.daviz-tutorials-tagcloud {
+    padding:10px;
 }
 
-#daviz-tutorials .daviz-tutorials-tagcloud a:hover {
-    font-weight: bold;
-    color: #cacaca !important;
+.daviz-tutorials-tagcloud ul {
+    list-style-type: square;
+    color: #999;
+    padding-left: 20px;
+    font-family: Arial, FreeSans, sans-serif;
+    font-size: 13px;
+    margin:0 !important;
+}
+.daviz-tutorials-tagcloud label {
+    display: block;
+    font-family: Arial, FreeSans, sans-serif;
+    color: rgb(85, 85, 85);
+    font-weight: normal;
+    font-size:16px;
+}
+
+.daviz-tutorials-main-playlist-title{
+    padding-left:10px;
+    padding-top:10px;
+    font-size:16px;
+    font-weight:bold;
+}
+
+.daviz-tutorials-tagcloud ul a{
+    border-bottom:0 !important;
+}
+
+.daviz-tutorials-tagcloud ul a.selected{
+    font-weight:bold;
+    color: #888 !important;
 }
