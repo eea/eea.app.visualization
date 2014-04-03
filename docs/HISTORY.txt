@@ -3,7 +3,8 @@ Changelog
 
 8.4-dev - (unreleased)
 ----------------------
-* Change: Added possibility to hide rename option on spreadsheet
+* Change: Added possibility to hide rename option on spreadsheet,
+  Added warning on rename on the Data settings
   [szabozo0 refs #19149]
 * Feature: Added screencasts tutorial page
   [szabozo0 refs #18400]
