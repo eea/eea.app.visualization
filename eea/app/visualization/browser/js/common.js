@@ -10,7 +10,8 @@ EEA.Daviz.ColumnMenu = function(options){
 
   var settings = {
     columnType: '',
-    annotations: false
+    annotations: false,
+    rename: true
   };
 
   if(options){
@@ -22,11 +23,6 @@ EEA.Daviz.ColumnMenu = function(options){
 
   if(settings.columnType === 'annotations'){
     items = [
-      {
-        title: "Rename",
-        command: "rename",
-        tooltip: "Give this column a friendly name"
-      },
       {
         title: "Delete",
         command: "delete",
@@ -49,11 +45,6 @@ EEA.Daviz.ColumnMenu = function(options){
     ];
   }else{
     items = [
-      {
-        title: "Rename",
-        command: "rename",
-        tooltip: "Give this column a friendly name"
-      },
       {
         title: "Column type:",
         tooltip: "Select column-type",
@@ -141,6 +132,14 @@ EEA.Daviz.ColumnMenu = function(options){
         iconImage: (settings.columnType === "year") ? "++resource++slickgrid-images/tick.png" : ""
       }
     ];
+  }
+
+  if(settings.rename){
+    items.splice(0, 0, {
+      title: "Rename",
+      command: "rename",
+      tooltip: "Give this column a friendly name"
+    });
   }
 
   if(settings.annotations){

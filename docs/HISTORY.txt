@@ -3,7 +3,9 @@ Changelog
 
 8.4-dev - (unreleased)
 ----------------------
-* Feature: WIP: Added screencasts tutorial page
+* Change: Added possibility to hide rename option on spreadsheet
+  [szabozo0 refs #19149]
+* Feature: Added screencasts tutorial page
   [szabozo0 refs #18400]
 
 8.3 - (2014-03-10)
