@@ -1151,7 +1151,7 @@ DavizEdit.JsonGrid.prototype = {
     var popup = jQuery("<div title='Rename column: " + column.name + "' />")
       .append(
         jQuery("<div>")
-            .addClass("warning")
+            .addClass("warning portalMessage warningMessage")
             .html("<b>Warning: </b>Changing the name of the columns may break existing charts if unpivot was used.")
       )
       .append(
