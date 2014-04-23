@@ -4,6 +4,19 @@
   i18n_domain="eea">
 
 
+  <!-- 7.7 => 8.4 -->
+  <genericsetup:upgradeSteps
+    source="7.7"
+    destination="8.4"
+    profile="eea.app.visualization:default">
+
+    <genericsetup:upgradeDepends
+      title="Import profile steps with changes: actions"
+      import_steps="actions"
+      />
+
+  </genericsetup:upgradeSteps>
+
   <!-- * => 7.7 -->
   <genericsetup:upgradeSteps
     source="*"

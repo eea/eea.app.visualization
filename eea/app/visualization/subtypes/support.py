@@ -4,7 +4,7 @@ import logging
 from Products.Five.browser import BrowserView
 from StringIO import StringIO
 
-from zope.component import queryAdapter, queryUtility
+from zope.component import queryAdapter, queryUtility, queryMultiAdapter
 from zope.event import notify
 from zope.interface import alsoProvides, noLongerProvides, implements
 from zope.publisher.interfaces import NotFound
@@ -59,6 +59,12 @@ class DavizPublicSupport(BrowserView):
         return False
 
     @property
+    def can_edit(self):
+        """ See IVisualizationSubtyper
+        """
+        return False
+
+    @property
     def is_visualization(self):
         """ Is visualization enabled?
         """
@@ -108,6 +114,23 @@ class DavizSupport(DavizPublicSupport):
         """ See IVisualizationSubtyper
         """
         return self.is_visualization
+
+    @property
+    def can_edit(self):
+        """ Can edit visualization
+        """
+        if not self.is_visualization:
+            return False
+
+        # Is locked
+        locked = queryMultiAdapter((self.context, self.request),
+                                      name=u'plone_lock_info')
+        locked = getattr(locked, 'is_locked_for_current_user', lambda: False)
+
+        if locked():
+            return False
+
+        return True
 
     @property
     def is_visualization(self):

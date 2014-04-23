@@ -12,6 +12,7 @@ from zope.schema.vocabulary import SimpleTerm
 from eea.app.visualization.interfaces import IVisualizationConfig
 from eea.app.visualization.events import VisualizationFacetDeletedEvent
 from eea.app.visualization.zopera import IStatusMessage
+from eea.app.visualization.zopera import EditBegunEvent
 from eea.app.visualization.interfaces import IDavizSettings
 from eea.app.visualization.config import EEAMessageFactory as _
 
@@ -124,6 +125,15 @@ class Edit(BrowserView):
         if items_nr > 4000:
             return DAVIZ_WARNING_DATA_4000
         return ""
+
+    def __call__(self, **kwargs):
+        support = queryMultiAdapter((self.context, self.request),
+                                    name='daviz_support')
+        if support.can_edit:
+            event.notify(EditBegunEvent(self.context))
+            return self.index()
+
+        return self.request.response.redirect(self.context.absolute_url())
 
 class Configure(BrowserView):
     """ Edit controller

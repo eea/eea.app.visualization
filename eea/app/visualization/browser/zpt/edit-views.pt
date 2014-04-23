@@ -35,14 +35,14 @@
     tal:attributes="id string:$id-tab"
     tal:condition="editform"
     class="daviz-view-edit">
-    <form method="post" class="daviz-view-form" tal:condition="enabled"
+    <form method="post" class="daviz-view-form enableUnlockProtection" tal:condition="enabled"
       tal:define="name python:editform.__name__"
       tal:attributes="
         action string:${here/absolute_url}/@@$name;
         data-annotations python:getattr(editform, 'annotations', None)">
       <tal:editform replace="structure editform" />
     </form>
-    <form method="post" class="daviz-view-form-disabled" tal:condition="not:enabled"
+    <form method="post" class="daviz-view-form-disabled enableUnlockProtection" tal:condition="not:enabled"
       tal:attributes="action string:${context/absolute_url}/@@daviz-edit.save">
       <input type="hidden" name="name" tal:attributes="value name" />
       <div>

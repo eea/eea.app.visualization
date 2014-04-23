@@ -7,7 +7,7 @@
       <property name="description" i18n:translate=""></property>
       <property name="url_expr">string:${object/absolute_url}/daviz-edit.html</property>
       <property name="icon_expr"></property>
-      <property name="available_expr">object/@@daviz_support/is_visualization</property>
+      <property name="available_expr">object/@@daviz_support/can_edit</property>
       <property name="permissions">
         <element value="eea.app.visualization: Configure Visualization" />
       </property>
@@ -21,7 +21,7 @@
       <property name="description" i18n:translate=""></property>
       <property name="url_expr">string:${object/absolute_url}/daviz-tutorials.html</property>
       <property name="icon_expr"></property>
-      <property name="available_expr">object/@@daviz_support/is_visualization</property>
+      <property name="available_expr">object/@@daviz_support/can_edit</property>
       <property name="permissions">
         <element value="eea.app.visualization: Configure Visualization" />
       </property>

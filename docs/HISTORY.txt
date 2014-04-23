@@ -3,6 +3,8 @@ Changelog
 
 8.4-dev - (unreleased)
 ----------------------
+* Change: WebDav lock object when a visualization is edited (edit visualization)
+  [voineali refs #19172]
 * Change: Added possibility to hide rename option on spreadsheet,
   Added warning on rename on the Data settings
   [szabozo0 refs #19149]

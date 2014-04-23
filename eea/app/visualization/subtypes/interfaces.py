@@ -23,6 +23,9 @@ class IVisualizationSubtyper(Interface):
     can_disable = schema.Bool(
         u'Can disable visualization',
         readonly=True)
+    can_edit = schema.Bool(
+        u'Can edit visualization',
+        readonly=True)
     is_visualization = schema.Bool(
         u'Is visualization enabled for current object',
         readonly=True)

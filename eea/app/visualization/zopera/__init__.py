@@ -75,6 +75,18 @@ except ImportError:
     default_subpage_template = namedtemplate.NamedTemplateImplementation(
         ViewPageTemplateFile('subpageform.pt'), ISubPageForm)
 
+#
+# from plone.app.form.events import EditBegunEvent
+#
+try:
+    from plone.app.form import events
+    EditBegunEvent = events.EditBegunEvent
+except ImportError:
+    from zope.component.interfaces import ObjectEvent
+    class EditBegunEvent(ObjectEvent):
+        """ Fallback event
+        """
+
 __all__ = [
     IStatusMessage.__name__,
     IPropertiesTool.__name__,
