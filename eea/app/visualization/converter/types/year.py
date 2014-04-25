@@ -50,6 +50,12 @@ class GuessYear(GuessType):
             ...       fallback=lambda x: parse(x.replace('Ianuarie', 'Jan')))
             datetime.datetime(2012, 1, 1, 0, 0)
 
+            >>> guess.convert('', fallback=lambda x: 'n.a.')
+            'n.a.'
+
+            >>> guess.convert('  \t  \t', fallback=lambda x: 'n.a.')
+            'n.a.'
+
         If you don't provide a fallback for a wrong value, a ValueError will be
         raised:
 
@@ -57,6 +63,16 @@ class GuessYear(GuessType):
             Traceback (most recent call last):
             ...
             ValueError: 1 Ianuarie 2012
+
+            >>> guess.convert('')
+            Traceback (most recent call last):
+            ...
+            ValueError
+
+            >>> guess.convert('  \t    \t')
+            Traceback (most recent call last):
+            ...
+            ValueError:
 
         You can also convert given text to another text providing 'format'
         keyword:
@@ -71,6 +87,8 @@ class GuessYear(GuessType):
 
         """
         try:
+            if not text.strip():
+                raise ValueError(text)
             text = parser.parse(text)
         except Exception:
             if fallback is not None:

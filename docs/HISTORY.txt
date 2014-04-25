@@ -3,6 +3,9 @@ Changelog
 
 8.4-dev - (unreleased)
 ----------------------
+* Bug fix: Fix date and year column converters by skipping missing values
+  instead of converting them to current year/date
+  [voineali fixes #19235]
 * Change: WebDav lock object when a visualization is edited (edit visualization)
   [voineali refs #19172]
 * Change: Added possibility to hide rename option on spreadsheet,
