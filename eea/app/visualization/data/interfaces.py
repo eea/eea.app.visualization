@@ -39,6 +39,10 @@ class IExternalData(Interface):
     """ External Data Utility
     """
 
+class IInternalData(Interface):
+    """ Internal Data Utility
+    """
+
 class IVisualizationJson(Interface):
     """ Visualization data JSON (daviz.json)
     """

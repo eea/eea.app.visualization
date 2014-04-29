@@ -10,10 +10,15 @@
     factory="eea.app.visualization.data.utils.VisualizationJsonUtils"
     />
 
-  <!-- External data utility -->
+  <!-- External / Internal data utility -->
   <utility
     provides="eea.app.visualization.interfaces.IExternalData"
     factory="eea.app.visualization.data.external.ExternalData"
+    />
+
+  <utility
+    provides="eea.app.visualization.interfaces.IInternalData"
+    factory="eea.app.visualization.data.internal.InternalData"
     />
 
   <!-- Data adapters -->

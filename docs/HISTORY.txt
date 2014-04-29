@@ -3,6 +3,10 @@ Changelog
 
 8.5-dev - (unreleased)
 ----------------------
+* Feature: Add InternalData utility that recognize and internal URL and bypass
+  security (if needed) in order to get visualization data
+  [voineali refs #19075]
+
 
 8.4 - (2014-04-29)
 ------------------

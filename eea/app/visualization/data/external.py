@@ -5,7 +5,7 @@ import urllib2
 import contextlib
 from zope.interface import implements
 from zope.component import queryUtility
-from eea.app.visualization.interfaces import IExternalData
+from eea.app.visualization.interfaces import IExternalData, IInternalData
 from eea.app.visualization.interfaces import IData2TableConverter
 logger = logging.getLogger('eea.app.visualization')
 
@@ -25,6 +25,10 @@ class ExternalData(object):
     def test(self, url, timeout=15):
         """ Test to see if provided URL is a valid URL
         """
+        internal = queryUtility(IInternalData)
+        if internal.test(url):
+            return True
+
         res = False
         try:
             with contextlib.closing(
@@ -40,7 +44,11 @@ class ExternalData(object):
     def __call__(self, url, timeout=15):
         """ Get data and convert it to TSV if possible
         """
-        data = u''
+        internal = queryUtility(IInternalData)
+        data = internal(url)
+        if data:
+            return data
+
         try:
             with contextlib.closing(
                 urllib2.urlopen(url, timeout=timeout)) as conn:

@@ -86,6 +86,16 @@ except ImportError:
     class EditBegunEvent(ObjectEvent):
         """ Fallback event
         """
+#
+# from plone.app.blob.interfaces import IATBlob
+#
+try:
+    from plone.app.blob import interfaces
+    IATBlob = interfaces.IATBlob
+except ImportError:
+    class IATBlob(Interface):
+        """ Fallback interface
+        """
 
 __all__ = [
     IStatusMessage.__name__,
