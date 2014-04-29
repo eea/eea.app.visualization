@@ -1,8 +1,8 @@
 Changelog
 =========
 
-8.4-dev - (unreleased)
-----------------------
+8.4 - (2014-04-29)
+------------------
 * Bug fix: Fix date and year column converters by skipping missing values
   instead of converting them to current year/date
   [voineali fixes #19235]
@@ -300,3 +300,4 @@ Changelog
   the visualization libraries usable as standalone packages outside
   eea.daviz bundle
   [voineali #4996]
+
