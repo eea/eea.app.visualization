@@ -180,6 +180,24 @@ class Download(BrowserView):
             ...
             118563	ENI SpA Divisione Refining & Marketing...
 
+            Load another set of data from a json file and use that to generate
+            a new Tab Separated File
+
+            >>> import json
+            >>> from eea.app.visualization.tests.utils import loadfile
+            >>> data_file = loadfile('data/data-sample-v5.json')
+            >>> data = json.loads(data_file.get('data'))
+            >>> download = sandbox.restrictedTraverse('@@download.table')
+            >>> download._data = data
+            >>> out = download.tsv(attachment=False)
+            >>> print out
+            Country:text        ValueA:boolean  ValueB:boolean
+            Italy       null    False
+            France      null    True
+            Germany     True    null
+            Spain       True    False
+            Hungary     False   null
+
         """
         return self.csv(dialect=dialect, attachment=attachment)
 

@@ -3,6 +3,9 @@ Changelog
 
 8.4-dev - (unreleased)
 ----------------------
+* Feature: Added test for missing values in json boolean fields and downloading
+  as tsv
+  [olimpiurob refs #19206]
 * Change: Use null for missing values in boolean fields when downloading csv,tsv
   and json
   [olimpiurob refs #19206]
