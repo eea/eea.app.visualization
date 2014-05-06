@@ -27,7 +27,7 @@ class ExcelTSV(csv.excel):
     """ CSV Tab Separated Dialect
     """
     delimiter = '\t'
-    quoting = csv.QUOTE_ALL
+    quoting = csv.QUOTE_MINIMAL
 csv.register_dialect("eea.app.visualization.tsv", ExcelTSV)
 
 class Download(BrowserView):
@@ -148,9 +148,19 @@ class Download(BrowserView):
         for item in self.data['items']:
             row = []
             for col in headers:
-                row.append(
-                    unicode(item.get(col[0], '')).encode('utf-8')
+                hprops = self.data.get('properties', {}).get(col[0], {})
+                columnType = (
+                    hprops.get('columnType', hprops.get('valueType', 'text'))
+                    if isinstance(hprops, dict) else hprops
                 )
+                if columnType == 'boolean' and \
+                    (item.get(col[0], None) is None or
+                     item.get(col[0], None) == 'null'):
+                    row.append('null')
+                else:
+                    row.append(
+                        unicode(item.get(col[0], '')).encode('utf-8')
+                    )
             writter.writerow(row)
 
         text = u''
@@ -166,9 +176,27 @@ class Download(BrowserView):
 
             >>> output = sandbox.restrictedTraverse('@@download.tsv')
             >>> print output(attachment=False)
-            "FacilityID:number"	"FacilityName:text"...
+            FacilityID:number	FacilityName:text...
             ...
-            "118563"	"ENI SpA Divisione Refining & Marketing...
+            118563	ENI SpA Divisione Refining & Marketing...
+
+            Load another set of data from a json file and use that to generate
+            a new Tab Separated File
+
+            >>> import json
+            >>> from eea.app.visualization.tests.utils import loadfile
+            >>> data_file = loadfile('data/data-sample-v5.json')
+            >>> data = json.loads(data_file.get('data'))
+            >>> download = sandbox.restrictedTraverse('@@download.table')
+            >>> download._data = data
+            >>> out = download.tsv(attachment=False)
+            >>> print out
+            Country:text        ValueA:boolean  ValueB:boolean
+            Italy       null    False
+            France      null    True
+            Germany     True    null
+            Spain       True    False
+            Hungary     False   null
 
         """
         return self.csv(dialect=dialect, attachment=attachment)
@@ -228,7 +256,7 @@ class Download(BrowserView):
                 convertedItem[header[0]] = {
                     "type": "typed-literal",
                     "datatype": self.xmlType(valueType),
-                    "value": item.get(header[0], "")
+                    "value": item.get(header[0])
                 }
             data['results']['bindings'].append(convertedItem)
 
