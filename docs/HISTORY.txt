@@ -3,6 +3,9 @@ Changelog
 
 8.5-dev - (unreleased)
 ----------------------
+* Bug fix: Added delimiter restrictions to CSV dialect detection. Valid CSV 
+  delimiters are: {tab}, {space}, ;, ,, :
+  [olimpiurob refs #19535]
 * Feature: Added test for missing values in json boolean fields and downloading
   as tsv
   [olimpiurob refs #19206]
