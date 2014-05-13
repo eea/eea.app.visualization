@@ -1,6 +1,9 @@
 Changelog
 =========
 
+8.6-dev - (unreleased)
+----------------------
+
 8.5 - (2014-05-13)
 ------------------
 * Bug fix: Added delimiter restrictions to CSV dialect detection. Valid CSV 
