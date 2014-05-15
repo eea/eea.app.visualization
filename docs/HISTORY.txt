@@ -1,6 +1,9 @@
 Changelog
 =========
 
+8.7-dev - (unreleased)
+----------------------
+
 8.6 - (2014-05-15)
 ------------------
 * Bug fix: Increase the sample file data to 4096 due to csv sniffer unable to 
