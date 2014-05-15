@@ -1,8 +1,17 @@
 Changelog
 =========
 
-8.5-dev - (unreleased)
+8.7-dev - (unreleased)
 ----------------------
+
+8.6 - (2014-05-15)
+------------------
+* Bug fix: Increase the sample file data to 4096 due to csv sniffer unable to 
+  properly guess the csv dialect from a sample data of 2048 characters.
+  [olimpiurob refs #19732]
+
+8.5 - (2014-05-13)
+------------------
 * Bug fix: Added delimiter restrictions to CSV dialect detection. Valid CSV 
   delimiters are: {tab}, {space}, ;, ,, :
   [olimpiurob refs #19535]
@@ -15,7 +24,6 @@ Changelog
 * Feature: Add InternalData utility that recognize and internal URL and bypass
   security (if needed) in order to get visualization data
   [voineali refs #19075]
-
 
 8.4 - (2014-04-29)
 ------------------
