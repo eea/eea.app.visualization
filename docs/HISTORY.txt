@@ -3,6 +3,9 @@ Changelog
 
 8.6-dev - (unreleased)
 ----------------------
+* Bug fix: Increase the sample file data to 4096 due to csv sniffer unable to 
+  properly guess the csv dialect from a sample data of 2048 characters.
+  [olimpiurob refs #19732]
 
 8.5 - (2014-05-13)
 ------------------
