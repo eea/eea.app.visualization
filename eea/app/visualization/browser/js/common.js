@@ -181,21 +181,3 @@ EEA.Daviz.Status = {
     this.lock.delay(1500).slideUp();
   }
 };
-
-function updateTutorialLinks() {
-    jQuery(".eea-tutorial").empty();
-    jQuery.each(jQuery(".eea-tutorial"), function(idx, tutorial){
-        jQuery("<a>")
-            .attr("href", "daviz-tutorials.html#"+jQuery(tutorial).attr("tutorial"))
-            .attr("target", "_blank")
-            .attr("title", "see video help")
-            .appendTo(tutorial);
-        jQuery("<span>")
-            .addClass("eea-icon eea-icon-youtube-play tutorial-icon")
-            .appendTo(jQuery(tutorial).find("a"));
-        jQuery("<span>")
-            .addClass("tutorial-title")
-            .text("see video help")
-            .appendTo(jQuery(tutorial).find("a"));
-    });
-}
