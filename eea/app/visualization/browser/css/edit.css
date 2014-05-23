@@ -84,6 +84,8 @@ dl.portalMessage dd {
 }
 
 .daviz-facets-edit {
+    margin-top: 53px;
+    margin-right: 13px;
 }
 
 #content .daviz-facets-edit fieldset,

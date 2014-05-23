@@ -2,5 +2,4 @@
 <object name="portal_css">
  <stylesheet id="daviz-view.css" expression="python:'daviz-view.html' in request.URL0" />
  <stylesheet id="daviz-edit.css" expression="python:'daviz-edit.html' in request.URL0" />
- <stylesheet id="++resource++eea.daviz.tutorials.css" expression="python:'daviz-tutorials.html' in request.URL0" />
 </object>

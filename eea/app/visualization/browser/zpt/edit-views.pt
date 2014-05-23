@@ -22,7 +22,6 @@
 </ul>
 
 <div class="panes">
-
 <!-- Views body -->
 <tal:edittab repeat="term views">
   <div tal:define="

@@ -1279,3 +1279,4 @@ jQuery(document).ready(function(){
   DavizEdit.Facets.initialize();
   DavizEdit.Views.initialize();
 });
+
