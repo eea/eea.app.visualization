@@ -14,6 +14,11 @@ def ramcache(*ar, **kwargs):
     return decorator
 
 
+class InvalidateCacheEvent(object):
+    """ his event will be raised if there is no cache support
+    """
+
+
 def flush(*args, **kwargs):
     """ Flush cache
     """
