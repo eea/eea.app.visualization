@@ -59,10 +59,12 @@ Dependencies
 ============
 
 * python-dateutil
+* plone.i18n
 * Zope >= 2.12
 * eea.jquery
 * collective.js.jqueryui < 1.9 (Plone 4.0, 4.1, 4.2)
 * collective.js.jqueryui > 1.9 (Plone 4.3+)
+* eea.cache > 7.0 (optional)
 
 .. image:: http://eea.github.com/_images/eea.daviz.dependencies.svg
 

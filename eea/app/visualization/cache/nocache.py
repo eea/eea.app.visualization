@@ -1,6 +1,6 @@
 """ No cache
 """
-def ramcache(get_key, dependencies=None):
+def ramcache(*ar, **kwargs):
     """ RAM cache
     """
     def decorator(method):
@@ -13,8 +13,11 @@ def ramcache(get_key, dependencies=None):
         return replacement
     return decorator
 
-class InvalidateCacheEvent(object):
-    """ This event will be raised if there is no cache support
+
+def flush(*args, **kwargs):
+    """ Flush cache
     """
-    def __init__(self, *args, **kwargs):
-        pass
+    return
+
+flushRelatedItems = flush
+flushBackRefs = flush

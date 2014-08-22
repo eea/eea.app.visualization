@@ -1,16 +1,14 @@
 <configure xmlns="http://namespaces.zope.org/zope"
-  xmlns:browser="http://namespaces.zope.org/browser"
   i18n_domain="eea">
-
-  <browser:page
-    name="memcache.invalidate"
-    for="eea.app.visualization.interfaces.IVisualizationEnabled"
-    class=".browser.InvalidateMemCache"
-    permission="eea.app.visualization.configure" />
 
   <subscriber
     for="eea.app.visualization.interfaces.IVisualizationEnabled
          zope.lifecycleevent.interfaces.IObjectModifiedEvent"
-    handler=".browser.purgeOnModified" />
+    handler=".flushRelatedItems" />
+
+  <subscriber
+    for="eea.app.visualization.interfaces.IVisualizationEnabled
+         zope.lifecycleevent.interfaces.IObjectModifiedEvent"
+    handler=".flushBackRefs" />
 
 </configure>

@@ -3,6 +3,9 @@ Changelog
 
 8.8-dev - (unreleased)
 ----------------------
+* Change: Cleanup memcache invalidation code as it's already handled by
+  eea.cache (7.0+)
+  [voineali refs #20678]
 
 8.7 - (2014-06-06)
 ------------------
@@ -11,13 +14,13 @@ Changelog
 
 8.6 - (2014-05-15)
 ------------------
-* Bug fix: Increase the sample file data to 4096 due to csv sniffer unable to 
+* Bug fix: Increase the sample file data to 4096 due to csv sniffer unable to
   properly guess the csv dialect from a sample data of 2048 characters.
   [olimpiurob refs #19732]
 
 8.5 - (2014-05-13)
 ------------------
-* Bug fix: Added delimiter restrictions to CSV dialect detection. Valid CSV 
+* Bug fix: Added delimiter restrictions to CSV dialect detection. Valid CSV
   delimiters are: {tab}, {space}, ;, ,, :
   [olimpiurob refs #19535]
 * Feature: Added test for missing values in json boolean fields and downloading
