@@ -15,9 +15,10 @@ def ramcache(*ar, **kwargs):
 
 
 class InvalidateCacheEvent(object):
-    """ his event will be raised if there is no cache support
+    """ This event will be raised if there is no cache support
     """
-
+    def __init__(self, *args, **kwargs):
+        pass
 
 def flush(*args, **kwargs):
     """ Flush cache
