@@ -1,4 +1,3 @@
-
 <tal:block define="context python: request.PARENTS[1]; here nocall:context">
 <html metal:use-macro="context/main_template/macros/master"
       i18n:domain="plone">
@@ -95,7 +94,8 @@ recipe to manage your project, you can do this:</p>
 </div>
 </li>
 <li><p class="first">Re-run buildout, e.g. with</p>
-<div class="highlight-python"><pre>$ ./bin/buildout</pre>
+<div class="highlight-python"><div class="highlight"><pre>$ ./bin/buildout
+</pre></div>
 </div>
 </li>
 </ul>
@@ -106,10 +106,12 @@ from another package&#8217;s configure.zcml file.</p>
 <h2><a class="toc-backref" href="#id7">Dependencies</a><a class="headerlink" href="#dependencies" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li>python-dateutil</li>
+<li>plone.i18n</li>
 <li>Zope &gt;= 2.12</li>
 <li>eea.jquery</li>
 <li>collective.js.jqueryui &lt; 1.9 (Plone 4.0, 4.1, 4.2)</li>
 <li>collective.js.jqueryui &gt; 1.9 (Plone 4.3+)</li>
+<li>eea.cache &gt; 7.0 (optional)</li>
 </ul>
 <img src="http://eea.github.com/_images/eea.daviz.dependencies.svg" /></div>
 <div class="section" id="live-demo">
@@ -163,7 +165,7 @@ version.</p>
                     &copy;
                         Copyright 2012, European Environment Agency.
                 Created using <a
-                        href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3
+                        href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.2
                     .
                 Theme <a href="https://github.com/scotch/sphinx-bootstrap">Sphinx-Bootstrap</a>
                 adapted from
