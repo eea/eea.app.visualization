@@ -18,6 +18,9 @@
 <h1 i18n:translate="" id="daviz-page-title" class="documentFirstHeading">
   Configure Visualization
 </h1>
+
+<!-- div id="header">     <div tal:replace="structure context/@@viewlets/eea.below_edit_contenttitle.documentbyline" /> </div -->
+
 <tal:block tal:define="error view/hasErrors" tal:condition="error">
     <div class="portalMessage warningMessage">
         <tal:block i18n:translate="">Warning:</tal:block>
@@ -26,7 +29,7 @@
         <br/>
         <div class="daviz-warning-helper" i18n:translate="">
             Check these
-            <tal:block i18n:name="data-examples"> 
+            <tal:block i18n:name="data-examples">
                 <a target="_blank" href="http://www.eea.europa.eu/data-and-maps/daviz/learn-more/examples" i18n:translate="">data examples</a>
             </tal:block>
             or read

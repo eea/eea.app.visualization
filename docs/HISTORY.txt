@@ -3,6 +3,8 @@ Changelog
 
 8.9-dev - (unreleased)
 ----------------------
+* Feature: added belowcontenttitle.documentbyline viewlet to be visible under "Edit Visualizations" tab
+  [ghicaale refs #21457]
 
 8.8 - (2014-08-27)
 ------------------
