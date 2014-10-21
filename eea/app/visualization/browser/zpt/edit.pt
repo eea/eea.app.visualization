@@ -19,7 +19,7 @@
   Configure Visualization
 </h1>
 
-<!-- div id="header">     <div tal:replace="structure context/@@viewlets/eea.below_edit_contenttitle.documentbyline" /> </div -->
+<div id="header"><div tal:replace="structure context/@@viewlets/eea.below_edit_contenttitle.documentbyline" /></div>
 
 <tal:block tal:define="error view/hasErrors" tal:condition="error">
     <div class="portalMessage warningMessage">
