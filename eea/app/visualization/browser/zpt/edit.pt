@@ -1,6 +1,7 @@
 <tal:left define="hidden python:request.set('disable_plone.leftcolumn', 1)" />
 <tal:right define="hidden python:request.set('disable_plone.rightcolumn', 1)" />
-<tal:html define="macro here/main_template/macros/master | here/@@daviz-fallback.html/macros/edit">
+<tal:html define="macro here/main_template/macros/master | here/@@daviz-fallback.html/macros/edit;
+                  plone_iinfo context/@@plone_interface_info">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US"
   lang="en-US"
   metal:use-macro="python:macro"
@@ -19,7 +20,13 @@
   Configure Visualization
 </h1>
 
-<div id="header"><div tal:replace="structure context/@@viewlets/eea.below_edit_contenttitle.documentbyline" /></div>
+<div id="header"
+        tal:define="eea plone_iinfo.provides('Products.EEAContentTypes.interfaces.IEEAContent')">
+    <div tal:replace="structure context/@@viewlets/eea.below_edit_contenttitle.documentbyline"
+            tal:condition="eea" />
+    <div tal:replace="structure context/@@viewlets/plone.belowcontenttitle.documentbyline"
+            tal:condition="not:eea" />
+</div>
 
 <tal:block tal:define="error view/hasErrors" tal:condition="error">
     <div class="portalMessage warningMessage">

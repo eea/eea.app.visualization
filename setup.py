@@ -41,6 +41,7 @@ setup(name=NAME,
       include_package_data=True,
       zip_safe=False,
       install_requires=[
+          'collective.fastview',
           'setuptools',
           "python-dateutil",
           'plone.i18n',
