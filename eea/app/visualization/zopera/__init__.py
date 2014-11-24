@@ -97,6 +97,18 @@ except ImportError:
         """ Fallback interface
         """
 
+#
+# from Products.EEAContentTypes.interfaces import IEEAContent
+#
+try:
+    from Products.EEAContentTypes import interfaces
+    IEEAContent = interfaces.IEEAContent
+except ImportError:
+    class IEEAContent(Interface):
+        """ Fallback interface
+        """
+
+
 __all__ = [
     IStatusMessage.__name__,
     IPropertiesTool.__name__,

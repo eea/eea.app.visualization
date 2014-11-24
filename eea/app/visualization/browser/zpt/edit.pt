@@ -21,7 +21,7 @@
 </h1>
 
 <div id="header"
-        tal:define="eea python:plone_iinfo.provides('Products.EEAContentTypes.interfaces.IEEAContent')">
+        tal:define="eea python:plone_iinfo.provides('eea.app.visualization.zopera.IEEAContent')">
     <div tal:replace="structure context/@@viewlets/eea.below_edit_contenttitle.documentbyline"
             tal:condition="eea" />
     <div tal:replace="structure provider:plone.belowcontenttitle" tal:condition="not:eea" />

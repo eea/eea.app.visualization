@@ -3,6 +3,8 @@ Changelog
 
 9.0-dev - (unreleased)
 ----------------------
+* Bug fix: Removed hard dependency to Products.EEAContentTypes
+  [voineali thanks to Nuno Zimas]
 
 8.9 - (2014-11-20)
 ------------------
