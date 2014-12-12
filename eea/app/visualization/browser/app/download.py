@@ -293,7 +293,7 @@ class Download(BrowserView):
             >>> output = sandbox.restrictedTraverse('@@download.xml')
             >>> print output()
             <?xml version='1.0' encoding='UTF-8'?>
-            <sparql xmlns="http://www.w3.org/2005/sparql-results#">
+            <sparql xmlns=...http://www.w3.org/2005/sparql-results#...>
               <head>
                 <variable name="facilityid"/>
             ...
@@ -306,6 +306,7 @@ class Download(BrowserView):
               <literal...>Energy - Mineral oil and gas refineries</literal>
             </binding>
             ...
+            <BLANKLINE>
 
         """
         self.request.response.setHeader(
@@ -342,7 +343,7 @@ class Download(BrowserView):
               <xsd:schema>
                 <xsd:element name="dataroot">
             ...
-                <xsd:element minOccurs="0" type="xsd:double" name="facilityid"/>
+                <xsd:element minOccurs="0" ...name="facilityid".../>
             ...
 
         """
