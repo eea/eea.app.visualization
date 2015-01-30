@@ -5,7 +5,7 @@
     label python:editform.prefix;
     id python:label.replace('.', '-');"
     tal:attributes="id string:$id"
-    tal:condition="editform">
+    tal:condition="python:editform">
     <form method="post"
       tal:define="name python:editform.__name__"
       tal:attributes="action string:${here/absolute_url}/@@$name">

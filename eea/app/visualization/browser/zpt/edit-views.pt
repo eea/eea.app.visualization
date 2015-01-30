@@ -9,7 +9,7 @@
       enabled python:term.token;
       id python:name.replace('.', '-');
       editform python:view.get_edit(name)"
-      tal:condition="editform"
+      tal:condition="python:editform"
       tal:attributes="id string:$id-header; data-name name">
       <a tal:attributes="
         href string:#$id-tab;
@@ -32,7 +32,7 @@
     id python:name.replace('.', '-');
     editform python:view.get_edit(name)"
     tal:attributes="id string:$id-tab"
-    tal:condition="editform"
+    tal:condition="python:editform"
     class="daviz-view-edit">
     <form method="post" class="daviz-view-form enableUnlockProtection" tal:condition="enabled"
       tal:define="name python:editform.__name__"
