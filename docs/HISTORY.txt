@@ -1,8 +1,8 @@
 Changelog
 =========
 
-9.2-dev - (unreleased)
-----------------------
+9.2 - (2015-02-03)
+------------------
 * Bug fix: Optimize edit form by not calling editform 3 times only to tal condition
   [avoinea]
 
