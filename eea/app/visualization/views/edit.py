@@ -51,14 +51,6 @@ class EditForm(SubPageForm):
         mutator = queryAdapter(self.context, IVisualizationConfig)
         mutator.edit_view(self.prefix, **data)
 
-        invokeFactory = getattr(self.context, 'invokeFactory', None)
-        if invokeFactory and self.previewname:
-            if not self.context.get(self.previewname, None):
-                img = self.context.restrictedTraverse(
-                    "++resource++" + self.previewname)
-                invokeFactory('Image', id=self.previewname,
-                              title=self.previewname, image=img.GET())
-
         name = saction.__name__.encode('utf-8')
         value = self.request.form.get(name, '')
         if value == 'ajax':
