@@ -112,7 +112,7 @@ except ImportError:
 # from plone.scale import scaleImage
 #
 try:
-    from plone import scale
+    from plone.scale import scale
     scaleImage = scale.scaleImage
 except ImportError:
     def scaleImage(image, **kwargs):
