@@ -1,7 +1,7 @@
 <tal:left define="hidden python:request.set('disable_plone.leftcolumn', 1)" />
 <tal:right define="hidden python:request.set('disable_plone.rightcolumn', 1)" />
 <tal:html define="macro here/main_template/macros/master | here/@@daviz-fallback.html/macros/edit;
-                  plone_iinfo context/@@plone_interface_info">
+                  plone_iinfo context/@@plone_interface_info|nothing">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US"
   lang="en-US"
   metal:use-macro="python:macro"
@@ -20,10 +20,8 @@
   Configure Visualization
 </h1>
 
-<div id="header"
-        tal:define="eea python:plone_iinfo.provides('eea.app.visualization.zopera.IEEAContent')">
-    <div tal:replace="structure context/@@viewlets/eea.below_edit_contenttitle.documentbyline"
-            tal:condition="eea" />
+<div id="header" tal:define="eea python:plone_iinfo.provides('eea.app.visualization.zopera.IEEAContent') if plone_iinfo else False" tal:condition="plone_iinfo">
+    <div tal:replace="structure context/@@viewlets/eea.below_edit_contenttitle.documentbyline" tal:condition="eea" />
     <div tal:replace="structure provider:plone.belowcontenttitle" tal:condition="not:eea" />
 </div>
 

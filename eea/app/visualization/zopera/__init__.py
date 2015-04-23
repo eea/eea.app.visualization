@@ -108,6 +108,17 @@ except ImportError:
         """ Fallback interface
         """
 
+#
+# from plone.scale import scaleImage
+#
+try:
+    from plone import scale
+    scaleImage = scale.scaleImage
+except ImportError:
+    def scaleImage(image, **kwargs):
+        """ Fallback scaleImage
+        """
+        return image
 
 __all__ = [
     IStatusMessage.__name__,
