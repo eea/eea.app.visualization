@@ -17,7 +17,6 @@ class ImageView(BrowserView):
     def __init__(self, context, request):
         super(ImageView, self).__init__(context, request)
         self._img = None
-        self._sizes = None
 
     @property
     def img(self):
@@ -58,24 +57,10 @@ class ImageView(BrowserView):
 
         return self._img
 
-    @property
-    def sizes(self):
-        """ Allowed sizes
-        """
-        if self._sizes is None:
-            props = queryUtility(IPropertiesTool).imaging_properties
-            sizes = props.getProperty('allowed_sizes')
-            self._sizes = {}
-            for size in sizes:
-                name, info = size.split(' ')
-                w, h = info.split(':')
-                self._sizes[name] = (int(w), int(h))
-        return self._sizes
-
     def display(self, scalename='thumb'):
         """ Display
         """
-        if self.img and scalename in self.sizes:
+        if self.img and scalename:
             return True
         return False
 
@@ -84,8 +69,7 @@ class ImageView(BrowserView):
             raise NotFound(self.request, scalename)
 
         if isinstance(self.img, PreviewImage):
-            width, height = self.sizes[scalename]
-            return self.img(width=width, height=height, scale=scalename)
+            return self.img(scale=scalename)
 
         imgview = queryMultiAdapter((self.img, self.request), name='imgview')
         if imgview:
