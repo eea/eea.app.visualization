@@ -1,11 +1,10 @@
 """ Views to get images for Visualizations
 """
 from urllib2 import urlparse
-from zope.component import queryMultiAdapter, queryUtility
+from zope.component import queryMultiAdapter
 from zope.interface import implements
 from zope.publisher.interfaces import NotFound
 from Products.Five.browser import BrowserView
-from Products.CMFCore.interfaces import IPropertiesTool
 from eea.app.visualization.views.preview import PreviewImage
 from eea.depiction.browser.interfaces import IImageView
 
