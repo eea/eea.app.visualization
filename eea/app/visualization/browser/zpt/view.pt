@@ -21,8 +21,8 @@
 <div tal:define="views python:view.views">
   <div id="daviz-view">
     <!-- Tabs -->
-    <ul class="chart-tabs">
-      <li tal:repeat="tab python:view.tabs">
+    <ul class="chart-tabs" tal:define="tabs python:view.tabs" tal:condition="tabs">
+      <li tal:repeat="tab tabs">
         <a tal:attributes="
             href string:#${tab/tabname};
             class tab/css;">
