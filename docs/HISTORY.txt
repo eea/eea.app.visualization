@@ -3,6 +3,8 @@ Changelog
 
 9.5.dev0 - (unreleased)
 -----------------------
+* Bugfix: Removed default data provenance for blobs
+  [szabozo0 #25341]
 
 9.4 - (2015-05-05)
 ------------------
