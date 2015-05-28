@@ -373,12 +373,3 @@ class BlobMultiDataProvenance(MultiDataProvenance):
         owner = rights[:index].strip()
         link = rights[index:].replace('<', '').replace('>', '').strip()
         return owner, link
-
-    def defaultProvenances(self):
-        """ default provenances
-        """
-        title = self.context.getField('title').getAccessor(self.context)()
-        link = self.copyrights()[1]
-        owner = self.copyrights()[0]
-
-        return ({'title': title, 'link': link, 'owner': owner},)
