@@ -108,6 +108,8 @@ class GuessYear(GuessType):
 
         try:
             return int(text.strftime(strftime))
+        except ValueError:
+            return text.year
         except Exception:
             return int(text.strftime(self.fmt))
 
