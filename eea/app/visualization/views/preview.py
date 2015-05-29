@@ -46,7 +46,13 @@ class PreviewImage(BrowserView):
         """ Scale images
         """
         if name.startswith('image_'):
-            _i, scale = name.split('_')
+            try:
+                _i, scale = name.split('_')
+            # 25835 fix scales when we request the full image with
+            # image_view_fullscreen because there are too many values to Unpack
+            # in which case we show the entire image
+            except ValueError:
+                return self()
             return self(scale=scale)
 
     def __call__(self, **kwargs):

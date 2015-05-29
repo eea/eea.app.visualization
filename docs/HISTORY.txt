@@ -3,6 +3,9 @@ Changelog
 
 9.6.dev0 - (unreleased)
 -----------------------
+* Bug fix: fixed image viewing of preview images when they are referenced by the
+  fullview
+  [ichimdav refs #25835]
 * Change: year and date types now have an lower and upper bounds of 1500-2500.
   This loosens the previous restriction of 1900-2200 for valid year values
   [ichimdav refs #25502]
