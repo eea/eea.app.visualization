@@ -119,13 +119,13 @@ class GuessYear(GuessType):
             False
             >>> guess('1')
             False
-            >>> guess('1899')
+            >>> guess('1499')
             False
             >>> guess('2012')
             True
             >>> guess('3245')
             False
-            >>> guess('2500')
+            >>> guess('2501')
             False
             >>> guess('2012/12/23')
             False
@@ -172,7 +172,7 @@ class GuessYear(GuessType):
         except Exception:
             year = 1
         else:
-            if 1900 <= year <= 2200:
+            if 1500 <= year <= 2500:
                 return True
             return False
         return False

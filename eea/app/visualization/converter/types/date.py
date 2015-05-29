@@ -117,7 +117,7 @@ class GuessDate(GuessType):
             >>> guess('3245')
             False
             >>> guess('2500')
-            False
+            True
             >>> guess('2012/12/23')
             True
             >>> guess('23.12.2012')
@@ -163,7 +163,7 @@ class GuessDate(GuessType):
         except Exception:
             year = 1
         else:
-            if 1900 <= year <= 2200:
+            if 1500 <= year <= 2500:
                 return True
             return False
 
