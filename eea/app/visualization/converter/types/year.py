@@ -78,9 +78,7 @@ class GuessYear(GuessType):
         keyword:
 
             >>> guess.convert('Dec 13, 1601', format=guess.fmt)
-            Traceback (most recent call last):
-            ...
-            ValueError: year=1601 is before 1900; the datetime strftime()...
+            1601
 
             >>> guess.convert('Dec 13, 1901', format=guess.fmt)
             1901
