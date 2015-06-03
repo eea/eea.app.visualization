@@ -1,6 +1,9 @@
 Changelog
 =========
 
+9.8.dev0 - (unreleased)
+-----------------------
+
 9.7 - (2015-06-03)
 ------------------
 * Bug fix: fixed unicode error when guessing columns type
