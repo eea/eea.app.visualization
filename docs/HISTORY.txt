@@ -1,8 +1,8 @@
 Changelog
 =========
 
-9.7.dev0 - (unreleased)
------------------------
+9.7 - (2015-06-03)
+------------------
 * Bug fix: fixed unicode error when guessing columns type
   [ghicaale refs #26068]
 
