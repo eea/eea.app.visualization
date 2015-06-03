@@ -112,6 +112,8 @@ class GuessBoolean(GuessType):
         """
 
         for alias in self.aliases:
+            if isinstance(alias, unicode):
+                alias = alias.encode('utf-8')
             if ':%s' % alias in label.lower():
                 return True
 

@@ -3,6 +3,8 @@ Changelog
 
 9.7.dev0 - (unreleased)
 -----------------------
+* Bug fix: fixed unicode error when guessing columns type
+  [ghicaale refs #26068]
 
 9.6 - (2015-06-02)
 ------------------
