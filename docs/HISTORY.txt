@@ -3,6 +3,8 @@ Changelog
 
 9.8.dev0 - (unreleased)
 -----------------------
+* Bug fix: Always use https protocol for www.google.com/jsapi
+  [szabozo0]
 
 9.7 - (2015-06-03)
 ------------------
