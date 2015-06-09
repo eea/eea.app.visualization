@@ -75,7 +75,7 @@ class Download(BrowserView):
             def_order += 1
         propsList.sort()
 
-        return [prop[1:4] for prop in propsList]
+        return [p[1:4] for p in propsList]
 
     def table(self):
         """ Download as HTML table
