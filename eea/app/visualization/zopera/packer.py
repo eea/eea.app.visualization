@@ -3,7 +3,7 @@
 Module copied unchanged from Products.ResourcesRegistry-2.1.2.tools in order
 to be used without Products.CMFCore
 """
-# pylint: disable-msg=C0301, C0111, W0622, W0231, W0631, W1401
+# pylint: disable = C0301, C0111, C1001,  W0622, W0231, W0631, W1401
 import sys, re, unittest, textwrap
 from optparse import OptionParser, OptionValueError
 
@@ -204,8 +204,8 @@ class JavascriptKeywordMapper(KeywordMapper):
         if decode_func is None:
             decode_func = self.getDecodeFunction()
 
-        escaped_single = input.replace("\\","\\\\").replace("'","\\'").replace('\n','\\n')
-        escaped_double = input.replace("\\","\\\\").replace('"','\\"').replace('\n','\\n')
+        escaped_single = input.replace("\\", "\\\\").replace("'", "\\'").replace('\n', '\\n')
+        escaped_double = input.replace("\\", "\\\\").replace('"', '\\"').replace('\n', '\\n')
         if len(escaped_single) < len(escaped_double):
             script = "'%s'" % escaped_single
         else:
@@ -258,7 +258,7 @@ class Packer:
             #before = len(output)
             len(output)
             regexp = re.compile('\x00%i\x00' % (index+1))
-            output = regexp.sub(lambda m:replacement, output)
+            output = regexp.sub(lambda m: replacement, output)
         # done
         return output
 
@@ -1175,7 +1175,7 @@ def test_suite():
         name = info[0]
         input = textwrap.dedent(info[1])
         output = textwrap.dedent(info[2])
-        if (len(info) == 4):
+        if len(info) == 4:
             compression = info[3].split(",")
         else:
             compression = ("safe", "full")

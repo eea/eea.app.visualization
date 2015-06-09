@@ -274,13 +274,13 @@ class BlobDataProvenance(object):
 def getRelevantProvenances(provenances):
     """ remove empty provenances
     """
-    return [{'title' : op.get('title',''),
-            'owner' : op.get('owner',''),
-            'link' : op.get('link','')} \
+    return [{'title' : op.get('title', ''),
+            'owner' : op.get('owner', ''),
+            'link' : op.get('link', '')} \
             for op in provenances \
-            if len(op.get('title','')) > 0 or
-                len(op.get('link','')) > 0 or
-                len(op.get('owner','')) > 0]
+            if len(op.get('title', '')) > 0 or
+                len(op.get('link', '')) > 0 or
+                len(op.get('owner', '')) > 0]
 
 class MultiDataProvenance(object):
     """ Multiple Data Provenances

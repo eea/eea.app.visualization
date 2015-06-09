@@ -1,5 +1,7 @@
 """ CSV utils
 """
+# pylint: disable = C1001
+
 import csv, codecs, cStringIO
 
 class UTF8Recoder:

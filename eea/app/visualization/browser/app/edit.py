@@ -113,7 +113,7 @@ class Edit(BrowserView):
         """ Check if data has any issues
         """
         results = getMultiAdapter((self.context, self.request),
-                                    name = "daviz.json")()
+                                    name="daviz.json")()
         results_json = json.loads(results)
         items_nr = len(results_json.get('items', []))
         if not results_json.get('properties', {}):

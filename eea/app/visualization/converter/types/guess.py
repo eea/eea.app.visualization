@@ -17,7 +17,7 @@ def normalizeString(text, context=None, encoding=None):
     The relaxed mode was removed in Plone 4.0. You should use either the url
     or file name normalizer from the plone.i18n package instead.
     """
-    return queryUtility(IIDNormalizer).normalize(text, max_length = 255)
+    return queryUtility(IIDNormalizer).normalize(text, max_length=255)
 
 def compare(a, b):
     """ Compare utilities tuples

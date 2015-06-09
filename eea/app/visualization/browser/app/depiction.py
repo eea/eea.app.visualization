@@ -1,5 +1,6 @@
 """ Views to get images for Visualizations
 """
+# pylint: disable = E1102
 from urllib2 import urlparse
 from zope.component import queryMultiAdapter
 from zope.interface import implements

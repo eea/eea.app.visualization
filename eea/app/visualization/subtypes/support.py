@@ -30,7 +30,7 @@ class DavizPublicSupport(BrowserView):
         self.context = context
         self.request = request
 
-    def _redirect(self, msg = '', to = ''):
+    def _redirect(self, msg='', to=''):
         """ Redirect
         """
         if self.request:

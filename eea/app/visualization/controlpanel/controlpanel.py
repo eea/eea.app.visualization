@@ -43,7 +43,7 @@ class ForbiddenVisualizations(object):
         fields = []
         for term in voc():
             field = schema.List(
-                __name__= '.'.join((self.prefix, term.value)),
+                __name__='.'.join((self.prefix, term.value)),
                 title=u'Disable ' + term.title,
                 description=(
                     u"Disable %s for the "

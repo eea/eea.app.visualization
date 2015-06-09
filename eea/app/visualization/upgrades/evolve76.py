@@ -68,9 +68,9 @@ def fix_long_column_labels(context):
         for key in obj_json[1]['properties'].keys():
             obj_label = obj_json[1]['properties'][key]['label']
             key1 = normalizer.normalize(obj_label)
-            key1 = key1.replace("-","_")
+            key1 = key1.replace("-", "_")
             key2 = normalizer.normalize(obj_label, max_length=255)
-            key2 = key2.replace("-","_")
+            key2 = key2.replace("-", "_")
             if key1 != key2:
                 logger.info("fixing: "+brain.getURL())
                 logger.info(key1 + "   -   " + key2)

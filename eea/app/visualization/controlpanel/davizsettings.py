@@ -1,5 +1,6 @@
 """ Daviz Settings ZMI and Plone Control Panel Views
 """
+# pylint: disable = W0622
 from OFS.SimpleItem import SimpleItem
 from AccessControl import ClassSecurityInfo
 from Products.PageTemplates.PageTemplateFile import PageTemplateFile
