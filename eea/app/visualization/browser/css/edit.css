@@ -6,6 +6,10 @@
   box-sizing: content-box;
 }
 
+.daviz-views-edit .label {
+  color: #FFFFFF;
+}
+
 .daviz-facet-edit .ui-icon {
   float: right;
   cursor: pointer;
