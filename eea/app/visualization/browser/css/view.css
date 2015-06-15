@@ -50,6 +50,7 @@ ul.chart-tabs span {
 #daviz-view ul.chart-tabs li a {
     color: #FFF;
     border: 0px;
+    box-sizing: content-box;
     height: 17px;
     font-size: 125%;
     text-decoration: none;

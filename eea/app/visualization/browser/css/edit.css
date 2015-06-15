@@ -1,3 +1,20 @@
+/* #25986 google charts styles don't handle border-box therefore for the edit page
+   we prefix the styles back to content-box */
+*, *:before, *:after {
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+}
+div.even {
+  background: #ececec;
+  color: #346f83;
+  margin: 0;
+  padding: 15px 15px 10px 15px;
+  font-weight: normal;
+  border-bottom: 1px solid #DDD;
+  cursor: pointer;
+}
+
 .daviz-facet-edit .ui-icon {
   float: right;
   cursor: pointer;
