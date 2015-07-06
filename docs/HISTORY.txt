@@ -1,8 +1,8 @@
 Changelog
 =========
 
-9.8.dev0 - (unreleased)
------------------------
+9.8 - (2015-07-06)
+------------------
 * Change: daviz-edit.css uses content-box box-sizing property since
   Google charts styles doesn't cope with border-box. This allows us
   to use newer versions of Bootstrap which contains box-sizing
