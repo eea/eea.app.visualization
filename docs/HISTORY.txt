@@ -1,8 +1,16 @@
 Changelog
 =========
 
-9.8.dev0 - (unreleased)
+9.9.dev0 - (unreleased)
 -----------------------
+* Bug fix: fixed data format popup which was hidden by the data cells
+  [ichimdav refs #27889]
+* Bug fix: Auto-include zcml within plone context in order to make this package
+  work without having to add it within buildout zcml directive.
+  [avoinea]
+
+9.8 - (2015-07-06)
+------------------
 * Bug fix: fixed data format popup which was hidden by the data cells
   [ichimdav refs #27889]
 * Change: daviz-edit.css uses content-box box-sizing property since
