@@ -35,7 +35,7 @@
 }
 
 .daviz-slick-table .slick-cell.editable {
-  z-index: 9999;
+  z-index: 998;
   overflow: visible;
   background: white;
   border-color: rgba(82, 168, 236, 0.8);
