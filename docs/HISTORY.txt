@@ -11,8 +11,6 @@ Changelog
 
 9.8 - (2015-07-06)
 ------------------
-* Bug fix: fixed data format popup which was hidden by the data cells
-  [ichimdav refs #27889]
 * Change: daviz-edit.css uses content-box box-sizing property since
   Google charts styles doesn't cope with border-box. This allows us
   to use newer versions of Bootstrap which contains box-sizing
