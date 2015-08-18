@@ -1,8 +1,8 @@
 Changelog
 =========
 
-9.9.dev0 - (unreleased)
------------------------
+9.9 - (2015-08-18)
+------------------
 * Bug fix: fixed data format popup which was hidden by the data cells
   [ichimdav refs #27889]
 * Bug fix: Auto-include zcml within plone context in order to make this package
