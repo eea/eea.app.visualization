@@ -1,10 +1,10 @@
 if(window.DavizEdit === undefined){
   var DavizEdit = {'version': '4.0'};
-  DavizEdit.Events = {};
 }
 
 /** Events
 */
+DavizEdit.Events = DavizEdit.Events || {};
 DavizEdit.Events.facet = {
   changed: 'daviz-facet-changed',
   deleted: 'daviz-facet-deleted',
