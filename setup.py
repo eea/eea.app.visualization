@@ -46,6 +46,7 @@ setup(name=NAME,
           'plone.i18n',
           'z3c.autoinclude',
           'eea.jquery >= 6.3',
+          'eventlet',
           # -*- Extra requirements: -*-
       ],
       extras_require={
