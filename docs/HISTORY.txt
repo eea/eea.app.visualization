@@ -1,8 +1,8 @@
 Changelog
 =========
 
-10.1.dev0 - (unreleased)
-------------------------
+10.1 - (2016-02-03)
+-------------------
 * Task: Improve DaViz Filter design/display
   [chiridra refs #31309]
 
