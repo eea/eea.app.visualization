@@ -3,6 +3,9 @@ Changelog
 
 10.2.dev0 - (unreleased)
 ------------------------
+* Task: Improve DaViz Filter design/display
+  clean up unused CSS rule.
+  [chiridra refs #31309]
 
 10.1 - (2016-02-03)
 -------------------
