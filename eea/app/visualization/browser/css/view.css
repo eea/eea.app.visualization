@@ -23,8 +23,7 @@
 */
 #content ul.chart-tabs,
 ul.chart-tabs {
-    background: #2C8DA2;
-    border-radius: 10px 10px 0px 0px;
+    background: #069;
     border: none;
     min-height: 37px;
     height: auto;
@@ -68,7 +67,7 @@ ul.chart-tabs span {
 
 ul.chart-tabs li:first-of-type a.current,
 ul.chart-tabs li:first-of-type a:hover {
-  border-radius: 8px 0 0 0;
+  /*border-radius: 8px 0 0 0;*/
 }
 
 .daviz-tab-view {
