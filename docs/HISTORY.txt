@@ -7,6 +7,10 @@ Changelog
   clean up unused CSS rule.
   [chiridra refs #31309]
 
+* Bug: DaViz: Color picker missing in GC
+  add en language on google.api to fix daviz color picker
+  [lucas refs #68198]
+
 10.1 - (2016-02-03)
 -------------------
 * Task: Improve DaViz Filter design/display
