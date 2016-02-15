@@ -1,12 +1,11 @@
 Changelog
 =========
 
-10.2.dev0 - (unreleased)
-------------------------
+10.2 - (2016-02-15)
+-------------------
 * Task: Improve DaViz Filter design/display
   clean up unused CSS rule.
   [chiridra refs #31309]
-
 * Bug: DaViz: Color picker missing in GC
   add en language on google.api to fix daviz color picker
   [lucas refs #68198]
