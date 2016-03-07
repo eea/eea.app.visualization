@@ -1022,8 +1022,8 @@ DavizEdit.JsonGrid.prototype = {
         var newCol = {
             name: colNames[i],
             order: self.table.properties[colNames[i]].order
-        }
-        cols.push(newCol)
+        };
+        cols.push(newCol);
     }
     cols = cols.sort(function(a,b){return a.order-b.order;});
 
