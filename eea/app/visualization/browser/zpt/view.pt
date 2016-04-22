@@ -53,6 +53,11 @@
 
 <div tal:define="info here/@@data.info | python:{}" tal:condition="info" class="visualization-info">
 
+  <div class="more-information-body" tal:condition="context/body">
+     <h3 i18n:translate="" class="notoc">More information</h3>
+     <tal:block tal:replace="structure context/body" />
+  </div>
+
   <tal:provenances
     define="provenances info/provenances | python:[]">
     <h3 i18n:translate="">Data sources</h3>
