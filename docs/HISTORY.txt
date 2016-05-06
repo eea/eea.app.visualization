@@ -7,8 +7,8 @@ Changelog
 10.4 - (2016-05-04)
 -------------------
 * Feature: html body field for daviz and gis application
-    - added new field "body"
-    - modified the view template
+  - added new field "body"
+  - modified the view template
   [chiridra refs #70146]
 
 10.3 - (2016-03-14)
@@ -441,4 +441,3 @@ Changelog
   the visualization libraries usable as standalone packages outside
   eea.daviz bundle
   [voineali #4996]
-
