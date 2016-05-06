@@ -2,7 +2,9 @@
 """
 # pylint: disable = C1001
 
-import csv, codecs, cStringIO
+import csv
+import codecs
+import cStringIO
 
 class UTF8Recoder:
     """

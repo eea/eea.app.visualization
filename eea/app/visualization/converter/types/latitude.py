@@ -1,8 +1,8 @@
 """ Latitude utility
 """
+import logging
 from eea.app.visualization.converter.types import GuessType
 
-import logging
 logger = logging.getLogger('eea.app.visualization')
 
 class GuessLatitude(GuessType):

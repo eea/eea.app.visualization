@@ -1,6 +1,7 @@
 """ Daviz Settings ZMI and Plone Control Panel Views
 """
 # pylint: disable = W0622
+from datetime import datetime
 from OFS.SimpleItem import SimpleItem
 from AccessControl import ClassSecurityInfo
 from Products.PageTemplates.PageTemplateFile import PageTemplateFile
@@ -12,7 +13,6 @@ from eea.app.visualization.controlpanel.interfaces import IDavizSection
 from eea.app.visualization.controlpanel.interfaces import IDavizSettings
 from persistent.dict import PersistentDict
 from Products.statusmessages.interfaces import IStatusMessage
-from datetime import datetime
 from zope.interface import implements
 from zope.component.hooks import getSite
 

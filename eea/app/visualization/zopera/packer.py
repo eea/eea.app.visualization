@@ -4,7 +4,10 @@ Module copied unchanged from Products.ResourcesRegistry-2.1.2.tools in order
 to be used without Products.CMFCore
 """
 # pylint: disable = C0301, C0111, C1001,  W0622, W0231, W0631, W1401
-import sys, re, unittest, textwrap
+import sys
+import re
+import unittest
+import textwrap
 from optparse import OptionParser, OptionValueError
 
 
