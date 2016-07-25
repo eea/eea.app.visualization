@@ -1,6 +1,6 @@
 /* Thumbnail
 */
-
+@media screen {
 .daviz-views {
   float: left;
   width: 80%;
@@ -106,4 +106,5 @@ ul.chart-tabs span {
   width: 300px;
   padding: 1em;
   font-weight: bold;
+}
 }
