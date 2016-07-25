@@ -12,6 +12,17 @@
   <tal:headers repeat="header view/headers">
     <tal:header replace="structure header" />
   </tal:headers>
+  <script type="text/javascript"
+        tal:define="
+            isPrint python:1 if ('pdf.' in request['URL0']) else 0;"
+        tal:content="structure string:
+            var EEAGoogleCharts = window.EEAGoogleCharts || {};
+            if (!EEAGoogleCharts.embed){
+                window.EEAGoogleCharts.embed = {};
+            }
+            window.EEAGoogleCharts.embed.isPrint = ${isPrint};
+    ">
+    </script>
 </metal:jsslot>
 
 <body>
