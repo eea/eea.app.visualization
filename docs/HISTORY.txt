@@ -3,6 +3,8 @@ Changelog
 
 10.6.dev0 - (unreleased)
 ------------------------
+* Bug fix: Fixed profiles version
+  [avoinea]
 
 10.5 - (2016-05-19)
 -------------------
