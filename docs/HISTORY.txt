@@ -1,6 +1,9 @@
 Changelog
 =========
 
+10.7.dev0 - (unreleased)
+------------------------
+
 10.6 - (2016-09-26)
 -------------------
 * Bug fix: Fixed profiles version
