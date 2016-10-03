@@ -357,6 +357,10 @@ DavizEdit.Facet.prototype = {
     });
 
     // Events
+    // 75896 avoid recursion errorr if facet is missing id
+    if (!self.facet.attr('id')) {
+      return;
+    }
     jQuery(document).unbind('.' + self.facet.attr('id'));
     jQuery(document).bind(DavizEdit.Events.facet.changed + '.' + self.facet.attr('id'), function(evt, data){
       self.submit(data);
