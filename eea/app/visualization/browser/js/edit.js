@@ -338,6 +338,13 @@ DavizEdit.Facet.prototype = {
     this.button = jQuery("input[type='submit']", this.form);
     this.button.hide();
 
+    // Events
+    // 75896 avoid recursion errorr if facet is missing id
+    if (!self.facet.attr('id')) {
+      self.facet[0].id = '';
+      $("<h1> </h1>").prependTo(this.form.find('div'));
+    }
+
     var show = jQuery("div.field:has([id$='.show'])", this.form).hide();
     this.show = jQuery("[id$='.show']", show);
     this.visible = this.show.attr('checked');
@@ -356,11 +363,6 @@ DavizEdit.Facet.prototype = {
       return false;
     });
 
-    // Events
-    // 75896 avoid recursion errorr if facet is missing id
-    if (!self.facet.attr('id')) {
-      return;
-    }
     jQuery(document).unbind('.' + self.facet.attr('id'));
     jQuery(document).bind(DavizEdit.Events.facet.changed + '.' + self.facet.attr('id'), function(evt, data){
       self.submit(data);
