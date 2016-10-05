@@ -191,7 +191,7 @@ DavizEdit.Facets = {
   handle_delete: function(kwargs){
     var self = this;
     var facet = kwargs.facet;
-    var name = facet.attr('id');
+    var name = facet.attr('id') || '';
 
     var action = jQuery('form', facet).attr('action');
     var i = action.indexOf('@@');
@@ -338,16 +338,19 @@ DavizEdit.Facet.prototype = {
     this.button = jQuery("input[type='submit']", this.form);
     this.button.hide();
 
-    // Events
-    // 75896 avoid recursion errorr if facet is missing id
-    if (!self.facet.attr('id')) {
-      self.facet[0].id = '';
-      $("<h1> </h1>").prependTo(this.form.find('div'));
-    }
 
-    var show = jQuery("div.field:has([id$='.show'])", this.form).hide();
-    this.show = jQuery("[id$='.show']", show);
-    this.visible = this.show.attr('checked');
+    var show = jQuery("div.field:has([id$='show'])", this.form).hide();
+    this.show = jQuery("[id$='show']", show);
+    this.visible = this.show.attr("checked");
+
+    // 75896 avoid recursion error if facet is missing id
+    if (!self.facet.attr("id")) {
+      // transform faceted-edit div in order to have access to the delete
+      // action
+      self.facet[0].id = '';
+      $("<h1>&nbsp;</h1>").prependTo(this.form.find("> div"));
+      this.show.attr("checked", "checked");
+    }
 
     var title = jQuery('h1', this.form);
     title.attr('title', 'Click and drag to change widget position');
@@ -363,7 +366,10 @@ DavizEdit.Facet.prototype = {
       return false;
     });
 
-    jQuery(document).unbind('.' + self.facet.attr('id'));
+    // Events
+    if (self.facet.attr('id')) {
+      jQuery(document).unbind('.' + self.facet.attr('id'));
+    }
     jQuery(document).bind(DavizEdit.Events.facet.changed + '.' + self.facet.attr('id'), function(evt, data){
       self.submit(data);
     });
