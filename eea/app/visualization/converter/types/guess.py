@@ -10,7 +10,7 @@ from eea.app.visualization.converter.types.interfaces import IGuessTypes
 from eea.app.visualization.config import DATA_ANNOTATIONS
 from eea.app.visualization.interfaces import IDavizSettings
 
-REGEX = re.compile(r"[\W]+")
+REGEX = re.compile(r"[^a-zA-Z0-9_%#]+")
 
 def normalizeString(text, context=None, encoding=None):
     """
@@ -72,15 +72,19 @@ class GuessTypes(object):
             ('title_is_some_thing_something_lse', '')
 
         """
-
+        orig_column = column
         if ":" not in column:
             column = normalizeString(column, encoding='utf-8')
+            if not column:
+                column = orig_column
             column = REGEX.sub('_', column)
             return column, ""
 
         columnType = column.split(":")[-1].lower()
         column = ":".join(column.split(":")[:-1])
         column = normalizeString(column, encoding='utf-8')
+        if not column:
+            column = orig_column
         column = REGEX.sub('_', column)
         return column, columnType
 
