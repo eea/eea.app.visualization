@@ -10,7 +10,7 @@ from eea.app.visualization.converter.types.interfaces import IGuessTypes
 from eea.app.visualization.config import DATA_ANNOTATIONS
 from eea.app.visualization.interfaces import IDavizSettings
 
-REGEX = re.compile(r"[^a-zA-Z_%#]+")
+REGEX = re.compile(r"[^a-zA-Z0-9_%#]+")
 
 def normalizeString(text, context=None, encoding=None):
     """
