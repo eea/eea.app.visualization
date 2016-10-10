@@ -1,8 +1,14 @@
 Changelog
 =========
 
-10.7.dev0 - (unreleased)
+10.8.dev0 - (unreleased)
 ------------------------
+
+10.7 - (2016-10-10)
+-------------------
+* Bug fix: accept % and # in id of columns as some charts need
+  to have these characters
+  [ichim-david refs #75896]
 
 10.6 - (2016-09-26)
 -------------------
