@@ -77,8 +77,8 @@ class InternalData(object):
 
         try:
             view = site.unrestrictedTraverse(ourl.path)
-        except Exception, err:
-            logger.exception(err)
+        except Exception as err:
+            logger.warn("Invalid data url '%s'", url)
             return data
 
         if IATBlob.providedBy(view):

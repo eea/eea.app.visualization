@@ -14,7 +14,7 @@ class Properties(object):
         """
         return getattr(self.context, name, default)
 
-    def __getattr__(self, name, default):
+    def __getattr__(self, name, default=None):
         return self.getProperty(name, default)
 
 class PropertiesTool(object):
