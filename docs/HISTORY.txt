@@ -1,8 +1,8 @@
 Changelog
 =========
 
-10.8.dev0 - (unreleased)
-------------------------
+10.8 - (2016-12-19)
+-------------------
 * Change: Replace misused logger.exception with logger.warn
   [voineali refs #75388]
 
