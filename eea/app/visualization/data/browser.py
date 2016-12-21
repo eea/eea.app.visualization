@@ -91,4 +91,11 @@ class JSON(BrowserView):
             res['properties'],
             my_json.get('properties', {})
         )
-        return self.sortProperties(simplejson.dumps(res))
+
+        try:
+            res = simplejson.dumps(res)
+        except Exception as err:
+            logger.exception("%s - %s", err, self.context.absolute_url())
+            res = '{}'
+
+        return self.sortProperties(res)
