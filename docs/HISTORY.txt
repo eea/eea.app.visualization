@@ -3,6 +3,8 @@ Changelog
 
 10.9.dev0 - (unreleased)
 ------------------------
+* Change: Add more info on JSON UnicodeDecodeError
+  [voineali refs #79895]
 
 10.8 - (2016-12-19)
 -------------------
