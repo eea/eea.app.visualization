@@ -3,6 +3,8 @@ Changelog
 
 11.1.dev0 - (unreleased)
 ------------------------
+* Bug fix: Move zope.formlib to extra_require
+  [avoinea]
 
 11.0 - (2017-01-17)
 -------------------
