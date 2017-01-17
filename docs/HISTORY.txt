@@ -3,6 +3,8 @@ Changelog
 
 11.0.dev0 - (unreleased)
 ------------------------
+* Bug fix: Add missing dependency to zope.formlib
+  [avoinea]
 
 10.9 - (2016-12-28)
 -------------------
