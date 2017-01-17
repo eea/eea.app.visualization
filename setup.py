@@ -44,7 +44,6 @@ setup(name=NAME,
           'setuptools',
           "python-dateutil",
           'plone.i18n',
-          'zope.formlib',
           'z3c.autoinclude',
           'eea.jquery >= 6.3',
           'eventlet',
@@ -55,8 +54,7 @@ setup(name=NAME,
               'plone.app.testing',
               ],
           'zope2': [
-              #'plone.i18n',
-              #'z3c.autoinclude',
+              'zope.formlib',
           ]
       },
       entry_points="""
