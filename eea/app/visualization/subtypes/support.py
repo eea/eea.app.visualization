@@ -1,14 +1,12 @@
 """ Module to enable or disable visualization
 """
 import logging
-from Products.Five.browser import BrowserView
 from StringIO import StringIO
-
+from Products.Five.browser import BrowserView
 from zope.component import queryAdapter, queryUtility, queryMultiAdapter
 from zope.event import notify
 from zope.interface import alsoProvides, noLongerProvides, implements
 from zope.publisher.interfaces import NotFound
-
 from eea.app.visualization.converter.interfaces import ITable2JsonConverter
 from eea.app.visualization.events import VisualizationEnabledEvent
 from eea.app.visualization.events import VisualizationDisabledEvent

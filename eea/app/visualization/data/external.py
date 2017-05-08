@@ -1,8 +1,8 @@
 """ Utilities to get data from External URL
 """
 import logging
-from eventlet.green import urllib2
 import contextlib
+from eventlet.green import urllib2
 from zope.interface import implements
 from zope.component import queryUtility
 from eea.app.visualization.interfaces import IExternalData, IInternalData

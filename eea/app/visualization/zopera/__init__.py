@@ -37,15 +37,6 @@ except ImportError:
             raise AttributeError(name)
         return default
 #
-# from Products.ResourceRegistries.tools import packer
-#
-try:
-    from Products.ResourceRegistries import tools
-    packer = tools.packer
-except ImportError:
-    from eea.app.visualization.zopera import packer
-
-#
 # from Products.CMFCore.interfaces import IFolderish
 #
 try:
@@ -55,7 +46,24 @@ except ImportError:
     class IFolderish(Interface):
         """ Fallback folderish interface
         """
-
+#
+# from Products.ResourceRegistries.tools import packer
+#
+try:
+    from Products.ResourceRegistries import tools
+    packer = tools.packer
+except ImportError:
+    from eea.app.visualization.zopera import packer
+#
+# from Products.EEAContentTypes.interfaces import IEEAContent
+#
+try:
+    from Products.EEAContentTypes import interfaces
+    IEEAContent = interfaces.IEEAContent
+except ImportError:
+    class IEEAContent(Interface):
+        """ Fallback interface
+        """
 #
 # from plone.app.form import default_subpage_template
 #
@@ -96,18 +104,6 @@ except ImportError:
     class IATBlob(Interface):
         """ Fallback interface
         """
-
-#
-# from Products.EEAContentTypes.interfaces import IEEAContent
-#
-try:
-    from Products.EEAContentTypes import interfaces
-    IEEAContent = interfaces.IEEAContent
-except ImportError:
-    class IEEAContent(Interface):
-        """ Fallback interface
-        """
-
 #
 # from plone.scale import scaleImage
 #

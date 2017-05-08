@@ -2,10 +2,10 @@
 """
 import logging
 from zope.component import queryMultiAdapter
+from zope.component.interface import interfaceToName
 from Products.CMFCore.utils import getToolByName
 from eea.app.visualization.interfaces import IVisualizationEnabled
 from eea.app.visualization.interfaces import IPossibleVisualization
-from zope.component.interface import interfaceToName
 logger = logging.getLogger("eea.app.visualization.upgrades")
 
 def fix_layout(context):

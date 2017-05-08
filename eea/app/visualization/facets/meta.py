@@ -1,8 +1,8 @@
 """ Custom meta-directives DaViz Views
 """
 from zope.interface import implements, Interface
-from eea.app.visualization.interfaces import IVisualizationFacets
 from zope.publisher.interfaces.browser import IDefaultBrowserLayer
+from eea.app.visualization.interfaces import IVisualizationFacets
 from Products.Five.browser.metaconfigure import page
 
 class VisualizationFacets(object):
