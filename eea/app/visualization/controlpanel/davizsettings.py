@@ -7,13 +7,13 @@ from AccessControl import ClassSecurityInfo
 from Products.PageTemplates.PageTemplateFile import PageTemplateFile
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.statusmessages.interfaces import IStatusMessage
+from eea.app.visualization.controlpanel.interfaces import IDavizSection
+from eea.app.visualization.controlpanel.interfaces import IDavizSettings
 from zope.formlib.form import EditForm, FormFields, setUpWidgets, action
 from zope.component import getUtilitiesFor
 from zope.component import queryUtility
 from zope.interface import implements
 from zope.component.hooks import getSite
-from eea.app.visualization.controlpanel.interfaces import IDavizSection
-from eea.app.visualization.controlpanel.interfaces import IDavizSettings
 from persistent.dict import PersistentDict
 
 class DavizSettings(SimpleItem):
