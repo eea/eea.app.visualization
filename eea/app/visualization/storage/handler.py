@@ -10,14 +10,12 @@
 
 """
 from zope.interface import implements
-from eea.app.visualization.interfaces import IVisualizationConfig
 from zope.annotation.interfaces import IAnnotations
-
+from eea.app.visualization.interfaces import IVisualizationConfig
+from eea.app.visualization.config import ANNO_VIEWS, ANNO_FACETS
+from eea.app.visualization.config import ANNO_JSON, ANNO_SOURCES
 from persistent.dict import PersistentDict
 from persistent.list import PersistentList
-from eea.app.visualization.config import (
-    ANNO_VIEWS, ANNO_FACETS, ANNO_JSON, ANNO_SOURCES
-)
 
 class Configure(object):
     """ Get visualization configuration

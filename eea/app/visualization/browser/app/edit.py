@@ -7,8 +7,8 @@ from zope.component import queryUtility
 from zope.component import queryAdapter, queryMultiAdapter
 from zope.component import getMultiAdapter
 from zope.schema.interfaces import IVocabularyFactory
-from Products.Five.browser import BrowserView
 from zope.schema.vocabulary import SimpleTerm
+from Products.Five.browser import BrowserView
 from eea.app.visualization.interfaces import IVisualizationConfig
 from eea.app.visualization.events import VisualizationFacetDeletedEvent
 from eea.app.visualization.zopera import IStatusMessage

@@ -4,12 +4,10 @@ from zope.component import queryAdapter
 from zope.formlib.form import SubPageForm
 from zope.formlib.form import action as formAction
 from zope.formlib.form import setUpInputWidgets, haveInputWidgets
-from eea.app.visualization.interfaces import IVisualizationConfig
-from eea.app.visualization.zopera import IStatusMessage
 from zope.formlib.form import Fields
-
+from eea.app.visualization.zopera import IStatusMessage
+from eea.app.visualization.interfaces import IVisualizationConfig
 from eea.app.visualization.facets.interfaces import IVisualizationAddFacet
-
 from eea.app.visualization.config import EEAMessageFactory as _
 
 class AddForm(SubPageForm):

@@ -1,3 +1,2 @@
 """ Browser/app package
 """
-

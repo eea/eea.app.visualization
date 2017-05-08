@@ -1,11 +1,10 @@
 """ Custom meta-directives DaViz Views
 """
 from zope.interface import implements, Interface
-from eea.app.visualization.views.interfaces import IVisualizationViews
 from zope.publisher.interfaces.browser import IDefaultBrowserLayer
-from Products.Five.browser.metaconfigure import page
-
+from eea.app.visualization.views.interfaces import IVisualizationViews
 from eea.app.visualization.config import EEAMessageFactory as _
+from Products.Five.browser.metaconfigure import page
 
 class VisualizationViews(object):
     """ Registry for daviz views registered via ZCML
