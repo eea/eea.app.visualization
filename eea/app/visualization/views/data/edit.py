@@ -78,7 +78,8 @@ class Edit(EditForm):
         new_columns = set(properties.keys())
 
         for _name, props in properties.items():
-            columnType = props.get('columnType', props.get('valueType', 'text'))
+            columnType = props.get('columnType',
+                                   props.get('valueType', 'text'))
             util = queryUtility(IGuessType, columnType)
             if not util:
                 continue
@@ -135,14 +136,14 @@ class Edit(EditForm):
         return simplejson.dumps(annotations)
 
     @formaction(_('Save'), condition=haveInputWidgets)
-    def save(self, action, data):
+    def save(self, saction, data):
         """ Handle save action
         """
         self.handle_json(data)
         self.handle_sources(data)
 
         # Return
-        name = action.__name__.encode('utf-8')
+        name = saction.__name__.encode('utf-8')
         value = self.request.form.get(name, '')
         if value == 'ajax':
             return self.message

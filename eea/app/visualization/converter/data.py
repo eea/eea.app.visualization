@@ -10,6 +10,7 @@ from eea.app.visualization.interfaces import IData2TableConverter
 from eea.app.visualization.converter.csvutils import UnicodeWriter
 logger = logging.getLogger('eea.app.visualization')
 
+
 class CSV(object):
     """ Utility to get visualization data from external TSV
 
@@ -26,6 +27,7 @@ class CSV(object):
 
     def __call__(self, data):
         return data
+
 
 class JSON(object):
     """ Utility to get visualization data from external TSV
@@ -44,7 +46,7 @@ class JSON(object):
     def listing(self, data):
         """ JSON is a list of items
         """
-        if not len(data):
+        if not data:
             return u''
 
         columns = data[0]

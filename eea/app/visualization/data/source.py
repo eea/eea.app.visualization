@@ -9,8 +9,8 @@ from zope.annotation.interfaces import IAnnotations
 from zope.component import queryAdapter
 from persistent.dict import PersistentDict
 from eea.app.visualization.config import ANNO_DATA, ANNO_MULTIDATA
-from eea.app.visualization.interfaces import IDataProvenance, \
-                                            IMultiDataProvenance
+from eea.app.visualization.interfaces import IDataProvenance
+from eea.app.visualization.interfaces import IMultiDataProvenance
 
 
 class DataProvenance(object):
@@ -27,6 +27,7 @@ class DataProvenance(object):
 
     def __init__(self, context):
         self.context = context
+
     #
     # Internal methods
     #
@@ -39,6 +40,7 @@ class DataProvenance(object):
         if config is None:
             config = anno[ANNO_DATA] = PersistentDict()
         return config
+
     #
     # Title
     #
@@ -65,6 +67,7 @@ class DataProvenance(object):
         if isinstance(value, str):
             value = value.decode('utf-8')
         self._config['title'] = value
+
     #
     # Link
     #
@@ -92,6 +95,7 @@ class DataProvenance(object):
         if isinstance(value, str):
             value = value.decode('utf-8')
         self._config['link'] = value
+
     #
     # Owner
     #
@@ -120,6 +124,7 @@ class DataProvenance(object):
             value = value.decode('utf-8')
         self._config['owner'] = value
 
+
 class BlobDataProvenance(object):
     """
     Visualization data provenance metadata accessor/mutator for Blob Files
@@ -136,6 +141,7 @@ class BlobDataProvenance(object):
 
     def __init__(self, context):
         self.context = context
+
     #
     # Internal methods
     #
@@ -162,8 +168,10 @@ class BlobDataProvenance(object):
         if isinstance(value, (str, unicode)):
             value = (value, "")
         rights = u"%s <%s>" % value
-        self.context.getField('rights').getMutator(self.context)(rights.strip())
+        self.context.getField('rights').getMutator(self.context)(
+            rights.strip())
         self.context.reindexObject()
+
     #
     # Title
     #
@@ -195,6 +203,7 @@ class BlobDataProvenance(object):
         """
         self.context.getField('title').getMutator(self.context)(value)
         self.context.reindexObject()
+
     #
     # Link
     #
@@ -230,6 +239,7 @@ class BlobDataProvenance(object):
         owner, link = self.copyrights
         link = value
         self.copyrights = (owner, link)
+
     #
     # Owner
     #
@@ -271,16 +281,18 @@ class BlobDataProvenance(object):
         owner = value
         self.copyrights = (owner, link)
 
+
 def getRelevantProvenances(provenances):
     """ remove empty provenances
     """
-    return [{'title' : op.get('title', ''),
-            'owner' : op.get('owner', ''),
-            'link' : op.get('link', '')} \
-            for op in provenances \
-            if len(op.get('title', '')) > 0 or
-                len(op.get('link', '')) > 0 or
-                len(op.get('owner', '')) > 0]
+    return [{'title': op.get('title', ''),
+             'owner': op.get('owner', ''),
+             'link': op.get('link', '')}
+            for op in provenances if
+            op.get('title', '') or
+            op.get('link', '') or
+            op.get('owner', '')]
+
 
 class MultiDataProvenance(object):
     """ Multiple Data Provenances
@@ -303,7 +315,7 @@ class MultiDataProvenance(object):
 
         relevantProvenances = getRelevantProvenances(anno_provenances)
 
-        if len(relevantProvenances) > 0:
+        if relevantProvenances:
             return relevantProvenances
 
         return self.defaultProvenances()
@@ -330,7 +342,7 @@ class MultiDataProvenance(object):
 
         relevantProvenances = getRelevantProvenances(anno_provenances)
 
-        if len(relevantProvenances) > 0:
+        if relevantProvenances:
             return False
 
         relatedProvenances = ()
@@ -343,19 +355,19 @@ class MultiDataProvenance(object):
                 dict_item_provenance = dict(item_provenance)
                 if dict_item_provenance.get('title', '') != '' and \
                     dict_item_provenance.get('link', '') != '' and \
-                    dict_item_provenance.get('owner', '') != '':
+                        dict_item_provenance.get('owner', '') != '':
                     dict_item_provenance['orderindex_'] = orderindex
                     orderindex = orderindex + 1
-                    relatedProvenances = relatedProvenances + \
-                                        (dict_item_provenance,)
+                    relatedProvenances = relatedProvenances + (
+                        dict_item_provenance,)
         relatedProvenances = getRelevantProvenances(relatedProvenances)
         defaultProvenances = self.defaultProvenances()
         defaultProvenances = getRelevantProvenances(defaultProvenances)
-        if len(relatedProvenances) > 0 and \
-            relatedProvenances == defaultProvenances:
+        if relatedProvenances and relatedProvenances == defaultProvenances:
             return True
 
         return False
+
 
 class BlobMultiDataProvenance(MultiDataProvenance):
     """ Multiple Data Provenances
