@@ -118,7 +118,7 @@ class JavascriptKeywordMapper(KeywordMapper):
                 mapping="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"):
         result = []
         quotient = charCode
-        while quotient or not len(result):
+        while quotient or not result:
             quotient, remainder = divmod(quotient, 62)
             result.append(mapping[remainder])
         result.reverse()
@@ -1220,14 +1220,14 @@ def run():
         packer = JavascriptPacker(options.level)
     elif options.css:
         packer = CSSPacker(options.level)
-    elif len(args):
+    elif args:
         print >> sys.stderr, "Autodetection of packer not implemented yet."
         sys.exit(1)
     else:
         print >> sys.stderr, "You have to specify the packer for input from stdin."
         sys.exit(1)
 
-    if not len(args):
+    if not args:
         args = [sys.stdin]
 
     mapper = None
