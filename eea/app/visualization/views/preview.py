@@ -4,8 +4,8 @@ from zope.interface import implementer
 from zope.component import queryUtility
 from zope.publisher.interfaces import IPublishTraverse
 from Products.Five.browser import BrowserView
-from Products.CMFCore.interfaces import IPropertiesTool
 from eea.app.visualization.zopera import scaleImage
+from eea.app.visualization.zopera import IPropertiesTool
 
 
 @implementer(IPublishTraverse)
