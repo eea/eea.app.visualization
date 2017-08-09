@@ -12,7 +12,7 @@ class ViewForm(BrowserView):
 
     ex_template = (
         '<div ex:role="exhibit-facet" ex:facetClass="%(type)s" '
-          'ex:expression=".%(name)s" ex:facetLabel="%(label)s"'
+          'ex:expression=".%(name)s" ex:facetLabel="%(label)s" '
           'id="%(name)s-facet" %(extra)s></div>'
     )
 
