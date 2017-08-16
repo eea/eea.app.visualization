@@ -1,8 +1,8 @@
 Changelog
 =========
 
-11.5.dev0 - (unreleased)
-------------------------
+11.5 - (2017-08-16)
+-------------------
 * Bug fix: added missing glyphicons-halflings.png to correct path
   [zoltan_andras refs #84486]
 
