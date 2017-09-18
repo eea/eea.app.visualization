@@ -83,9 +83,9 @@
 
       <tal:owner
         define="owner provenance/owner | python:{}"
-        condition="owner/url | nothing" >
+        condition="owner/url | nothing" i18n:translate="">
         provided by <a tal:attributes="href owner/url"
-          tal:content="owner/title | owner/url" />
+          tal:content="owner/title | owner/url" i18n:name="owner" />
       </tal:owner>
       <br/>
     </tal:provenance>

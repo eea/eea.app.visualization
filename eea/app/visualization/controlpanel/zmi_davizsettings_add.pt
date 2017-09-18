@@ -1,7 +1,7 @@
 <span tal:replace="structure here/manage_page_header" />
 <span tal:replace="structure python:here.manage_form_title(here, here, form_title='Add Daviz Settings')" />
 
-<p class="form-help">
+<p class="form-help" i18n:translate="">
   Please fill the form below and click <strong>Add</strong>.
 </p>
 
@@ -9,18 +9,18 @@
 <table border="0" cellspacing="0" cellpadding="2" width="100%">
 
   <tr>
-    <td class="form-label">Id</td>
+    <td class="form-label" i18n:translate="">Id</td>
     <td><input type="text" name="id" size="30"/></td>
   </tr>
 
   <tr>
-    <td class="form-label">Title</td>
+    <td class="form-label" i18n:translate="">Title</td>
     <td><input type="text" name="title:utf8:ustring" size="50"/></td>
   </tr>
 
   <tr>
     <td></td>
-    <td><input type="submit" value="Add"/></td>
+    <td><input type="submit" value="Add" i18n:attributes="value" /></td>
   </tr>
 
 </table>
