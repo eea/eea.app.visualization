@@ -3,6 +3,8 @@ Changelog
 
 11.8.dev0 - (unreleased)
 ------------------------
+* Change: load customized collective.js.jqueryui on eea context for view pages
+  [ichim-david refs #91577]
 
 11.7 - (2017-12-12)
 -------------------
