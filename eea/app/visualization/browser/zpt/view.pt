@@ -9,6 +9,8 @@
   i18n:domain="eea">
 
 <metal:jsslot fill-slot="javascript_head_slot">
+  <script type="text/javascript" tal:attributes="src string:${portal_url}/collective.js.jqueryui.custom.min.eea.js" tal:condition="exists:context/design.js"></script>
+
   <tal:headers repeat="header view/headers">
     <tal:header replace="structure header" />
   </tal:headers>
@@ -124,3 +126,4 @@
 </body>
 </html>
 </tal:html>
+
