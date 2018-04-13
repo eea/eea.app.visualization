@@ -1,8 +1,12 @@
 =====================
 EEA App Visualization
 =====================
-.. image:: http://ci.eionet.europa.eu/job/eea/job/eea.app.visualization/job/master/badge/icon
-  :target: http://ci.eionet.europa.eu/job/eea/job/eea.app.visualization/job/master/display/redirect
+.. image:: https://ci.eionet.europa.eu/buildStatus/icon?job=eea/eea.app.visualization/develop
+  :target: https://ci.eionet.europa.eu/job/eea/job/eea.app.visualization/job/develop/display/redirect
+  :alt: Develop
+.. image:: https://ci.eionet.europa.eu/buildStatus/icon?job=eea/eea.app.visualization/master
+  :target: https://ci.eionet.europa.eu/job/eea/job/eea.app.visualization/job/master/display/redirect
+  :alt: Master
 
 `EEA App Visualization`_ is the Core API for `EEA Daviz`_. This package was added
 in order to be able to use `EEA Google Charts`_ without `EEA Exhibit`_ and
