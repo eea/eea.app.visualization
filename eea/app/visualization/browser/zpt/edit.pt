@@ -34,7 +34,7 @@
         <div class="daviz-warning-helper" i18n:translate="">
             Check these
             <tal:block i18n:name="data-examples">
-                <a target="_blank" href="http://www.eea.europa.eu/data-and-maps/daviz/learn-more/examples" i18n:translate="">data examples</a>
+                <a target="_blank" href="https://www.eea.europa.eu/data-and-maps/daviz/learn-more/examples" i18n:translate="">data examples</a>
             </tal:block>
             or read
             <tal:block i18n:name="prepare-data">

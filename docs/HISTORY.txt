@@ -1,6 +1,11 @@
 Changelog
 =========
 
+11.9 - (2018-06-20)
+---------------------
+* Change: updated URLs pointing to eea.europa.eu with https://
+  [alecghica refs #95849]
+
 11.8 - (2018-03-14)
 -------------------
 * Change: load customized collective.js.jqueryui on eea context for view pages

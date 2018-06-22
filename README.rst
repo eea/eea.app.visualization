@@ -1,8 +1,12 @@
 =====================
 EEA App Visualization
 =====================
-.. image:: http://ci.eionet.europa.eu/job/eea/job/eea.app.visualization/job/master/badge/icon
-  :target: http://ci.eionet.europa.eu/job/eea/job/eea.app.visualization/job/master/display/redirect
+.. image:: https://ci.eionet.europa.eu/buildStatus/icon?job=eea/eea.app.visualization/develop
+  :target: https://ci.eionet.europa.eu/job/eea/job/eea.app.visualization/job/develop/display/redirect
+  :alt: Develop
+.. image:: https://ci.eionet.europa.eu/buildStatus/icon?job=eea/eea.app.visualization/master
+  :target: https://ci.eionet.europa.eu/job/eea/job/eea.app.visualization/job/master/display/redirect
+  :alt: Master
 
 `EEA App Visualization`_ is the Core API for `EEA Daviz`_. This package was added
 in order to be able to use `EEA Google Charts`_ without `EEA Exhibit`_ and
@@ -10,7 +14,7 @@ viceversa or any other visualization library as a standalone visualization
 or as part of a bundle package (`eea.daviz`_)
 
 
-.. image:: http://eea.github.com/_images/eea.daviz.layers.svg
+.. image:: https://eea.github.io/_images/eea.daviz.layers.svg
 
 
 This package as standalone is just an API, you have to either install
@@ -62,7 +66,7 @@ Dependencies
 * collective.js.jqueryui > 1.9 (Plone 4.3+)
 * eea.cache > 7.0 (optional)
 
-.. image:: http://eea.github.com/_images/eea.daviz.dependencies.svg
+.. image:: https://eea.github.io/_images/eea.daviz.dependencies.svg
 
 
 Live demo
@@ -101,8 +105,8 @@ Links
 
 1. Simile Wiki - Exhibit 2.0: http://simile.mit.edu/wiki/Exhibit
 2. Simile widgets: http://www.simile-widgets.org/exhibit
-3. EEA Daviz howto: http://taskman.eionet.europa.eu/projects/zope/wiki/HowToDaviz
-4. EEA Daviz backlog wiki: http://taskman.eionet.europa.eu/projects/zope/wiki/DaViz
+3. EEA Daviz howto: https://taskman.eionet.europa.eu/projects/zope/wiki/HowToDaviz
+4. EEA Daviz backlog wiki: https://taskman.eionet.europa.eu/projects/zope/wiki/DaViz
 5. Google charts: http://code.google.com/apis/chart/
 
 
@@ -112,14 +116,14 @@ Funding
 EEA_ - European Environment Agency (EU)
 
 
-.. _EEA: http://www.eea.europa.eu/
-.. _`EEA Daviz`: http://eea.github.com/docs/eea.daviz
-.. _`EEA Google Charts`: http://eea.github.com/docs/eea.googlecharts
-.. _`EEA Exhibit`: http://eea.github.com/docs/eea.exhibit
-.. _`eea.daviz`: http://eea.github.com/docs/eea.daviz
-.. _`eea.googlecharts`: http://eea.github.com/docs/eea.googlecharts
-.. _`eea.exhibit`: http://eea.github.com/docs/eea.exhibit
-.. _`eea.app.visualization`: http://eea.github.com/docs/eea.app.visualization
-.. _`plone.recipe.zope2instance`: http://pypi.python.org/pypi/plone.recipe.zope2instance
-.. _`zc.buildout`: http://pypi.python.org/pypi/zc.buildout
-.. _`EEA App Visualization`: http://eea.github.com/docs/eea.app.visualization
+.. _EEA: https://www.eea.europa.eu/
+.. _`EEA Daviz`: https://eea.github.io/docs/eea.daviz
+.. _`EEA Google Charts`: https://eea.github.io/docs/eea.googlecharts
+.. _`EEA Exhibit`: https://eea.github.io/docs/eea.exhibit
+.. _`eea.daviz`: https://eea.github.io/docs/eea.daviz
+.. _`eea.googlecharts`: https://eea.github.io/docs/eea.googlecharts
+.. _`eea.exhibit`: https://eea.github.io/docs/eea.exhibit
+.. _`eea.app.visualization`: https://eea.github.io/docs/eea.app.visualization
+.. _`plone.recipe.zope2instance`: https://pypi.python.org/pypi/plone.recipe.zope2instance
+.. _`zc.buildout`: https://pypi.python.org/pypi/zc.buildout
+.. _`EEA App Visualization`: https://eea.github.io/docs/eea.app.visualization

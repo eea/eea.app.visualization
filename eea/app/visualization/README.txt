@@ -7,7 +7,7 @@ viceversa or any other visualization library as a standalone visualization
 or as part of a bundle package (`eea.daviz`_)
 
 
-.. image:: http://eea.github.com/_images/eea.daviz.layers.svg
+.. image:: https://eea.github.io/_images/eea.daviz.layers.svg
 
 
 This package as standalone is just an API, you have to either install
@@ -35,11 +35,11 @@ Authors
 
   EEA_ - European Environment Agency (EU)
 
-.. _EEA: http://www.eea.europa.eu/
-.. _`EEA App Visualization`: http://eea.github.com/docs/eea.app.visualization
-.. _`EEA Daviz`: http://eea.github.com/docs/eea.daviz
-.. _`EEA Google Charts`: http://eea.github.com/docs/eea.googlecharts
-.. _`EEA Exhibit`: http://eea.github.com/docs/eea.exhibit
-.. _`eea.daviz`: http://eea.github.com/docs/eea.daviz
-.. _`eea.googlecharts`: http://eea.github.com/docs/eea.googlecharts
-.. _`eea.exhibit`: http://eea.github.com/docs/eea.exhibit
+.. _EEA: https://www.eea.europa.eu/
+.. _`EEA App Visualization`: https://eea.github.io/docs/eea.app.visualization
+.. _`EEA Daviz`: https://eea.github.io/docs/eea.daviz
+.. _`EEA Google Charts`: https://eea.github.io/docs/eea.googlecharts
+.. _`EEA Exhibit`: https://eea.github.io/docs/eea.exhibit
+.. _`eea.daviz`: https://eea.github.io/docs/eea.daviz
+.. _`eea.googlecharts`: https://eea.github.io/docs/eea.googlecharts
+.. _`eea.exhibit`: https://eea.github.io/docs/eea.exhibit
