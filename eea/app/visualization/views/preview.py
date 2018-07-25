@@ -59,6 +59,12 @@ class PreviewImage(BrowserView):
         img = self.context.restrictedTraverse("++resource++" + self.__name__)
         scale = kwargs.get('scale', None)
         data = img.GET()
+        # 97222 img.GET() returns empty string with response code 304 if
+        # the request has the If-Modified-Since header
+        # we just return the same empty string with response code 304, because
+        # it means it's already cached in the browser
+        if data == '':
+            return data
         if not scale:
             return data
 
