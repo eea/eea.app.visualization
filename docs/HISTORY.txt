@@ -1,6 +1,12 @@
 Changelog
 =========
 
+12.0 - (2018-07-27)
+---------------------
+* Bug fix: Don't try to scale if image is already cached in browser, 
+  just return 304 with empty string
+  [szabozo0 refs #97222]
+
 11.9 - (2018-06-20)
 ---------------------
 * Change: updated URLs pointing to eea.europa.eu with https://
@@ -514,4 +520,3 @@ Changelog
   the visualization libraries usable as standalone packages outside
   eea.daviz bundle
   [voineali #4996]
-
