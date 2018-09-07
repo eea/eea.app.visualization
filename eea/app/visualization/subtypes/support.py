@@ -68,9 +68,6 @@ class DavizPublicSupport(BrowserView):
         """
         return False
 
-    #BBB: This will be removed in the next version of this package
-    is_exhibit = is_visualization
-
     def enable(self):
         """ See IVisualizationSubtyper
         """
@@ -135,9 +132,6 @@ class DavizSupport(DavizPublicSupport):
         """ Is visualization enabled?
         """
         return IVisualizationEnabled.providedBy(self.context)
-
-    #BBB: This will be removed in the next version of this package
-    is_exhibit = is_visualization
 
     def enable(self):
         """ Enable visualization
