@@ -1,6 +1,9 @@
 Changelog
 =========
 
+12.2-dev0 - (unreleased)
+---------------------
+
 12.1 - (2018-09-07)
 ---------------------
 * Cleanup: Remove backward-compatible is_exhibit property
