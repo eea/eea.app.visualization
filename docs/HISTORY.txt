@@ -1,9 +1,14 @@
 Changelog
 =========
 
+12.1 - (2018-09-07)
+---------------------
+* Cleanup: Remove backward-compatible is_exhibit property
+  [avoinea refs #98283]
+
 12.0 - (2018-07-27)
 ---------------------
-* Bug fix: Don't try to scale if image is already cached in browser, 
+* Bug fix: Don't try to scale if image is already cached in browser,
   just return 304 with empty string
   [szabozo0 refs #97222]
 
