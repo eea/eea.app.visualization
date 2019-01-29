@@ -1,6 +1,11 @@
 Changelog
 =========
 
+12.2 - (2019-01-28)
+---------------------
+* Jenkins: Add sonarqube step
+  [avoinea refs #101552]
+
 12.1 - (2018-09-07)
 ---------------------
 * Cleanup: Remove backward-compatible is_exhibit property
