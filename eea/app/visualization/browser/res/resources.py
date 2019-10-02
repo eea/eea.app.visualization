@@ -41,6 +41,7 @@ class VisualizationViewResources(object):
         """
         return [
             u'++resource++eea.daviz.view.js',
+            u'++resource++eea.googlecharts.dom_to_image.js',
         ]
 
 class VisualizationEditResources(object):
