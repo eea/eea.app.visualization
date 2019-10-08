@@ -1,6 +1,9 @@
 Changelog
 =========
 
+12.4-dev0 - (unreleased)
+---------------------------
+
 12.3 - (2019-10-02)
 --------------------------
 * Change: Added new resource for david view
