@@ -341,7 +341,7 @@ DavizEdit.Facet.prototype = {
 
     var show = jQuery("div.field:has([id$='show'])", this.form).hide();
     this.show = jQuery("[id$='show']", show);
-    this.visible = this.show.attr("checked");
+    this.visible = this.show.prop("checked");
 
     // 75896 avoid recursion error if facet is missing id
     if (!self.facet.attr("id")) {
@@ -349,7 +349,7 @@ DavizEdit.Facet.prototype = {
       // action
       self.facet[0].id = '';
       $("<h1>&nbsp;</h1>").prependTo(this.form.find("> div"));
-      this.show.attr("checked", "checked");
+      this.show.prop("checked", true);
     }
 
     var title = jQuery('h1', this.form);
@@ -1272,7 +1272,7 @@ DavizEdit.SourceTable.prototype = {
     var check = jQuery('<input />').attr('type', 'checkbox')
       .addClass('editcheck')
       .attr('name', 'daviz.properties.sources.remove_' + count);
-    var text = jQuery('<input />').attr('type', 'text').attr("value", "")
+    var text = jQuery('<input />').attr('type', 'text').prop("value", "")
       .addClass('textType')
       .attr('name', 'daviz.properties.sources.' + count + '.');
 
