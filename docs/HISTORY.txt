@@ -3,6 +3,8 @@ Changelog
 
 12.5-dev0 - (unreleased)
 ---------------------------
+* Change: daviz view tabs design tweaks
+  [ichim-david refs #119540]
 
 12.4 - (2020-02-28)
 ---------------------------
