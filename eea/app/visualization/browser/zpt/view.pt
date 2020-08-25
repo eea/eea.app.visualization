@@ -29,8 +29,9 @@
 
 <body>
 
-<div metal:fill-slot="content-core">
+<metal:body metal:fill-slot="content-core">
 
+  <div class="widescreen-container">
 <div tal:define="views python:view.views">
   <div id="daviz-view">
     <!-- Tabs -->
@@ -121,8 +122,8 @@
       </a>
   </div>
 </div>
-
 </div>
+</metal:body>
 </body>
 </html>
 </tal:html>

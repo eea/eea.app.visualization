@@ -23,7 +23,7 @@
 */
 #content ul.chart-tabs,
 ul.chart-tabs {
-    background: #069;
+    background: #274357;
     border: none;
     min-height: 37px;
     height: auto;
@@ -38,6 +38,8 @@ ul.chart-tabs li {
     list-style-image: none !important;
     margin: 0 !important;
     text-indent: 0;
+    padding-left: 0;
+    font-size: 14px;
 }
 
 ul.chart-tabs span {
@@ -50,7 +52,7 @@ ul.chart-tabs span {
     color: #FFF;
     border: 0px;
     box-sizing: content-box;
-    height: 17px;
+    line-height: 1;
     font-size: 125%;
     text-decoration: none;
     text-shadow: 1px 1px 1px #000000;
