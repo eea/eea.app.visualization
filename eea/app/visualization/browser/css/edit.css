@@ -6,6 +6,11 @@
   box-sizing: content-box;
 }
 
+/* remove negative margin from row given by bootstrap 2.1 loading on edit */
+.template-daviz-edit-html .row {
+  margin-left: 0;
+}
+
 .daviz-views-edit .label {
   color: #FFFFFF;
 }
