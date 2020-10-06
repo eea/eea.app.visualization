@@ -1,7 +1,7 @@
 Changelog
 =========
 
-12.6-dev0 - (unreleased)
+12.6 - (2020-10-06)
 ---------------------------
 * Change: daviz view design tweaks after latest eea redesign
   [ichim-david refs #121911]
