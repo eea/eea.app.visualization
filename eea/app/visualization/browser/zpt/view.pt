@@ -65,7 +65,7 @@
   </div>
 </div>
 
-<div tal:define="info here/@@data.info | python:{}" tal:condition="info" class="visualization-info my-1">
+<div tal:define="info here/@@data.info | python:{'provenances': ''}" tal:condition="python:info.get('provenances')" class="visualization-info my-1">
 
   <div class="more-information-body" tal:define="body context/getBody" tal:condition="body">
      <h3 i18n:translate="" class="notoc">More information</h3>

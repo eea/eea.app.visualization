@@ -3,6 +3,12 @@ Changelog
 
 12.7-dev0 - (unreleased)
 ---------------------------
+* Change: load google charts version 49 in order to avoid warning
+  that it tried to load it and then tried version 1.0
+  [ichim-david refs #125298]
+* Change: avoid data sources header from visualization-info in case
+  there is no providence data entered avoiding a false positive
+  [ichim-david refs #125298]
 
 12.6 - (2020-10-06)
 ---------------------------
