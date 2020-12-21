@@ -1,6 +1,15 @@
 Changelog
 =========
 
+12.7 - (2020-12-16)
+---------------------------
+* Change: load google charts version 49 in order to avoid warning
+  that it tried to load it and then tried version 1.0
+  [ichim-david refs #125298]
+* Change: avoid data sources header from visualization-info in case
+  there is no providence data entered avoiding a false positive
+  [ichim-david refs #125298]
+
 12.6 - (2020-10-06)
 ---------------------------
 * Change: daviz view design tweaks after latest eea redesign

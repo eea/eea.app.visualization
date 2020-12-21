@@ -10,7 +10,7 @@
 <metal:jsslot fill-slot="javascript_head_slot">
   <script type="text/javascript" src="https://www.google.com/jsapi"></script>
   <script type="text/javascript">
-    google.load('visualization', '1.0', {packages: ['charteditor', 'controls'], 'language': 'en'});
+    google.load('visualization', '49', {packages: ['charteditor', 'controls'], 'language': 'en'});
   </script>
 </metal:jsslot>
 
