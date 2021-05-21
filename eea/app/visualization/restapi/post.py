@@ -26,7 +26,12 @@ class DataProvenance(object):
     def __call__(self, data={}):
         if IPloneSiteRoot.providedBy(self.context):
             self.request.response.setStatus(400)
-            return dict(error=dict(type="BadRequest", message="Tried to set dataprovenance on site root."))
+            return dict(
+                error=dict(
+                    type="BadRequest",
+                    message="Tried to set dataprovenance on site root.",
+                )
+            )
 
         source = IDataProvenance(self.context)
         source.title = data["@title"]
@@ -38,7 +43,12 @@ class DataProvenance(object):
 
             if len(copyrights) > 2 and isinstance(copyrights, list):
                 self.request.response.setStatus(400)
-                return dict(error=dict(type="BadRequest", message="Copyrights must be a list with <= 2 items or string."))
+                return dict(
+                    error=dict(
+                        type="BadRequest",
+                        message="Copyrights must be a list with <= 2 items or string.",
+                    )
+                )
 
             if isinstance(copyrights, (str, unicode)):
                 source.copyrights = copyrights
@@ -46,7 +56,12 @@ class DataProvenance(object):
                 source.copyrights = tuple(copyrights)
         elif "@copyrights" in data:
             self.request.response.setStatus(400)
-            return dict(error=dict(type="BadRequest", message="Can't set copyrights, not a blob object."))
+            return dict(
+                error=dict(
+                    type="BadRequest",
+                    message="Can't set copyrights, not a blob object.",
+                )
+            )
 
         self.request.response.setStatus(200)
         return dict(message="Successfully set dataprovenance")
