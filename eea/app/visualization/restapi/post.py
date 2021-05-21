@@ -31,19 +31,20 @@ class DataProvenance(object):
         source = IDataProvenance(self.context)
         source.title = data["@title"]
         source.owner = data["@owner"]
-        source.title = data["@link"]
+        source.link = data["@link"]
 
         if "@copyrights" in data and hasattr(source, "copyrights"):
             copyrights = data['@copyrights']
 
             if len(copyrights) > 2 and isinstance(copyrights, list):
                 self.request.response.setStatus(400)
-                return dict(error=dict(type="BadRequest", message="Copyrights must be list with < 2 items or string."))
+                return dict(error=dict(type="BadRequest", message="Copyrights must be a list with <= 2 items or string."))
 
             if isinstance(copyrights, (str, unicode)):
                 source.copyrights = copyrights
-            source.copyrights = tuple(copyrights)
-        else:
+            else:
+                source.copyrights = tuple(copyrights)
+        elif "@copyrights" in data:
             self.request.response.setStatus(400)
             return dict(error=dict(type="BadRequest", message="Can't set copyrights, not a blob object."))
 
