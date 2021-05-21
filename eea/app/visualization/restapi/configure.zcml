@@ -20,5 +20,12 @@
     permission="eea.app.visualization.configure"
     />
 
+  <plone:service
+    method="POST"
+    name="@dataprovenance"
+    for="Products.CMFCore.interfaces.IContentish"
+    factory=".post.Post"
+    permission="zope2.View"
+    />
 
 </configure>
