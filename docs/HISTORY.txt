@@ -3,6 +3,8 @@ Changelog
 
 12.8-dev0 - (unreleased)
 ---------------------------
+* Change: Added get/post restapi endpoints for IDataProvenance
+  [iulianpetchesi refs #123935]
 
 12.7 - (2020-12-16)
 ---------------------------
