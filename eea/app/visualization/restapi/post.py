@@ -7,7 +7,7 @@ from zope.component import adapter
 from plone.restapi.services import Service
 from plone.restapi.interfaces import IExpandableElement
 from plone.restapi.deserializer import json_body
-from eea.app.visualization.interfaces import IDataProvenance
+from eea.app.visualization.interfaces import IDataProvenance, IMultiDataProvenance
 from Products.CMFPlone.interfaces import IPloneSiteRoot
 
 
@@ -23,7 +23,7 @@ class DataProvenance(object):
         self.context = context
         self.request = request
 
-    def __call__(self, data={}):
+    def __call__(self, data=[]):
         if IPloneSiteRoot.providedBy(self.context):
             self.request.response.setStatus(400)
             return dict(
@@ -33,39 +33,69 @@ class DataProvenance(object):
                 )
             )
 
-        source = IDataProvenance(self.context)
-        source.title = data["@title"]
-        source.owner = data["@owner"]
-        source.link = data["@link"]
+        data = json_body(self.request)
+        provenances = data.get('provenances', [])
+        multi_provenances = []
 
-        if "@copyrights" in data and hasattr(source, "copyrights"):
-            copyrights = data['@copyrights']
-
-            if len(copyrights) > 2 and isinstance(copyrights, list):
-                self.request.response.setStatus(400)
-                return dict(
-                    error=dict(
-                        type="BadRequest",
-                        message="Copyrights must be a list with <= 2 items or string.",
-                    )
-                )
-
-            if isinstance(copyrights, (str, unicode)):
-                source.copyrights = copyrights
-            else:
-                source.copyrights = tuple(copyrights)
-        elif "@copyrights" in data:
+        if len(provenances) < 1:
             self.request.response.setStatus(400)
             return dict(
                 error=dict(
                     type="BadRequest",
-                    message="Can't set copyrights, not a blob object.",
+                    message="No provenances provided.",
                 )
             )
 
+        # differentiate between multi and normal provenances
+        if not len(provenances) == 1:
+            multi_provenances = [prov for prov in provenances if prov.get('multi', True) != 'False']
+            provenances = [prov for prov in provenances if prov not in multi_provenances]
+
+        # if more than one non multi provenance is given, save the last one
+        if len(provenances) > 1:
+            provenances = [provenances[-1]]
+
+        # True if len == 1
+        if len(provenances) == 1:
+            data = provenances[0]
+
+            source = IDataProvenance(self.context)
+            source.title = data["title"]
+            source.owner = data["owner"]
+            source.link = data["link"]
+
+            if "copyrights" in data and hasattr(source, "copyrights"):
+                copyrights = data['copyrights']
+
+                if len(copyrights) > 2 and isinstance(copyrights, list):
+                    self.request.response.setStatus(400)
+                    return dict(
+                        error=dict(
+                            type="BadRequest",
+                            message="Copyrights must be a list with <= 2 items or string.",
+                        )
+                    )
+
+                if isinstance(copyrights, (str, unicode)):
+                    source.copyrights = copyrights
+                else:
+                    source.copyrights = tuple(copyrights)
+            elif "copyrights" in data:
+                self.request.response.setStatus(400)
+                return dict(
+                    error=dict(
+                        type="BadRequest",
+                        message="Can't set copyrights, not a blob object.",
+                    )
+                )
+
+        # multi provenances
+        if len(multi_provenances) > 0:
+            multi = IMultiDataProvenance(self.context)
+            multi.provenances = multi_provenances
+
         self.request.response.setStatus(200)
         return dict(message="Successfully set dataprovenance")
-
 
 
 @implementer(IPublishTraverse)
