@@ -33,7 +33,6 @@ class DataProvenance(object):
                 )
             )
 
-        data = json_body(self.request)
         provenances = data.get('provenances', [])
         multi_provenances = []
 
