@@ -3,7 +3,7 @@
 from zope.publisher.interfaces import IPublishTraverse
 from zope.interface import implementer
 from zope.interface import Interface
-from zope.component import adapter
+from zope.component import adapter, queryAdapter
 from plone.restapi.services import Service
 from plone.restapi.serializer.converters import json_compatible
 from plone.restapi.interfaces import IExpandableElement
@@ -26,23 +26,24 @@ class DataProvenance(object):
         if IPloneSiteRoot.providedBy(self.context):
             return result
 
-        source = IDataProvenance(self.context)
+        source = queryAdapter(self.context, IDataProvenance)
+        if source:
+            result.append({
+                "title": json_compatible(source.title),
+                "owner": json_compatible(source.owner),
+                "link": json_compatible(source.link)
+            })
 
-        result.append({
-            "title": json_compatible(source.title),
-            "owner": json_compatible(source.owner),
-            "link": json_compatible(source.link)
-        })
-
-        if hasattr(source, "copyrights"):
-            result[0].update({"copyrights": json_compatible(source.copyrights)})
+            if hasattr(source, "copyrights"):
+                result[0].update({"copyrights": json_compatible(source.copyrights)})
 
         # also get IMultiDataProvenance
-        multi = IMultiDataProvenance(self.context)
-        provenances = json_compatible(multi.provenances)
+        multi = queryAdapter(self.context, IMultiDataProvenance)
+        if multi:
+            provenances = json_compatible(multi.provenances)
 
-        if hasattr(multi, "copyrights"):
-            provenances[0].update({"copyrights": json_compatible(multi.copyrights)})
+            if hasattr(multi, "copyrights"):
+                provenances[0].update({"copyrights": json_compatible(multi.copyrights)})
 
         result += provenances
         return result
