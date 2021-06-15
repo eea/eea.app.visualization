@@ -21,7 +21,7 @@ class DataProvenance(object):
         self.request = request
 
     def __call__(self, expand=False):
-        result = {"data.provenance": {
+        result = {"dataprovenance": {
             "@id": "{}/@dataprovenance".format(self.context.absolute_url()),
         }}
 
@@ -31,23 +31,23 @@ class DataProvenance(object):
         if IPloneSiteRoot.providedBy(self.context):
             return result
 
-        result['data.provenance']['provenances'] = []
+        result['dataprovenance']['provenances'] = []
         source = queryAdapter(self.context, IDataProvenance)
         if source:
-            result['data.provenance']['provenances'].append({
+            result['dataprovenance']['provenances'].append({
                 "title": json_compatible(source.title),
                 "owner": json_compatible(source.owner),
                 "link": json_compatible(source.link)
             })
 
             if hasattr(source, "copyrights"):
-                result['data.provenance']['provenances'][0].update({"copyrights": json_compatible(source.copyrights)})
+                result['dataprovenance']['provenances'][0].update({"copyrights": json_compatible(source.copyrights)})
 
         # also get IMultiDataProvenance
         multi = queryAdapter(self.context, IMultiDataProvenance)
         if multi:
             provenances = json_compatible(multi.provenances)
-            result['data.provenance']['provenances'] += provenances
+            result['dataprovenance']['provenances'] += provenances
         return result
 
 
@@ -58,4 +58,4 @@ class Get(Service):
     def reply(self):
         """Reply"""
         info = DataProvenance(self.context, self.request)
-        return info(expand=True)["data.provenance"]
+        return info(expand=True)["dataprovenance"]

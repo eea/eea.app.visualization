@@ -9,7 +9,7 @@
     name="@dataprovenance"
     for="Products.CMFCore.interfaces.ISiteRoot"
     factory=".get.DataProvenance"
-    permission="eea.app.visualization.configure"
+    permission="zope2.View"
     />
 
   <plone:service
@@ -17,10 +17,10 @@
     name="@dataprovenance"
     for="Products.CMFCore.interfaces.IContentish"
     factory=".get.Get"
-    permission="eea.app.visualization.configure"
+    permission="zope2.View"
     />
 
-  <adapter factory=".get.DataProvenance" name="data.provenance" />
+  <adapter factory=".get.DataProvenance" name="dataprovenance" />
 
   <plone:service
     method="POST"
@@ -35,7 +35,7 @@
     name="@dataprovenance"
     for="Products.CMFCore.interfaces.IContentish"
     factory=".post.Post"
-    permission="zope2.View"
+    permission="eea.app.visualization.configure"
     />
 
 </configure>
