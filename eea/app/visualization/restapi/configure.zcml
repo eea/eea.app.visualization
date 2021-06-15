@@ -20,6 +20,8 @@
     permission="eea.app.visualization.configure"
     />
 
+  <adapter factory=".get.DataProvenance" name="data.provenance" />
+
   <plone:service
     method="POST"
     name="@dataprovenance"
