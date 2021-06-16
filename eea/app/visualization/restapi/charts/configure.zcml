@@ -1,0 +1,15 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:plone="http://namespaces.plone.org/plone">
+
+  <plone:service
+    method="GET"
+    name="@charts"
+    for="eea.app.visualization.interfaces.IVisualizationEnabled"
+    factory=".get.ChartsGet"
+    permission="zope2.View"
+    />
+
+  <adapter factory=".get.Charts" name="charts" />
+
+</configure>

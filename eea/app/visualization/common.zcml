@@ -11,6 +11,7 @@
   <include package=".data" />
   <include package=".converter" />
   <include package=".facets" />
+  <include package=".restapi" />
   <include package=".storage" />
   <include package=".subtypes" />
   <include package=".views" />
