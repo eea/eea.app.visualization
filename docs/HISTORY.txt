@@ -1,6 +1,11 @@
 Changelog
 =========
 
+13.1-dev0 - (unreleased)
+---------------------------
+* Change: Register @provenances endpoint on a more generic interface: IContentish
+  [avoinea refs #130851]
+
 13.0 - (2021-06-16)
 ---------------------------
 * Feature: Added GET RestAPI endpoint for Daviz Charts @charts
