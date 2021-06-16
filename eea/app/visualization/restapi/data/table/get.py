@@ -8,10 +8,11 @@ from plone.restapi.services import Service
 from plone.restapi.serializer.converters import json_compatible
 from plone.restapi.interfaces import IExpandableElement
 from Products.CMFPlone.interfaces import IPloneSiteRoot
+from eea.app.visualization.interfaces import IVisualizationEnabled
 
 
 @implementer(IExpandableElement)
-@adapter(Interface, Interface)
+@adapter(IVisualizationEnabled, Interface)
 class DataTable(object):
     """ Get data table
     """

@@ -7,10 +7,10 @@ from Products.CMFPlone.interfaces import IPloneSiteRoot
 from zope.component import adapter, queryMultiAdapter
 from zope.interface import implementer
 from zope.interface import Interface
-
+from eea.app.visualization.interfaces import IVisualizationEnabled
 
 @implementer(IExpandableElement)
-@adapter(Interface, Interface)
+@adapter(IVisualizationEnabled, Interface)
 class Charts(object):
     """ Charts
     """
