@@ -9,12 +9,11 @@ from plone.restapi.serializer.converters import json_compatible
 from plone.restapi.interfaces import IExpandableElement
 from eea.app.visualization.interfaces import IDataProvenance
 from eea.app.visualization.interfaces import IMultiDataProvenance
-from eea.app.visualization.interfaces import IVisualizationEnabled
 from Products.CMFPlone.interfaces import IPloneSiteRoot
 
 
 @implementer(IExpandableElement)
-@adapter(IVisualizationEnabled, Interface)
+@adapter(Interface, Interface)
 class DataProvenance(object):
     """ Get data provenances
     """

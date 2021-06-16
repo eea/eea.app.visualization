@@ -9,7 +9,7 @@
   <plone:service
     method="GET"
     name="@provenances"
-    for="eea.app.visualization.interfaces.IVisualizationEnabled"
+    for="Products.CMFCore.interfaces.IContentish"
     factory=".get.Get"
     permission="zope2.View"
     />
@@ -20,7 +20,7 @@
   <plone:service
     method="POST"
     name="@provenances"
-    for="eea.app.visualization.interfaces.IVisualizationEnabled"
+    for="Products.CMFCore.interfaces.IContentish"
     factory=".post.Post"
     permission="eea.app.visualization.configure"
     />
