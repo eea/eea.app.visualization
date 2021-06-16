@@ -1,9 +1,13 @@
 Changelog
 =========
 
-12.8 - (2021-06-11)
+13.0 - (2021-06-16)
 ---------------------------
-* Change: Added get/post restapi endpoints for IDataProvenance
+* Feature: Added GET RestAPI endpoint for Daviz Charts @charts
+  [avoinea refs #126277]
+* Feature: Added GET RestAPI endpoint for Data Table @table
+  [avoinea refs #133973]
+* Feature: Added GET RestAPI endpoint for IDataProvenance @provenances
   [iulianpetchesi refs #123935]
 
 12.7 - (2020-12-16)

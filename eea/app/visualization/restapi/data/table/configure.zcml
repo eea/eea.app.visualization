@@ -1,0 +1,15 @@
+<configure
+  xmlns="http://namespaces.zope.org/zope"
+  xmlns:plone="http://namespaces.plone.org/plone">
+
+  <plone:service
+    method="GET"
+    name="@table"
+    for="eea.app.visualization.interfaces.IVisualizationEnabled"
+    factory=".get.Get"
+    permission="zope2.View"
+    />
+
+  <adapter factory=".get.DataTable" name="table" />
+
+</configure>

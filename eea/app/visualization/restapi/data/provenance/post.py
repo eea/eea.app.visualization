@@ -1,4 +1,4 @@
-""" RestAPI enpoint @dataprovenance POST
+""" RestAPI enpoint POST
 """
 from zope.publisher.interfaces import IPublishTraverse
 from zope.interface import implementer, alsoProvides
@@ -29,7 +29,7 @@ class DataProvenance(object):
             return dict(
                 error=dict(
                     type="BadRequest",
-                    message="Tried to set dataprovenance on site root.",
+                    message="Tried to set data provenances on site root.",
                 )
             )
 
@@ -51,7 +51,7 @@ class DataProvenance(object):
             return dict(
                 error=dict(
                     type="BadRequest",
-                    message="No provenances provided.",
+                    message="No data provenances provided.",
                 )
             )
 
@@ -107,7 +107,7 @@ class DataProvenance(object):
             multi.provenances = multi_provenances
 
         self.request.response.setStatus(200)
-        return dict(message="Successfully set dataprovenance")
+        return dict(message="Successfully set data provenance")
 
 
 @implementer(IPublishTraverse)

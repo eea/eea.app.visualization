@@ -1,4 +1,4 @@
-""" RestAPI enpoint @dataprovenance GET
+""" RestAPI GET enpoints
 """
 from zope.publisher.interfaces import IPublishTraverse
 from zope.interface import implementer
@@ -14,15 +14,15 @@ from Products.CMFPlone.interfaces import IPloneSiteRoot
 @implementer(IExpandableElement)
 @adapter(Interface, Interface)
 class DataProvenance(object):
-    """ Get dataprovenance
+    """ Get data provenances
     """
     def __init__(self, context, request):
         self.context = context
         self.request = request
 
     def __call__(self, expand=False):
-        result = {"dataprovenance": {
-            "@id": "{}/@dataprovenance".format(self.context.absolute_url()),
+        result = {"provenances": {
+            "@id": "{}/@provenances".format(self.context.absolute_url()),
         }}
 
         if not expand:
@@ -31,23 +31,28 @@ class DataProvenance(object):
         if IPloneSiteRoot.providedBy(self.context):
             return result
 
-        result['dataprovenance']['provenances'] = []
-        source = queryAdapter(self.context, IDataProvenance)
-        if source:
-            result['dataprovenance']['provenances'].append({
-                "title": json_compatible(source.title),
-                "owner": json_compatible(source.owner),
-                "link": json_compatible(source.link)
-            })
+        result['provenances']['items'] = []
 
-            if hasattr(source, "copyrights"):
-                result['dataprovenance']['provenances'][0].update({"copyrights": json_compatible(source.copyrights)})
-
-        # also get IMultiDataProvenance
+        # Get IMultiDataProvenance
         multi = queryAdapter(self.context, IMultiDataProvenance)
         if multi:
             provenances = json_compatible(multi.provenances)
-            result['dataprovenance']['provenances'] += provenances
+            result['provenances']['items'].extend(provenances)
+
+        source = queryAdapter(self.context, IDataProvenance)
+        if (getattr(source, 'link', None) and
+            getattr(source, 'title', None) and
+            getattr(source, 'owner', None)):
+            provenance = {
+                "title": json_compatible(source.title),
+                "owner": json_compatible(source.owner),
+                "link": json_compatible(source.link)
+            }
+
+            if getattr(source, "copyrights", None):
+                provenance['copyrights'] = json_compatible(source.copyrights)
+
+            result['provenances']['items'].append(provenance)
         return result
 
 
@@ -58,4 +63,4 @@ class Get(Service):
     def reply(self):
         """Reply"""
         info = DataProvenance(self.context, self.request)
-        return info(expand=True)["dataprovenance"]
+        return info(expand=True)["provenances"]

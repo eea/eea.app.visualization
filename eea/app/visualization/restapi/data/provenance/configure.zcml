@@ -1,0 +1,29 @@
+<configure
+  xmlns="http://namespaces.zope.org/zope"
+  xmlns:plone="http://namespaces.plone.org/plone">
+
+  <include package="plone.restapi"  />
+
+  <!-- Data Provenance -->
+
+  <plone:service
+    method="GET"
+    name="@provenances"
+    for="eea.app.visualization.interfaces.IVisualizationEnabled"
+    factory=".get.Get"
+    permission="zope2.View"
+    />
+
+  <adapter factory=".get.DataProvenance" name="provenances" />
+
+  <!-- TODO: #123935 - Unify IDataProvenance with IMultiDataProvenance
+  <plone:service
+    method="POST"
+    name="@provenances"
+    for="eea.app.visualization.interfaces.IVisualizationEnabled"
+    factory=".post.Post"
+    permission="eea.app.visualization.configure"
+    />
+  -->
+
+</configure>
