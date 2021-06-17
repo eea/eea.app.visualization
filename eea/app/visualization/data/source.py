@@ -305,7 +305,21 @@ class MultiDataProvenance(object):
     def defaultProvenances(self):
         """ default provenances
         """
-        return ()
+
+        relatedProvenances = []
+        relatedItems = getattr(self.context, 'getRelatedItems', lambda: [])
+        for item in relatedItems():
+            if item.portal_type != 'ExternalDataSpec':
+                continue
+
+            related_dict = {
+                'title': getattr(item, 'title', ''),
+                'owner': getattr(item, 'provider_url', ''),
+                'link': getattr(item, 'dataset_url', ''),
+            }
+            relatedProvenances.append(related_dict)
+
+        return relatedProvenances
 
     def _getProvenances(self):
         """ getter
