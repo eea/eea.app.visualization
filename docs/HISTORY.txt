@@ -1,6 +1,11 @@
 Changelog
 =========
 
+13.2 - (2021-06-17)
+---------------------------
+* Change: IMultiDataProvenance default provenances to ExternalDataSpec relatedItems
+  [avoinea refs #130851]
+
 13.1 - (2021-06-16)
 ---------------------------
 * Change: Register @provenances endpoint on a more generic interface: IContentish
