@@ -309,16 +309,23 @@ class MultiDataProvenance(object):
         relatedProvenances = []
         relatedItems = getattr(self.context, 'getRelatedItems', lambda: [])
         for item in relatedItems():
-            if item.portal_type != 'ExternalDataSpec':
-                continue
-
-            related_dict = {
-                'title': getattr(item, 'title', ''),
-                'owner': getattr(item, 'provider_url', ''),
-                'link': getattr(item, 'dataset_url', ''),
-            }
-            relatedProvenances.append(related_dict)
-
+            if item.portal_type == 'ExternalDataSpec':
+                related_dict = {
+                    'title': getattr(item, 'title', ''),
+                    'owner': getattr(item, 'provider_url', ''),
+                    'link': getattr(item, 'dataset_url', ''),
+                }
+                relatedProvenances.append(related_dict)
+            elif item.portal_type == 'Data':
+                owner = getattr(item, 'dataOwner', None) or []
+                if isinstance(owner, (tuple, list)):
+                    owner = owner[0] if len(owner) else ''
+                related_dict = {
+                    'title': getattr(item, 'Title', lambda: '')(),
+                    'owner': owner,
+                    'link': getattr(item, 'absolute_url', lambda: '')(),
+                }
+                relatedProvenances.append(related_dict)
         return relatedProvenances
 
     def _getProvenances(self):
