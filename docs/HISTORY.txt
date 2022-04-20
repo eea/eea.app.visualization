@@ -1,8 +1,10 @@
 Changelog
 =========
 
-13.3-dev0 - (unreleased)
+13.3 - (2022-04-20)
 ---------------------------
+* Change: IMultiDataProvenance default provenances to ExternalDataSpec and Data relatedItems
+  [avoinea refs #144026]
 
 13.2 - (2021-06-17)
 ---------------------------
