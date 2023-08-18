@@ -3,6 +3,8 @@ Changelog
 
 13.4-dev0 - (unreleased)
 ---------------------------
+* Feature: Add **organisation** name to **@provenances** RestAPI endpoint
+  [avoinea refs #157787]
 
 13.3 - (2022-04-20)
 ---------------------------
